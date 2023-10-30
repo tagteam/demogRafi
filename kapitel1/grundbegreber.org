@@ -42,12 +42,13 @@ til tid /t/, hvor /t/ er en dato i kalenderen. Ifølge
 www.statistikbanken.dk var der 5.806.081 personer i Danmarks
 befolkning den 1 januar 2019:
 
-#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
-#+BEGIN_SRC R  :results output raw  :exports code  :session *R* :cache yes
-# Befolking = Hele Danmark
-t_1 = as.Date("2019-01-01")
-N_1 = 5806081
-#+END_SRC
+$$
+\begin{align*}
+\text{Befolkning} &= \text{Hele Danmark}\\
+t_1&= \texttt{2019-01-01}\\
+N(t_1) &= 5.806.081
+\end{align*}
+$$
 
 På et senere tidspunkt vil befolkningens størrelse have ændret sig som
 følge af fødsler, dødsfald og ind- og udvandring. Den 1 januar 2023
