@@ -53,7 +53,9 @@ $$
 På et senere tidspunkt vil befolkningens størrelse have ændret sig som
 følge af fødsler, dødsfald og ind- og udvandring. Den 1 januar 2023
 var der 5.932.654 personer i Danmarks befolkning. Dermed er den Danske
-befolkning vokset mellem den 1 januar 2019 og den 1 januar 2023:
+befolkning vokset med 126.573 personer i de 1461 dage mellem den 1
+januar 2019 og den 1 januar 2023. Her er R-koder som kan bruges til at
+beregne antal dage mellem to datoer og ændring af folketal i perioden.
 
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={t,as}
 #+BEGIN_SRC R  :results output example :exports both  :session *R* :cache yes  
@@ -72,43 +74,30 @@ data.frame("dato"=c(t_1,t_2),
 : 1 2019-01-01  5806081         NA     NA
 : 2 2023-01-01  5932654       1461 126573
 
-** Den demografiske ligevægtsligning
-
-Den demografiske ligevægtsligning er en matematisk formel, der bruges
-i demografisk analyse til at beskrive forholdet mellem antallet af
-fødsler, dødsfald og migration i en befolkning. Ligningen er som
-følger:
-
-P(t) = P(0) + (B - D) + (I - O)
-
-Hvor:
-
-- P(t) er den samlede befolkning på tidspunktet t
-- P(0) er den samlede befolkning på et tidspunkt t=0 (normalt betegnet som den nuværende befolkning)
-- B er antallet af fødsler i perioden
-- D er antallet af dødsfald i perioden
-- I er antallet af indvandrere i perioden
-- O er antallet af udvandrere i perioden
-
-Formlen siger kort sagt, at den samlede befolkning på et tidspunkt t
-er lig den samlede befolkning på tidspunktet t=0 plus en stigning i
-befolkningen på grund af fødsler og indvandring og en reduktion i
-befolkningen på grund af dødsfald og udvandring.
-
-Ligningen bruges ofte til at forudsige fremtidige ændringer i
-befolkningstallet og sammensætning, og den er afgørende for
-planlægning af offentlig politik og tjenesteydelser som
-f.eks. sundhedspleje, uddannelse og pensionsordninger.
+Folketallet ændrer sig jo hver dag, men det er svært at registrere og
+tælle nøjagtigt for enkelte dage. Heldigvis betyder små unøjagtigheder
+i tallene typisk ikke meget for demografiske
+konklusioner. Statistikbanken angiver folketal i starten af hvert
+kvartal siden 2008 (FOLK1A) og den første januar per år siden 1901
+(BEFOLK1). I næste afsnit indfører vi begrebet middelfolketal som
+bruges til at approximere det gennemsnitlige folketal i en
+tidsperiode.
 
 ** Middelfolketallet
 
 Middelfolketallet er en vigtig demografisk indikator, der beregnes ved
 at dividere den samlede befolkning i et område med antallet af år i
 perioden. Denne beregning giver et gennemsnitligt antal mennesker, der
-bor i området over en given tidsperiode.
+bor i området over en given tidsperiode. For at beregne
+middelfolketallet helt korrekt, ville man for alle personer tælle hvor
+mange dage de har levet i perioden i befolkningen og beregne
+middelfolketallet som den samlede gennemlevede tid divideret med
+periodens længde.
 
-Der er flere metoder, der kan bruges til at beregne middelfolketallet,
-herunder:
+Praktisk kender man typisk ikke de præcise tal, altså hvor mange dage
+personerne fra en befolkning har levet i perioden. Der er dog flere
+metoder, der kan bruges til at beregne et approksimativt
+middelfolketal baseret på enkelte folketal i perioden.
 
 1. Den enkle metode: Denne metode beregner middelfolketallet ved at
    dividere den samlede befolkning med antallet af år i perioden.
@@ -126,6 +115,36 @@ herunder:
 Det er vigtigt at bemærke, at metoden valgt til at beregne
 middelfolketallet afhænger af de tilgængelige data og omstændighederne
 i området.
+
+** Den demografiske ligevægtsligning
+
+Den demografiske ligevægtsligning er en matematisk formel, der bruges
+i demografisk analyse til at beskrive forholdet mellem antallet af
+fødsler, dødsfald og migration i en befolkning. Ligningen er som
+følger:
+
+$$
+\begin{equation*}
+N(t_2) = N(t_1) + (F(t_1,t_2) - D(t_1,t_2)) + (I(t_1,t_2) - U(t_1,t_2))
+\end{equation*}
+$$
+
+Hvor:
+
+- $N(t_1)$ er folketal på tidspunkt $t_1$
+- $N(t_2)$ er folketal på tidspunkt $t_2$
+- $F(t_1,t_2)$ er antallet af fødsler i perioden
+- $D(t_1,t_2)$ er antallet af dødsfald i perioden
+- $I(t_1,t_2)$ er antallet af indvandrere i perioden
+- $U(t_1,t_2)$ er antallet af udvandrere i perioden
+
+Formlen siger kort sagt, at den samlede befolkning på et tidspunkt
+$t_2$ er lig den samlede befolkning på tidspunktet $t_1$ plus en
+stigning i befolkningen på grund af fødsler og indvandring og en
+reduktion i befolkningen på grund af dødsfald og udvandring.
+
+
+
 
 
 #+TITLE: Grundbegreber
