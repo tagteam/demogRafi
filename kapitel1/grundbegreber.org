@@ -61,17 +61,15 @@ t_1= as.Date("2019-01-01")
 t_2= as.Date("2023-01-01")
 N_1 = 5806081
 N_2 = 5932654
-data.frame("dato 1"=t_1,
-           "dato 2"=t_2,
-           "Folketal 1"=N_1,
-           "Folketal 2"=N_2,
-           "Antal dage"=t_2-t_1,
-           "Vækst"=N_2-N_1)
+data.frame("dato"=c(t_1,t_2),
+           "Folketal"=c(N_1,N_2),
+           "Antal dage"=c(NA,t_2-t_1),
+           "Vækst"=c(NA,N_2-N_1))
 #+END_SRC
 
-#+RESULTS[(2023-10-30 10:57:53) 2dde5ecb9af301c26865f0b8b46c914a5c9a282c]:
-: dato.1     dato.2 Folketal.1 Folketal.2 Antal.dage  Vækst
-: 1 2019-01-01 2023-01-01    5806081    5932654  1461 days 126573
+:         dato Folketal Antal.dage  Vækst
+: 1 2019-01-01  5806081         NA     NA
+: 2 2023-01-01  5932654       1461 126573
 
 ** Den demografiske ligevægtsligning
 
