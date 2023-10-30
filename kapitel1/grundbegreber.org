@@ -1,6 +1,4 @@
-* Grundbegreber
-
-** Demografi
+* Demografi
 
 Demografi er studiet af menneskers befolkningsegenskaber og deres
 forandringer over tid og sted. Det inkluderer undersøgelser af
@@ -15,7 +13,7 @@ befolknings sundhedstilstand, uddannelsesbehov, arbejdsstyrke og
 inkluderer folkesundhed, økonomi, planlægning af byer og samfund,
 arbejdsmarked og socialpolitik.
 
-** Befolkning
+* Befolkning
 
 I demografi refererer udtrykket /befolkning/ til den gruppe af
 mennesker, der bor inden for et geografisk område eller en juridisk
@@ -36,7 +34,7 @@ i befolkningens dynamik og sammensætning. Disse statistikker bruges
 ofte til at forudsige og planlægge behovet for offentlige tjenester og
 politikker, såsom sundhedsvæsnet, uddannelse og beskæftigelse.
 
-** Befolkningens størrelse
+* Befolkningens størrelse
 
 Lad os tage udgangspunkt i den Danske befolkning og starte med at se
 på dens størrelse. Folketal \(N(t)\) angiver befolkningens størrelse
@@ -58,20 +56,22 @@ var der 5.932.654 personer i Danmarks befolkning. Dermed er den Danske
 befolkning vokset mellem den 1 januar 2019 og den 1 januar 2023:
 
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={t,as}
-#+BEGIN_SRC R  :results output raw drawer  :exports both  :session *R* :cache yes  
+#+BEGIN_SRC R  :results output example :exports both  :session *R* :cache yes  
 t_1= as.Date("2019-01-01")
 t_2= as.Date("2023-01-01")
 N_1 = 5806081
 N_2 = 5932654
-t_2-t_1
-N_2-N_1
+data.frame("dato 1"=t_1,
+           "dato 2"=t_2,
+           "Folketal 1"=N_1,
+           "Folketal 2"=N_2,
+           "Antal dage"=t_2-t_1,
+           "Vækst"=N_2-N_1)
 #+END_SRC
 
-#+RESULTS[(2023-10-30 09:34:26) 40527bd0ca3fb85710491f67a4ba8ed6b7b78856]:
-:results:
-Time difference of 1461 days
-[1] 126573
-:end:
+#+RESULTS[(2023-10-30 10:57:53) 2dde5ecb9af301c26865f0b8b46c914a5c9a282c]:
+: dato.1     dato.2 Folketal.1 Folketal.2 Antal.dage  Vækst
+: 1 2019-01-01 2023-01-01    5806081    5932654  1461 days 126573
 
 ** Den demografiske ligevægtsligning
 
