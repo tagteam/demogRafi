@@ -44,9 +44,8 @@ befolkning den 1 januar 2019:
 
 $$
 \begin{align*}
-               t_1&= \texttt{2019-01-01} \\
-
-           N(t_1) &= 5.806.081
+t_1&= \texttt{2019-01-01} \\
+N(t_1) &= 5.806.081
 \end{align*}
 $$
 
