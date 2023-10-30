@@ -37,14 +37,15 @@ politikker, såsom sundhedsvæsnet, uddannelse og beskæftigelse.
 * Befolkningens størrelse
 
 Lad os tage udgangspunkt i den Danske befolkning og starte med at se
-på dens størrelse. Folketal /N(t)/ angiver befolkningens størrelse
-til tid /t/, hvor /t/ er en dato i kalenderen. Ifølge
+på dens størrelse. Folketal $N(t)$ angiver befolkningens størrelse
+til tid $t$, hvor $t$ er en dato i kalenderen. Ifølge
 www.statistikbanken.dk var der 5.806.081 personer i Danmarks
 befolkning den 1 januar 2019:
 
 $$
 \begin{align*}
                t_1&= \texttt{2019-01-01} \\
+
            N(t_1) &= 5.806.081
 \end{align*}
 $$
