@@ -1,0 +1,142 @@
+* Grundbegreber
+
+** Demografi
+
+Demografi er studiet af menneskers befolkningsegenskaber og deres
+forandringer over tid og sted. Det inkluderer undersøgelser af
+befolkningens størrelse, aldersfordeling, kønsfordeling, etnicitet,
+sprog, religion, uddannelse, erhverv og andre relevante faktorer.
+Demografer anvender forskellige metoder, såsom dataindsamling og
+statistisk analyse, til at undersøge og beskrive befolkningstrends og
+-mønstre. Demografi spiller en vigtig rolle i samfundets planlægning
+og politikudvikling, da det kan give vigtig information om en
+befolknings sundhedstilstand, uddannelsesbehov, arbejdsstyrke og
+økonomisk udvikling. Nogle af de områder, hvor demografi er relevant,
+inkluderer folkesundhed, økonomi, planlægning af byer og samfund,
+arbejdsmarked og socialpolitik.
+
+** Befolkning
+
+I demografi refererer udtrykket /befolkning/ til den gruppe af
+mennesker, der bor inden for et geografisk område eller en juridisk
+enhed ved et bestemt tidspunkt. Dermed kan man tale om Danmarks
+befolkning den 26 juni 1992, og om Nordeuropas befolkning den April
+1, 2000. En befolkning kan opdeles og analyseres efter kriterier som
+for eksempel bopæl, køn, alder, civilstand, etnisk gruppe, uddannelse,
+erhverv, fag og stilling. Tilsammen er alle disse grupper udtryk for
+befolkningsstrukturen. En /befolkningsgruppe/ er en del af en
+befolkning som opfylder yderlige kriterier. For eksempel, danner alle
+Kvinder, som modtager SU, er yngre end 25 år, og bor i Region Sjælland
+den 1 januar 2023, en befolkninggruppe.
+
+Befolkning i demografi kan beskrives og analyseres med statistikker
+som befolkningsstørrelse, befolkningstæthed, aldersfordeling,
+kønsfordeling, etnicitet og mange andre faktorer, der kan give indsigt
+i befolkningens dynamik og sammensætning. Disse statistikker bruges
+ofte til at forudsige og planlægge behovet for offentlige tjenester og
+politikker, såsom sundhedsvæsnet, uddannelse og beskæftigelse.
+
+** Befolkningens størrelse
+
+Lad os tage udgangspunkt i den Danske befolkning og starte med at se
+på dens størrelse. Folketal \(N(t)\) angiver befolkningens størrelse
+til tid \(t\), hvor \(t\) er en dato i kalenderen. Ifølge
+\url{www.statistikbanken.dk} var der 5.806.081 personer i Danmarks
+befolkning den 1 januar 2019:
+
+#+begin_export latex
+\begin{align*}
+\text{Befolkning} &= \text{Hele Danmark}\\
+t_1&= \texttt{2019-01-01}\\
+N(t_1) &= 5.806.081
+\end{align*}
+#+end_export
+
+På et senere tidspunkt vil befolkningens størrelse have ændret sig som
+følge af fødsler, dødsfald og ind- og udvandring. Den 1 januar 2023
+var der 5.932.654 personer i Danmarks befolkning. Dermed er den Danske
+befolkning vokset mellem den 1 januar 2019 og den 1 januar 2023:
+
+#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={t,as}
+#+BEGIN_SRC R  :results output raw drawer  :exports both  :session *R* :cache yes  
+t_1= as.Date("2019-01-01")
+t_2= as.Date("2023-01-01")
+N_1 = 5806081
+N_2 = 5932654
+t_2-t_1
+N_2-N_1
+#+END_SRC
+
+#+RESULTS[(2023-10-30 09:34:26) 40527bd0ca3fb85710491f67a4ba8ed6b7b78856]:
+:results:
+Time difference of 1461 days
+[1] 126573
+:end:
+
+** Den demografiske ligevægtsligning
+
+Den demografiske ligevægtsligning er en matematisk formel, der bruges
+i demografisk analyse til at beskrive forholdet mellem antallet af
+fødsler, dødsfald og migration i en befolkning. Ligningen er som
+følger:
+
+P(t) = P(0) + (B - D) + (I - O)
+
+Hvor:
+
+- P(t) er den samlede befolkning på tidspunktet t
+- P(0) er den samlede befolkning på et tidspunkt t=0 (normalt betegnet som den nuværende befolkning)
+- B er antallet af fødsler i perioden
+- D er antallet af dødsfald i perioden
+- I er antallet af indvandrere i perioden
+- O er antallet af udvandrere i perioden
+
+Formlen siger kort sagt, at den samlede befolkning på et tidspunkt t
+er lig den samlede befolkning på tidspunktet t=0 plus en stigning i
+befolkningen på grund af fødsler og indvandring og en reduktion i
+befolkningen på grund af dødsfald og udvandring.
+
+Ligningen bruges ofte til at forudsige fremtidige ændringer i
+befolkningstallet og sammensætning, og den er afgørende for
+planlægning af offentlig politik og tjenesteydelser som
+f.eks. sundhedspleje, uddannelse og pensionsordninger.
+
+** Middelfolketallet
+
+Middelfolketallet er en vigtig demografisk indikator, der beregnes ved
+at dividere den samlede befolkning i et område med antallet af år i
+perioden. Denne beregning giver et gennemsnitligt antal mennesker, der
+bor i området over en given tidsperiode.
+
+Der er flere metoder, der kan bruges til at beregne middelfolketallet,
+herunder:
+
+1. Den enkle metode: Denne metode beregner middelfolketallet ved at
+   dividere den samlede befolkning med antallet af år i perioden.
+2. Gennemsnitlig årlig vækstrate metode: Denne metode beregner
+   middelfolketallet ved at bestemme den gennemsnitlige årlige
+   vækstrate over en given tidsperiode. Vækstraten beregnes ved hjælp
+   af følgende formler:
+  - Vækstrate = ((Slutværdi/Begyndelsesværdi)^(1/antallet af år))-1
+  - Middelfolketallet = Begyndelsesværdi * ((1+Vækstrate)^antallet af år)
+3. Revisionsmetoden: Denne metode anvendes, når foreliggende data ikke
+   er pålidelig eller er mangelfulde. Denne metode involverer en
+   sammenligning af forskellige kilder til at beregne
+   middelfolketallet.
+
+Det er vigtigt at bemærke, at metoden valgt til at beregne
+middelfolketallet afhænger af de tilgængelige data og omstændighederne
+i området.
+
+
+#+TITLE: Grundbegreber
+#+Author: Thomas Alexander Gerds
+#+Date: 
+#+LaTeX_CLASS: org-article
+#+OPTIONS: toc:nil
+#+LaTeX_HEADER:\usepackage{authblk}
+#+LaTeX_HEADER:\usepackage{natbib}
+#+LaTeX_HEADER:\author{Thomas Alexander Gerds}
+#+LaTeX_HEADER:\affil{Department of Biostatistics, University of Copenhagen}
+#+setupfile:~/emacs-genome/snps/org-templates/setup-all-purpose.org
+# #+superman-export-target: pdf
