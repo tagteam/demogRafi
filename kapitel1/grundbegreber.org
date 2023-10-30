@@ -44,6 +44,7 @@ befolkning den 1 januar 2019:
 
 $$
 \begin{align*}
+\text{Befolkning} &= \text{Hele Danmark} \newline
 t_1&= \texttt{2019-01-01} \newline
 N(t_1) &= 5.806.081
 \end{align*}
