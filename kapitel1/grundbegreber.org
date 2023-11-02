@@ -77,44 +77,64 @@ data.frame("dato"=c(t_1,t_2),
 Folketallet ændrer sig jo hver dag, men det er svært at registrere og
 tælle nøjagtigt for enkelte dage. Heldigvis betyder små unøjagtigheder
 i tallene typisk ikke meget for demografiske
-konklusioner. Statistikbanken angiver folketal i starten af hvert
-kvartal siden 2008 (FOLK1A) og den første januar per år siden 1901
-(BEFOLK1). I næste afsnit indfører vi begrebet middelfolketal som
-bruges til at approximere det gennemsnitlige folketal i en
-tidsperiode.
+konklusioner. Statistikbanken (www.statistikbanken.dk) angiver
+folketal i starten af hvert kvartal siden 2008 (FOLK1A), og den første
+januar per år siden 1901 (BEFOLK1). I næste afsnit indfører vi
+begrebet middelfolketal, som bruges til at approximere et
+gennemsnitlige folketal i en given tidsperiode.
 
-** Middelfolketallet
 
-Middelfolketallet er en vigtig demografisk indikator, der beregnes ved
-at dividere den samlede befolkning i et område med antallet af år i
-perioden. Denne beregning giver et gennemsnitligt antal mennesker, der
-bor i området over en given tidsperiode. For at beregne
-middelfolketallet helt korrekt, ville man for alle personer tælle hvor
-mange dage de har levet i perioden i befolkningen og beregne
-middelfolketallet som den samlede gennemlevede tid divideret med
-periodens længde.
+** Middelfolketal
 
-Praktisk kender man typisk ikke de præcise tal, altså hvor mange dage
-personerne fra en befolkning har levet i perioden. Der er dog flere
-metoder, der kan bruges til at beregne et approksimativt
-middelfolketal baseret på enkelte folketal i perioden.
+Middelfolketallet er en vigtig demografisk indikator, der indgår
+f.eks., i fertilitetsrater og dødelighedstavler. Middelfolketallet er
+defineret som det gennemsnitlige folketal i en given tidsperiode. For
+at beregne middelfolketallet helt korrekt, ville man for alle personer
+være nødt til at tælle hvor mange dage de har levet i perioden i
+befolkningen.  Så kunne man beregne middelfolketallet eksakt som den
+samlede gennemlevede tid divideret med periodens længde. Denne
+beregning giver et gennemsnitligt antal mennesker, der bor i området
+over en given tidsperiode.
 
-1. Den enkle metode: Denne metode beregner middelfolketallet ved at
-   dividere den samlede befolkning med antallet af år i perioden.
-2. Gennemsnitlig årlig vækstrate metode: Denne metode beregner
-   middelfolketallet ved at bestemme den gennemsnitlige årlige
-   vækstrate over en given tidsperiode. Vækstraten beregnes ved hjælp
-   af følgende formler:
-  - Vækstrate = ((Slutværdi/Begyndelsesværdi)^(1/antallet af år))-1
-  - Middelfolketallet = Begyndelsesværdi * ((1+Vækstrate)^antallet af år)
-3. Revisionsmetoden: Denne metode anvendes, når foreliggende data ikke
-   er pålidelig eller er mangelfulde. Denne metode involverer en
-   sammenligning af forskellige kilder til at beregne
-   middelfolketallet.
+Praktisk kender man desværre ikke de præcise tal, altså hvor mange
+dage alle personer fra en befolkning har levet i en given
+tidsperiode. Derfor er flere metoder, der kan bruges til at beregne
+middelfolketallet approksimativt baseret på enkelte folketal i en
+given tidsperiode.
 
-Det er vigtigt at bemærke, at metoden valgt til at beregne
-middelfolketallet afhænger af de tilgængelige data og omstændighederne
-i området.
+*** Standard metode 1
+
+Her skal man kun kende et enkelt folketal, nemlig folketallet cirka i
+midten af perioden. Hvis perioden starter i tidspunkt $t_1$ og slutter
+i tidspunkt $t_2]$, så er tidspunkt i midten given som (t_1+t_2)/2 og
+folketal i midten er given ved:
+
+$$
+\tilde t &= (t_1+t_2)/2
+\tilde N^{\textt{metode 1}}[t_1,t_2]&=N(\tilde t)
+$$
+
+Dette tal bruges som et approksimativt middelfolketal. Denne metode er
+simpel og tilstrækkeligt for mange formål, især når folketallet ikke
+ændrer sig særlig meget i den given tidsperiode. For eksempel bruger
+Danmark Statistiks den 1. juli som årets middelfolketal i de årlige
+rapporter om befolknings udvikling
+(https://www.dst.dk/da/Statistik/nyheder-analyser-publ/Publikationer/).
+
+*** Standard metode 2
+
+For at bruge denne metode skal man kende folketal i starten og i
+slutningen af perioden. Det approksimative middelfolketal er
+gennemsnit af de to tal: 
+
+*** Bedst mulige metode 
+
+Her skal man kende folketal i starten, i slutningen og ved mindst et
+tidspunkt mere i perioden. For eksempel, hvis man har at beregne det
+approksimative middelfolketal bruges f
+
+
+
 
 ** Den demografiske ligevægtsligning
 
