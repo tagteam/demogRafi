@@ -107,9 +107,7 @@ given tidsperiode.
 Her skal man kun kende et enkelt folketal, nemlig folketallet cirka i
 midten af perioden. Hvis perioden starter i tidspunkt $t_1$ og slutter
 i tidspunkt $t_2$, så er tidspunkt i midten given som $(t_1+t_2)/2$ og
-folketal i midten er given ved $n[t_1,t_2]=N((t_1+t_2)/2)$
-
-$_{35}F_{15}$
+folketal i midten er given ved $n_1[t_1,t_2]=N((t_1+t_2)/2)$
 
 Dette tal bruges som et approksimativt middelfolketal. Denne metode er
 simpel og tilstrækkeligt for mange formål, især når folketallet ikke
@@ -122,16 +120,20 @@ rapporter om befolknings udvikling
 
 For at bruge denne metode skal man kende folketal i starten og i
 slutningen af perioden. Det approksimative middelfolketal er
-gennemsnit af de to tal: 
+gennemsnit af de to folketal: $n_2[t_1,t_2]=(N(t_1)+N(t_2))/2$
 
-*** Bedst mulige metode 
+*** Standard metode 3 
 
 Her skal man kende folketal i starten, i slutningen og ved mindst et
-tidspunkt mere i perioden. For eksempel, hvis man har at beregne det
-approksimative middelfolketal bruges f
+tidspunkt mere i perioden. Lad os antage at vi kender folketal til $J$
+forskelige tidspunkter $t_1 < t_2 < \dots <t_J$. Det approksimative
+middelfolketal for perioden $[t_1,t_J]$ kan beregnes med følgende formel:
 
-
-
+$$
+\begin{equation*}
+n_3[t_1,t_J] = \sum_{j=2}^J (t_j-t_{j-1}) * \frac{(N(t_{j-1})+N(t_j)}{2}
+\end{equation*}
+$$
 
 ** Den demografiske ligevægtsligning
 
