@@ -110,8 +110,10 @@ i tidspunkt $t_2]$, så er tidspunkt i midten given som (t_1+t_2)/2 og
 folketal i midten er given ved:
 
 $$
+\begin{align}\label{eq:midfolk1}
 \tilde t &= (t_1+t_2)/2
 \tilde N^{\textt{metode 1}}[t_1,t_2]&=N(\tilde t)
+\end{align}
 $$
 
 Dette tal bruges som et approksimativt middelfolketal. Denne metode er
