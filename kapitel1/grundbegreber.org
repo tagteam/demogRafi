@@ -107,7 +107,9 @@ given tidsperiode.
 Her skal man kun kende et enkelt folketal, nemlig folketallet cirka i
 midten af perioden. Hvis perioden starter i tidspunkt $t_1$ og slutter
 i tidspunkt $t_2$, så er tidspunkt i midten given som $(t_1+t_2)/2$ og
-folketal i midten er given ved $\tilde{N}[t_1,t_2]=N((t_1+t_2)/2)$
+folketal i midten er given ved $n[t_1,t_2]=N((t_1+t_2)/2)$
+
+$5_F_4$
 
 Dette tal bruges som et approksimativt middelfolketal. Denne metode er
 simpel og tilstrækkeligt for mange formål, især når folketallet ikke
