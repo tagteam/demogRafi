@@ -18,14 +18,14 @@ arbejdsmarked og socialpolitik.
 I demografi refererer udtrykket /befolkning/ til den gruppe af
 mennesker, der bor inden for et geografisk område eller en juridisk
 enhed ved et bestemt tidspunkt. Dermed kan man tale om Danmarks
-befolkning den 26 juni 1992, og om Nordeuropas befolkning den April
-1, 2000. En befolkning kan opdeles og analyseres efter kriterier som
-for eksempel bopæl, køn, alder, civilstand, etnisk gruppe, uddannelse,
-erhverv, fag og stilling. Tilsammen er alle disse grupper udtryk for
-befolkningsstrukturen. En /befolkningsgruppe/ er en del af en
-befolkning som opfylder yderlige kriterier. For eksempel, danner alle
-Kvinder, som modtager SU, er yngre end 25 år, og bor i Region Sjælland
-den 1 januar 2023, en befolkninggruppe.
+befolkning den 26 juni 1992, og om Nordeuropas befolkning den første
+april 2000. En befolkning kan opdeles og analyseres efter kriterier
+som for eksempel bopæl, køn, alder, civilstand, etnisk gruppe,
+uddannelse, erhverv, fag og stilling. Tilsammen er alle disse grupper
+udtryk for befolkningsstrukturen. En /befolkningsgruppe/ er en del af
+en befolkning som opfylder yderlige kriterier. For eksempel, danner
+alle Kvinder, som modtager SU, er yngre end 25 år, og bor i Region
+Sjælland den 1 januar 2023, en befolkninggruppe.
 
 Befolkning i demografi kan beskrives og analyseres med statistikker
 som befolkningsstørrelse, befolkningstæthed, aldersfordeling,
@@ -42,13 +42,11 @@ til tid $t$, hvor $t$ er en dato i kalenderen. Ifølge
 www.statistikbanken.dk var der 5.806.081 personer i Danmarks
 befolkning den 1 januar 2019:
 
-$$
 \begin{align*}
-\text{Befolkning} &= \text{Hele Danmark} \newline
-t_1&= \texttt{2019-01-01} \newline
+\text{Befolkning} &= \text{Hele Danmark} \\
+t_1&= \texttt{2019-01-01} \\
 N(t_1) &= 5.806.081
 \end{align*}
-$$
 
 På et senere tidspunkt vil befolkningens størrelse have ændret sig som
 følge af fødsler, dødsfald og ind- og udvandring. Den 1 januar 2023
@@ -67,34 +65,56 @@ N_2 = 5932654
 data.frame("dato"=c(t_1,t_2),
            "Folketal"=c(N_1,N_2),
            "Antal dage"=c(NA,t_2-t_1),
-           "Vækst"=c(NA,N_2-N_1))
+           "Vaekst"=c(NA,N_2-N_1))
 #+END_SRC
 
-:         dato Folketal Antal.dage  Vækst
+:         dato Folketal Antal.dage  Vaekst
 : 1 2019-01-01  5806081         NA     NA
 : 2 2023-01-01  5932654       1461 126573
 
 Folketallet ændrer sig jo hver dag, men det er svært at registrere og
 tælle nøjagtigt for enkelte dage. Heldigvis betyder små unøjagtigheder
 i tallene typisk ikke meget for demografiske
-konklusioner. Statistikbanken (www.statistikbanken.dk) angiver
-folketal i starten af hvert kvartal siden 2008 (FOLK1A), og den første
-januar per år siden 1901 (BEFOLK1). I næste afsnit indfører vi
-begrebet middelfolketal, som bruges til at approximere et
-gennemsnitlige folketal i en given tidsperiode.
+konklusioner. Statistikbanken [fn:1] angiver folketal i starten af
+hvert kvartal siden 2008 (FOLK1A), den første januar per år siden 1971
+(BEFOLK1), den første januar per år siden 1901 (HISB3). Desuden er der
+summariske tal fra folketællinger hele vejen fra 1769 (FT). Disse tal
+bliver vist i Figure \ref{fig:1}.
 
+#+BEGIN_SRC R :results file graphics :file ./kapitel1/figure1.pdf :exports none :session *R* :cache yes
+library(danstat)
+library(ggplot2)
+library(ggthemes)
+dt_meta <- get_table_metadata("FT")
+dt=get_data("FT",variables=list(list(code="tid",values=dt_meta$variables$values[[2]][[2]])))
+ggplot(dt,aes(TID,INDHOLD))+geom_line()+geom_point()+theme_wsj()+ scale_colour_wsj("colors6")
+#+END_SRC
+
+#+RESULTS[(2023-11-06 11:34:16) e930586f8196697970f2e417b783cab3dc1c97f7]:
+[[file:./kapitel1/figure1.pdf]]
+
+#+name: fig:1
+#+ATTR_LATEX: :width 0.7\textwidth
+#+CAPTION: Udvikling af den Danske befolkning siden 1769. Summariske tal fra folketællinger, statistikbankens register FT.
+[[file:./figure1.pdf]]
+
+[fn:1] www.statistikbanken.dk
 
 ** Middelfolketal
 
-Middelfolketallet er en vigtig demografisk indikator, der indgår
-f.eks., i fertilitetsrater og dødelighedstavler. Middelfolketallet er
-defineret som det gennemsnitlige folketal i en given tidsperiode. For
-at beregne middelfolketallet helt korrekt, ville man for alle personer
-være nødt til at tælle hvor mange dage de har levet i perioden i
-befolkningen.  Så kunne man beregne middelfolketallet eksakt som den
-samlede gennemlevede tid divideret med periodens længde. Denne
-beregning giver et gennemsnitligt antal mennesker, der bor i området
-over en given tidsperiode.
+Vi indfører nu begrebet middelfolketal, som bruges til at approksimere
+et gennemsnitlige folketal i en given tidsperiode.  Middelfolketallet
+er en vigtig demografisk indikator, der indgår f.eks., i
+fertilitetsrater og dødelighedstavler. Middelfolketallet er defineret
+som det gennemsnitlige folketal i en given tidsperiode.  Vi betegner
+middelfolketallet med $\tilde N$.
+
+For at beregne middelfolketallet helt korrekt, ville man for alle
+personer være nødt til at tælle hvor mange dage de har levet i
+perioden i befolkningen.  Så kunne man beregne middelfolketallet
+eksakt som den samlede gennemlevede tid divideret med periodens
+længde. Denne beregning giver et gennemsnitligt antal mennesker, der
+bor i området over en given tidsperiode.
 
 Praktisk kender man desværre ikke de præcise tal, altså hvor mange
 dage alle personer fra en befolkning har levet i en given
@@ -107,33 +127,135 @@ given tidsperiode.
 Her skal man kun kende et enkelt folketal, nemlig folketallet cirka i
 midten af perioden. Hvis perioden starter i tidspunkt $t_1$ og slutter
 i tidspunkt $t_2$, så er tidspunkt i midten given som $(t_1+t_2)/2$ og
-folketal i midten er given ved $n_1[t_1,t_2]=N((t_1+t_2)/2)$
+folketal i midten er given ved $\tilde N[t_1,t_2]=N((t_1+t_2)/2)$.
 
-Dette tal bruges som et approksimativt middelfolketal. Denne metode er
+Dette tal bruges som et estimat for middelfolketallet. Denne metode er
 simpel og tilstrækkeligt for mange formål, især når folketallet ikke
 ændrer sig særlig meget i den given tidsperiode. For eksempel bruger
 Danmark Statistiks den 1. juli som årets middelfolketal i de årlige
-rapporter om befolknings udvikling
-(https://www.dst.dk/da/Statistik/nyheder-analyser-publ/Publikationer/).
+rapporter om befolknings udvikling [fn:2].
+
+[fn:2] https://www.dst.dk/da/Statistik/nyheder-analyser-publ/Publikationer/
 
 *** Standard metode 2
 
 For at bruge denne metode skal man kende folketal i starten og i
-slutningen af perioden. Det approksimative middelfolketal er
-gennemsnit af de to folketal: $n_2[t_1,t_2]=(N(t_1)+N(t_2))/2$
+slutningen af perioden. Det estimerede middelfolketal er
+gennemsnit af de to folketal: $\tilde N[t_1,t_2]=(N(t_1)+N(t_2))/2$.
 
 *** Standard metode 3 
 
 Her skal man kende folketal i starten, i slutningen og ved mindst et
 tidspunkt mere i perioden. Lad os antage at vi kender folketal til $J$
-forskelige tidspunkter $t_1 < t_2 < \dots <t_J$. Det approksimative
-middelfolketal for perioden $[t_1,t_J]$ kan beregnes med følgende formel:
+forskelige tidspunkter $t_1 < t_2 < \dots <t_J$. Det estimerede
+middelfolketal for perioden $[t_1,t_J]$ kan beregnes med følgende
+formel:
 
-$$
-\begin{equation*}
-n_3[t_1,t_J] = \sum_{j=2}^J (t_j-t_{j-1}) * \frac{(N(t_{j-1})+N(t_j)}{2}
-\end{equation*}
-$$
+\begin{align*}
+\tilde N[t_1,t_J] &= \frac 1 {(t_J-t_1)}\sum_{j=2}^J (t_j-t_{j-1}) \frac{(N(t_{j-1})+N(t_j)}{2}\\
+             &= \frac{(t_2-t_1)}{(t_J-t_1)}  \frac{(N(t_{2})+N(t_1)}{2} +\cdots +\frac{(t_J-t_{J-1})}{(t_J-t_1)}  \frac{(N(t_{J})+N(t_{J-1})}{2}
+\end{align*}
+
+Alle tre standard metoder kan bruges ligeværdig hvis folketallet er
+relativt stabil i perioden.  Ændrer folketallet sig meget i perioden,
+er standard metode 2 en bedre tilnærmelse til det sande ukendte
+middelfolketal end standard metode 1, og ligeligt er standard metode 3
+er bedre end standard metode 2.
+
+*** Eksempel
+
+Vi beregner middelfolketal for den Danske befolkning i en periode, som
+starter den 1 januar 2016 og slutter den 1 januar 2023. Fra
+statistikbankens =BEFOLK1= henter vi folketal i starten, midten og
+slutningen af perioden:
+
+#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
+#+BEGIN_SRC R  :results output   :exports both  :session *R* :cache yes
+library(danstat)
+library(tidyverse)
+library(stringi)
+dt=get_data("BEFOLK1",variables=list(list(code="tid",values=c(2009,2016,2023))))
+dt
+#+END_SRC
+
+#+RESULTS[(2023-11-02 17:57:32) dbd8ef89df9cf9a03dde3688b241153a20e5a806]:
+#+begin_example
+# A tibble: 3 × 2
+    TID INDHOLD
+  <dbl>   <dbl>
+1  2009 5511451
+2  2016 5707251
+3  2023 5932654
+#+end_example
+
+Det er nemmest at anvende standard metode 1. Med standard metode 1 er
+det estimerede middelfolketal \(\tilde N[\texttt{1 jan 2016},\texttt{1
+jan 2023}] = 5.707.251\) personer. For at beregne standard metode 2
+bruger vi R som lommerregner:
+
+#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
+#+BEGIN_SRC R  :results output  example  :exports both  :session *R* :cache yes
+# standard metode 2
+(5511451 + 5707251)/2
+#+END_SRC
+
+#+RESULTS[(2023-11-06 10:01:11) 78791514d677aa50d446ee4966a524a61a369c65]:
+: [1] 5609351
+
+Med standard metode 2 estimerer vi middelfolketallet i perioden 2009--2023 dermed til
+\(5.609.351\) personer. For standard metode 3 er beregningen i R den følgende:
+
+#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
+#+BEGIN_SRC R  :results output example  :exports both  :session *R* :cache yes  
+# standard metode 3
+(2016-2009)/(2023-2009)*(5511451+5707251)/2 + (2023-2016)/(2023-2009)*(5707251+5932654)/2
+#+END_SRC
+
+#+RESULTS[(2023-11-06 10:00:59) f21cbcd580ee62077267204df1a604fd2ff170a1]:
+: [1] 5714652
+
+Med standard metode 3 estimerer vi middelfolketallet i perioden
+2009--2023 til \(5.714.652\) personer baseret på de 3 folketal fra
+perioden.  Vi ser i det her eksempel at der er mere end 100.000
+personer forskel mellem standard metode 3 og standard metode 2. Om
+denne forskel er vigtigt eller ligegyldigt, ville afhænge formålet med
+den konkrete demografiske undersøgelse. Er den vigtigt, ville man
+hente så mange folketal som muligt fra perioden, og beregne
+middelfolketallet med standard metode 3. Følgende R-koder henter alle
+folketal fra statistikbankens register FOLK1a og andvender metode 3.
+
+#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
+#+BEGIN_SRC R  :results output example  :exports both  :session *R* :cache yes  
+# Standard metode 3
+# konstruere vektor 2009K1, 2009K2, ..., 2022K4
+kvartal_years <- paste0(rep(2009:2022,rep(4,14)),"K",1:4)
+# tilfoej 2023K1
+kvartal_years <- c(kvartal_years,"2023K1")
+# hent data fra FOLK1a 
+dt <- get_data("FOLK1a",variables=list(list(code="tid",values=kvartal_years)))
+# transform årstal + kvartal til dato
+patt <- pattern=c("Q1","Q2","Q3","Q4")
+repl <- c("-01-01","-01-04","-01-07","-01-10")
+dt <- mutate(dt,
+             TID=as.Date(stri_replace_all_regex(TID,
+                                                pattern=pat,
+                                                replace=repl,
+                                                vectorize_all=FALSE)))
+# middelfolketal_metode3
+summarise(dt,{
+  len <- length(TID)
+  len_periode_total <- as.numeric(TID[length(TID)]-TID[1])
+  len_periode <- as.numeric(TID[-1]-TID[-len])
+  ft_gennemsnit <-(INDHOLD[-len]+INDHOLD[-1])/2 
+  sum(len_periode*ft_gennemsnit)/len_periode_total
+})
+#+END_SRC
+
+#+RESULTS[(2023-11-06 11:51:27) 3634bb3bd997b9588f2b0571e5cc102ae568a38d]:
+: 5717974
+
+Baseret på 57 folketal i perioden mellem den 1 januar 2009 og den 1
+januar 2023 estimerer vi middelfolketal for perioden til 5.717.974 personer.
 
 ** Den demografiske ligevægtsligning
 
@@ -167,13 +289,18 @@ reduktion i befolkningen på grund af dødsfald og udvandring.
 
 
 #+TITLE: Grundbegreber
-#+Author: Thomas Alexander Gerds
-#+Date: 
-#+LaTeX_CLASS: org-article
+#+LaTeX_CLASS: org-article-no-packages
 #+OPTIONS: toc:nil
 #+LaTeX_HEADER:\usepackage{authblk}
 #+LaTeX_HEADER:\usepackage{natbib}
-#+LaTeX_HEADER:\author{Thomas Alexander Gerds}
-#+LaTeX_HEADER:\affil{Department of Biostatistics, University of Copenhagen}
+#+LaTeX_HEADER:\usepackage{listings}
+#+LaTeX_HEADER:\usepackage{color}
+#+LaTeX_HEADER:\usepackage[usenames,dvipsnames]{xcolor}
+#+LaTeX_HEADER:\usepackage[utf8]{inputenc}
+#+LaTeX_HEADER:\usepackage{hyperref}
+#+LaTeX_HEADER:\usepackage{amssymb}
+#+LaTeX_HEADER:\usepackage{latexsym}
+# #+LaTeX_HEADER:\author{Thomas Alexander Gerds}
+# #+LaTeX_HEADER:\affil{Department of Biostatistics, University of Copenhagen}
 #+setupfile:~/emacs-genome/snps/org-templates/setup-all-purpose.org
 # #+superman-export-target: pdf
