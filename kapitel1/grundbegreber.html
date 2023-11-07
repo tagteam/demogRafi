@@ -1,0 +1,982 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!-- 2023-11-07 Tue 16:43 -->
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Grundbegreber</title>
+<meta name="generator" content="Org Mode" />
+<style>
+  #content { max-width: 60em; margin: auto; }
+  .title  { text-align: center;
+             margin-bottom: .2em; }
+  .subtitle { text-align: center;
+              font-size: medium;
+              font-weight: bold;
+              margin-top:0; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { font-family: monospace; color: green; }
+  .priority { font-family: monospace; color: orange; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .org-right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .org-left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .org-center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #e6e6e6;
+    border-radius: 3px;
+    background-color: #f2f2f2;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: auto;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    top: -8px;
+    right: 12px;
+    padding: 3px;
+    color: #555;
+    background-color: #f2f2f299;
+  }
+  pre.src:hover:before { display: inline; margin-top: 14px;}
+  /* Languages per Org manual */
+  pre.src-asymptote:before { content: 'Asymptote'; }
+  pre.src-awk:before { content: 'Awk'; }
+  pre.src-authinfo::before { content: 'Authinfo'; }
+  pre.src-C:before { content: 'C'; }
+  /* pre.src-C++ doesn't work in CSS */
+  pre.src-clojure:before { content: 'Clojure'; }
+  pre.src-css:before { content: 'CSS'; }
+  pre.src-D:before { content: 'D'; }
+  pre.src-ditaa:before { content: 'ditaa'; }
+  pre.src-dot:before { content: 'Graphviz'; }
+  pre.src-calc:before { content: 'Emacs Calc'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-fortran:before { content: 'Fortran'; }
+  pre.src-gnuplot:before { content: 'gnuplot'; }
+  pre.src-haskell:before { content: 'Haskell'; }
+  pre.src-hledger:before { content: 'hledger'; }
+  pre.src-java:before { content: 'Java'; }
+  pre.src-js:before { content: 'Javascript'; }
+  pre.src-latex:before { content: 'LaTeX'; }
+  pre.src-ledger:before { content: 'Ledger'; }
+  pre.src-lisp:before { content: 'Lisp'; }
+  pre.src-lilypond:before { content: 'Lilypond'; }
+  pre.src-lua:before { content: 'Lua'; }
+  pre.src-matlab:before { content: 'MATLAB'; }
+  pre.src-mscgen:before { content: 'Mscgen'; }
+  pre.src-ocaml:before { content: 'Objective Caml'; }
+  pre.src-octave:before { content: 'Octave'; }
+  pre.src-org:before { content: 'Org mode'; }
+  pre.src-oz:before { content: 'OZ'; }
+  pre.src-plantuml:before { content: 'Plantuml'; }
+  pre.src-processing:before { content: 'Processing.js'; }
+  pre.src-python:before { content: 'Python'; }
+  pre.src-R:before { content: 'R'; }
+  pre.src-ruby:before { content: 'Ruby'; }
+  pre.src-sass:before { content: 'Sass'; }
+  pre.src-scheme:before { content: 'Scheme'; }
+  pre.src-screen:before { content: 'Gnu Screen'; }
+  pre.src-sed:before { content: 'Sed'; }
+  pre.src-sh:before { content: 'shell'; }
+  pre.src-sql:before { content: 'SQL'; }
+  pre.src-sqlite:before { content: 'SQLite'; }
+  /* additional languages in org.el's org-babel-load-languages alist */
+  pre.src-forth:before { content: 'Forth'; }
+  pre.src-io:before { content: 'IO'; }
+  pre.src-J:before { content: 'J'; }
+  pre.src-makefile:before { content: 'Makefile'; }
+  pre.src-maxima:before { content: 'Maxima'; }
+  pre.src-perl:before { content: 'Perl'; }
+  pre.src-picolisp:before { content: 'Pico Lisp'; }
+  pre.src-scala:before { content: 'Scala'; }
+  pre.src-shell:before { content: 'Shell Script'; }
+  pre.src-ebnf2ps:before { content: 'ebfn2ps'; }
+  /* additional language identifiers per "defun org-babel-execute"
+       in ob-*.el */
+  pre.src-cpp:before  { content: 'C++'; }
+  pre.src-abc:before  { content: 'ABC'; }
+  pre.src-coq:before  { content: 'Coq'; }
+  pre.src-groovy:before  { content: 'Groovy'; }
+  /* additional language identifiers from org-babel-shell-names in
+     ob-shell.el: ob-shell is the only babel language using a lambda to put
+     the execution function name together. */
+  pre.src-bash:before  { content: 'bash'; }
+  pre.src-csh:before  { content: 'csh'; }
+  pre.src-ash:before  { content: 'ash'; }
+  pre.src-dash:before  { content: 'dash'; }
+  pre.src-ksh:before  { content: 'ksh'; }
+  pre.src-mksh:before  { content: 'mksh'; }
+  pre.src-posh:before  { content: 'posh'; }
+  /* Additional Emacs modes also supported by the LaTeX listings package */
+  pre.src-ada:before { content: 'Ada'; }
+  pre.src-asm:before { content: 'Assembler'; }
+  pre.src-caml:before { content: 'Caml'; }
+  pre.src-delphi:before { content: 'Delphi'; }
+  pre.src-html:before { content: 'HTML'; }
+  pre.src-idl:before { content: 'IDL'; }
+  pre.src-mercury:before { content: 'Mercury'; }
+  pre.src-metapost:before { content: 'MetaPost'; }
+  pre.src-modula-2:before { content: 'Modula-2'; }
+  pre.src-pascal:before { content: 'Pascal'; }
+  pre.src-ps:before { content: 'PostScript'; }
+  pre.src-prolog:before { content: 'Prolog'; }
+  pre.src-simula:before { content: 'Simula'; }
+  pre.src-tcl:before { content: 'tcl'; }
+  pre.src-tex:before { content: 'TeX'; }
+  pre.src-plain-tex:before { content: 'Plain TeX'; }
+  pre.src-verilog:before { content: 'Verilog'; }
+  pre.src-vhdl:before { content: 'VHDL'; }
+  pre.src-xml:before { content: 'XML'; }
+  pre.src-nxml:before { content: 'XML'; }
+  /* add a generic configuration mode; LaTeX export needs an additional
+     (add-to-list 'org-latex-listings-langs '(conf " ")) in .emacs */
+  pre.src-conf:before { content: 'Configuration File'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.org-right  { text-align: center;  }
+  th.org-left   { text-align: center;   }
+  th.org-center { text-align: center; }
+  td.org-right  { text-align: right;  }
+  td.org-left   { text-align: left;   }
+  td.org-center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara { display: inline; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .equation-container {
+    display: table;
+    text-align: center;
+    width: 100%;
+  }
+  .equation {
+    vertical-align: middle;
+  }
+  .equation-label {
+    display: table-cell;
+    text-align: right;
+    vertical-align: middle;
+  }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  .org-svg { }
+</style>
+<link rel="stylesheet" type="text/css" href="https://publicifsv.sund.ku.dk/~tag/styles/all-purpose.css" />
+<script>
+  window.MathJax = {
+    tex: {
+      ams: {
+        multlineWidth: '85%'
+      },
+      tags: 'ams',
+      tagSide: 'right',
+      tagIndent: '.8em'
+    },
+    chtml: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    svg: {
+      scale: 1.0,
+      displayAlign: 'center',
+      displayIndent: '0em'
+    },
+    output: {
+      font: 'mathjax-modern',
+      displayOverflow: 'overflow'
+    }
+  };
+</script>
+
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+</head>
+<body>
+<div id="preamble" class="status">
+<br>Thomas Alexander Gerds
+</div>
+<div id="content" class="content">
+<h1 class="title">Grundbegreber</h1>
+<div id="outline-container-orge050d4d" class="outline-2">
+<h2 id="orge050d4d">Demografi</h2>
+<div class="outline-text-2" id="text-orge050d4d">
+<p>
+Demografi er studiet af menneskers befolkningsegenskaber og deres
+forandringer over tid og sted. Det inkluderer undersøgelser af
+befolkningens størrelse, aldersfordeling, kønsfordeling, etnicitet,
+sprog, religion, uddannelse, erhverv og andre relevante faktorer.
+Demografer anvender forskellige metoder, såsom dataindsamling og
+statistisk analyse, til at undersøge og beskrive befolkningstrends og
+-mønstre. Demografi spiller en vigtig rolle i samfundets planlægning
+og politikudvikling, da det kan give vigtig information om en
+befolknings sundhedstilstand, uddannelsesbehov, arbejdsstyrke og
+økonomisk udvikling. Nogle af de områder, hvor demografi er relevant,
+inkluderer folkesundhed, økonomi, planlægning af byer og samfund,
+arbejdsmarked og socialpolitik. Metoderne som vi bruger til demografi
+er tæt beslægtet med metoder fra epidemiologi og statistik.
+</p>
+</div>
+</div>
+<div id="outline-container-org30eab4e" class="outline-2">
+<h2 id="org30eab4e">Befolkning</h2>
+<div class="outline-text-2" id="text-org30eab4e">
+<p>
+I demografi refererer udtrykket <i>befolkning</i> til den gruppe af
+mennesker, der bor inden for et geografisk område eller en juridisk
+enhed ved et bestemt tidspunkt. Dermed kan man tale om Danmarks
+befolkning den 26 juni 1992, og om Nordeuropas befolkning den første
+april 2000. En befolkning kan opdeles og analyseres efter kriterier
+som for eksempel bopæl, køn, alder, civilstand, etnisk gruppe,
+uddannelse, erhverv, fag og stilling. Tilsammen er alle disse grupper
+udtryk for befolkningsstrukturen. En <i>befolkningsgruppe</i> er en del af
+en befolkning som opfylder yderlige kriterier. For eksempel, danner
+alle Kvinder, som modtager SU, er yngre end 25 år, og bor i Region
+Sjælland den 1 januar 2023, en befolkninggruppe.
+</p>
+
+<p>
+Befolkning i demografi kan beskrives og analyseres med statistikker
+som befolkningsstørrelse, befolkningstæthed, aldersfordeling,
+kønsfordeling, etnicitet og mange andre faktorer, der kan give indsigt
+i befolkningens dynamik og sammensætning. Disse statistikker bruges
+ofte til at forudsige og planlægge behovet for offentlige tjenester og
+politikker, såsom sundhedsvæsnet, uddannelse og beskæftigelse.
+</p>
+</div>
+</div>
+<div id="outline-container-org52e0563" class="outline-2">
+<h2 id="org52e0563">Befolkningens størrelse</h2>
+<div class="outline-text-2" id="text-org52e0563">
+<p>
+Lad os tage udgangspunkt i den Danske befolkning og starte med at se
+på dens størrelse. Folketal \(N(t)\) angiver befolkningens størrelse til
+tid \(t\), hvor \(t\) er en dato i kalenderen. Ifølge statistikbanken <sup><a id="fnr.1" class="footref" href="#fn.1" role="doc-backlink">1</a></sup> var
+der 5.806.081 personer i Danmarks befolkning den 1 januar 2019:
+</p>
+
+\begin{align*}
+\text{Befolkning} &= \text{Hele Danmark} \\
+t_1&= \texttt{2019-01-01} \\
+N(t_1) &= 5.806.081
+\end{align*}
+
+<p>
+På et senere tidspunkt vil befolkningens størrelse have ændret sig som
+følge af fødsler, dødsfald og ind- og udvandring. Den 1 januar 2023
+var der 5.932.654 personer i Danmarks befolkning. Dermed er den Danske
+befolkning vokset med 126.573 personer i de 1461 dage mellem den 1
+januar 2019 og den 1 januar 2023. Her er R-koder som kan bruges til at
+beregne antal dage mellem to datoer og ændring af folketal i perioden.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span style="color: #b22222;"># </span><span style="color: #b22222;">R-code</span>
+t_1= as.Date(<span style="color: #8b2252;">"2019-01-01"</span>)
+t_2= as.Date(<span style="color: #8b2252;">"2023-01-01"</span>)
+N_1 = 5806081
+N_2 = 5932654
+data.frame(<span style="color: #8b2252;">"dato"</span>=c(t_1,t_2),
+           <span style="color: #8b2252;">"Folketal"</span>=c(N_1,N_2),
+           <span style="color: #8b2252;">"Antal dage"</span>=c(<span style="color: #228b22;">NA</span>,t_2-t_1),
+           <span style="color: #8b2252;">"Vaekst"</span>=c(<span style="color: #228b22;">NA</span>,N_2-N_1))
+</pre>
+</div>
+
+<pre class="example">
+        dato Folketal Antal.dage  Vaekst
+1 2019-01-01  5806081         NA     NA
+2 2023-01-01  5932654       1461 126573
+</pre>
+
+
+<p>
+Folketallet ændrer sig jo hver dag, men det er svært at registrere og
+tælle nøjagtigt for enkelte dage. Heldigvis betyder små unøjagtigheder
+i tallene typisk ikke meget for demografiske
+konklusioner. Statistikbanken angiver folketal i starten af
+hvert kvartal siden 2008 (FOLK1A), den første januar per år siden 1971
+(BEFOLK1), den første januar per år siden 1901 (HISB3). Desuden er der
+summariske tal fra folketællinger hele vejen fra 1769 (FT). Disse tal
+bliver vist i Figure <a href="fig:1">fig:1</a>.
+</p>
+
+<p>
+<a href="./figure1.pdf">./figure1.pdf</a>
+</p>
+</div>
+<div id="outline-container-org04a13f5" class="outline-3">
+<h3 id="org04a13f5">Middelfolketal</h3>
+<div class="outline-text-3" id="text-org04a13f5">
+<p>
+Vi indfører nu begrebet middelfolketal, som bruges til at estimere et
+gennemsnitlige folketal i en given tidsperiode.  Middelfolketallet er
+en vigtig demografisk indikator, der indgår f.eks., i fertilitetsrater
+og dødelighedstavler. Middelfolketallet er defineret som det
+gennemsnitlige folketal i en given tidsperiode.  Vi betegner
+middelfolketallet med \(\tilde N\).
+</p>
+
+<p>
+For at beregne middelfolketallet helt korrekt, ville man for alle
+personer være nødt til at tælle hvor mange dage de har levet i
+perioden i befolkningen.  Så kunne man beregne middelfolketallet
+eksakt som den samlede gennemlevede tid divideret med periodens
+længde. Denne beregning giver et gennemsnitligt antal mennesker, der
+bor i området over en given tidsperiode.
+</p>
+
+<p>
+Praktisk kender man desværre ikke de præcise tal, altså hvor mange
+dage alle personer fra en befolkning har levet i en given
+tidsperiode. Derfor er flere metoder, der kan bruges til at beregne
+middelfolketallet approksimativt baseret på enkelte folketal i en
+given tidsperiode.
+</p>
+</div>
+<div id="outline-container-orgd0ec39d" class="outline-4">
+<h4 id="orgd0ec39d">Metode 1</h4>
+<div class="outline-text-4" id="text-orgd0ec39d">
+<p>
+Her skal man kun kende et enkelt folketal, nemlig folketallet cirka i
+midten af perioden. Hvis perioden starter i tidspunkt \(t_1\) og slutter
+i tidspunkt \(t_2\), så er tidspunkt i midten given som \((t_1+t_2)/2\) og
+folketal i midten er given ved \(\tilde N[t_1,t_2]=N((t_1+t_2)/2)\).
+</p>
+
+<p>
+Dette tal bruges som et estimat for middelfolketallet. Denne metode er
+simpel og tilstrækkeligt for mange formål, især når folketallet ikke
+ændrer sig særlig meget i den given tidsperiode. For eksempel bruger
+Danmark Statistik folketal fra den 1. juli som årets middelfolketal i
+de årlige rapporter om befolknings udvikling <sup><a id="fnr.2" class="footref" href="#fn.2" role="doc-backlink">2</a></sup>.
+</p>
+</div>
+</div>
+<div id="outline-container-orgf09694f" class="outline-4">
+<h4 id="orgf09694f">Metode 2</h4>
+<div class="outline-text-4" id="text-orgf09694f">
+<p>
+For at bruge denne metode skal man kende folketal i starten og i
+slutningen af perioden. Det estimerede middelfolketal er
+gennemsnit af de to folketal: \(\tilde N[t_1,t_2]=(N(t_1)+N(t_2))/2\).
+</p>
+</div>
+</div>
+<div id="outline-container-org64755a6" class="outline-4">
+<h4 id="org64755a6">Metode 3</h4>
+<div class="outline-text-4" id="text-org64755a6">
+<p>
+Her skal man kende folketal i starten, i slutningen og ved mindst et
+tidspunkt mere i perioden. Lad os antage at vi kender folketal til \(J\)
+forskelige tidspunkter \(t_1 < t_2 < \dots <t_J\). Det estimerede
+middelfolketal for perioden \([t_1,t_J]\) kan beregnes med følgende
+formel:
+</p>
+
+\begin{align*}
+\tilde N[t_1,t_J] &= \frac 1 {(t_J-t_1)}\sum_{j=2}^J (t_j-t_{j-1}) \frac{(N(t_{j-1})+N(t_j)}{2}\\
+             &= \frac{(t_2-t_1)}{(t_J-t_1)}  \frac{(N(t_{2})+N(t_1)}{2} +\cdots +\frac{(t_J-t_{J-1})}{(t_J-t_1)}  \frac{(N(t_{J})+N(t_{J-1})}{2}
+\end{align*}
+
+<p>
+Alle tre metoder kan bruges ligeværdig hvis folketallet er
+relativt stabil i perioden.  Ændrer folketallet sig meget i perioden,
+er metode 2 en bedre tilnærmelse til det sande ukendte
+middelfolketal end metode 1, og ligeligt er metode 3
+er bedre end metode 2. Figure <a href="fig:2">fig:2</a> visualiserer
+forskellen mellem de 3 metoder.
+</p>
+
+<p>
+<a href="./figure2.pdf">./figure2.pdf</a>
+</p>
+</div>
+</div>
+<div id="outline-container-org7402969" class="outline-4">
+<h4 id="org7402969">Eksempel</h4>
+<div class="outline-text-4" id="text-org7402969">
+<p>
+Vi beregner middelfolketal for den Danske befolkning i en periode, som
+starter den 1 januar 2016 og slutter den 1 januar 2023. Fra
+statistikbankens <code>BEFOLK1</code> henter vi folketal i starten, midten og
+slutningen af perioden:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span style="color: #008b8b;">library</span>(danstat)
+<span style="color: #008b8b;">library</span>(tidyverse)
+<span style="color: #008b8b;">library</span>(stringi)
+dt=get_data(<span style="color: #8b2252;">"BEFOLK1"</span>,variables=list(list(code=<span style="color: #8b2252;">"tid"</span>,values=c(2009,2016,2023))))
+dt
+</pre>
+</div>
+
+<pre class="example" id="orgfb42b29">
+# A tibble: 3 × 2
+    TID INDHOLD
+  &lt;dbl&gt;   &lt;dbl&gt;
+1  2009 5511451
+2  2016 5707251
+3  2023 5932654
+</pre>
+
+<p>
+Det er nemmest at anvende metode 1. Med metode 1 er
+det estimerede middelfolketal \(\tilde N[\texttt{1 januar 2016},\texttt{1
+jan 2023}] = 5.707.251\) personer. For at beregne metode 2
+bruger vi R som lommerregner:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span style="color: #b22222;"># </span><span style="color: #b22222;">Metode 2</span>
+(5511451 + 5707251)/2
+</pre>
+</div>
+
+<pre class="example">
+[1] 5609351
+</pre>
+
+
+<p>
+Med metode 2 estimerer vi middelfolketallet i perioden 2009&#x2013;2023 dermed til
+\(5.609.351\) personer. For metode 3 er beregningen i R den følgende:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span style="color: #b22222;"># </span><span style="color: #b22222;">Metode 3</span>
+(2016-2009)/(2023-2009)*(5511451+5707251)/2 + (2023-2016)/(2023-2009)*(5707251+5932654)/2
+</pre>
+</div>
+
+<pre class="example">
+[1] 5714652
+</pre>
+
+
+<p>
+Med metode 3 estimerer vi middelfolketallet i perioden 2009&#x2013;2023 til
+\(5.714.652\) personer baseret på de 3 folketal fra perioden.  Vi ser
+i det her eksempel at der er mere end 100.000 personer forskel mellem
+metode 3 og metode 2. Om denne forskel er vigtigt eller ej, ville
+afhænge formålet med den konkrete demografiske undersøgelse. Er den
+vigtigt, ville man prøve at estimere middelfolketallet så godt som
+muligt. For at gør det ville man hente så mange folketal som muligt
+fra perioden, og så beregne middelfolketallet med metode 3 på alle
+disse tal. Følgende R-koder henter alle folketal mellem 1 januar 2009
+og 1 januar 2023 fra statistikbankens register FOLK1a og andvender
+metode 3.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span style="color: #008b8b;">library</span>(tidyverse)
+<span style="color: #008b8b;">library</span>(stringi)
+<span style="color: #b22222;"># </span><span style="color: #b22222;">Metode 3 baseret paa 57 folketal mellem 2009 og 2023</span>
+<span style="color: #b22222;"># </span><span style="color: #b22222;">konstruere vektor 2009K1, 2009K2, ..., 2022K4</span>
+kvartal_years <span style="color: #008b8b;">&lt;-</span> paste0(rep(2009:2022,rep(4,14)),<span style="color: #8b2252;">"K"</span>,1:4)
+<span style="color: #b22222;"># </span><span style="color: #b22222;">tilfoej 2023K1</span>
+kvartal_years <span style="color: #008b8b;">&lt;-</span> c(kvartal_years,<span style="color: #8b2252;">"2023K1"</span>)
+<span style="color: #b22222;"># </span><span style="color: #b22222;">hent data fra FOLK1a </span>
+dt <span style="color: #008b8b;">&lt;-</span> get_data(<span style="color: #8b2252;">"FOLK1a"</span>,variables=list(list(code=<span style="color: #8b2252;">"tid"</span>,
+                                            values=kvartal_years)))
+<span style="color: #b22222;"># </span><span style="color: #b22222;">transform aarstal + kvartal til dato</span>
+patt <span style="color: #008b8b;">&lt;-</span> pattern=c(<span style="color: #8b2252;">"Q1"</span>,<span style="color: #8b2252;">"Q2"</span>,<span style="color: #8b2252;">"Q3"</span>,<span style="color: #8b2252;">"Q4"</span>)
+repl <span style="color: #008b8b;">&lt;-</span> c(<span style="color: #8b2252;">"-01-01"</span>,<span style="color: #8b2252;">"-01-04"</span>,<span style="color: #8b2252;">"-01-07"</span>,<span style="color: #8b2252;">"-01-10"</span>)
+dt <span style="color: #008b8b;">&lt;-</span> mutate(dt,
+             TID=stri_replace_all_regex(TID,
+                                        pattern=pat,
+                                        replace=repl,
+                                        vectorize_all=<span style="color: #228b22;">FALSE</span>))
+<span style="color: #b22222;"># </span><span style="color: #b22222;">transform fra character til dato</span>
+dt <span style="color: #008b8b;">&lt;-</span> mutate(dt, TID=as.Date(TID)) 
+<span style="color: #b22222;"># </span><span style="color: #b22222;">anvend middelfolketal metode 3</span>
+summarise(dt,{
+  len <span style="color: #008b8b;">&lt;-</span> length(TID)
+  len_periode_total <span style="color: #008b8b;">&lt;-</span> as.numeric(TID[length(TID)]-TID[1])
+  len_periode <span style="color: #008b8b;">&lt;-</span> as.numeric(TID[-1]-TID[-len])
+  ft_gennemsnit <span style="color: #008b8b;">&lt;-</span>(INDHOLD[-len]+INDHOLD[-1])/2 
+  sum(len_periode*ft_gennemsnit)/len_periode_total
+})
+</pre>
+</div>
+
+<pre class="example">
+5717974
+</pre>
+
+
+<p>
+Baseret på 57 folketal i perioden mellem den 1 januar 2009 og den 1
+januar 2023 estimerer vi middelfolketal for perioden til 5.717.974
+personer.
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org14ffdb3" class="outline-3">
+<h3 id="org14ffdb3">Den demografiske ligevægtsligning</h3>
+<div class="outline-text-3" id="text-org14ffdb3">
+<p>
+Den demografiske ligevægtsligning er en formel, der bruges i
+demografisk analyse til at beskrive forholdet mellem antallet af
+fødsler, dødsfald og migration i periode i en befolkning. Jo flere
+dødsfald sker og jo flere personer emigrerer jo mindre er folketal i
+slutningen af perioden sammenlignet med starten af perioden. Ligeligt
+er folketal i slutningen jo højere jo flere personer bliver født og
+indvandrer til befolkningen. Den demografiske ligevægtsligning for en
+periode \([t1,t2]\) er:
+</p>
+\begin{equation*}
+N(t_2) = N(t_1) + (F[t_1,t_2] - D[t_1,t_2]) + (I[t_1,t_2] - U[t_1,t_2]).
+\end{equation*}
+<p>
+hvor vi har brugt følgende notation:
+</p>
+<ul class="org-ul">
+<li>\(N(t_1)\) er folketal på tidspunkt \(t_1\)</li>
+<li>\(N(t_2)\) er folketal på tidspunkt \(t_2\)</li>
+<li>\(F(t_1,t_2)\) er antallet af fødsler i perioden</li>
+<li>\(D(t_1,t_2)\) er antallet af dødsfald i perioden</li>
+<li>\(I(t_1,t_2)\) er antallet af indvandrere i perioden</li>
+<li>\(U(t_1,t_2)\) er antallet af udvandrere i perioden</li>
+</ul>
+
+<p>
+Formlen siger kort sagt, at den samlede befolkning på et tidspunkt
+\(t_2\) er lig den samlede befolkning på tidspunktet \(t_1\) plus en
+stigning i befolkningen på grund af fødsler og indvandring og en
+reduktion i befolkningen på grund af dødsfald og udvandring. Vi kalder
+forskel mellem fødsler og dødsfald \((F[t_1,t_2] - D[t_1,t_2])\) for
+<i>naturlig vækst</i> og forskel mellem ind- og udvandring \((I[t_1,t_2] -
+U[t_1,t_2])\) for <i>nettovandring</i>. Det giver følgende version af den
+demografiske ligevægtsligning:
+</p>
+
+\begin{equation*}
+\underbrace{N(t_2)-N(t_1)}_{\text{Vækst}}=\quad\underbrace{(F[t_1,t_2]-D[t_1,t_2])}_{\text{Naturlig vækst}} + 
+\quad \underbrace{(I[t_1,t_2]-U[t_1,t_2])}_{\text{Nettovandring}}
+\end{equation*}
+
+<p>
+Figure <a href="fig:3">fig:3</a> viser vækst, fødsler, dødsfald, ind- og udvandring
+mellem 1980 og 2023 i den Danske befolkning. Det er tydeligt at
+indvandring er er den dominerede faktor for ændringer af folketal i
+denne periode hvorimod fødsler og dødsfald holder et rimlig konstant
+niveau. Man kan også se at udvandring er stigende helt op til 2019 men
+knækker i 2020 på grund af corona krisen.
+</p>
+
+<p>
+<a href="./figure3.pdf">./figure3.pdf</a>
+</p>
+</div>
+<div id="outline-container-org604d1f7" class="outline-4">
+<h4 id="org604d1f7">Eksempel</h4>
+<div class="outline-text-4" id="text-org604d1f7">
+<p>
+Vi henter tal fra den Danske befolkning i året 2022 fra
+statistikbankens register FOLK1a, DOD, FOD, INDVAN og UDVAN.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R">N <span style="color: #008b8b;">&lt;-</span> get_data(<span style="color: #8b2252;">"FOLK1a"</span>,
+              list(list(code=<span style="color: #8b2252;">"tid"</span>,
+                        values=c(<span style="color: #8b2252;">"2022K1"</span>,<span style="color: #8b2252;">"2023K1"</span>))))[[<span style="color: #8b2252;">"INDHOLD"</span>]]
+D <span style="color: #008b8b;">&lt;-</span> get_data(<span style="color: #8b2252;">"DOD"</span>,
+              list(list(code=<span style="color: #8b2252;">"tid"</span>,
+                        values=2022)))[[<span style="color: #8b2252;">"INDHOLD"</span>]]
+F <span style="color: #008b8b;">&lt;-</span> get_data(<span style="color: #8b2252;">"FOD"</span>,
+              list(list(code=<span style="color: #8b2252;">"tid"</span>,
+                        values=2022)))[[<span style="color: #8b2252;">"INDHOLD"</span>]]
+I <span style="color: #008b8b;">&lt;-</span> get_data(<span style="color: #8b2252;">"INDVAN"</span>,
+              list(list(code=<span style="color: #8b2252;">"tid"</span>,
+                        values=2022)))[[<span style="color: #8b2252;">"INDHOLD"</span>]]
+U <span style="color: #008b8b;">&lt;-</span> get_data(<span style="color: #8b2252;">"UDVAN"</span>,
+              list(list(code=<span style="color: #8b2252;">"tid"</span>,
+                        values=2022)))[[<span style="color: #8b2252;">"INDHOLD"</span>]]
+})
+<span style="color: #b22222;"># </span><span style="color: #b22222;">data for ligevaegtsligningen</span>
+data.frame(X=c(<span style="color: #8b2252;">"Folketal jan 2022"</span>,
+               <span style="color: #8b2252;">"Folketal jan 2023"</span>,
+               <span style="color: #8b2252;">"Foedsler 2022"</span>,
+               <span style="color: #8b2252;">"Doedsfald_2022"</span>,
+               <span style="color: #8b2252;">"Indvandring 2022"</span>,
+               <span style="color: #8b2252;">"Udvandre 2022"</span>),
+           Antal=c(N[1],N[2],F,D,I,U))
+</pre>
+</div>
+
+<pre class="example">
+                  X   Antal
+1 Folketal jan 2022 5873420
+2 Folketal jan 2023 5932654
+3     Foedsler 2022   58430
+4    Doedsfald_2022   59435
+5  Indvandring 2022  121183
+6     Udvandre 2022   62927
+</pre>
+
+
+<p>
+Baseret på disse tal beregner vi at den Danske befolkningens vækst i
+perioden til (5.932.654 - 5.873.420) = ø59.234 personer. Den naturlige
+vækst i perioden er negativt: (58.430 - 59.345) = -915 personer og
+nettovandring i perioden positivt: (121.183 - 62.927) = 58.256
+personer. Vi ser at ligevægtsligningen ikke går op, der mangler 1893
+personer:
+</p>
+
+<p>
+Det vil sige at de forskelige register
+som statistikbanken bogfører er ikke intern konsistent. Det kan være
+mange grunde til. En vigtig grund er at det er svært at registrere de
+præcise datoer hvor ind- og udvandringer sker.
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="outline-container-orgc11eef1" class="outline-2">
+<h2 id="orgc11eef1">Rater</h2>
+<div class="outline-text-2" id="text-orgc11eef1">
+<p>
+I demografi bruger vi rater til at beskrive befolkningens relative
+ændringer, for at sammenligne forskelige befolkninger og for at
+sammenligne befolkningsgrupper indenfor en befolkning. For eksempel
+beskriver dødsraten antal døde relativt til befolkningens
+størrelse. Det er som udgangspunkt typisk ikke meningsfyld at
+sammenligne absolut antal døde i forskellige stor befolkninger. For
+eksempel døde 569 personer på Bornholm og 2 personer på Christiansø
+i 2022. Her kan man næppe konkludere at dødeligheden var højere på
+Bornholm end på Christiansø. Brugen af rater frem for absolut antal er
+yderst relevant når formålet er at sammenligne befolkninger som har
+forskellig størrelse. For eksempel var mortalitetsraten på Bornholm i
+2022 lige med 569/39817 = 14,3 per 1000 personår og på Christiansø
+2/91 = 22,0 per 1000 personår i samme tidsperiode.
+</p>
+
+<p>
+Som enhed for dødsraten bruges ofte <i>antal døde per personår</i>. Her
+dividerer man antal døde i en periode med antal personår som personer
+fra befolkningen har livet i samme periode. Mere generalt har en rate
+som kendetegn at den er defineret som kvotient af to størrelser i
+forskelige måleenheder. Ved beskrivelse af en rates enheder bruges
+ordet ``per'' til at adskille enhederne for de to målinger, der bruges
+til at beregne raten. For eksempel er hastighed af en cykel en rate
+som kan beskrives med enheden <i>kilometer per time</i>. Der findes også
+dimensionsløse rater som er kvotient af to forskelige størrelser med
+samme måleenhed. Disse kan udtrykkes som en procentdel. De fleste
+demografiske rater bruger <i>risikotid</i> i nævneren og antal begivenheder
+i tælleren og har dermed en enhed <i>antal begivenheder per personår</i>.
+</p>
+</div>
+<div id="outline-container-org2f5d922" class="outline-3">
+<h3 id="org2f5d922">Risikotid</h3>
+<div class="outline-text-3" id="text-org2f5d922">
+<p>
+Vi betegner med \(R[t_1,t_2]\) det samlede gennemlevede tid i perioden
+\([t_1,t_2]\) af alle personer i en befolkning og kalder den også for
+<i>risikotid</i>. Udtrykket <i>risikotid</i> giver egentlig kun mening når man
+studerer en risikabel hændelse, som for eksempel død, blandt personer,
+som er eksponeret for denne hændelse i perioden. Det er især i
+epidemiologi hvor man for eksempel kan interessere sig for
+sygdomsrater hvor nævneren er risikotid fra personer som var
+eksponeret til sygdomsrisiko. Men, i demografi bruger vi udtrykket
+<i>risikotid</i> også i andre sammenhænge. Enheden for risikotid er antal
+personår. For at beskrive risikotid i lille befolkninger kan den
+regnes om til antal personuger eller antal persondage. For stor
+befolkninger vil man typisk regne om til enheder som <i>10.000
+personår</i>, <i>100.000 personår</i> eller <i>1.000.000 personår</i>. Kender man
+det eksakte antal dage som alle personer fra en befolkning har livet i
+en given periode beregner man risikotiden eksakt som sum af alle
+persondage. Det kræver dog at man kender eksakte datoer for alle
+fødsler, dødsfald, ind- og udvandringer i perioden.  Det gør man
+sjældent. Men, man kan estimere risikotid baseret på registerdata. For
+at estimere risikotid i en befolkning baseret på registerdata
+multiplicerer vi typisk periodens middelfolketal med periodens
+længde. For eksempel var middelfolketallet i 2022 på Bornholm 39.817
+personer (tal fra statistikbankens register FOLK1a, metode 2 for
+middelfolketallet). Vi estimerer dermed risikotid af Bornholms
+befolkning i året 2022 til 39.817 personår.
+</p>
+</div>
+</div>
+<div id="outline-container-orgdde5634" class="outline-3">
+<h3 id="orgdde5634">Perioderater</h3>
+<div class="outline-text-3" id="text-orgdde5634">
+<p>
+Mange demografiske rater er defineret som antal begivenheder i en
+periode (f.eks., dødsfald eller indvandringer) relativt til antal
+gennemlevede personår i samme periode i en befolkning:
+</p>
+
+\begin{equation*}
+\mbox{Rate}_X[t_1,t_2]=\frac{\text{Antal begivenheder X i perioden } [t_1,t_2]}{R[t_1,t_2]}
+\end{equation*}
+
+<p>
+Denne formel kan anvendes rimlig generalt. Man skal dog være opmærksom
+på at en korrekt fortolkning af perioderater kræver kendskab af
+begivenheden (hvad), befolkningen (hvem) og perioden (hvornår).
+Desuden skal man huske at angive enheden når man rapporterer
+perioderater.
+</p>
+</div>
+<div id="outline-container-orgbec8b9a" class="outline-4">
+<h4 id="orgbec8b9a">Eksempel</h4>
+<div class="outline-text-4" id="text-orgbec8b9a">
+<p>
+Vi illustrerer beregningen af perioderater og bruger inderdanske
+flytningsrater i perioden fra 1 januar 2020 til 1 januar 2023 som
+eksempel. Først henter vi antal flytninger fra statistikbankens
+register FLY.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span style="color: #b22222;"># </span><span style="color: #b22222;">Antal flytninger indenfor Danmark i aarene 2020, 2021, 2022</span>
+FL <span style="color: #008b8b;">&lt;-</span> get_data(<span style="color: #8b2252;">"FLY"</span>,
+               list(list(code=<span style="color: #8b2252;">"tid"</span>,
+                         values=2020:2022)))
+<span style="color: #b22222;"># </span><span style="color: #b22222;">Antal flytninger i perioden [2020,2022]</span>
+X <span style="color: #008b8b;">&lt;-</span> pull(summarize(FL,sum(INDHOLD)))
+X
+</pre>
+</div>
+
+<pre class="example">
+[1] 2773056
+</pre>
+
+
+<p>
+Der er 2.773.056 flytninger indenfor Danmark registreret i perioden
+fra 1 januar 2020 til 1 januar 2023. Bagefter henter vi folketal fra statistikbankens
+register FOLK1a og beregner middelfolketal med metode 2. Vi beregner
+også risikotid.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span style="color: #b22222;"># </span><span style="color: #b22222;">Folketal for den Danske befolkning i perioden</span>
+N <span style="color: #008b8b;">&lt;-</span> get_data(<span style="color: #8b2252;">"FOLK1a"</span>,list(list(code=<span style="color: #8b2252;">"tid"</span>,values=c(<span style="color: #8b2252;">"2020K1"</span>,<span style="color: #8b2252;">"2023K1"</span>))))
+<span style="color: #b22222;"># </span><span style="color: #b22222;">Middelfolketal metode 2</span>
+NN <span style="color: #008b8b;">&lt;-</span>  summarise(N,middelfolketal=mean(INDHOLD))
+<span style="color: #b22222;"># </span><span style="color: #b22222;">Risikotid</span>
+Risikotid <span style="color: #008b8b;">&lt;-</span>  summarise(NN,R= middelfolketal * as.numeric(as.Date(<span style="color: #8b2252;">"2023-01-01"</span>)-as.Date(<span style="color: #8b2252;">"2020-01-01"</span>))/365.25)
+R <span style="color: #008b8b;">&lt;-</span> pull(Risikotid)
+R
+</pre>
+</div>
+
+<pre class="example">
+[1] 17637149
+</pre>
+
+
+<p>
+Riskotiden af den Danske befolkning i perioden fra 1 januar 2020 til 1
+jan 2023 er estimeret til 17.637.149 personår.
+</p>
+
+<p>
+Til sidst beregner vi flytningsraten i perioden.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span style="color: #b22222;"># </span><span style="color: #b22222;">Flytningsrate per personaar</span>
+X/R
+<span style="color: #b22222;"># </span><span style="color: #b22222;">Flytningsrate per 1000 personaar</span>
+1000*X/R
+</pre>
+</div>
+
+<pre class="example">
+[1] 157.2281
+</pre>
+
+
+<p>
+Den inderdanske flytningsrate var 157.2 flytninger per 1000 personår i
+perioden fra 1 januar 2020 til 1 januar 2023. Vi bemærker at vi har
+brugt folketal fra den 1 januar 2023 i stedet for folketal fra den 31
+december 2022. 
+</p>
+</div>
+</div>
+</div>
+<div id="outline-container-org09c94ad" class="outline-3">
+<h3 id="org09c94ad">Demografiske vækstrater</h3>
+<div class="outline-text-3" id="text-org09c94ad">
+<p>
+Vi kan anvende formlen for perioderater til mortalitetsrater
+(begivenhed X er et dødsfald), fødselsrater (begivenhed X er en
+fødsel), indvandringsrater (begivenhed X er en indvandring) og
+udvandringsrater (begivenhed X er en udvandring). På den måde kan vi
+beskrive en dekomposition af demografiske vækstrater.
+</p>
+
+<p>
+Vi subtraherer \(N(t_1)\) fra begge sidder af den demografiske
+ligevægtsligning og dividerer begge sidder med \(R[t_t,t_2]\). Det
+giver følgende dekomposition af befolkningens vækstrate i perioden
+\([t_1,t_2]\):
+</p>
+
+\begin{multline*}
+\underbrace{\frac{N(t_2)-N(t_1)}{R[t_1,t_2]}}_{\text{Vækstrate}}=
+\underbrace{\frac{F[t_1,t_2]}{R[t_1,t_2]}}_{\text{Fødselsrate}}
+-
+\underbrace{\frac{D[t_1,t_2]}{R[t_1,t_2]}}_{\text{Mortalitetsrate}}
+\\
++
+\underbrace{\frac{I[t_1,t_2]}{R[t_1,t_2]}}_{\text{Immigrationsrate}}
+-
+\underbrace{\frac{U[t_1,t_2]}{R[t_1,t_2]}}_{\text{Emigrationsrate}}
+\end{multline*}
+
+<p>
+Vi bemærker at mortalitetsrater og udvandringsrater er
+begivenhed/eksponering rater. Her giver udtrykket <i>risikotid</i> mening,
+fordi \(R[t_1,t_2]\) stammer fra de personer som faktisk var under
+risiko for hændelsen.
+</p>
+</div>
+<div id="outline-container-org3613e5b" class="outline-4">
+<h4 id="org3613e5b">Eksempel</h4>
+<div class="outline-text-4" id="text-org3613e5b">
+<p>
+Vi beregner vækstrater i den Danske befolkingen i perioden 1 januar
+2022 til 1 januar 2023. Ud over samme data som vi har brugt i eksempel
+for den demografiske ligevægtsligning, har vi nu brug for risikotid
+for den Danske befolkning i perioden. Vi anvender metode 2 for
+middelfolketallet og beregner risikotid ved at gange med 1 år:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R">N <span style="color: #008b8b;">&lt;-</span> get_data(<span style="color: #8b2252;">"FOLK1a"</span>,
+              list(list(code=<span style="color: #8b2252;">"tid"</span>,
+                        values=c(<span style="color: #8b2252;">"2022K1"</span>,<span style="color: #8b2252;">"2023K1"</span>))))[[<span style="color: #8b2252;">"INDHOLD"</span>]]
+vaekst <span style="color: #008b8b;">&lt;-</span> N[2]-N[1]
+middelfolketal  <span style="color: #008b8b;">&lt;-</span> mean(N)
+risikotid <span style="color: #008b8b;">&lt;-</span> middelfolketal*1
+risikotid
+</pre>
+</div>
+
+<pre class="example">
+[1] 5903037
+</pre>
+
+
+<p>
+Risikotiden i den Danske befolkning var 5903037 personår mellem 1
+januar 2022 og 1 januar 2023.
+</p>
+
+<div class="org-src-container">
+<pre class="src src-R"><span style="color: #b22222;"># </span><span style="color: #b22222;">mortalitetsrate</span>
+D <span style="color: #008b8b;">&lt;-</span> get_data(<span style="color: #8b2252;">"DOD"</span>,list(list(code=<span style="color: #8b2252;">"tid"</span>,values=2022)))[[<span style="color: #8b2252;">"INDHOLD"</span>]]
+Drate <span style="color: #008b8b;">&lt;-</span> 1000*D/risikotid
+<span style="color: #b22222;"># </span><span style="color: #b22222;">foedselsrate</span>
+F <span style="color: #008b8b;">&lt;-</span> get_data(<span style="color: #8b2252;">"FOD"</span>,list(list(code=<span style="color: #8b2252;">"tid"</span>,values=2022)))[[<span style="color: #8b2252;">"INDHOLD"</span>]]
+Frate <span style="color: #008b8b;">&lt;-</span> 1000*F/risikotid
+<span style="color: #b22222;"># </span><span style="color: #b22222;">indvandringsrate</span>
+I <span style="color: #008b8b;">&lt;-</span> get_data(<span style="color: #8b2252;">"INDVAN"</span>,list(list(code=<span style="color: #8b2252;">"tid"</span>,values=2022)))[[<span style="color: #8b2252;">"INDHOLD"</span>]]
+Irate <span style="color: #008b8b;">&lt;-</span> 1000*I/risikotid
+<span style="color: #b22222;"># </span><span style="color: #b22222;">udvandringsrate</span>
+U <span style="color: #008b8b;">&lt;-</span> get_data(<span style="color: #8b2252;">"UDVAN"</span>,list(list(code=<span style="color: #8b2252;">"tid"</span>,values=2022)))[[<span style="color: #8b2252;">"INDHOLD"</span>]]
+Urate <span style="color: #008b8b;">&lt;-</span> 1000*U/risikotid
+<span style="color: #b22222;"># </span><span style="color: #b22222;">vaeksrate</span>
+Vrate <span style="color: #008b8b;">&lt;-</span> 1000*vaekst/risikotid
+<span style="color: #b22222;"># </span><span style="color: #b22222;">naturlige vaeksrate</span>
+NaturVrate <span style="color: #008b8b;">&lt;-</span> Frate-Drate
+<span style="color: #b22222;"># </span><span style="color: #b22222;">nettovandringsrate</span>
+NettoVrate <span style="color: #008b8b;">&lt;-</span> Irate-Urate
+data.frame(X=c(<span style="color: #8b2252;">"Vaekstrate"</span>,
+               <span style="color: #8b2252;">"Mortalitetsrate"</span>,
+               <span style="color: #8b2252;">"Foedselsrate"</span>,
+               <span style="color: #8b2252;">"Indvandringsrate"</span>,
+               <span style="color: #8b2252;">"Udvandringsrate"</span>,
+               <span style="color: #8b2252;">"Naturlige_vaekst_rate"</span>,
+               <span style="color: #8b2252;">"Netto_vandrings_rate"</span>),
+           Rate=c(Vrate,Drate,Frate,Irate,Urate,NaturVrate,NettoVrate))
+</pre>
+</div>
+
+<pre class="example">
+                      X Rate    
+1            Vaekstrate 10.0344958
+2       Mortalitetsrate 10.0685461
+3          Foedselsrate  9.8982947
+4      Indvandringsrate 20.5289243
+5       Udvandringsrate 10.6601060
+6 Naturlige_vaekst_rate -0.1702513
+7  Netto_vandrings_rate  9.8688184
+</pre>
+
+
+<p>
+I 2022, voksede den Danske befolkning med 10,0 personer per 1000
+personår. Den naturlige vækstrate var -0,2 personer per 1000 personår
+og netto&#x2013;vandringsraten var 9,9 personer per 1000 personår. Ligesom
+den demografiske ligevægtsligning ikke går op, gør denne formel heller
+ikke, og der er en fejlrate:
+</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<h2 class="footnotes">Footnotes: </h2>
+<div id="text-footnotes">
+
+<div class="footdef"><sup><a id="fn.1" class="footnum" href="#fnr.1" role="doc-backlink">1</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+<a href="https://statistikbanken.dk/">https://statistikbanken.dk/</a>
+</p></div></div>
+
+<div class="footdef"><sup><a id="fn.2" class="footnum" href="#fnr.2" role="doc-backlink">2</a></sup> <div class="footpara" role="doc-footnote"><p class="footpara">
+<a href="https://www.dst.dk/da/Statistik/nyheder-analyser-publ/Publikationer/">https://www.dst.dk/da/Statistik/nyheder-analyser-publ/Publikationer/</a>
+</p></div></div>
+
+
+</div>
+</div></div>
+<div id="postamble" class="status">
+Last update: 07 Nov 2023 by Thomas Alexander Gerds.
+</div>
+</body>
+</html>
