@@ -85,6 +85,7 @@ bliver vist i Figure ref:fig:1.
 library(danstat)
 library(ggplot2)
 library(ggthemes)
+options(readr.show_col_types = FALSE)
 dt_meta <- get_table_metadata("FT")
 dt=get_data("FT",variables=list(list(code="tid",values=dt_meta$variables$values[[2]][[2]])))
 ggplot(dt,aes(TID,INDHOLD))+geom_line()+geom_point()+theme_wsj()+ scale_colour_wsj("colors6")

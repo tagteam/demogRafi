@@ -2,6 +2,63 @@
 
 SKRIV HER Anna-Vera/Laust
 
+* Standardiserede rater
+** Sammenligning af summariske rater
+
+I det her kapitel betegner vi alle raterne fra første kapitel med
+prædikatet summarisk for at fremhave at raterne tæller hændelser og
+risikotid i hele befolkningen. Som udgangspunkt er det problematisk at
+sammenligne forskelige befolkningers summariske rater. Problemet er
+ret nemt at indse ved følgende eksempel.
+
+*** Eksempel
+Vi beregner de summariske mortalitetsrater i året 2011 i den kvindelig
+Danske befolkning og også i den mændlige Danske befolkning.
+
+#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
+#+BEGIN_SRC R  :results output example :exports both  :session *R* :cache yes  
+library(danstat)
+library(tidyverse)
+options(readr.show_col_types = FALSE)
+options(readr.show_progress=FALSE)
+# risikotid i 2011 baseret aa middelfolketal metode 1
+# middelfolketal fra K3 bliver ganget med 1 aar
+x <- get_data("FOLK1a",variables=list(list(code="tid",values="2011K3"),
+                                              list(code="køn",values=c(2,1))))
+# fjern TID fordi den er konstant
+x$TID <- NULL
+# ændre variable navn fra INDHOLD til RisikoTid
+x <- rename(x,"RisikoTid"="INDHOLD")
+# number of doedsfald i 2011
+d <- get_data("DOD",variables=list(list(code="tid",values="2011"),
+                                       list(code="køn",values=c("K","M"))))
+# fjern TID fordi den er konstant
+d$TID <- NULL
+# navngivning af variable
+d <- rename(d,"Doed"="INDHOLD")
+# join
+dat <- left_join(x,d,by="KØN")
+# summariske mortalitetsrater per 1000 personaar
+dat <- mutate(dat,summarisk_mort=1000*Doed/RisikoTid)
+dat
+#+END_SRC
+
+#+BEGIN_SRC R  :results output raw drawer  :exports results  :session *R* :cache yes  
+Publish::org(dat)
+#+END_SRC
+
+#+RESULTS[(2023-11-08 14:55:26) 9027ebbe1005edc470eec19039224374e670a4ca]:
+:results:
+| KØN   | RisikoTid |  Doed | summarisk_mort |
+|-------+-----------+-------+----------------|
+| Women |   2806716 | 26577 |       9.469073 |
+| Men   |   2760140 | 25939 |       9.397712 |
+:end:
+
+Vi ser at 
+
+
+
 * Aldersfordeling
 
 * Alderstandardisering
