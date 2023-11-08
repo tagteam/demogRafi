@@ -471,6 +471,7 @@ samme måleenhed. Disse kan udtrykkes som en procentdel. De fleste
 demografiske rater bruger /risikotid/ i nævneren og antal begivenheder
 i tælleren og har dermed en enhed /antal begivenheder per personår/.
 
+
 ** Risikotid
 
 Vi betegner med \(R[t_1,t_2]\) det samlede gennemlevede tid i perioden
@@ -498,7 +499,7 @@ personer (tal fra statistikbankens register FOLK1a, metode 2 for
 middelfolketallet). Vi estimerer dermed risikotid af Bornholms
 befolkning i året 2022 til 39.817 personår.
 
-** Perioderater
+** Summariske perioderater
 
 Mange demografiske rater er defineret som antal begivenheder i en
 periode (f.eks., dødsfald eller indvandringer) relativt til antal
@@ -509,10 +510,18 @@ gennemlevede personår i samme periode i en befolkning:
 \end{equation*}
 
 Denne formel kan anvendes rimlig generalt. Man skal dog være opmærksom
-på at en korrekt fortolkning af perioderater kræver kendskab af
-begivenheden (hvad), befolkningen (hvem) og perioden (hvornår).
-Desuden skal man huske at angive enheden når man rapporterer
-perioderater.
+på at en korrekt fortolkning af  perioderater kræver
+kendskab af begivenheden (hvad), befolkningen (hvem) og perioden
+(hvornår). Desuden skal man huske at angive enheden når man
+rapporterer perioderater.
+
+** Terminologi
+
+Rater som tæller hændelser og risikotid i hele populationen kalder vi
+for summariske rater. I det her kapitel omtaler vi kun summariske
+rater. Senere i dette kompendium, introducerer vi også
+aldersspecifikke rater og især standardiserede rater. I det her
+kapitel glemmer vi prædikatet ``summarisk'' systematisk fra raterne.
 
 *** Eksempel
 

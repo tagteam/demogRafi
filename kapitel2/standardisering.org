@@ -1,1 +1,24 @@
-* Standardisering
+* Mortalitet
+
+SKRIV HER Anna-Vera/Laust
+
+* Aldersfordeling
+
+* Alderstandardisering
+
+#+TITLE: Mortalitet og standardisering
+#+LaTeX_CLASS: org-article-no-packages
+#+OPTIONS: toc:nil
+#+LaTeX_HEADER:\usepackage{authblk}
+#+LaTeX_HEADER:\usepackage{natbib}
+#+LaTeX_HEADER:\usepackage{listings}
+#+LaTeX_HEADER:\usepackage{color}
+#+LaTeX_HEADER:\usepackage[usenames,dvipsnames]{xcolor}
+#+LaTeX_HEADER:\usepackage[utf8]{inputenc}
+#+LaTeX_HEADER:\usepackage{hyperref}
+#+LaTeX_HEADER:\usepackage{amssymb}
+#+LaTeX_HEADER:\usepackage{latexsym}
+# #+LaTeX_HEADER:\author{Thomas Alexander Gerds}
+# #+LaTeX_HEADER:\affil{Department of Biostatistics, University of Copenhagen}
+#+setupfile:~/emacs-genome/snps/org-templates/setup-all-purpose.org
+# #+superman-export-target: pdf
