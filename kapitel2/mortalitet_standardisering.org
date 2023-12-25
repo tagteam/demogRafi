@@ -5,23 +5,28 @@ SKRIV HER Anna-Vera og Laust
 * Standardiserede rater
 
 Vi indfører nu begreberne /aldersspecifikke rater/ og /standardiserede
-rater/. Disse er forskelligt fra de summariske rater, der blev indført
-i Kapitel 1. I det følgende betegner vi derfor alle de rater, som
-Kapitel 1 har omtalt uden prædikat, med prædikatet
-/summarisk/. /Summarisk/ betyder at raterne tæller hændelser og
-risikotid i hele befolkningen. For at motivere aldersspecifikke og
-standardiserede rater starter vi med at forklare begrænsingen med de
-summariske rater.
+rater/. Disse er forskelligt fra de summariske rater fra Kapitel 1. I
+det følgende betegner vi derfor alle de rater, som Kapitel 1 har
+omtalt uden prædikat, med prædikatet /summarisk/. /Summarisk/ betyder
+at raterne tæller hændelser og risikotid i hele befolkningen. For at
+motivere standardiserede rater starter vi med at forklare begrænsingen
+med de summariske rater når det kommer til sammenligning af forskelige
+befolkninger.
 
 ** Sammenligning af summariske rater
+:PROPERTIES:
+:CUSTOM_ID: samesumma
+:END:
 
 Som udgangspunkt har det begrænset interesse at sammenligne forskelige
 befolkningers summariske rater. Det er især når befolkningerne, som
 man ønsker at sammenligne, har forskelige aldersfordelinger. Afhængig
 af formål med undersøgelsen kan det alligevel godt være at man vil
 sammenligne summariske rater, men det er vigtigt at man ved at de
-afhænger aldersfordeling. Problemet er ret nemt at indse ved følgende
-eksempel.
+afhænger aldersfordelingen. Problemet som opstår ved sammenligning af
+summariske rater er ret nemt at indse ved følgende eksempel. En
+matematisk forklaring (Kitagawas dekomposition) følger i afsnit
+ref:k2-kitagawa.
 
 *** Eksempel
 
@@ -104,7 +109,7 @@ mere sofistikerede og dynamisk version af den danske alderspyramide
 findes her https://extranet.dst.dk/pyramide/pyramide.htm.
 
 #+ATTR_LATEX: :options otherkeywords={group,mutate}, deletekeywords={list,dt,stat,library}
-#+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-figure1.pdf :exports code :session *R* :cache yes
+#+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-alderspyramide.pdf :exports code :session *R* :cache yes
 library(ggplot2)
 library(ggthemes)
 ## begge køn
@@ -131,29 +136,38 @@ g
 #+END_SRC
 
 #+RESULTS[(2023-11-14 09:31:01) 4df8640d5560bb8d755d47b65ae4d106a0be2a51]:
-[[file:./kapitel2/k2-figure1.pdf]]
+[[file:./kapitel2/k2-alderspyramide.pdf]]
 
 #+name: fig:alderspyramide
 #+ATTR_LATEX: :width 0.7\textwidth
 #+CAPTION: Data fra statistikbankens FOLK1a
-[[file:./k2-figure1.pdf]]
+[[file:./k2-alderspyramide.pdf]]
 
 
 ** Folketal i aldersgrupper
 
 Aldersfordelingen af folketal angiver hvor mange personer i en
 befolkning har en bestemt alder, for alle aldre. Det kan den enten gør
-i absolut antal, eller som procent i forhold til antal personer i hele
-befolkingen. For at beskrive aldersfordelinger, vil man typisk vælge
-et passende antal aldersintervaller (passende til opgaven man sidder
-med) og fordele befolkningen på intervallerne.  Intervallerne behøver
-ikke være lige stor. Da alle personers aldre ændrer sig hele tiden,
-skal man angive det dato som aldersfordeling referer til. For eksempel
-kan vi tale om aldersfordeling af kvinder i Danmark den 8 marts 1910
-og om aldersfordeling af Fynens population den 1 juli 1989.
+i absolutte antal, eller som procent i forhold til antal personer i
+hele befolkingen. For at beskrive aldersfordelinger, vil man typisk
+vælge et passende antal aldersintervaller (passende til opgaven man
+sidder med) og fordele befolkningen på intervallerne.  Intervallerne
+behøver ikke være lige stor. Da alle personers aldre ændrer sig hele
+tiden, skal man angive det dato, som aldersfordelingen referer
+til. For eksempel kan vi tale om aldersfordeling af kvinder i Danmark
+den 8 marts 1910 og om aldersfordeling af Fynens population den 1
+juli 1989.
 
-Her er aldersfordeling af hele den danske befolkning den 1 januar 2023
-inddelt i 4 intervaller.
+*** Eksempel
+
+Vi finder aldersfordeling af folketal for hele den danske befolkning
+den 1 januar 2023 og inddeler den i 4 intervaller: \([0,25], (25,50],
+(50,75], (75,125]\). Bemærk at vores syntaks for intervaller betyder
+at intervalgrænsen er inkluderet hvis parentesen er rundt og
+ekskluderet hvis parentesen er firkantet. Det vil sige at personer,
+som er præcis 25 år gamle falder i intervallet \([0,25]\) og personer
+som er 50 falder ikke i intervallet \((50,75]\). Vi beregner også
+andelen, som de enkelte aldersgrupper udgør og angiver den i procent.
 
 #+ATTR_LATEX: :options otherkeywords={group,mutate}, deletekeywords={dt,list}
 #+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
@@ -177,16 +191,43 @@ af <- af %>% mutate(Procent=100*Antal/sum(Antal))
 af
 #+END_SRC
 
-:  Aldersinterval Antal    Procent
+:  Aldersinterval Antal    Procent 
 : [0,25]         1742979   29.3 
 : (25,50]        1882860   31.7 
 : (50,75]        1778084   29.9 
 : (75,125]        540222    9.09
 
-Vi kan bruge denne inddeling af aldersspektrum i 4 grupper og
-sammenligne aldersfordeling mellem hovedstadsområdet og landdistrikter
-i Danmark i 2023. For at gør det henter vi folketal data fra
-statistikbankens register BY2.
+*** Notation og formler
+
+En hver definition af aldersintervaller opdeler en befolkning i
+aldersgrupper. For \(x=1,\dots,m\) aldersgrupper betegner vi med
+\(N_x(t)\) folketal i aldersgruppe \(x\) til tid \(t\). Vi betegner
+fortsæt med \(N(t)\) folketal i hele befolkningen til tid \(t\) og kan
+nu udtrykke den som sum af folketal i alle aldersgrupper:
+
+#+begin_export latex
+\begin{equation*}
+N(t)=N_1(t)+\dots+N_m(t)=\sum_{x=1}^m N_x(t).
+\end{equation*}
+#+end_export
+
+Vi beregner andelen af befolkningen i aldersgruppe \(x\) ved at
+dividere folketal i aldersgruppen med folketal i hele befolkningen til
+tid \(t\):
+
+#+begin_export latex
+\begin{equation*}
+ \frac{N_x(t)}{N(t)}=\{\text{Andel af befolkningen i aldersgruppe }x \text{ til tid } t\}.
+\end{equation*}
+#+end_export
+
+*** Sammenligning af aldersfordelinger
+
+Vi kan bruge denne inddeling af aldersspektrum i 4 grupper for at
+sammenligne aldersfordeling i hovedstadsområdet med aldersfordeling i
+landdistrikter i Danmark i 2023. For at gør det henter vi folketal
+data fra statistikbankens register BY2 hvor man kan specificere
+bystørrelse.
 
 #+ATTR_LATEX: :options otherkeywords={group}, deletekeywords={list}
 #+BEGIN_SRC R  :results output raw drawer  :exports both  :session *R* :cache yes  
@@ -225,50 +266,220 @@ mellem 50 og 75 er højst i landdistrikterne.
 
 ** Risikotid i aldersgrupper
 
-En hver definition af aldersintervaller opdeler en befolkning i
-aldersgrupper. For \(x=1,\dots,m\) aldersgrupper betegner vi med
-\(N_x(t)\) folketal i aldersgruppe \(x\) til tid \(t\). Vi betegner
-fortsæt med \(N(t)\) folketal i hele befolkningen til tid \(t\) og kan 
-udtrykke den som sum af folketal i alle aldersgrupper:
-
-#+begin_export latex
-\begin{equation*}
-N(t)=N_1(t)+\dots+N_m(t)=\sum_{x=1}^m N_x(t).
-\end{equation*}
-#+end_export
-
-Vi beregner andelen af befolkningen i aldersgruppe \(x\) ved at
-dividere folketal i aldersgruppen med folketal i hele befolkningen til
-tid \(t\):
-
-#+begin_export latex
-\begin{equation*}
- \frac{N_x(t)}{N(t)}=\{\text{Andel af befolkningen i aldersgruppe }x \text{ til tid } t\}.
-\end{equation*}
-#+end_export
 
 Med hensyn til mortalitetsrater, har vi brug for aldersfordeling af
-risikotid i en bestemt kalendersperiode. Vi betegner med
+risikotid i en bestemt kalenderperiode. Vi betegner med
 \(R_x[t_1,t_2]\) den samlede gennemlevede tid i perioden \([t_1,t_2]\)
-af alle personer i aldersgruppe \(x\). En person som har levet i
-befolkingen i perioden kan bidrage med risikotid til et eller flere
-aldersintervaller. Det sker for personer som har fødselsdag i perioden
-og den dag skifter fra aldersgruppe \(x\) til aldersgruppe \(x+1\).
+af alle personer i aldersgruppe \(x\). Vi bemærker at en person, som
+har levet i befolkingen i perioden \([t_1,t_2]\) kan bidrage med
+risikotid til et eller flere aldersintervaller. Det sker for personer
+som har fødselsdag mellem dato \(t_1\) og dato \(t_2\), hvis de den
+dag skifter fra aldersgruppe \(x\) til aldersgruppe \(x+1\). Vi
+betegner fortsæt med \(R[t_1,t_2]\) risikotiden for hele befolkningen
+og kan nu udtrykke den som sum af de aldersspecifikke risikotider:
 
-Vi beregner andelen af risikotid i aldersgruppe \(x\) ved at dividere
-risikotid i aldersgruppen med risikotid i hele befolkningen i perioden
-\([t_1,t_2]\) og betegner den med \(V_x\):
+#+begin_export latex
+\begin{equation*}
+R[t_1,t_2]=R_1[t_1,t_2]+\dots+R_m[t_1,t_2]=\sum_{x=1}^m R_x[t_1,t_2].
+\end{equation*}
+#+end_export
+
+Vi beregner andelen af risikotid i
+aldersgruppe \(x\) ved at dividere risikotid i aldersgruppen med
+risikotid i hele befolkningen i perioden \([t_1,t_2]\) og betegner den
+med \(V_x\):
 
 #+begin_export latex
 \begin{equation*}
 V_x[t_1,t_2]= \frac{R_x[t_1,t_2]}{R[t_1,t_2]}=\{\text{Andel af risikotid i aldersgruppe }x \text{ i perioden } [t_1,t_2]\}.
 \end{equation*}
 #+end_export
+Risikotid beregnes ofte ved at gange middelfolketal med periodens
+længde. I den særlige situation, hvor perioden er 1 år lang, altså når
+\(t_2-t_1=1\) år, har middelfolketal (antal) og risikotid (personår)
+den samme værdi, men forskelige endheder. Vi skal bruge \(V_x\) som
+vægte i definitionen af aldersstandardiserede rater (Afsnit
+ref:Aldersstandardisering).
 
-Vi skal bruge \(V_x\) som vægte i definitionen af
-aldersstandardiserede rater.
+*** Eksempel
 
-* Alderstandardisering
+Vi finder aldersfordeling af risikotid for hele den danske befolkning
+i perioden mellem den 1 januar 2022 og den 1 januar 2023 og inddeler
+den i fire aldersintervaller: \([0,25], (25,50], (50,75], (75,125]\).
+
+#+ATTR_LATEX: :options otherkeywords={group,mutate}, deletekeywords={dt,list}
+#+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
+library(danstat)
+library(tidyverse)
+dt <- get_data("FOLK1a",variables=list(
+                          list(code="alder",values=0:125),
+                          list(code="tid",values=c("2022K3","2023K3"))))
+# formatere ALDER som numerisk 
+dt <- mutate(dt,ALDER=as.numeric(gsub(" year[s]?","",ALDER)))
+# Risikotid= 1* Middelfolketal metode 2
+dt <- dt %>% group_by(ALDER) %>% summarise(Risikotid=1*mean(INDHOLD))
+# Aldersintervaller
+dt <- mutate(dt,Aldersinterval=cut(ALDER,
+                                   breaks=c(0,25,50,75,125),
+                                   include.lowest = TRUE))
+# antal personår i de 4 aldersintervaller
+af <-dt%>% group_by(Aldersinterval) %>% summarise(Personår=sum(Risikotid))
+# procent 
+af <- af %>% mutate(Procent=100*Personår/sum(Personår))
+af
+#+END_SRC
+
+: Aldersinterval Personår   Procent
+: [0,25]         1746486    29.5 
+: (25,50]        1876958    31.7 
+: (50,75]        1775912    30.0 
+: (75,125]        528006     8.91
+
+
+** Lexis diagram
+
+Lexis diagrammet visualiserer sammenhæng mellem kalendertid (vertikal)
+og alder (horisontal). Hver person er repræsenteret af sin livslinje i
+et Lexis diagram. I en såkaldt /lukket befolkning/ starter alle
+livslinjer i fødselsdagen hvor personen er 0 år gamle og ender i
+dødsdatoen den alder personen har livet til. I en åben befolkning,
+starter livslinjer for immigranter den dag de immigrerer og slutter
+for emigranter den dag de emigrerer.
+
+#+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-lexis-liv.pdf :exports none :session *R* :cache yes :width 8 :height 5
+library(LexisPlotR)
+# Plot a Lexis grid from year 1997 to year 2023, representing the ages from 0 to 25
+l <- lexis_grid(year_start = 2015, year_end = 2023, age_start = 0, age_end = 5,lwd=0.01)
+l <- l+theme(text = element_text(face="bold",size=13))
+l <- l+xlab("Kalendertid (år)")+ylab("Alder (år)")
+l <- lexis_lifeline(l,birth=as.Date("2015-04-08"),lwd=2,exit=as.Date("2023-12-31"),colour="#0072B2")
+l <- lexis_lifeline(l,birth=as.Date("2015-09-29"),lwd=2,exit=as.Date("2019-10-15"),colour="#009E73")
+l <- lexis_lifeline(l,birth=as.Date("2017-05-17"),lwd=2,exit=as.Date("2019-12-03"),colour="#56B4E9")
+l <- lexis_lifeline(l,birth=as.Date("2018-06-08"),entry=as.Date("2020-08-08"),lwd=2,exit=as.Date("2021-10-10"),colour= "#E69F00")
+l <- lexis_lifeline(l,birth=as.Date("2020-02-02"),entry=as.Date("2021-06-19"),lwd=2,exit=as.Date("2023-05-10"),colour= "#CC79A7")
+l+ggtitle("Lexis diagram: livslinjer")
+#+END_SRC
+
+#+RESULTS[(2023-11-16 15:57:21) e549286b4079aadafbaa7f3d4c7192a740b1a245]:
+[[file:./kapitel2/k2-lexis-liv.pdf]]
+
+#+name: fig:k2-lexis-liv
+#+ATTR_LATEX: :width 0.7\textwidth
+#+CAPTION: Figuren viser 5 personers livslinjer i (den nederste del af) et Lexis diagram. Livslinjer der ikke starter i alder '0'
+#+CAPTION: representerer immigranter og livslinjer som stopper representerer enten dødsfald eller emigranter.
+[[file:./k2-lexis-liv.pdf]]
+
+Figur ref:fig:k2-lexis-liv viser 5 personers livslinjer fra en åben
+befolkning. Den mørkeblå linje
+representerer en person som bliver født i foråret 2015 og forbliver i befolkingen
+indtil foråret 2020 -- måske også læ
+
+
+Figur ref:fig:k2-lexis viser hvordan man kan følge en aldersgruppe igennem
+kalendertid, en fødselskohorte igennem kalendertid og alder, og
+hvilken del en periode
+
+#+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-lexis.pdf :exports none :session *R* :cache yes :width 8 :height 5
+library(LexisPlotR)
+# Plot a Lexis grid from year 1997 to year 2023, representing the ages from 0 to 25
+l <- lexis_grid(year_start = 2015, year_end = 2023, age_start = 0, age_end = 5,lwd=0.1)
+l <- l+theme(text = element_text(face="bold",size=13))
+l <- l+xlab("Kalendertid (år)")+ylab("Alder (år)")
+l <- lexis_age(l,age=3,fill="#E69F00",alpha=0.3)
+l <- lexis_year(l,year=2021,fill="#009E73",alpha=0.3)
+l <- lexis_year(l,year=2020,fill="#009E73",alpha=0.3)
+lexis_cohort(l,cohort=2016,fill="#56B4E9",alpha=0.3)+ggtitle("Lexis diagram: skema")
+#+END_SRC
+
+#+RESULTS[(2023-11-17 09:12:27) 696dd5a5832d83077ea7d1d000cb67124340c0cb]:
+[[file:./kapitel2/k2-lexis.pdf]]
+
+#+name: fig:k2-lexis
+#+ATTR_LATEX: :width 0.7\textwidth
+#+CAPTION: I et Lexis diagram kan man følge en aldersgruppe igennem kalendertid (gul) eller
+#+CAPTION: en fødselskohorte igennem både alder og kalendertid (blå). Det grønne område viser 
+#+CAPTION: en kalenderperiode.
+[[file:./k2-lexis.pdf]]
+
+* Aldersspecifikke mortalitetsrater
+
+Vi ser på en befolkning i en kalenderperiode \([t_1,t_2]\) og inddeler
+den i \(\{x=1,\dots,m\}\) aldersgrupper. Vi betegner med
+\(D_x[t_1,t_2]\) antal dødsfald i perioden hvor personens alder ved
+dødsdatoen falder i aldersgruppe \(x\).  For at lette notationsbyrden
+dropper vi kalenderperioden og forkorter \(D_x[t_1,t_2]\) til \(D_x\)
+og ligeledes skriver vi \(R_x\) for den aldersspecifikke risikotid
+\(R_x[t_1,t_2]\) i samme periode. De aldersspecifikke mortalitetsrater
+er defineret som
+
+#+begin_export latex
+\begin{equation*}
+M_x=\frac{D_x}{R_x}, \qquad x=1,...,m. 
+\end{equation*}
+#+end_export
+
+Bemærk at den aldersspecifikke mortalitetsrate \(M_x\) afhænger også
+kalenderperioden og den langform notation er \(M_x[t_1,t_2]\).
+
+** Eksempel
+
+Vi finder antal dødsfald for hele den danske befolkning i perioden
+mellem den 1 januar 2022 og den 1 januar 2023 og inddeler dem i 4
+aldersintervaller: \([0,25], (25,50], (50,75], (75,125]\).
+
+#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
+#+BEGIN_SRC R  :results output raw drawer  :exports both  :session *R* :cache yes  
+library(danstat)
+library(tidyverse)
+meta <- get_table_metadata("dod",variables_only=TRUE)
+agevals <- filter(meta,id=="ALDER") %>% select("values")
+dd <- get_data("dod",variables=list(
+                       list(code="alder",values=meta$variables),
+                       list(code="tid",values=c("2022"))))
+#+END_SRC
+
+* Aldersstandardisering
+:PROPERTIES:
+:CUSTOM_ID: Aldersstandardisering
+:END:
+Formålet med alderstandardisering er at befolkninger bliver
+sammenlignelig selv hvis aldersfordelingerne er afvigende. For
+eksempel, kan vi spørge hvor meget højere er mortalitetsraten blandt
+danske mænd sammenlignet med danske kvinder hvis aldersfordeling havde
+været den samme blandt mænd og kvinder. Det mangler at specificere den
+aldersfordeling som de standardiserede rater skal have i fælles. Her
+er der umiddelbart flere forskelige muligheder: aldersfordeling bland
+mænd, aldersfordeling bland kvinder, aldersfordeling bland alle uanset
+køn, og en helt tredje aldersfordeling.
+
+Vi beskriver to standardiseringsformer, /direkte standardisering/ og
+/indirekte standardisering/. Vi motiverer deres formler ved en
+matematisk forklaring af resultatet fra afsnit ref:samesumma.
+
+** Kitagawas dekomposition
+:PROPERTIES:
+:CUSTOM_ID: k2-kitagawa
+:END:
+
+Forskellen på de summariske mortalitetsrater mellem to
+populationer (population A vs population B) skyldes både:
+
+ -  Forskelle i aldersspecifikke mortalitetsrater
+ -  Forskelle i aldersfordeling
+
+#+begin_export latex
+\begin{align*}
+ M^A- M^B&=\sum_x M_x^A V_x^A - \sum_x M_x^B V_x^B\\
+ &=\underbrace{\sum_x(M_x^A-M_x^B)\frac{V_x^A+V_x^B}{2}}_{\text{Komponent 1}} +
+\underbrace{\sum_x(V_x^A-V_x^B)\frac{M_x^A+M_x^B}{2}}_{\text{Komponent 2}} \\
+\end{align*}
+#+end_export
+
+- Komponent 1 :: = (Forskel i aldersspecifikke mortalitetsrater) vægtet med gennemsnitlig
+                   aldersfordeling
+- Komponent 2 :: = (Forskel i aldersfordeling) vægtet med gennemsnitlig mortalitetsrate
+
+
 
 * Opgaver :noexport:
 
@@ -278,13 +489,14 @@ aldersstandardiserede rater.
 
 
 
+** Header :noexport:
 
 #+TITLE: Mortalitet og standardisering
 #+AUTHOR: Anna-Vera Jørring Pallesen, Laust Hvas Mortensen and Thomas Alexander Gerds
 #+DATE: 
 #+LaTeX_CLASS: danish-article
 #+OPTIONS: toc:nil
-# #+LaTeX_HEADER:\usepackage{authblk}
+#+LaTeX_HEADER:\usepackage{authblk}
 #+LaTeX_HEADER:\usepackage{natbib}
 #+LaTeX_HEADER:\usepackage{listings}
 #+LaTeX_HEADER:\usepackage{color}
@@ -293,7 +505,12 @@ aldersstandardiserede rater.
 #+LaTeX_HEADER:\usepackage{hyperref}
 #+LaTeX_HEADER:\usepackage{amssymb}
 #+LaTeX_HEADER:\usepackage{latexsym}
-# #+LaTeX_HEADER:\author{Thomas Alexander Gerds}
-# #+LaTeX_HEADER:\affil{Department of Biostatistics, University of Copenhagen}
-#+setupfile:~/emacs-genome/snps/org-templates/setup-all-purpose.org
-# #+superman-export-target: pdf
+#+OPTIONS:   H:3  num:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:t todo:t pri:nil tags:not-in-toc author:t
+#+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://publicifsv.sund.ku.dk/~tag/styles/all-purpose.css" />
+#+LATEX_HEADER: \RequirePackage{tcolorbox}
+# #+LaTeX_HEADER:\usepackage[table,usenames,dvipsnames]{xcolor}
+#+LaTeX_HEADER:\definecolor{lightGray}{gray}{0.98}
+#+LaTeX_HEADER:\definecolor{medioGray}{gray}{0.83}
+#+LATEX_HEADER:\definecolor{mygray}{rgb}{.95, 0.95, 0.95}
+#+LATEX_HEADER:\newcommand{\mybox}[1]{\vspace{.5em}\begin{tcolorbox}[boxrule=0pt,colback=mygray] #1 \end{tcolorbox}}
