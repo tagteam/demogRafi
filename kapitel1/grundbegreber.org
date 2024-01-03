@@ -15,7 +15,9 @@ arbejdsmarked og socialpolitik. Metoderne som vi bruger til demografi
 er tæt beslægtet med metoder fra epidemiologi og statistik.
 
 * Befolkning
-
+:PROPERTIES:
+:CUSTOM_ID: k1_befolkning
+:END:
 I demografi refererer udtrykket /befolkning/ til den gruppe af
 mennesker, der bor inden for et geografisk område eller en juridisk
 enhed ved et bestemt tidspunkt. Dermed kan man tale om Danmarks
@@ -36,20 +38,23 @@ ofte til at forudsige og planlægge behovet for offentlige tjenester og
 politikker, såsom sundhedsvæsnet, uddannelse og beskæftigelse.
 
 ** Lukket og åben befolkninger
+:PROPERTIES:
+:CUSTOM_ID: k1-lukket-befolkning
+:END:
 
 Hvis befolkningen ikke er genstand for ind- og udvandring, kaldes den
 en lukket befolkning. Forekommer dette, er det en åben befolkning. De
 allerfleste befolkninger er åben. Lukkede befolkninger er typisk af
 hypotetisk/tænkt natur, og et demografisk værktøj, der bruges til at
 forklare komplekse principper og regnestykker i en simplificeret
-situation.
+situation. 
 
 ** Kohorte
 
-En kohorte er en gruppe personer som oplever en bestemt demografisk
+En kohorte er en gruppe personer som oplever en bestemt (demografisk)
 begivenhed i en bestemt periode og følges derefter. F.eks., alle
-kvinder født i DK i år 1900 (fødselskohorte), eller alle mænd, som
-påbegyndte FSV studiet i 2020.
+kvinder født i Danmark i året 1900 (fødselskohorte), eller alle mænd,
+som påbegyndte FSV studiet mellem 2017 og 2020.
 
 ** Befolkningens størrelse
 
