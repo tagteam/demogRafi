@@ -35,6 +35,21 @@ i befolkningens dynamik og sammensætning. Disse statistikker bruges
 ofte til at forudsige og planlægge behovet for offentlige tjenester og
 politikker, såsom sundhedsvæsnet, uddannelse og beskæftigelse.
 
+** Lukket og åben befolkninger
+
+Hvis befolkningen ikke er genstand for ind- og udvandring, kaldes den
+en lukket befolkning. Forekommer dette, er det en åben befolkning. De
+allerfleste befolkninger er åben. Lukkede befolkninger er typisk af
+hypotetisk/tænkt natur, og et demografisk værktøj, der bruges til at
+forklare komplekse principper og regnestykker i en simplificeret
+situation.
+
+** Kohorte
+
+En kohorte er en gruppe personer som oplever en bestemt demografisk
+begivenhed i en bestemt periode og følges derefter. F.eks., alle
+kvinder født i DK i år 1900 (fødselskohorte), eller alle mænd, som
+påbegyndte FSV studiet i 2020.
 
 ** Befolkningens størrelse
 
@@ -57,7 +72,7 @@ januar 2019 og den 1 januar 2023. Her er R-koder som kan bruges til at
 beregne antal dage mellem to datoer og ændring af folketal i perioden.
 
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={t,as}
-#+BEGIN_SRC R  :results output example :exports both  :session *R* :cache yes  
+#+BEGIN_SRC R  :results output verbatim :exports both  :session *R* :cache yes  
 # R-code
 t_1= as.Date("2019-01-01")
 t_2= as.Date("2023-01-01")
@@ -69,9 +84,11 @@ data.frame("dato"=c(t_1,t_2),
            "Vækst"=c(NA,N_2-N_1))
 #+END_SRC
 
+#+RESULTS[(2023-12-27 12:46:31) 3b577630b92663ee94418cfb09bf6c41dd3436f7]:
 :         dato Folketal Antal.dage  Vækst
 : 1 2019-01-01  5806081         NA     NA
 : 2 2023-01-01  5932654       1461 126573
+
 
 Folketallet ændrer sig jo hver dag, men det er svært at registrere og
 tælle nøjagtigt for enkelte dage. Heldigvis betyder små unøjagtigheder
@@ -222,7 +239,7 @@ statistikbankens =BEFOLK1= henter vi folketal i starten, midten og
 slutningen af perioden:
 
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
-#+BEGIN_SRC R  :results output   :exports both  :session *R* :cache yes
+#+BEGIN_SRC R  :results output verbatim   :exports both  :session *R* :cache yes
 library(danstat)
 library(tidyverse)
 library(stringi)
@@ -230,15 +247,13 @@ dt=get_data("BEFOLK1",variables=list(list(code="tid",values=c(2009,2016,2023))))
 dt
 #+END_SRC
 
-#+RESULTS[(2023-11-02 17:57:32) dbd8ef89df9cf9a03dde3688b241153a20e5a806]:
-#+begin_example
-# A tibble: 3 × 2
-    TID INDHOLD
-  <dbl>   <dbl>
-1  2009 5511451
-2  2016 5707251
-3  2023 5932654
-#+end_example
+#+RESULTS[(2023-12-27 12:47:18) 7984f514e8e8d2e108191fc2117d16967f830885]:
+: # A tibble: 3 × 2
+:     TID INDHOLD
+:   <dbl>   <dbl>
+: 1  2009 5511451
+: 2  2016 5707251
+: 3  2023 5932654
 
 Det er nemmest at anvende metode 1. Med metode 1 er
 det estimerede middelfolketal \(\tilde N[\texttt{1 januar 2016},\texttt{1
@@ -279,7 +294,7 @@ og 1 januar 2023 fra statistikbankens register FOLK1a og andvender
 metode 3.
 
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
-#+BEGIN_SRC R  :results output example  :exports both  :session *R* :cache yes  
+#+BEGIN_SRC R  :results output verbatim  :exports both  :session *R* :cache yes  
 library(tidyverse)
 library(stringi)
 # Metode 3 baseret på 57 folketal mellem 2009 og 2023
@@ -291,11 +306,11 @@ kvartal_years <- c(kvartal_years,"2023K1")
 dt <- get_data("FOLK1a",variables=list(list(code="tid",
                                             values=kvartal_years)))
 # transform årstal + kvartal til dato
-patt <- pattern=c("Q1","Q2","Q3","Q4")
+patt <- c("Q1","Q2","Q3","Q4")
 repl <- c("-01-01","-01-04","-01-07","-01-10")
 dt <- mutate(dt,
              TID=stri_replace_all_regex(TID,
-                                        pattern=pat,
+                                        pattern=patt,
                                         replace=repl,
                                         vectorize_all=FALSE))
 # transform fra character til dato
@@ -307,11 +322,11 @@ summarise(dt,{
   len_periode <- as.numeric(TID[-1]-TID[-len])
   ft_gennemsnit <-(INDHOLD[-len]+INDHOLD[-1])/2 
   sum(len_periode*ft_gennemsnit)/len_periode_total
-})
+})%>% pull()
 #+END_SRC
 
-#+RESULTS[(2023-11-06 11:51:27) 3634bb3bd997b9588f2b0571e5cc102ae568a38d]:
-: 5717974
+#+RESULTS[(2023-12-27 12:49:25) acf9e2e6dec3dd8e3603e015f0d425addbdad9c4]:
+: [1] 5717974
 
 Baseret på 57 folketal i perioden mellem den 1 januar 2009 og den 1
 januar 2023 estimerer vi middelfolketal for perioden til 5.717.974
@@ -389,7 +404,7 @@ Vi henter tal fra den danske befolkning i året 2022 fra
 statistikbankens register FOLK1a, DOD, FOD, INDVAN og UDVAN.
 
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={list,c,D,I}
-#+BEGIN_SRC R  :results output example  :exports both  :session *R* :cache yes
+#+BEGIN_SRC R  :results output verbatim  :exports both  :session *R* :cache yes
 N <- get_data("FOLK1a",
               list(list(code="tid",
                         values=c("2022K1","2023K1"))))[["INDHOLD"]]
@@ -405,25 +420,27 @@ I <- get_data("INDVAN",
 U <- get_data("UDVAN",
               list(list(code="tid",
                         values=2022)))[["INDHOLD"]]
-})
 # data for ligevægtsligningen
-data.frame(X=c("Folketal jan 2022",
-               "Folketal jan 2023",
-               "Fødsler 2022",
-               "Dødsfald_2022",
-               "Indvandring 2022",
-               "Udvandre 2022"),
-           Antal=c(N[1],N[2],F,D,I,U))
+tibble(X=c("Folketal jan 2022",
+           "Folketal jan 2023",
+           "Fødsler 2022",
+           "Dødsfald_2022",
+           "Indvandring 2022",
+           "Udvandre 2022"),
+       Antal=c(N[1],N[2],F,D,I,U))
 #+END_SRC
 
-#+RESULTS[(2023-11-06 13:58:23) fef9517e3a345af0707b735604a6d6d84f13b2e9]:
-:                   X   Antal
+#+RESULTS[(2023-12-27 12:56:13) 3fc37cfa2bc47461c8cfc979a8fd2669c11b29d8]:
+: # A tibble: 6 × 2
+:   X                   Antal
+:   <chr>               <dbl>
 : 1 Folketal jan 2022 5873420
 : 2 Folketal jan 2023 5932654
-: 3     Fødsler 2022   58430
-: 4    Dødsfald_2022   59435
-: 5  Indvandring 2022  121183
-: 6     Udvandre 2022   62927
+: 3 Fødsler 2022        58430
+: 4 Dødsfald_2022       59435
+: 5 Indvandring 2022   121183
+: 6 Udvandre 2022       62927
+
 
 Baseret på disse tal beregner vi at den danske befolkningens vækst i
 perioden til (5.932.654 - 5.873.420) = 59.234 personer. Den naturlige
@@ -533,7 +550,7 @@ eksempel. Først henter vi antal flytninger fra statistikbankens
 register FLY.
 
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={list,c,as,numeric}
-#+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
+#+BEGIN_SRC R  :results output verbatim :exports both  :session *R* :cache yes  
 # Antal flytninger indenfor Danmark i årene 2020, 2021, 2022
 FL <- get_data("FLY",
                list(list(code="tid",
@@ -543,6 +560,7 @@ X <- pull(summarize(FL,sum(INDHOLD)))
 X
 #+END_SRC
 
+#+RESULTS[(2023-12-27 12:51:00) 9494432020a4aba56ab25eb2bb41dc11270727c8]:
 : [1] 2773056
 
 Der er 2.773.056 flytninger indenfor Danmark registreret i perioden
@@ -551,7 +569,7 @@ register FOLK1a og beregner middelfolketal med metode 2. Vi beregner
 også risikotid.
 
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={list,c,as,numeric,R}
-#+BEGIN_SRC R  :results output raw drawer  :exports both  :session *R* :cache yes  
+#+BEGIN_SRC R  :results output verbatim  :exports both  :session *R* :cache yes  
 # Folketal for den danske befolkning i perioden
 N <- get_data("FOLK1a",list(list(code="tid",values=c("2020K1","2023K1"))))
 # Middelfolketal metode 2
@@ -562,7 +580,9 @@ R <- pull(Risikotid)
 R
 #+END_SRC
 
+#+RESULTS[(2023-12-27 12:51:14) c345c07e30946352892dfc58fc3d2e0508268826]:
 : [1] 17637149
+
 
 Riskotiden af den danske befolkning i perioden fra 1 januar 2020 til 1
 jan 2023 er estimeret til 17.637.149 personår.
@@ -570,13 +590,15 @@ jan 2023 er estimeret til 17.637.149 personår.
 Til sidst beregner vi flytningsraten i perioden.
 
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
-#+BEGIN_SRC R  :results output raw drawer  :exports both  :session *R* :cache yes
+#+BEGIN_SRC R  :results output verbatim  :exports both  :session *R* :cache yes
 # Flytningsrate per personår
 X/R
 # Flytningsrate per 1000 personår
 1000*X/R
 #+END_SRC
 
+#+RESULTS[(2023-12-27 12:51:27) ad0d4da845b6ec2a7cba09fce292c851fcca22f6]:
+: [1] 0.1572281
 : [1] 157.2281
 
 Den inderdanske flytningsrate var 157.2 flytninger per 1000 personår i
@@ -623,7 +645,7 @@ for den danske befolkning i perioden. Vi anvender metode 2 for
 middelfolketallet og beregner risikotid ved at gange med 1 år:
 
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
-#+BEGIN_SRC R  :results output raw drawer  :exports both  :session *R* :cache yes  
+#+BEGIN_SRC R  :results output verbatim  :exports both  :session *R* :cache yes  
 N <- get_data("FOLK1a",
               list(list(code="tid",
                         values=c("2022K1","2023K1"))))[["INDHOLD"]]
@@ -633,13 +655,14 @@ risikotid <- middelfolketal*1
 risikotid
 #+END_SRC
 
+#+RESULTS[(2023-12-27 12:51:52) 52e600a64c087c75992022191cf31e8be4d71e5b]:
 : [1] 5903037
 
 Risikotiden i den danske befolkning var 5903037 personår mellem 1
 januar 2022 og 1 januar 2023.
 
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
-#+BEGIN_SRC R  :results output raw drawer  :exports both  :session *R* :cache yes
+#+BEGIN_SRC R  :results output verbatim  :exports both  :session *R* :cache yes
 # mortalitetsrate
 D <- get_data("DOD",list(list(code="tid",values=2022)))[["INDHOLD"]]
 Drate <- 1000*D/risikotid
@@ -658,24 +681,30 @@ Vrate <- 1000*vækst/risikotid
 NaturVrate <- Frate-Drate
 # nettovandringsrate
 NettoVrate <- Irate-Urate
-data.frame(X=c("Vækstrate",
-               "Mortalitetsrate",
-               "Fødselsrate",
-               "Indvandringsrate",
-               "Udvandringsrate",
-               "Naturlige_vækst_rate",
-               "Netto_vandrings_rate"),
-           Rate=c(Vrate,Drate,Frate,Irate,Urate,NaturVrate,NettoVrate))
+x=tibble(X=c("Vækstrate",
+           "Mortalitetsrate",
+           "Fødselsrate",
+           "Indvandringsrate",
+           "Udvandringsrate",
+           "Naturlige_vækst_rate",
+           "Netto_vandrings_rate"),
+       Rate=c(Vrate,Drate,Frate,Irate,Urate,NaturVrate,NettoVrate))
+x
 #+END_SRC
 
-:                       X Rate    
-: 1            Vækstrate 10.0344958
-: 2       Mortalitetsrate 10.0685461
-: 3          Fødselsrate  9.8982947
-: 4      Indvandringsrate 20.5289243
-: 5       Udvandringsrate 10.6601060
-: 6 Naturlige_vækst_rate -0.1702513
-: 7  Netto_vandrings_rate  9.8688184
+#+RESULTS[(2023-12-27 12:52:58) f9f279f1e0bea9f2c5ec1ac906aa06971a75c8cc]:
+#+begin_example
+# A tibble: 7 × 2
+  X                      Rate
+  <chr>                 <dbl>
+1 Vækstrate            10.0  
+2 Mortalitetsrate      10.1  
+3 Fødselsrate           9.90 
+4 Indvandringsrate     20.5  
+5 Udvandringsrate      10.7  
+6 Naturlige_vækst_rate -0.170
+7 Netto_vandrings_rate  9.87
+#+end_example
 
 I 2022, voksede den danske befolkning med 10,0 personer per 1000
 personår. Den naturlige vækstrate var -0,2 personer per 1000 personår
@@ -709,6 +738,7 @@ ikke, og der er en fejlrate:
 #+LaTeX_HEADER:\usepackage{color}
 #+LaTeX_HEADER:\usepackage[usenames,dvipsnames]{xcolor}
 #+LaTeX_HEADER:\usepackage[utf8]{inputenc}
+#+LaTeX_HEADER:\usepackage{graphicx}
 #+LaTeX_HEADER:\usepackage{hyperref}
 #+LaTeX_HEADER:\usepackage{amssymb}
 #+LaTeX_HEADER:\usepackage{latexsym}
