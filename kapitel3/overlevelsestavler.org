@@ -1,6 +1,4 @@
-* Overlevelsestavle
-
-** Generel matematisk model
+* Introduktion
 
 Overlevelsestavlen repræsenterer en matematisk model, der
 kvantificeres ved hjælp af konkrete demografiske data. Modellen
@@ -9,7 +7,7 @@ i den specifikke befolkning. De forskellige mål for dødelighed
 konstrueres på baggrund af overlevelsestavlen. Dette gælder også for
 målene vedrørende forekomsten af vielser, skilsmisser, vandringer og i
 vis grad forskellige fertilitets- og
-reproduktionsmål. Overlevelsestavlen kunne derfor gennemgås på en
+reproduktionsmål. Overlevelsestavlen kunne derfor gennemgås på en ret
 abstrakt måde og fortolkes forskelligt, afhængigt af om den skal
 anvendes til at beskrive dødelighed, vielser, skilsmisser eller
 fertilitet. I det følgende vil vi dog fokusere på at opbygge modellen
@@ -19,16 +17,18 @@ at forstå modellens umiddelbare anvendelighed.
 ** Middellevetid
 
 Hvor mange år kan en nyfødt i dag forvente at leve? Dette spørgsmål er
-ret umuligt at besvare fordi svaret afhænger hvad der sker i
-fremtiden. Alligevel er middellevetid et demografisk værktøj som
-anvendes hyppigt til belysning af befolkningens
-sundhedstilstand. Tallet angiver det gennemsnitlige antal år, som en
-nyfødt kan forventes at leve under den forudsætning, at de nuværende
-mortalitetsrater for alle grupperinger af køn og alderstrin holder sig
-på det samme niveau i al fremtid. Med middellevetiden har man et
-relativt simpelt begreb, som gør det muligt at sammenligne forskellige
-befolkningers dødelighed. I praksis vil de nuværende dødshyppigheder
-naturligvis ikke holde sig på et konstant niveau i al fremtid.
+ret umuligt at besvare fordi svaret umiddelbart afhænger hvad der sker
+i fremtiden. Alligevel er middellevetid et demografisk værktøj som
+anvendes hyppigt til belysning af befolkningens nuværende
+dødelighedsniveau. Middellevetid bruges også som
+sammenligningsgrundlag på tværs af befolkninger og tid. Tallet angiver
+det gennemsnitlige antal år, som en nyfødt kan forventes at leve under
+den forudsætning, at de nuværende mortalitetsrater for alle
+grupperinger af køn og alderstrin holder sig på det samme niveau i al
+fremtid. Med middellevetiden har man et relativt simpelt begreb, som
+gør det muligt at sammenligne forskellige befolkningers dødelighed. I
+praksis vil de nuværende dødshyppigheder naturligvis ikke holde sig på
+et konstant niveau i al fremtid.
 
 I gennem mange år har der været en tendens til faldende
 mortalitetsrater, og der er meget, som tyder på, at det er en
@@ -48,27 +48,74 @@ andre dødelighedsmål, såsom den forventede restlevetid fra alder
 \(x\), sandsynligheden for at dø inden alder \(x\) og sandsynligheden
 for at være i live ved alder \(x\).
 
-** Konstruktion
+* Konstruktion af overlevelsestavle
 
 Overlevelsestavler beskriver hvordan en tænkt lukket fødselskohorte
 reduceres med stigende alder alene på grund af dødsfald. Fordi
-kohorten er lukket er død den eneste mulige afgang fra kohorten. Der
+kohorten er lukket, er død den eneste mulige afgang fra kohorten. Der
 tages udgangspunkt i en fiktiv tabelbefolkning bestående af
 \(\ell(0)\) personer, som antages at være født på nøjagtig samme
-tidspunkt. Antal fiktive tabelpersoner \(\ell(0)\) kaldes for `radix'
-og den sættes typisk til $\ell(0)=100.000$. Her er \(\ell(x)\) en
-funktion af alder \(x\) som angiver hvor mange tabelpersoner er
-stadigvæk i live ved alder \(x\). Dermed angiver \(\ell(0)\) hvor
-mange tabelpersoner der er i tabelbefolkningen helt i begyndelsen hvor
-alder er lige med \(0\). Efterfølgende beregner man \(\ell(x)\) for
-alderstrin \(x=1, 2, 3, \dots, x_max\) hvor \(x_{max}\) er det
-alderstrin hvor alle tabelpersoner dør. 
+tidspunkt. Antallet af fiktive tabelpersoner \(\ell(0)\) kaldes for
+`radix' og radix sættes typisk til $\ell(0)=100.000$.
 
+** Dekrementfunktion
 
-Sandsynligheden for at dø mellem to alderstrin (dødshyppighederne) er
-det centrale element ved konstruktionen af dødelighedstavler. For både
-mænd og kvinder skal der for alle enkelte alderstrin udregnes
-dødshyppigheder for at man kan lave beregningen af middellevetid.
+Funktionen \(\ell\) angiver hvor mange tabelpersoner er stadigvæk i
+live ved alder \(x\) og beskriver hvordan tabelbefolkningen reduceres
+på grund af dødsfald. Startværdien \(\ell(0)\) angiver hvor mange
+tabelpersoner der er i tabelbefolkningen helt i begyndelsen hvor alder
+er lige med \(0\), og \(\ell(30)\) angiver hvor mange tabelpersoner er
+i livet ved alder \(30\). Fordi \(\ell\) er monoton faldende som
+funktion af alder, altså \(\ell(x)\ge\ell(x+1)\), kalder man den for
+dekrementfunktion. For eksempel, \(ell(30)=91.047\) vil betyde at ud
+af \(\ell(0)=100.000\) tabelpersoner \(91.047\) personer er stadigvæk
+i live ved alder \(30\). I dette eksempel er
+overlevelsessandsynligheden i tabelbefolkningen ved alder \(30\) lige
+med
+#+begin_export latex
+\begin{equation*}
+o(30)=\frac{\ell(30)}{\ell(0)} = \frac{91.047}{100.000} = 91,1\%.
+\end{equation*}
+#+end_export
+Overlevelsesfunktionen er defineret som
+\(o(x)=\frac{\ell(x)}{\ell(0)}\). Under konstruktionen af
+overlevelsestavler er opgaven at beregne dekrementfunktionens værdier
+\(\ell(x)\) for alle alderstrin \(x=1, 2, 3, \dots, x_{max}\) hvor
+\(x_{max}\) er det sidste alderstrin. Per konstruktion, der bliver
+forklaret i detaljer nedenfor, dør alle resterende tabelpersoner i det
+sidste alderstrin, det vil sige \(\ell(x_{max}+1)=0\), og dermed også
+\(o(x_{max}+1)=0\).
+
+** Dødshyppigheder
+
+For at beregne antal tabelpersoner som overlever indtil det første
+alderstrin, \(x=1\), skal vi beregne hvor mange tabelpersoner dør
+mellem alder \(x=0\) og alder \(x=1\). Mere generel betegner vi med
+\(d(x,y)\) antal tabelpersoner som dør mellem alder \(x\) og alder
+\(y\). Dermed er \(d(x,x+1)\) antal personer som dør mellem alder
+\(x\) og alder \(x+1\). Sandsynligheden for at dø mellem to alderstrin
+(dødshyppighederne) er det centrale element ved konstruktionen af
+overlevelsestavler. Vi betegner med \(q(x,x+1)\) sandsynligheden for
+at dø mellem alder \(x\) og alder \(x+1\) og har følgende formel for
+antal dødsfald:
+
+#+begin_export latex
+\begin{equation*}
+d(x,x+1) = q(x,x+1)\ell(x)
+\end{equation*}
+#+end_export
+
+For at beregne dødshyppighederne \(q(x,y)\) bruger vi data fra den
+rigtige befolkning, typisk fra en kort kalenderperiode, og følgende
+centrale formel:
+
+#+begin_export latex
+\begin{equation*}
+q(x,y)= \frac{M(x,y)}{1+((y-x)-a(x,y)) M(x,y)} 
+\end{equation*}
+#+end_export
+
+*** Data fra statistikbanken
 
 ** Approximationsformler
 
@@ -87,7 +134,8 @@ alderstrin med et forholdsvis stort antal døde, vil det gennemsnitlige
 antal dødeår ligge tæt på 0,5. For alderstrin med meget få døde kan
 der være store fluktuationer i det gennemsnitlige antal dødeår,
 hvilket dog netop pga. det lave antal døde stort set ikke har nogen
-betydning for de beregnede middellevetider.  Dødelighedstavler
+betydning for de beregnede middellevetider.
+
 Oplysningerne om dødshyppigheder og det gennemsnitlige antal dødeår
 for alle grupperinger af køn og alderstrin er de grundlæggende
 informationer, der er brug for i forbindelse med konstruktionen af
