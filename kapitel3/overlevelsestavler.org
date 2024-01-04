@@ -253,8 +253,8 @@ tallet divideres med 365.
 
 ** Header :noexport:
 
-#+TITLE: Life tables
-#+AUTHOR: Anna-Vera Jørring Pallesen, Laust Hvas Mortensen and Thomas Alexander Gerds
+#+TITLE: Overlevelsestavler
+#+AUTHOR: Anna-Vera Jørring Pallesen, Johan Sebastian Ohlendorff, Laust Hvas Mortensen and Thomas Alexander Gerds
 #+DATE: 
 #+LaTeX_CLASS: danish-article
 #+OPTIONS: toc:nil
