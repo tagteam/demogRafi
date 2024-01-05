@@ -11,7 +11,6 @@ begge disse områder betegnes som den demografiske
 transition. Nedgangen af dødeligheden er det element af transitionen,
 der kommer først, fertilitetsnedgangen følger bagefter.
 
-
 * Standardiserede rater
 
 Vi indfører nu begreberne /aldersspecifikke rater/ og /standardiserede
@@ -860,7 +859,7 @@ SMR for studiebefolkning \(A\) med SMR for studiebefolkning \(B\).
 ** Header :noexport:
 
 #+TITLE: Mortalitet og standardisering
-#+AUTHOR: Anna-Vera Jørring Pallesen, Laust Hvas Mortensen and Thomas Alexander Gerds
+#+AUTHOR: Anna-Vera Jørring Pallesen, Johan Sebastian Ohlendorff, Laust Hvas Mortensen and Thomas Alexander Gerds
 #+DATE: 
 #+LaTeX_CLASS: danish-article
 #+OPTIONS: toc:nil

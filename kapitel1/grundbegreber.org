@@ -733,6 +733,7 @@ ikke, og der er en fejlrate:
 
 
 #+TITLE: Grundbegreber
+#+AUTHOR: Anna-Vera Jørring Pallesen, Johan Sebastian Ohlendorff, Laust Hvas Mortensen and Thomas Alexander Gerds
 #+LANGUAGE: dk
 #+LaTeX_CLASS: danish-article
 #+OPTIONS: toc:nil
