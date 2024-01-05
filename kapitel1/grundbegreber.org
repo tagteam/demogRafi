@@ -102,7 +102,7 @@ konklusioner. Statistikbanken angiver folketal i starten af
 hvert kvartal siden 2008 (FOLK1A), den første januar per år siden 1971
 (BEFOLK1), den første januar per år siden 1901 (HISB3). Desuden er der
 summariske tal fra folketællinger hele vejen fra 1769 (FT). Disse tal
-bliver vist i Figure ref:fig:1.
+bliver vist i Figur [[fig:1]].
 
 #+BEGIN_SRC R :results file graphics :file ./kapitel1/figure1.pdf :exports none :session *R* :cache yes
 library(danstat)
@@ -117,7 +117,7 @@ ggplot(dt,aes(TID,INDHOLD))+geom_line()+geom_point()+theme_wsj()+ scale_colour_w
 #+RESULTS[(2023-11-06 11:34:16) e930586f8196697970f2e417b783cab3dc1c97f7]:
 [[file:./kapitel1/figure1.pdf]]
 
-#+name: fig:1
+#+NAME: fig:1
 #+ATTR_LATEX: :width 0.7\textwidth
 #+CAPTION: Figuren viser udviklingen af det danske folketal siden 1769 fra folketællinger, statistikbankens register FT.
 [[file:./figure1.pdf]]
@@ -186,7 +186,7 @@ Alle tre metoder er lige gode, hvis folketallet er
 relativt stabil i perioden.  Ændrer folketallet sig meget i perioden,
 er metode 2 en bedre tilnærmelse til det sande ukendte
 middelfolketal end metode 1, og ligeledes er metode 3
-bedre end metode 2. Figure ref:fig:2 visualiserer
+bedre end metode 2. Figur [[fig:2]] visualiserer
 forskellen mellem de 3 metoder.
 
 #+BEGIN_SRC R :results file graphics :file ./kapitel1/figure2.pdf :exports none :session *R* :cache yes
@@ -230,7 +230,7 @@ plotrix::addtable2plot(x=-.7,y=-.5,tab,cex=1.3,hlines=1,vlines=1,xpad=.5,ypad=1)
 #+RESULTS[(2023-11-06 13:21:05) 77ea44b083d599c057c029220aed9c1dbe33c8e7]:
 [[file:./kapitel1/figure2.pdf]]
 
-#+name: fig:2
+#+NAME: fig:2
 #+ATTR_LATEX: :width 0.9\textwidth
 #+CAPTION: Figuren viser de 3 metoder for at beregne middelfolketal baseret på 5 folketal: 1. januar 2019, 1. april 2019, 1. juli 2019, 1. oktober 2019, 1. januar 2023.
 [[file:./figure2.pdf]]
@@ -371,7 +371,7 @@ demografiske ligevægtsligning:
 \quad \underbrace{(I[t_1,t_2]-U[t_1,t_2])}_{\text{Nettovandring}}
 \end{equation*}
 
-Figure ref:fig:3 viser vækst, fødsler, dødsfald, ind- og udvandring
+Figur [[fig:3]] viser vækst, fødsler, dødsfald, ind- og udvandring
 mellem 1980 og 2023 i den danske befolkning. Det er tydeligt at
 indvandring er er den dominerede faktor for ændringer af folketal i
 denne periode, hvorimod fødsler og dødsfald er på et rimeligt konstant
@@ -397,7 +397,7 @@ ggplot(X,aes(TID,INDHOLD,color=X,group=X))+geom_line()+geom_point()+theme_wsj()+
 #+RESULTS[(2023-11-07 16:42:12) 81d0b22d2b67c2707054181d6f5676bef69b9d78]:
 [[file:./kapitel1/figure3.pdf]]
 
-#+name: fig:3
+#+NAME: fig:3
 #+ATTR_LATEX: :width 0.9\textwidth
 #+CAPTION: Figuren viser ændringen i folketal (vækst), antal fødsler, dødsfald, ind- og udvandring siden 1980. 
 [[file:./figure3.pdf]]
@@ -747,6 +747,7 @@ ikke, og der er en fejlrate:
 #+LaTeX_HEADER:\usepackage{hyperref}
 #+LaTeX_HEADER:\usepackage{amssymb}
 #+LaTeX_HEADER:\usepackage{latexsym}
+#+LaTeX_HEADER: \renewcommand{\figurename}{Figur}
 #+OPTIONS:   H:3  num:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:t todo:t pri:nil tags:not-in-toc author:nil
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://publicifsv.sund.ku.dk/~tag/styles/all-purpose.css" />
