@@ -261,7 +261,7 @@ dt
 : 3  2023 5932654
 
 Det er nemmest at anvende metode 1. Med metode 1 er
-det estimerede middelfolketal \(\tilde N[\texttt{1 januar 2016}] = 5.707.251\) personer. For at benytte metode 2
+det estimerede middelfolketal $\tilde N[\texttt{1 januar 2016}] = 5.707.251$ personer. For at benytte metode 2
 bruger vi R som lommerregner:
 
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
@@ -274,7 +274,7 @@ bruger vi R som lommerregner:
 : [1] 5609351
 
 Med metode 2 estimerer vi middelfolketallet i perioden 2009--2023 dermed til
-\(5.609.351\) personer. For metode 3 er beregningen i R den følgende:
+$5.609.351$ personer. For metode 3 er beregningen i R den følgende:
 
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
 #+BEGIN_SRC R  :results output example  :exports both  :session *R* :cache yes  
@@ -286,7 +286,7 @@ Med metode 2 estimerer vi middelfolketallet i perioden 2009--2023 dermed til
 : [1] 5714652
 
 Med metode 3 estimerer vi middelfolketallet i perioden 2009--2023 til
-\(5.714.652\) personer baseret på de 3 folketal fra perioden.  Vi ser
+$5.714.652$ personer baseret på de 3 folketal fra perioden.  Vi ser
 i dette eksempel at der er mere end 100.000 personers forskel mellem
 metode 3 og metode 2. Om denne forskel er vigtig eller ej ville
 afhænge af formålet med den konkrete demografiske undersøgelse. Er den
@@ -345,10 +345,10 @@ dødsfald der sker og jo flere personer der emigrerer jo mindre er folketal i
 slutningen af perioden sammenlignet med starten af perioden. Ligeledes
 er folketal i slutningen af perioden højere jo flere personer bliver født og
 indvandrer til befolkningen. Den demografiske ligevægtsligning for en
-periode \([t_1,t_2]\) er:
-\begin{equation*}
+periode $[t_1,t_2]$ er:
+$$
 N(t_2) = N(t_1) + (F[t_1,t_2] - D[t_1,t_2]) + (I[t_1,t_2] - U[t_1,t_2]).
-\end{equation*}
+$$
 hvor vi har brugt følgende notation:
 - $N(t_1)$ er folketal på tidspunkt $t_1$.
 - $N(t_2)$ er folketal på tidspunkt $t_2$.
@@ -361,15 +361,15 @@ Formlen siger kort sagt, at den samlede befolkning på et tidspunkt
 $t_2$ er lig den samlede befolkning på tidspunktet $t_1$ plus en
 stigning i befolkningen på grund af fødsler og indvandring og en
 reduktion i befolkningen på grund af dødsfald og udvandring. Vi kalder
-forskellen mellem fødsler og dødsfald \((F[t_1,t_2] - D[t_1,t_2])\) for
-/naturlig vækst/ og forskellen mellem ind- og udvandring \((I[t_1,t_2] -
-U[t_1,t_2])\) for /nettovandring/. Det giver følgende version af den
+forskellen mellem fødsler og dødsfald $(F[t_1,t_2] - D[t_1,t_2])$ for
+/naturlig vækst/ og forskellen mellem ind- og udvandring $(I[t_1,t_2] -
+U[t_1,t_2])$ for /nettovandring/. Det giver følgende version af den
 demografiske ligevægtsligning:
 
-\begin{equation*}
+$$
 \underbrace{N(t_2)-N(t_1)}_{\text{Vækst}}=\quad\underbrace{(F[t_1,t_2]-D[t_1,t_2])}_{\text{Naturlig vækst}} + 
 \quad \underbrace{(I[t_1,t_2]-U[t_1,t_2])}_{\text{Nettovandring}}
-\end{equation*}
+$$
 
 Figur [[fig:3]] viser vækst, fødsler, dødsfald, ind- og udvandring
 mellem 1980 og 2023 i den danske befolkning. Det er tydeligt at
@@ -447,17 +447,17 @@ tibble(X=c("Folketal jan 2022",
 
 
 Baseret på disse tal beregner vi at den danske befolkningens vækst i
-perioden til \((5.932.654 - 5.873.420) = 59.234\) personer. Den naturlige
-vækst i perioden er negativt: \((58.430 - 59.345) = -915\) personer og
-nettovandring i perioden positivt: \((121.183 - 62.927) = 58.256\)
+perioden til $(5.932.654 - 5.873.420) = 59.234$ personer. Den naturlige
+vækst i perioden er negativt: $(58.430 - 59.345) = -915$ personer og
+nettovandring i perioden positivt: $(121.183 - 62.927) = 58.256$
 personer. Vi ser at ligevægtsligningen ikke går op, da der mangler 1893
 personer:
 
 #+begin_export latex
-\begin{equation*}
+$$
 \underbrace{59.234}_{\text{Vækst}}=\quad\underbrace{-915}_{\text{Naturlig vækst}} + 
 \quad \underbrace{58.256}_{\text{Nettovandring}} + \underbrace{1893}_{\text{fejl}}.
-\end{equation*}
+$$
 #+end_export
 
 Det vil sige, at de forskelige registre
@@ -478,8 +478,8 @@ i 2022. Her kan man næppe konkludere at dødeligheden var højere på
 Bornholm end på Christiansø. Brugen af rater frem for absolut antal er
 yderst relevant når formålet er at sammenligne befolkninger som har
 forskellig størrelse. For eksempel var mortalitetsraten på Bornholm i
-2022 lig med \(569/39817 = 14,3\) per 1000 personår og på Christiansø
-\(2/91 = 22,0\) per 1000 personår i samme tidsperiode.
+2022 lig med $569/39817 = 14,3$ per 1000 personår og på Christiansø
+$2/91 = 22,0$ per 1000 personår i samme tidsperiode.
 
 Som enhed for dødsraten bruges ofte /antal døde per personår/. Her
 dividerer man antal døde i en periode med antal personår som personer
@@ -497,8 +497,8 @@ i tælleren og har dermed en enhed /antal begivenheder per personår/.
 
 ** Risikotid
 
-Vi betegner med \(R[t_1,t_2]\) det samlede gennemlevede tid i perioden
-\([t_1,t_2]\) af alle personer i en befolkning og kalder den også for
+Vi betegner med $R[t_1,t_2]$ det samlede gennemlevede tid i perioden
+$[t_1,t_2]$ af alle personer i en befolkning og kalder den også for
 /risikotid/. Udtrykket /risikotid/ giver egentlig kun mening når man
 studerer en risikabel hændelse, som for eksempel død blandt personer,
 som er eksponeret for denne hændelse i perioden. Det er især i
@@ -528,9 +528,9 @@ Mange demografiske rater er defineret som antal begivenheder i en
 periode (f.eks., dødsfald eller indvandringer) relativt til antal
 gennemlevede personår i samme periode i en befolkning:
 
-\begin{equation*}
+$$
 \mbox{Rate}_X[t_1,t_2]=\frac{\text{Antal begivenheder X i perioden } [t_1,t_2]}{R[t_1,t_2]}
-\end{equation*}
+$$
 
 Denne formel kan anvendes rimlig generalt. Man skal dog være opmærksom
 på at en korrekt fortolkning af  perioderater kræver
@@ -618,10 +618,10 @@ fødsel), indvandringsrater (begivenhed X er en indvandring) og
 udvandringsrater (begivenhed X er en udvandring). På den måde kan vi
 beskrive en dekomposition af demografiske vækstrater.
 
-Vi trækker \(N(t_1)\) fra begge sidder af den demografiske
-ligevægtsligning og dividerer på begge sidder af lighedstegnet med \(R[t_t,t_2]\). Det
+Vi trækker $N(t_1)$ fra begge sidder af den demografiske
+ligevægtsligning og dividerer på begge sidder af lighedstegnet med $R[t_t,t_2]$. Det
 giver følgende dekomposition af befolkningens vækstrate i perioden
-\([t_1,t_2]\):
+$[t_1,t_2]$:
 
 \begin{multline*}
 \underbrace{\frac{N(t_2)-N(t_1)}{R[t_1,t_2]}}_{\text{Vækstrate}}=
@@ -729,8 +729,6 @@ ikke, og der er en fejlrate:
 &+ \underbrace{\mbox{9,9}}_{\text{Nettovandringsrate}}+ \underbrace{\mbox{0,3}}_{\text{fejlrate}}.
 \end{xalignat*}
 #+end_export   
-
-
 
 #+TITLE: Grundbegreber
 #+AUTHOR: Anna-Vera Jørring Pallesen, Johan Sebastian Ohlendorff, Laust Hvas Mortensen and Thomas Alexander Gerds
