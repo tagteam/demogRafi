@@ -27,12 +27,12 @@ den forudsætning, at de nuværende mortalitetsrater for alle
 grupperinger af køn og alderstrin holder sig på det samme niveau i al
 fremtid. Med middellevetiden har man et relativt simpelt begreb, som
 gør det muligt at sammenligne forskellige befolkningers dødelighed. I
-praksis vil de nuværende dødshyppigheder naturligvis ikke holde sig på
+praksis vil de nuværende dødshyppigheder formentlig ikke holde sig på
 et konstant niveau i al fremtid.
 
 I gennem mange år har der været en tendens til faldende
 mortalitetsrater, og der er meget, som tyder på, at det er en
-udvikling, som fortsætter. Den konkrete fortolkning af middellevetiden
+udvikling som fortsætter. Den konkrete fortolkning af middellevetiden
 for 0-årige som det gennemsnitlige antal år, som en nyfødt kan
 forventes at leve, vil derfor formentlig undervurdere den faktiske
 middellevetid. Men formålet med middellevetiden er heller ikke at
@@ -43,8 +43,8 @@ simpelt begreb, der kan sammenlignes på tværs af befolkninger og tid.
 ** Andre dødelighedsmål
 
 Middellevetiden er et mål som resulterer fra den såkaldte
-overlevelsestavle. En basal overlevelsestavle beskriver også en række
-andre dødelighedsmål, såsom den forventede restlevetid fra alder
+overlevelsestavle. En klassisk overlevelsestavle beskriver også en
+række andre dødelighedsmål, såsom den forventede restlevetid fra alder
 \(x\), sandsynligheden for at dø inden alder \(x\) og sandsynligheden
 for at være i live ved alder \(x\).
 
@@ -67,7 +67,7 @@ tabelpersoner der er i tabelbefolkningen helt i begyndelsen hvor alder
 er lige med \(0\), og \(\ell(30)\) angiver hvor mange tabelpersoner er
 i livet ved alder \(30\). Fordi \(\ell\) er monoton faldende som
 funktion af alder, altså \(\ell(x)\ge\ell(x+1)\), kalder man den for
-dekrementfunktion. For eksempel, \(ell(30)=91.047\) vil betyde at ud
+dekrementfunktion. For eksempel, \(\ell(30)=91.047\) betyder at ud
 af \(\ell(0)=100.000\) tabelpersoner \(91.047\) personer er stadigvæk
 i live ved alder \(30\). I dette eksempel er
 overlevelsessandsynligheden i tabelbefolkningen ved alder \(30\) lige
@@ -88,49 +88,113 @@ sidste alderstrin, det vil sige \(\ell(x_{max}+1)=0\), og dermed også
 
 ** Dødshyppigheder
 
-Dødshyppigheder \(q(x,x+k)\) beskriver sandsynligheden for at dø
-i aldersintervallet \((x,x+k]\) given overlevelse indtil alder
+Dødshyppigheder \(\qxk\) beskriver sandsynligheden for at dø i
+aldersintervallet \((x,x+k]\) given overlevelse indtil alder
 \(x\). Dødshyppigheder forbinder den ægte og åbne befolkning, som man
 interesserer sig for, med den tænkte lukkede tabelbefolkning der
-definerer overlevelsestavlen. Den underliggende antagelse er at
-dødshyppighederne er det samme i disse to befolkninger for begge køn
+definerer overlevelsestavlen. Den underliggende ide er at
+mortalitetsraterne er det samme i disse to befolkninger for begge køn
 og alle alderstrin.
 
-*** Approksimation af dødshyppigheder 
+*** Approksimationsformel
 
-For at beregne dødshyppighederne \(q(x,x+k)\) bruger vi data fra den
-ægte befolkning, typisk fra en kort kalenderperiode. Hvis befolkningen
-var lukket, altså uden forekomst af ind- og udvandring, vil man kunne
-beregne dødshyppighederne simpelt som antal dødsfald i
-aldersintervallet divideret med antal personer i starten af
-intervallet (her uanset alder):
-#+begin_export latex
-\begin{equation*}
-\text{Dødshyppighed i en lukket befolking} = \frac{\text{Antal dødsfald}}{\text{Antal personer}}.
-\end{equation*}
-#+end_export
-Problemet er at den ægte befolkning er /åben/ og dødsfald ikke bliver
-registreret for personer som udvandrer. Dermed undervurderer denne
-simple formel systematisk det interessante antal dødsfald som man
-ville havde set hvis personerne ikke var udvandret. Den grundliggende
-ide til approksimation af dødshyppigheder baseret fra registerdata er 
+For at beregne dødshyppighederne \(\qxk\) bruger vi data fra den ægte
+befolkning, typisk fra en kort kalenderperiode. Problemet er at den
+ægte befolkning er /åben/. Dødsfald bliver ikke bliver registreret for
+personer som udvandrer. Desuden er det uklar hvordan personer som
+indvandrer skal bidrage til antal personer i starten af
+aldersintervallet. Aldersspecifikke summariske mortalitetsrater løser
+problemet ved at dividere antal dødsfald med antal risikotid hvor
+indvandrer og udvandrer bidrager med den tid de nu har været i
+befolkningen. Nøglen til en approksimation af dødshyppigheder baseret
+på mortalitetsrater er følgende centrale formel:
 
-#+begin_export latex
-\begin{equation*}
-\text{Dødshyppighed i en åben befolking} = \frac{\text{Antal dødsfald}}{\text{Levetid}+\text{Dødstid}}.
-\end{equation*}
+#+begin_export latex 
+\begin{equation}\label{eq:k3-dhyppig}
+\qxk= \frac{k\cdot \Mxk}{1+(k-\a{k})\cdot \Mxk} 
+\end{equation}
 #+end_export
 
-Og følgende centrale formel:
+Formlen afhænger aldersspecifikke mortalitetsrater, længden af
+aldersintervallet \(k\), og også en konstant \(\a{k}\), som kaldes
+Chiang's a. Konstanten \(\a{k}\) beskriver det gennemsnitlige levetid i
+aldersintervallet \((x,x+k]\) for personer, der døde mellem alder
+\(x\) og alder \(x+k\). Dermed beskriver \(k-\a{k}\) den gennemsnitlige
+tid som en person der døde i aldersintervallet var død.
 
+
+*** Forklaring
+
+I det følgende skal vi på en uformelt måde forklare formlen
+eqref:eq:k3-dhyppig. Hvis den ægte befolkning var lukket, altså uden
+forekomst af ind- og udvandring, ville man kunne beregne
+dødshyppighederne simpelt som antal dødsfald i aldersintervallet
+divideret med antal personer i starten af aldersintervallet:
+#+begin_export latex
+\begin{equation*}
+\text{Dødshyppighed} = \frac{\text{Antal dødsfald i aldersinterval}}{\text{Antal personer i starten}}.
+\end{equation*}
+#+end_export
+Fordi aldersintervallet er \(k\) år lang gælder
+#+begin_export latex
+\begin{equation*}
+\text{Antal personer i starten} = \frac{\text{Risikotid} + \text{Dødstid}}{k}.
+\end{equation*}
+#+end_export
+Her er risikotid antal år som befolkningens personer har livet (i
+aldersintervallet) og dødstid antal år som befolkningens personer var
+døde. Med denne formel kan dødshyppigheden skrives som
+#+begin_export latex
+\begin{equation}\label{eq:k3-uformel}
+\text{Dødshyppighed} = \frac{k\cdot \text{Antal dødsfald i aldersinterval}}{\text{Risikotid}+\text{Dødstid}}.
+\end{equation}
+#+end_export
+Vi sætter Chiang's a sådan at
+#+begin_export latex
+\begin{equation*}
+\text{Dødstid i aldersinterval}=(k- \a{k})\cdot\Dxk,
+\end{equation*}
+#+end_export
+er en god approksimation af antal dødstid som alle personer der døde i
+aldersintervallet har været død. Hvis vi nu anvender formlen
+#+begin_export latex
+\begin{equation*}
+\Mxk = \frac{\Dxk}{\Rxk} 
+\end{equation*}
+#+end_export
+ser vi at den centrale formel
+eqref:eq:k3-dhyppig er faktisk lige med formel eqref:eq:k3-uformel:
 #+begin_export latex
 \begin{align*}
-q(x,+k)&= \frac{D(x,x+k)}{R(x,x+k)+((k-a(x,x+k)) D(x,x+k)} \\ &= \frac{M(x,x+k)}{1+((k-a(x,x+k)) M(x,x+k)} 
+\frac{k\cdot\Mxk}{1+(k-\a{k})\cdot \Mxk} &=\frac{k\cdot\frac{\Dxk}{\Rxk}}{1+(k-\a{k})\cdot \frac{\Dxk}{\Rxk}}\\
+&=\frac{k\cdot\Dxk}{\Rxk\cdot(1+(k-\a{k})\cdot \frac{\Dxk}{\Rxk})}\\
+&=\frac{k\cdot \Dxk}{\Rxk+(k-\a{k})\cdot \Dxk}.
 \end{align*}
 #+end_export
 
-*** Data fra statistikbanken
+*** Chiang's a
 
+Chiang's a skal approksimere det forventede antal år levet i
+intervallet af en person, som dør i intervallet.
+
+#+begin_export latex
+{\bf
+5-års aldersintervaller }
+#+end_export
+- første leveår: :: \(\a{k}[0]{1}=0,1\)
+- aldersinterval 1-5 år: ::  \(\a{k}[1]{4}= 4\cdot 0,5=2\)
+- sidste aldersinterval: ::  \(a_{x^{max}}=\frac{1}{\Mxk[x^{max}]}\)
+- alle andre intervaller: ::  \(\a{k}{5}=5\cdot 0,5\)=2,5 for \(x=2,\dots,(x^{max}-1)\)
+\vfill
+#+begin_export latex
+{\bf
+10-års aldersintervaller }
+#+end_export
+
+- første leveår: ::  \(\a{k}[0]{1}=0,1\)
+- aldersinterval 1-9 : ::  \(\a{k}[1]{9}= 9\cdot 0,5=4,5\)
+- sidste aldersinterval: ::  \(a_{x^{max}}=\frac{1}{\Mxk[x^{max}]}\)
+- alle andre intervaller: ::  \(\a{k}{10}=10\cdot 0,5=5\) for \(x=2,\dots,(x^{max}-1)\)
 
 *** Beregning af antal dødsfald i tabelbefolkning
 
@@ -141,13 +205,13 @@ mellem alder \(x=0\) og alder \(x=1\). Mere generel betegner vi med
 \(x+k\). Dermed er \(d(x,x+1)\) antal personer som dør mellem alder
 \(x\) og alder \(x+1\). Sandsynligheden for at dø mellem to alderstrin
 (dødshyppighederne) er det centrale element ved konstruktionen af
-overlevelsestavler. Vi betegner med \(q(x,x+k)\) sandsynligheden for
+overlevelsestavler. Vi betegner med \(\qxk\) sandsynligheden for
 at dø mellem alder \(x\) og alder \(x+k\) og har følgende formel for
 antal dødsfald i aldersintervallet \((x,x+k]\):
 
 #+begin_export latex
 \begin{equation*}
-d(x,x+k) = q(x,x+k)\ell(x)
+d(x,x+k) = \qxk\ell(x)
 \end{equation*}
 #+end_export
 
@@ -310,4 +374,12 @@ tallet divideres med 365.
 #+LaTeX_HEADER:\definecolor{lightGray}{gray}{0.98}
 #+LaTeX_HEADER:\definecolor{medioGray}{gray}{0.83}
 #+LATEX_HEADER:\definecolor{mygray}{rgb}{.95, 0.95, 0.95}
+#+Latex_Header: \newcommand{\qxk}{\ensuremath{{}_{k}q_{x}}}
+#+Latex_Header: \newcommand{\qxe}[1][x]{\ensuremath{{}_{1}q_{#1}}}
+#+Latex_Header: \newcommand{\Dxk}[1][x]{\ensuremath{{}_{k}D_{#1}}}
+#+Latex_Header: \newcommand{\qxf}[1][x]{\ensuremath{{}_{5}q_{#1}}}
+#+Latex_Header: \newcommand{\Mxf}[1][x]{\ensuremath{{}_{5}M_{#1}}}
+#+Latex_Header: \newcommand{\Mxk}[1][x]{\ensuremath{{}_{k}M_{#1}}}
+#+Latex_Header: \newcommand{\Rxk}[1][x]{\ensuremath{{}_{k}R_{#1}}}
+#+Latex_Header: \renewcommand{\a}[2][x]{\ensuremath{{}_{#2}a_{#1}}}
 #+LATEX_HEADER:\newcommand{\mybox}[1]{\vspace{.5em}\begin{tcolorbox}[boxrule=0pt,colback=mygray] #1 \end{tcolorbox}}

@@ -548,10 +548,10 @@ kapitel udelader vi begrebet ``summarisk'' systematisk fra raterne.
 
 *** Eksempel
 
-Vi illustrerer beregningen af perioderater og bruger
-flytningsrater for flytninger indenfor Danmark i perioden fra 1. januar 2020 til 1. januar 2023 som
-eksempel. Først henter vi antal flytninger fra statistikbankens
-register FLY.
+Vi illustrerer beregningen af perioderater og bruger flytningsrater
+for flytninger indenfor Danmark i perioden fra 1. januar 2020
+til 1. januar 2023 som eksempel. Først henter vi antal flytninger fra
+statistikbankens register FLY.
 
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={list,c,as,numeric}
 #+BEGIN_SRC R  :results output verbatim :exports both  :session *R* :cache yes  
