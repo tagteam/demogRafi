@@ -1,15 +1,57 @@
 * Mortalitet
 
-SKRIV HER Anna-Vera og Laust
+Mortalitet er synonymt med dødelighed og referer til hændelsen at dø. I demografi
+betragtes dødsfald som en måde, hvorpå personer kan forlade en befolkning og 
+mortalitet beskriver således en vigtig del af en befolknings dynamik og udvikling. 
+I forrige kapitel, blev I præsenteret for den demografiske ligevægtsligning, 
+som beskriver befolkningstilvæksten ud fra fire demografiske komponenter: fødsler, dødsfald, 
+indvandringer og udvandringer. Mortalitet beskriver altså en af de grundlæggende 
+emner inden for demografi. 
+
+Fra et samfundsperspektiv spiller demografiske undersøgelser af befolkningens mortalitet
+en vigtig rolle i et at forstå forandringer i befolkningssammensætningen og befolkningens sundhedstilstand. Et eksempel er den faldende dødelighed på tværs af alle aldersgrupper, som har resulteret i, at vi lever længere. Dette medfører en stigende andel af ældre i befolkningen. Desuden giver analyser af mortalitet indblik i befolkningens generelle sundhedstilstand ligesom, at de kan informere om ulighed i sundhed/dødelighed på tværs af befolkningsgrupper. Disse informationer er væsentlige for det politiske arbejde, som former sundhedspolitikker og påvirker ressourceallokering i sundhedsvæsenet.
 
 
 ** Den demografiske transition
 
-Udviklingen fra et traditionelt samfund med et højt niveau for
-dødelighed og fertilitet til et samfund præget af et lavt niveau på
-begge disse områder betegnes som den demografiske
-transition. Nedgangen af dødeligheden er det element af transitionen,
-der kommer først, fertilitetsnedgangen følger bagefter.
+Den demografiske transition beskriver et historisk skift i befolkningsmønstre fra
+et traditionelt samfund med høj fertilitet og høj dødelighed til et samfund præget 
+af lav fertitet og lav dødelighed. Nedgangen i dødelighed er det element af transitionen,
+der kommer først, hvorefter fertilitetsnedgangen følger. Dette skift er ofte drevet af økonomisk vækst, forbedret sundhed og sociale forandringer, som påvirker beslutninger om familiedannelse. 
+Som konsekvens af den demografiske transition ændres befolkningssammensætningen.
+
+
+** Mål for mortalitet
+
+Demografien anvender forskellige mål til at kvantificere og opgøre mortalitet. 
+En summarisk mortalitetsrate angiver antallet af dødsfald per personår i en given 
+periode. Den summariske mortalitetsrate er for eksempel nyttig, når formålet er at 
+beskrive dødeligheden i en befolkning i en given periode. Summariske mortalitetsrater 
+kan udregnes per år i en given periode og således informere om ændringer
+i dødeligheden over tid. Et eksempel på dette kan ses i Figur 1. 
+
+Indsæt eksempel/graf
+
+Beregningen af summariske rater blev beskrevet i Kapitel 1, og vi vil derfor
+ikke beskrive dette ydereligere her. 
+
+Mortalitet kan også beskrives ud fra aldersspecifikke mortalitetsrater. Disse beregnes på 
+samme vis som den summariske mortalitetsrate, men seperat for hver aldersgruppe. Det bliver 
+således muligt at undersøge forskelle i dødeligheden på tværs af aldersgrupper. Ligeledes, kan alderspecifikke mortalitetsrater udregnes per år over en given periode og 
+derved give information om ændringer i aldersspecifik dødelighed over tid. Altså
+oplever nogle aldersgrupper et fald i mortaliteten, hvor andre oplever en stigning? 
+
+Indsæt eksempel/graf
+
+Endeligt, beregner man ofte middellevetid inden for demografi. Dette er et mål for, hvor længe 
+en nyfødt kan forvente at leve givet de aldersspecifikke mortalitetsrater, der er gældende det år, 
+barnet er født i. Middellevetid er et komplekst mål, og dets udregning bygger på konstruktionen af 
+livstabeller/life tabels. Denne udregning kræver en detaljeret beskrivelse, og vi har derfor 
+dedikeret Kapitel 3 til netop dette. I dette kapitel vil vi fokusere på, hvordan summariske og 
+aldersspecifikke rater kan standardiseres for at gøre det muligt at sammenligne rater - herunder
+mortalitetsrater - på tværs af befolkninger. 
+
+
 
 * Standardiserede rater
 
