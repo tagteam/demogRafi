@@ -1,1 +1,79 @@
 * Fertilitet
+
+Fertilitet er en vigtig komponent i demografien og beskriver sammen med mortalitet den naturlige vækst i befolkningen…..  
+
+** Introduktion om fertilitetens udvikling
+
+
+[INDSÆT GRAF OM ALDER FOR FØRSTEGANGSFORÆLDRE – EVT SKRIV LIDT OM UDVIKLINGEN]
+
+
+** Fertilitetsmål 
+
+Når fertilitet undersøges i demografiske analyser er det med fokus på fødsler af levendefødte børn. Ifølge Sundhedsstyrelsen anses et barn for levendefødt, hvis barnet kommer til verden med tydelige tegn på liv uanset graviditetens længde. Er dette ikke tilfældet beskrives barnet som dødfødt og indgår ikke i demografiske analyser. Begrundelsen for dette er, at disse fødsler ikke bidrager til befolkningsudviklingen eller -sammensætningen. 
+
+Forskellige mål kan anvendes til at beskrive fertiliteten og udviklingen heraf. En simpel fremgangsmåde er en opgørelse af antallet af levendefødte. Det absolutte antal levendefødte beskriver størrelsen på en fødselskohorte, hvilket i demografisk sammenhæng har betydning for befolkningssammensætningen og dens udvikling. For eksempel har størrelsen på en fødselskohorte betydning for, hvor mange pladser der er brug for i daginstitutionerne. Ligeledes har det senere betydning for, hvor mange der vil være på arbejdsmarkedet og endnu senere, hvor mangle ældre der vil være i samfundet. Alt dette har betydning for politiske beslutninger og planlægning. Det absolutte antal levendefødte har dog også dets begrænser i og med, det ikke kan bruges til at sammenligne fertiliteten over tid eller på tværs af befolkningsgrupper/lande. Hertil er der brug for relative mål. 
+
+[EVT INDSÆT GRAF MED ANTAL LEVENDEFØDTE – EVT SKRIV LIDT OM UDVIKLINGEN]
+
+
+Fertilitet kan beskrives ved tre forskellige relative mål: summarisk, generel og aldersspecifikke rater. Disse begreber er ikke nye, men er beskrevet i tidligere kapitler (se kapitlet om mortalitet). Alle tre mål udtrykkes pr. personår (fx pr 1000 personår) eller pr. indbyggere (fx pr 1000 indbyggere) og er relativt nemme at beregne. 
+
+Den summariske fertilitetsrate defineres som antal levendefødte pr. 1000 indbyggere og beregnes ved at dividere antallet af levendefødte børn i en given periode med middelfolketallet for samme periode. Fremgangsmåden er altså den samme som for den summariske mortalitetsrate. Formlen ser således ud: 
+
+f=  F_(t,t+1)/M
+
+f angiver fertilitetsraten, F er antal levendefødte i tidsintervallet fra t til t+1, og M er middelfolketallet. 
+
+
+Det er vigtigt at notere sig, at der i middelfolketallet for den givne periode indgår personer, som ikke kan føde børn – herunder mænd, børn og ældre. Derfor anvendes den generelle fertilitetsrate ofte, da der i dette mål kun divideres med kvinder i den fertile alder (15-49 år). Den generelle fertilitetsrate defineres således som antal levendefødte børn pr. 1000 kvinder i den fertile alder. Og formlen ser således ud: 
+
+
+f=  F_(t,t+1)/M_K15,49 
+
+f angiver fertilitetsraten, F er antal levendefødte i tidsintervallet fra t til t+1, og M er middelfolketallet af 15-49 årige kvinder. 
+
+Sammenlignet med den summariske fertilitetsrate vil den generelle fertilitetsrate vil være mere retvisende, da denne rate tager højde for størrelsen på den kvindelige befolkning. 
+
+
+Den aldersspecifikke fertilitetsrate udregnes på samme vis som den aldersspecifikke mortalitetsrate. For en given periode og en given aldersgruppe fx 30-34 årige vil den aldersspecifikke fertilitetsrate beregnes ved at dividere antallet af levendefødte børn, der fødes af kvinder, der er 30-34 år på barnets fødselsdag, med det totale antal af 30-34 årige kvinder. Raten vil således definere hvor mange børn 1000 30-34årige kvinder føder i den givne periode. Formlen ser således ud: 
+
+
+f_(x,x+n)=  F_(x,x+n)/M_x 
+
+f angiver fertilitetsraten, x er aldersintervallets startalder (fx 30 år), n er intervallet længde (fx 5 år), F er antal levendefødte, og M er middelfolketallet for den pågældende aldersgruppe. 
+
+[INDSÆT GRAF MED ALDERSSPECIFIKKE FERTILITETSRATER – EVT SKRIV LIDT OM UDVIKLINGEN]
+
+
+Aldersspecifikke fertilitetsrater gør det muligt at undersøge fertilitetsudviklingen for hver aldersgruppe. Det er således muligt at undersøge, om fertilitetsraten er stigende eller faldende i givne aldersgrupper. Når kvinder vælger at få børn senere, vil det således vise sig ved, at fertilitetsraten falder i yngre aldersgrupper og ligeledes stiger i ældre aldersgrupper. Ud fra tendenser i aldersspecifikke rater kan man altså sige noget om timing og spacing. Det vil sige, hvornår og men hvor stor tidsmæssig afstand fødes børn. 
+
+Fertilitet kan også undersøges ved et mål for den samlede fertilitet. Denne beregnes ud fra de aldersspecifikke fertilitetsrater og ved samme fremgangsmåde som bruges i livstabeller, som blev beskrevet i dybden i tidligere kapitel (se kapitel om livstabeller). Fortolkningen af den samlede fertilitet er derfor antal levendefødte børn som 1000 kvinder vil føde i løbet af deres fertile alder (15-49 år) givet at ingen af kvinderne dør før de fylder 50 år og at de i hvert aldersinterval føder som det var tilfældet i det givne kalenderår. Det er således et mål for fertiliteten i en hypotetisk kohorte. Formlen ser således ud: 
+
+
+S= n* ∑_x▒nfx
+
+n angiver aldersintervallets længde, og nfx angiver den aldersspecifikke fertilitetsrate fra alder x til alder x+n. 
+
+I beregningen ligger en antagelse om, at der er lige mange kvinder i hver aldersgruppe. Den samlede fertilitet beregnes som en summation af de aldersspecifikke fertilitetsrater multipliceret med aldersintervallets længde. Der multipliceret med aldersintervallets længde, da kvinderne kan føde børn i alle årene i et givent aldersinterval. Tal for den samlede fertilitet nævnes ofte i den offentlige debat om fertilitetsniveauet i Danmark. Det er nemlig tal for den samlede fertilitet, der angiver at kvinder skal føde 2,1 børn i gennemsnit for, at den danske befolkning kan reproducere sig selv. 
+
+[INDSÆT GRAF FOR SAMLET FERTILITET – EVT SKRIV LIDT OM UDVIKLINGEN]
+
+Endeligt kan fertilitet undersøges gennem beregninger af netto- og bruttoreproduktionstal. Bruttoreproduktionstallet beregnes på samme vis som den samlede fertilitet, men dog kun med nyfødte piger i tælleren. Definitionen er derfor antallet af levendefødte pige, som vil blive født af 1000 kvinder i løbet af deres fertile alder (15-49 år) givet at ingen af kvinderne dør før de fylder 50 år og at de i hvert aldersinterval føder det antal børn, som periodens aldersspecifikke fertilitetsrater angiver. Formlen ser således ud:
+
+
+S_g= n* ∑_x▒nfx
+
+n angiver aldersintervallets længde, og nfx angiver den aldersspecifikke fertilitetsrate af piger fra alder x til alder x+n. 
+
+Nettoreproduktionstallet er et mere komplekst mål. Her tages der højde for at kvinderne godt kan dø inden de fylder 50 år ligesom det er tilfældet i den virkelige verden. Nettoreproduktionstallet defineres således som antallet af levendefødte piger, som vil blive født af 1000 kvinder i løbet af deres fertile alder (15-49 år) givet af at kvinderne dør fra alder 0 i overensstemmelse med dødelighedstavlen (for kvinder) for den givne periode, og at kvinderne i hvert aldersinterval føder det antal børn, som periodens aldersspecifikke fertilitetsrater angiver. Der tages derfor højde for, at kvinderne kan dø, men det ignoreres, at de nyfødte piger ligeledes kan dø inden de når den fertile alder. Formlen ser således ud:
+
+
+S_n= ∑_x▒〖nfx* nLx/l_0 〗
+
+n angiver aldersintervallets længde, nfx angiver den aldersspecifikke fertilitetsrate af piger fra alder x til alder x+n, nLx angiver overlevelsesraten for kvinder i alder x til alder x+n og l0 angiver antallet af kvinder i overlevelsestavlen, der når til alder x. 
+
+
+Hvordan runder vi lige kapitlet af?? 
+
+Evt. et afsnit om familieformer? 
