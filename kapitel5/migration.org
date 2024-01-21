@@ -1,2 +1,13 @@
-* Migrationsburden
-* Ældreburden 
+* Migration
+
+Migration er ligesom mortalitet og fertilitet en vigtig demografisk komponent. Ind- og udvandringer kan nemlig påvirke befolkningssammensætningen væsentligt ift. fordelingen af køn, alder og etnicitet. Migration influerer derfor fertiliteten, arbejdsstyrkens og forsørgerbyrden. Ligesom at sygdomsmønstre kan være forskellige på tværs af etniciteter og variere fra den øvrige befolkning. 
+
+Migration kan også beskrives som geografisk mobilitet. Det forudsætter at en person eller familie/husstand skifter bopæl enten til et andet sted i landet eller til et andet land. Når en flytning sker på tværs af landegrænser er der tale om ekstern/international migration. Men flytninger kan også ske med kortere afstande fx inden for en kommune, region eller land. Når en flytning sker inden for et defineret område, er der tale om intern migration. Begge former for migration er interessante i demografisk forstand. Indenlandske flytninger (intern migration) har betydning for befolkningssammensætningen i oprindelsesområdet samt tilflytterområdet. Det såkaldte udkantsdanmark er et eksempel på et område med få tilflyttere og mange fraflyttere. Det resulterer i en skæv befolkningssammensætning i forhold til resten af landet – for eksempel ift. køn, alder og uddannelsesniveau. International migration har mindre betydning for befolkningssammensætningen for mindre områder, men stor betydningen for landets befolkning. 
+
+Hvor differencen mellem mortalitet og fertilitet informere om den naturlige vækst af befolkningen, kan differencen mellem indvandring (immigration) og udvandring (emigration) informere om nettovandring, som kan være positiv og dermed bidrage til befolkningstilvækst eller omvendt. 
+
+** Beregninger ved ekstern/international migration
+Sammenlignet med mortalitet og fertilitet er der markant færre mål for ind- og udvandringer. Det skyldes en række udfordringer i definitioner og datatilgængelighed, som vil blive berørt løbende i dette afsnit. Der er dog en række muligheder for at undersøge vandringer i demografiske analyser. Det inkluderer undersøgelser af bestanden indvandrede personer, som indebærer beskrivelser af indvandrerbefolkningens karakteristika, og undersøgelser af vandringer, hvilket kan belyse udviklingen i ind- og udvandringer over tid. Relevant for sidstnævnte er beskrivelser af, hvilke lande indvandrere kommer fra, hvortil udvandringen går og udviklingen i nettoindvandringen. 
+
+
+
