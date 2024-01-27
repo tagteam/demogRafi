@@ -94,13 +94,24 @@ data.frame("dato"=c(t_1,t_2),"Folketal"=c(N_1,N_2),
 
 
 Folketallet ændrer sig hver dag, men det er svært at registrere og
-tælle nøjagtigt hvor mange personer er i befolkning hver enkelt
+tælle nøjagtigt hvor mange personer der er i befolkning hver enkelt
 dag. Heldigvis betyder små unøjagtigheder i tallene typisk ikke meget
 for demografiske konklusioner. Statistikbanken angiver folketal i
-starten af hvert kvartal siden 2008 (FOLK1A), den første januar per år
-siden 1971 (BEFOLK1), den første januar per år siden 1901
-(HISB3). Desuden er der summariske tal fra folketællinger hele vejen
-fra 1769 (FT). Disse tal bliver vist i Figur [[fig:1]].
+starten af hvert kvartal siden 2008 (register =FOLK1A=), den første
+januar per år siden 1971 (register =BEFOLK1= ), den første januar per
+år siden 1901 (register =HISB3= ). Desuden er der summariske tal fra
+folketællinger hele vejen fra 1769 (register =FT=).
+
+For at hente data fra statistikbanken bruger vi en R pakke som hedder
+=danstat=. Desuden bruger vi en række andre R pakker og også R
+funktioner, som gør det nemt arbejde med data fra statistikbanken, og
+implementere specifikke demografiske metoder. For at afprøve de
+følgende R koder i jeres computer skal I først hente filen
+
+
+
+
+Folketal fra register (=FT=) bliver vist i Figur [[fig:1]].
 
 #+ATTR_LATEX: :options otherkeywords={ggplot,hent_data}, deletekeywords={list,dt,data,scale}
 #+BEGIN_SRC R :results file graphics :file ./kapitel1/figure1.pdf :exports code :session *R* :cache yes
