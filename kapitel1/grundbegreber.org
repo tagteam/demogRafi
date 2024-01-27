@@ -76,17 +76,15 @@ befolkning vokset med 126.573 personer i de 1461 dage mellem den 1.
 januar 2019 og den 1. januar 2023. Her er R-koder som kan bruges til at
 beregne antal dage mellem to datoer og ændring af folketal i perioden.
 
-#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={t,as}
+#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={t,as,c}
 #+BEGIN_SRC R  :results output verbatim :exports both  :session *R* :cache yes  
 # R-code
 t_1= as.Date("2019-01-01")
 t_2= as.Date("2023-01-01")
 N_1 = 5806081
 N_2 = 5932654
-data.frame("dato"=c(t_1,t_2),
-           "Folketal"=c(N_1,N_2),
-           "Antal dage"=c(NA,t_2-t_1),
-           "Vækst"=c(NA,N_2-N_1))
+data.frame("dato"=c(t_1,t_2),"Folketal"=c(N_1,N_2),
+           "Antal dage"=c(NA,t_2-t_1),"Vækst"=c(NA,N_2-N_1))
 #+END_SRC
 
 #+RESULTS[(2023-12-27 12:46:31) 3b577630b92663ee94418cfb09bf6c41dd3436f7]:
@@ -95,23 +93,20 @@ data.frame("dato"=c(t_1,t_2),
 : 2 2023-01-01  5932654       1461 126573
 
 
-Folketallet ændrer sig jo hver dag, men det er svært at registrere og
-tælle nøjagtigt for enkelte dage. Heldigvis betyder små unøjagtigheder
-i tallene typisk ikke meget for demografiske
-konklusioner. Statistikbanken angiver folketal i starten af
-hvert kvartal siden 2008 (FOLK1A), den første januar per år siden 1971
-(BEFOLK1), den første januar per år siden 1901 (HISB3). Desuden er der
-summariske tal fra folketællinger hele vejen fra 1769 (FT). Disse tal
-bliver vist i Figur [[fig:1]].
+Folketallet ændrer sig hver dag, men det er svært at registrere og
+tælle nøjagtigt hvor mange personer er i befolkning hver enkelt
+dag. Heldigvis betyder små unøjagtigheder i tallene typisk ikke meget
+for demografiske konklusioner. Statistikbanken angiver folketal i
+starten af hvert kvartal siden 2008 (FOLK1A), den første januar per år
+siden 1971 (BEFOLK1), den første januar per år siden 1901
+(HISB3). Desuden er der summariske tal fra folketællinger hele vejen
+fra 1769 (FT). Disse tal bliver vist i Figur [[fig:1]].
 
-#+BEGIN_SRC R :results file graphics :file ./kapitel1/figure1.pdf :exports none :session *R* :cache yes
-library(danstat)
-library(ggplot2)
-library(ggthemes)
-options(readr.show_col_types = FALSE)
-dt_meta <- get_table_metadata("FT")
-dt=get_data("FT",variables=list(list(code="tid",values=dt_meta$variables$values[[2]][[2]])))
-ggplot(dt,aes(TID,INDHOLD))+geom_line()+geom_point()+theme_wsj()+ scale_colour_wsj("colors6")
+#+ATTR_LATEX: :options otherkeywords={ggplot,hent_data}, deletekeywords={list,dt,data,scale}
+#+BEGIN_SRC R :results file graphics :file ./kapitel1/figure1.pdf :exports code :session *R* :cache yes
+dt=hent_data(register = "FT",tid = "all")
+ggplot(dt,aes(TID,INDHOLD))+geom_line()+geom_point()+
+  theme_wsj()+ scale_colour_wsj("colors6")
 #+END_SRC
 
 #+RESULTS[(2023-11-06 11:34:16) e930586f8196697970f2e417b783cab3dc1c97f7]:
@@ -121,8 +116,6 @@ ggplot(dt,aes(TID,INDHOLD))+geom_line()+geom_point()+theme_wsj()+ scale_colour_w
 #+ATTR_LATEX: :width 0.7\textwidth
 #+CAPTION: Figuren viser udviklingen af det danske folketal siden 1769 fra folketællinger, statistikbankens register FT.
 [[file:./figure1.pdf]]
-
-
 
 [fn:1] https://statistikbanken.dk/
 
@@ -243,22 +236,21 @@ starter den 1. januar 2016 og slutter den 1. januar 2023. Fra
 statistikbankens =BEFOLK1= henter vi folketal i starten, midten og
 slutningen af perioden:
 
-#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
-#+BEGIN_SRC R  :results output verbatim   :exports both  :session *R* :cache yes
-library(danstat)
-library(tidyverse)
-library(stringi)
-dt=get_data("BEFOLK1",variables=list(list(code="tid",values=c(2009,2016,2023))))
+#+ATTR_LATEX: :options otherkeywords={hent_data}, deletekeywords={list,dt,c}
+#+BEGIN_SRC R  :results output drawer :exports both  :session *R* :cache yes
+dt=hent_data("BEFOLK1",tid=c(2009,2016,2023))
 dt
 #+END_SRC
 
-#+RESULTS[(2023-12-27 12:47:18) 7984f514e8e8d2e108191fc2117d16967f830885]:
-: # A tibble: 3 × 2
-:     TID INDHOLD
-:   <dbl>   <dbl>
-: 1  2009 5511451
-: 2  2016 5707251
-: 3  2023 5932654
+#+RESULTS[(2024-01-22 10:46:33) c5c1eb8eb6a08abb79be4ff5b925131142b78e99]:
+:results:
+# A tibble: 3 × 2
+    TID INDHOLD
+  <dbl>   <dbl>
+1  2009 5511451
+2  2016 5707251
+3  2023 5932654
+:end:
 
 Det er nemmest at anvende metode 1. Med metode 1 er
 det estimerede middelfolketal $\tilde N[\texttt{1 januar 2016}] = 5.707.251$ personer. For at benytte metode 2
@@ -276,7 +268,7 @@ bruger vi R som lommerregner:
 Med metode 2 estimerer vi middelfolketallet i perioden 2009--2023 dermed til
 $5.609.351$ personer. For metode 3 er beregningen i R den følgende:
 
-#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
+#+ATTR_LATEX: :options otherkeywords={hent_data,format_dato}, deletekeywords={rep,dt,variable}
 #+BEGIN_SRC R  :results output example  :exports both  :session *R* :cache yes  
 # Metode 3
 (2016-2009)/(2023-2009)*(5511451+5707251)/2 + (2023-2016)/(2023-2009)*(5707251+5932654)/2
@@ -297,28 +289,17 @@ disse tal. Følgende R-koder henter alle folketal mellem 1. januar 2009
 og 1. januar 2023 fra statistikbankens register FOLK1a og anvender
 metode 3.
 
-#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
+#+ATTR_LATEX: :options otherkeywords={hent_data,format_dato}, deletekeywords={rep,c,variable,dt,length,as,numeric}
 #+BEGIN_SRC R  :results output verbatim  :exports both  :session *R* :cache yes  
-library(tidyverse)
-library(stringi)
 # Metode 3 baseret på 57 folketal mellem 2009 og 2023
 # konstruere vektor 2009K1, 2009K2, ..., 2022K4
 kvartal_years <- paste0(rep(2009:2022,rep(4,14)),"K",1:4)
 # tilføj 2023K1
 kvartal_years <- c(kvartal_years,"2023K1")
 # hent data fra FOLK1a 
-dt <- get_data("FOLK1a",variables=list(list(code="tid",
-                                            values=kvartal_years)))
+dt <- hent_data(register = "FOLK1a",tid=kvartal_years)
 # transform årstal + kvartal til dato
-patt <- c("Q1","Q2","Q3","Q4")
-repl <- c("-01-01","-01-04","-01-07","-01-10")
-dt <- mutate(dt,
-             TID=stri_replace_all_regex(TID,
-                                        pattern=patt,
-                                        replace=repl,
-                                        vectorize_all=FALSE))
-# transform fra character til dato
-dt <- mutate(dt, TID=as.Date(TID)) 
+dt <- format_dato(dt,variable = "TID")
 # anvend middelfolketal metode 3
 summarise(dt,{
   len <- length(TID)
@@ -378,20 +359,26 @@ denne periode, hvorimod fødsler og dødsfald er på et rimeligt konstant
 niveau. Man kan også se, at udvandring er stigende helt op til 2019 men
 knækker i 2020 på grund af coronakrisen.
 
-#+BEGIN_SRC R :results file graphics :file ./kapitel1/figure3.pdf :exports none :session *R* :cache yes 
-setwd("~/metropolis/Teaching/demogRafi/")
-library(data.table)
-library(ggthemes)
-library(ggplot2)
-X <- data.table(rbind(cbind(X="Vækst",get_data("BEFOLK1",list(list(code="tid",values=1980:2022)))),
-                      cbind(X="Dødsfald",get_data("DOD",list(list(code="tid",values=1980:2022)))),
-                      cbind(X="Fødsler",get_data("FOD",list(list(code="tid",values=1980:2022)))),
-                      cbind(X="Indvandring",get_data("INDVAN",list(list(code="tid",values=1980:2022)))),
-                      cbind(X="Udvandring",get_data("UDVAN",list(list(code="tid",values=1980:2022))))))
-X[X=="Vækst",INDHOLD:=INDHOLD- c(INDHOLD[1],INDHOLD[-length(INDHOLD)])]
-X[X%in%c("Udvandring","Dødsfald"),INDHOLD:=-INDHOLD]
-X[,X:=factor(X,levels=c("Dødsfald","Fødsler","Vækst","Indvandring","Udvandring"),labels=c("Dødsfald","Fødsler","Vækst","Indvandring","Udvandring"))]
-ggplot(X,aes(TID,INDHOLD,color=X,group=X))+geom_line()+geom_point()+theme_wsj()+ scale_colour_wsj("colors6") +theme(legend.title=element_blank())
+#+ATTR_LATEX: :options otherkeywords={ggplot,hent_data,mutate}, deletekeywords={c,D,cbind,length,I,scale,legend,title,factor,rbind}
+#+BEGIN_SRC R :results file graphics :file ./kapitel1/figure3.pdf :exports code :session *R* :cache yes 
+V = hent_data("BEFOLK1",tid=1980:2022)
+V = V %>% mutate(INDHOLD = INDHOLD- c(INDHOLD[1],INDHOLD[-length(INDHOLD)]))
+D = hent_data("dod",tid=1980:2022)
+D = D %>% mutate(INDHOLD = -INDHOLD)
+F = hent_data("FOD",tid=1980:2022)
+I = hent_data("INDVAN",tid=1980:2022)
+U = hent_data("UDVAN",tid=1980:2022)
+U = U %>% mutate(INDHOLD = -INDHOLD)
+# samle data
+dat <- tibble(rbind(cbind(X="Vækst",V),
+                    cbind(X="Dødsfald",D),
+                    cbind(X="Fødsler",F),
+                    cbind(X="Indvandring",I),
+                    cbind(X="Udvandring",U)))
+dat <- dat %<% mutate(X = factor(X))
+ggplot(X,aes(TID,INDHOLD,color=X,group=X))+geom_line()+
+  geom_point()+theme_wsj()+ scale_colour_wsj("colors6") +
+theme(legend.title=element_blank())
 #+END_SRC
 
 #+RESULTS[(2023-11-07 16:42:12) 81d0b22d2b67c2707054181d6f5676bef69b9d78]:
@@ -409,21 +396,11 @@ statistikbankens register FOLK1a, DOD, FOD, INDVAN og UDVAN.
 
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={list,c,D,I}
 #+BEGIN_SRC R  :results output verbatim  :exports both  :session *R* :cache yes
-N <- get_data("FOLK1a",
-              list(list(code="tid",
-                        values=c("2022K1","2023K1"))))[["INDHOLD"]]
-D <- get_data("DOD",
-              list(list(code="tid",
-                        values=2022)))[["INDHOLD"]]
-F <- get_data("FOD",
-              list(list(code="tid",
-                        values=2022)))[["INDHOLD"]]
-I <- get_data("INDVAN",
-              list(list(code="tid",
-                        values=2022)))[["INDHOLD"]]
-U <- get_data("UDVAN",
-              list(list(code="tid",
-                        values=2022)))[["INDHOLD"]]
+N <- hent_data("FOLK1a",tid = c("2022K1","2023K1"))[["INDHOLD"]]
+D <- hent_data("DOD",tid=2022)))[["INDHOLD"]]
+F <- hent_data("FOD",tid = 2022)[["INDHOLD"]]
+I <- hent_data("INDVAN",tid=2022)[["INDHOLD"]]
+U <- hent_data("UDVAN",tid=2022)[["INDHOLD"]]
 # data for ligevægtsligningen
 tibble(X=c("Folketal jan 2022",
            "Folketal jan 2023",
@@ -556,9 +533,7 @@ statistikbankens register FLY.
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={list,c,as,numeric}
 #+BEGIN_SRC R  :results output verbatim :exports both  :session *R* :cache yes  
 # Antal flytninger indenfor Danmark i årene 2020, 2021, 2022
-FL <- get_data("FLY",
-               list(list(code="tid",
-                         values=2020:2022)))
+FL <- hent_data("FLY",tid=2020:2022)
 # Antal flytninger i perioden [2020,2022]
 X <- pull(summarize(FL,sum(INDHOLD)))
 X
@@ -575,7 +550,7 @@ også risikotid.
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={list,c,as,numeric,R}
 #+BEGIN_SRC R  :results output verbatim  :exports both  :session *R* :cache yes  
 # Folketal for den danske befolkning i perioden
-N <- get_data("FOLK1a",list(list(code="tid",values=c("2020K1","2023K1"))))
+N <- hent_data("FOLK1a",tid = c("2020K1","2023K1"))
 # Middelfolketal metode 2
 NN <-  summarise(N,middelfolketal=mean(INDHOLD))
 # Risikotid
@@ -650,9 +625,7 @@ middelfolketallet og beregner risikotid ved at gange med 1 år:
 
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
 #+BEGIN_SRC R  :results output verbatim  :exports both  :session *R* :cache yes  
-N <- get_data("FOLK1a",
-              list(list(code="tid",
-                        values=c("2022K1","2023K1"))))[["INDHOLD"]]
+N <- hent_data("FOLK1a",tid=c("2022K1","2023K1"))[["INDHOLD"]]
 vækst <- N[2]-N[1]
 middelfolketal  <- mean(N)
 risikotid <- middelfolketal*1
@@ -665,19 +638,19 @@ risikotid
 Risikotiden i den danske befolkning var således 5.903.037 personår mellem 1.
 januar 2022 og 1. januar 2023.
 
-#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
+#+ATTR_LATEX: :options otherkeywords={hent_data}, deletekeywords={D,I}
 #+BEGIN_SRC R  :results output verbatim  :exports both  :session *R* :cache yes
 # mortalitetsrate
-D <- get_data("DOD",list(list(code="tid",values=2022)))[["INDHOLD"]]
+D <- hent_data("DOD",tid=2022)[["INDHOLD"]]
 Drate <- 1000*D/risikotid
 # fødselsrate
-F <- get_data("FOD",list(list(code="tid",values=2022)))[["INDHOLD"]]
+F <- hent_data("FOD",tid=2022)[["INDHOLD"]]
 Frate <- 1000*F/risikotid
 # indvandringsrate
-I <- get_data("INDVAN",list(list(code="tid",values=2022)))[["INDHOLD"]]
+I <- hent_data("INDVAN",tid=2022)[["INDHOLD"]]
 Irate <- 1000*I/risikotid
 # udvandringsrate
-U <- get_data("UDVAN",list(list(code="tid",values=2022)))[["INDHOLD"]]
+U <- hent_data("UDVAN",tid=2022)[["INDHOLD"]]
 Urate <- 1000*U/risikotid
 # væksrate
 Vrate <- 1000*vækst/risikotid
@@ -732,6 +705,7 @@ ikke, og der er en fejlrate:
 
 #+TITLE: Grundbegreber
 #+AUTHOR: Anna-Vera Jørring Pallesen, Johan Sebastian Ohlendorff, Laust Hvas Mortensen and Thomas Alexander Gerds
+#+DATE: 
 #+LANGUAGE: dk
 #+LaTeX_CLASS: danish-article
 #+OPTIONS: toc:nil
@@ -747,5 +721,5 @@ ikke, og der er en fejlrate:
 #+LaTeX_HEADER:\usepackage{latexsym}
 #+LaTeX_HEADER: \renewcommand{\figurename}{Figur}
 #+OPTIONS:   H:3  num:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
-#+OPTIONS:   TeX:t LaTeX:t skip:nil d:t todo:t pri:nil tags:not-in-toc author:nil
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:t todo:t pri:nil tags:not-in-toc author:t
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://publicifsv.sund.ku.dk/~tag/styles/all-purpose.css" />

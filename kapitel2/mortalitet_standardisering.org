@@ -9,7 +9,7 @@ indvandringer og udvandringer. Mortalitet beskriver altså en af de grundlæggen
 emner inden for demografi. 
 
 Fra et samfundsperspektiv spiller demografiske undersøgelser af befolkningens mortalitet
-en vigtig rolle i et at forstå forandringer i befolkningssammensætningen og befolkningens sundhedstilstand. Et eksempel er den faldende dødelighed på tværs af alle aldersgrupper, som har resulteret i, at vi lever længere. Dette medfører en stigende andel af ældre i befolkningen. Desuden giver analyser af mortalitet indblik i befolkningens generelle sundhedstilstand ligesom, at de kan informere om ulighed i sundhed/dødelighed på tværs af befolkningsgrupper. Disse informationer er væsentlige for det politiske arbejde, som former sundhedspolitikker og påvirker ressourceallokering i sundhedsvæsenet.
+en vigtig rolle i at forstå forandringer i befolkningssammensætningen og befolkningens sundhedstilstand. Et eksempel er den faldende dødelighed på tværs af alle aldersgrupper, som har resulteret i, at vi lever længere. Dette medfører en stigende andel af ældre i befolkningen. Desuden giver analyser af mortalitet indblik i befolkningens generelle sundhedstilstand ligesom, at de kan informere om ulighed i sundhed/dødelighed på tværs af befolkningsgrupper. Disse informationer er væsentlige for det politiske arbejde, som former sundhedspolitikker og påvirker ressourceallokering i sundhedsvæsenet.
 
 
 ** Den demografiske transition
@@ -89,35 +89,33 @@ kvindelig danske befolkning og også i den mændlige danske befolkning.
 #+BEGIN_SRC R  :results output example :exports both  :session *R* :cache yes  
 library(danstat)
 library(tidyverse)
-# risikotid i 2011 baseret på middelfolketal metode 1
-# middelfolketal fra K3 bliver ganget med 1 år
-x <- get_data("FOLK1a",
-                   variables=list(list(code="tid",values="2011K3"),
-                                  list(code="køn",values=c(2,1))))
+# Risikotid i 2011 baseret på middelfolketal metode 1
+# ganget med 1 år 
+x <- hent_data("FOLK1a",tid = "2011K3",køn = c(2,1))
 # fjern TID fordi den er konstant
 x$TID <- NULL
-# aendre variable navn fra INDHOLD til RisikoTid
-x <- rename(x,"RisikoTid"="INDHOLD")
+# ændre variable navn
+x <- rename(x,"risiko_tid"="INDHOLD")
 # number of doedsfald i 2011
-d <- get_data("DOD",variables=list(list(code="tid",values="2011"),
-                                   list(code="køn",values=c("K","M"))))
+d <- hent_data("DOD",tid="2011","køn" = c("K","M"))
 # fjern TID fordi den er konstant
 d$TID <- NULL
-# navngivning af variable
-d <- rename(d,"Doed"="INDHOLD")
+# ændre variable navn
+d <- rename(d,"antal_dod"="INDHOLD")
 # join
 dat <- left_join(x,d,by="KØN")
 # summariske mortalitetsrater per 1000 personaar
-dat <- mutate(dat,"Summariske mortalitetsrate"=1000*Doed/RisikoTid)
+dat <- mutate(dat,"Summariske mortalitetsrate"=1000*antal_dod/risiko_tid)
 dat
 #+END_SRC
 
-#+RESULTS[(2023-12-27 12:58:08) eff04d6cd84dabec03c69d1017edc15bcf0046c9]:
+#+RESULTS[(2024-01-27 08:11:12) 4ab3593bba3bd26b0d15dbe4ba9bdfd3d432957e]:
 : # A tibble: 2 × 4
-:   KØN   RisikoTid  Doed `Summariske mortalitetsrate`
-:   <chr>     <dbl> <dbl>                        <dbl>
-: 1 Women   2806716 26577                         9.47
-: 2 Men     2760140 25939                         9.40
+:   KØN   risiko_tid antal_dod `Summariske mortalitetsrate`
+:   <chr>      <dbl>     <dbl>                        <dbl>
+: 1 Women    2806716     26577                         9.47
+: 2 Men      2760140     25939                         9.40
+
 
 Vi ser at den summariske mortalitetsrate i året 2011 var 9,47 døde per
 1000 personår for danske kvinder og 9,39 døde per 1000 personår for
@@ -162,34 +160,28 @@ transition. En mere sofistikerede og dynamisk version af den danske
 alderspyramide findes her
 https://extranet.dst.dk/pyramide/pyramide.htm.
 
-#+ATTR_LATEX: :options otherkeywords={group,mutate}, deletekeywords={list,dt,stat,library}
+#+ATTR_LATEX: :options otherkeywords={group,mutate,ggplot,hent_data}, deletekeywords={list,dt,stat,library,data,legend,title,as.numeric,c}
 #+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-alderspyramide.pdf :exports code :session *R* :cache yes
-library(ggplot2)
-library(ggthemes)
 ## begge køn
-folk <- get_data("FOLK1a",variables=list(
-                          list(code="alder",values=0:125),
-                          list(code="køn",values=1:2),
-                          list(code="tid",values="2023K3")))
-# formatere ALDER til numerisk 
-folk <- mutate(folk,ALDER=as.numeric(gsub(" year[s]?","",ALDER)))
+folk <- hent_data("FOLK1a","alder"=0:125,"køn"=1:2,tid="2023K3")
 # fjern tomme aldre
 folk <- subset(folk,ALDER<106)
-# separere køn
+# mænd skal vises på venstre siden, derfor bliver INDHOLD negativt 
 folk_m <- subset(folk,KØN=="Men") %>% mutate(INDHOLD=-INDHOLD)
+# for kvinder på højre siden er INDHOLD  positivt
 folk_k <- subset(folk,KØN=="Women")
 # plot
 g <- ggplot(folk, aes(x = ALDER, y = INDHOLD, fill = KØN)) +
-  geom_bar(data=folk_m, stat = "identity")+
-  geom_bar(data=folk_k, stat = "identity")+
-  coord_flip() +
-  theme_solarized_2()+ylab("Folketal N(t)")+xlab("Alder (år)")+
+  geom_bar(data=folk_m, stat = "identity") +
+  geom_bar(data=folk_k, stat = "identity") +
+  coord_flip() + theme_solarized_2() +
+  ylab("Folketal N(t)")+xlab("Alder (år)") +
   theme(legend.title=element_blank())
 g <- g+ggtitle("Alderspyramide Danmark 1 juli 2023")
 g
 #+END_SRC
 
-#+RESULTS[(2023-12-27 12:58:10) ec44f91603479bc9ea3f021e3cb3ee498bbbbc11]:
+#+RESULTS[(2024-01-27 08:29:09) 0cbb6963642c673739eb338bd2d102317b373684]:
 [[file:./kapitel2/k2-alderspyramide.pdf]]
 
 #+name: fig:alderspyramide
@@ -227,24 +219,17 @@ er 50 falder ikke i intervallet \((50,75]\) men i intervallet
 udgør og angiver den i procent (per hundrede). De fir procenttal er
 nettop aldersfordelingen med hensyn til de fir intervaller.
 
-#+ATTR_LATEX: :options otherkeywords={group,mutate}, deletekeywords={dt,list}
+#+ATTR_LATEX: :options otherkeywords={group,mutate,hent_data}, deletekeywords={dt,list,c}
 #+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
-library(danstat)
-library(tidyverse)
-## meta <- get_table_metadata("FOLK1a")
-## meta$variables[3,]$values[[1]][-1,"id"]
-folk <- get_data("FOLK1a",variables=list(
-                          list(code="alder",values=0:125),
-                          list(code="tid",values="2023K3")))
-# formatere ALDER til numerisk 
-folk <- mutate(folk,ALDER=as.numeric(gsub(" year[s]?","",ALDER)))
+folk <- hent_data("FOLK1a","alder"=0:125,tid="2023K3")
 # Aldersintervaller
 folk <- mutate(folk,Aldersinterval=cut(ALDER,
                                    breaks=c(0,25,50,75,125),
                                    include.lowest = TRUE))
 # antal person i de 4 aldersintervaller
-af <-folk%>% group_by(Aldersinterval) %>% summarise(Antal=sum(INDHOLD))
-# procent 
+af <- folk %>% group_by(Aldersinterval) %>%
+      summarise(Antal=sum(INDHOLD))
+# beregne procenter 
 af <- af %>% mutate(Procent=100*Antal/sum(Antal))
 af
 #+END_SRC
@@ -312,23 +297,18 @@ enkelt bruger vi inddelingen af befolkningen i de 4 aldersgrupper fra
 afsnit ref:eksempel_aldersgrupper. Vi henter folketal data fra
 statistikbankens register BY2 hvor man kan specificere bystørrelse.
 
-#+ATTR_LATEX: :options otherkeywords={group}, deletekeywords={list}
+#+ATTR_LATEX: :options otherkeywords={group,hent_data,mutate,summarise}, deletekeywords={list,c}
 #+BEGIN_SRC R  :results output verbatim :exports both  :cache yes
-library(tidyverse)
-library(danstat)
 ## meta <- get_table_metadata("BY2")
-b2 <- get_data("BY2",variables=list(
-                       list(code="alder",values=0:125),
-                       list(code="BYST",values=c("HOVEDS","LAND")),
-                       list(code="tid",values="2023")))
-# formatere ALDER til numerisk 
-b2 <- mutate(b2,ALDER=as.numeric(gsub(" year[s]?","",ALDER)))
+b2 <- hent_data(register = "BY2",alder=0:125,
+                BYST=c("HOVEDS","LAND"),tid="2023")
 # aldersintervaller
 b2 <- mutate(b2,Aldersinterval=cut(ALDER,
                                    breaks=c(0,25,50,75,125),
                                    include.lowest = TRUE))
 # antal person i de 4 aldersintervaller
-af <- b2 %>% group_by(BYST,Aldersinterval) %>% summarise(Antal=sum(INDHOLD))
+af <- b2 %>% group_by(BYST,Aldersinterval) %>%
+                                summarise(Antal=sum(INDHOLD))
 # procent 
 af <- af %>% mutate(Procent=100*Antal/sum(Antal))
 af
@@ -406,26 +386,22 @@ Vi finder aldersfordeling af risikotid for hele den danske befolkning
 i perioden mellem den 1 januar 2022 og den 1 januar 2023 og inddeler
 den i fire aldersintervaller: \([0,25], (25,50], (50,75], (75,125]\).
 
-#+ATTR_LATEX: :options otherkeywords={group,mutate}, deletekeywords={dt,list}
+#+ATTR_LATEX: :options otherkeywords={group,mutate,summarise,hent_data}, deletekeywords={dt,list,c}
 #+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
-library(danstat)
-library(tidyverse)
-folk23 <- get_data("FOLK1a",variables=list(
-                              list(code="alder",values=0:125),
-                              list(code="tid",values=c("2022K1","2023K1"))))
-# formatere ALDER som numerisk variable
-folk23 <- mutate(folk23,ALDER=as.numeric(gsub(" year[s]?","",ALDER)))
+folk <- hent_data("FOLK1a", alder=0:125), tid=c("2022K1","2023K1")
 # Risikotid= 1* Middelfolketal metode 2
-folk23 <- folk23 %>% group_by(ALDER) %>% summarise(Risikotid=1*mean(INDHOLD))
+folk <- folk %>% group_by(ALDER) %>%
+                            summarise(Risikotid=1*mean(INDHOLD))
 # Aldersintervaller
-folk23 <- mutate(folk23,Aldersinterval=cut(ALDER,
+folk <- mutate(folk,Aldersinterval=cut(ALDER,
                                            breaks=c(0,25,50,75,125),
                                            include.lowest = TRUE))
 # antal personår i de 4 aldersintervaller
-af23 <- folk23 %>% group_by(Aldersinterval) %>% summarise(Personår=sum(Risikotid))
+af <- folk %>% group_by(Aldersinterval) %>%
+                                 summarise(Personår=sum(Risikotid))
 # aldersfordeling i procent 
-af23 <- af23 %>% mutate(Procent=100*Personår/sum(Personår))
-af23
+af <- af %>% mutate(Procent=100*Personår/sum(Personår))
+af
 #+END_SRC
 
 #+RESULTS[(2023-12-27 12:59:07) c65ea9c84aad67ede14f61db770054574440687f]:
@@ -532,25 +508,17 @@ summariske antal i samme 4 aldersintervaller (\([0,25], (25,50],
 ref:k2_personaar_4_aldersgrupper. Vi finder tal i statistikbankens DOD
 og bemærker at det sidste aldersinterval hedder ``99 years and over''.
 
-#+ATTR_LATEX: :options otherkeywords={metadata}, deletekeywords={list}
-#+BEGIN_SRC R :results output verbatim :exports both  :session *R* :cache yes  
-library(danstat)
-library(tidyverse)
-library(tibble)
-meta <- get_table_metadata("dod",variables_only=TRUE)
-agevals <- filter(meta,id=="ALDER")[["values"]][[1]][["id"]][-1]
-dd23 <- get_data("dod",variables=list(
-                       list(code="alder",values=agevals),
-                       list(code="tid",values=c("2022"))))
-# formatere ALDER som numerisk variable
-dd23 <- mutate(dd23,ALDER=as.numeric(gsub(" year[s]?| years and over","",ALDER)))
+#+ATTR_LATEX: :options otherkeywords={hent_data,summarise,mutate}, deletekeywords={list,de,by,c}
+#+BEGIN_SRC R :results value verbatim :exports both  :session *R* :cache yes  
+dd <- get_data("dod",alder=agevals,tid="2022")
 # Aldersintervaller
-dd23 <- mutate(dd23,Aldersinterval=cut(ALDER,
+dd <- mutate(dd,Aldersinterval=cut(ALDER,
                                    breaks=c(0,25,50,75,125),
                                    include.lowest = TRUE))
 # antal døde i de 4 aldersintervaller
-group_dd23 <-dd23 %>% group_by(Aldersinterval) %>% summarise(antal_døde=sum(INDHOLD))
-group_dd23
+group_dd <-dd %>% group_by(Aldersinterval) %>%
+                             summarise(antal_døde=sum(INDHOLD))
+group_dd
 #+END_SRC
 
 #+RESULTS[(2023-12-27 12:44:30) 7b80dd92ef5fc0219d959e80b48efec1cde2f8e2]:
@@ -567,9 +535,9 @@ For at beregne de aldersspecifikke mortalitetsrater skal vi samle
 personår (afnit ref:k2_personaar_4_aldersgrupper) og antal døde i
 aldersgrupper. Det gør vi med et left-join:
 
-#+ATTR_LATEX: :options otherkeywords={group,mutate}, deletekeywords={dt,list}
+#+ATTR_LATEX: :options otherkeywords={mutate,left_join}, deletekeywords={dt,list,group,by,de}
 #+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes
-x <- left_join(af23,group_dd23,by="Aldersinterval")
+x <- left_join(af,group_dd,by="Aldersinterval")
 # aldersspecifikke mortalitetsrater
 x <- x %>% mutate(mrate=1000*antal_døde/Personår)
 x
@@ -603,51 +571,26 @@ befolkninger ved siden af hinanden.
 Vi beregner aldersspecifikke mortalitetsrater for mænd og kvinder i
 2011 og visualiserer forskellen.
 
-#+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-aldersspecifikke-mortalitet-maend-kvinder.pdf :exports none :session *R* :cache yes :width 8 :height 5
-library(danstat)
-library(ggplot2)
-library(ggthemes)
-library(tidyverse)
+#+ATTR_LATEX: :options otherkeywords={hent_data,mutate,summarise,pull,ggplot}, deletekeywords={c,&,title,legend,de,scale,by}
+#+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-aldersspecifikke-mortalitet-maend-kvinder.pdf :exports code :session *R* :cache yes :width 8 :height 5
 # hent folketal fra 2011
-folk11 <- get_data("FOLK1a",variables=list(list(code="alder",values=0:125),
-                                           list(code="køn",values=c(2,1)),
-                                           list(code="tid",values=c("2011K3"))))
+folk <- hent_data("FOLK1a",alder=0:125,køn=c(2,1),tid="2011K3")
 # ændre variable navn
-folk11 <- folk11 %>% rename("risikotid"="INDHOLD")
-# fjern TID fordi den er konstant
-folk11$TID <- NULL
-# formatere ALDER til numerisk 
-folk11 <- mutate(folk11,ALDER=as.numeric(gsub(" year[s]?","",ALDER)))
-# samle antal personer over 99 (fordi DOD ikke differencerer alder over 99)
-kvinder99plus <- folk11 %>% filter(ALDER>98 & KØN == "Women") %>% summarise(sum(risikotid)) %>% pull()
-maend99plus <- folk11 %>% filter(ALDER>98 & KØN == "Men") %>% summarise(sum(risikotid)) %>% pull()
-# erstat værdi i rækkerne hvor alder er lige med 99
-folk11 <- folk11 %>% mutate(risikotid=replace(risikotid, ALDER==99 & KØN=="Women",kvinder99plus))
-folk11 <- folk11 %>% mutate(risikotid=replace(risikotid, ALDER==99 & KØN=="Men",maend99plus))
-# slet rækker hvor alder er over 99
-folk11 <- folk11 %>% filter(ALDER<100)
-# se resultatet
-# tail(folk11)
-# hent dødstal fra 2011 
-meta <- get_table_metadata("dod",variables_only=TRUE)
-agevals <- filter(meta,id=="ALDER")[["values"]][[1]][["id"]][-1]
-dd11 <- get_data("dod",variables=list(
-                         list(code="alder",values=agevals),
-                         list(code="køn",values=c("K","M")),
-                         list(code="tid",values=c("2011"))))
+folk <- folk %>% rename("risikotid"="INDHOLD")
+# samle antal personer over 99 (fordi register DOD gør det samme)
+folk <- samle_alder(folk,variable = "risikotid",value = "99plus",by = "køn")
+# hent dødstal fra 2011
+dd <- hent_data(register="dod",alder=0:99,køn=c("K","M"),tid="2011")
 # ændre variable navn
-dd11 <- dd11 %>% rename("antal_døde"="INDHOLD")
-# fjern TID fordi den er konstant
-dd11$TID <- NULL
-# formatere ALDER som numerisk variable
-dd11 <- dd11 %>% mutate(ALDER=as.numeric(gsub(" year[s]?| years and over","",ALDER)))
+dd <- dd %>% rename("antal_døde"="INDHOLD")
 # join folketal og antal dødsfald
-x11 <- left_join(folk11,dd11,by=c("ALDER","KØN"))
+x <- left_join(folk,dd,by=c("ALDER","KØN"))
 # aldersspecifikke mortalitetsrater
-x11 <- x11 %>% group_by(KØN) %>% mutate(Mortalitetsrate=1000*antal_døde/risikotid)
-g=ggplot(x11,aes(x=ALDER,y=Mortalitetsrate,color= KØN))+geom_line()
-g=g+ theme_solarized_2()+scale_colour_wsj("colors6") +theme(legend.title=element_blank())
-g=g+ylab("Mortalitetsrate per 1000 personår")+xlab("Alder (år)")+ggtitle("Danmark 2011")
+x <- x %>% group_by(KØN) %>% mutate(mrate=1000*antal_døde/risikotid)
+# grafik
+g <- ggplot(x,aes(x=ALDER,y=mrate,color= KØN))+geom_line()
+g <- g+theme_solarized_2()+scale_colour_wsj("colors6") +theme(legend.title=element_blank())
+g <- g+ylab("Mortalitetsrate per 1000 personår")+xlab("Alder (år)")+ggtitle("Danmark 2011")
 g
 #+END_SRC
 
@@ -656,7 +599,7 @@ g
 
 #+name: fig:k2-ammk
 #+ATTR_LATEX: :width 0.7\textwidth
-#+CAPTION: Figuren viser aldersspecifikke mortalitetsrater fra hele den danske befolkning i 2011. Vi ser at
+#+CAPTION: Aldersspecifikke mortalitetsrater fra hele den danske befolkning i 2011. Vi ser at
 #+CAPTION: dødeligheden var højre for mænd for alle aldrer undtagen aldersgruppe 99+
 [[file:./k2-aldersspecifikke-mortalitet-maend-kvinder.pdf]]
 
