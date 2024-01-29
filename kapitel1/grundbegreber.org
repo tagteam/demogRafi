@@ -92,7 +92,6 @@ data.frame("dato"=c(t_1,t_2),"Folketal"=c(N_1,N_2),
 : 1 2019-01-01  5806081         NA     NA
 : 2 2023-01-01  5932654       1461 126573
 
-
 Folketallet ændrer sig hver dag, men det er svært at registrere og
 tælle nøjagtigt hvor mange personer der er i befolkning hver enkelt
 dag. Heldigvis betyder små unøjagtigheder i tallene typisk ikke meget
@@ -101,14 +100,33 @@ starten af hvert kvartal siden 2008 (register =FOLK1A=), den første
 januar per år siden 1971 (register =BEFOLK1= ), den første januar per
 år siden 1901 (register =HISB3= ). Desuden er der summariske tal fra
 folketællinger hele vejen fra 1769 (register =FT=).
+[fn:1] https://statistikbanken.dk/
+
+** Instruks til brugen af R koder
 
 For at hente data fra statistikbanken bruger vi en R pakke som hedder
 =danstat=. Desuden bruger vi en række andre R pakker og også R
 funktioner, som gør det nemt arbejde med data fra statistikbanken, og
-implementere specifikke demografiske metoder. For at afprøve de
-følgende R koder i jeres computer skal I først hente filen
+implementere specifikke demografiske metoder. For at afprøve R koder,
+som bliver vist her, i jeres computer skal I først hente filen
+https://github.com/tagteam/demogRafi/blob/main/R_funk/demofunk.R og
+gemme den i projekt folderen =demografi=. Måske den vigtigste funktion
+hedder =hent_data=. Den henter data fra statistikbankens register. For
+at se hvilke register der er og hvad de hedder, skal man besøge internetsiden
+https://statistikbanken.dk/ hvor man finder register under EMNE Borgere. 
 
+#+ATTR_LATEX: :options otherkeywords={hent_data}, deletekeywords={}
+#+BEGIN_SRC R  :results output raw drawer  :exports both  :session *R* :cache yes  
+hent_data(register = "folk1a",tid = "2023K1")
+#+END_SRC
 
+#+BEGIN_SRC R  :results output raw drawer  :exports both  :session *R* :cache yes  
+hent_data(register = "befolk1",tid = 2023)
+#+END_SRC
+
+#+BEGIN_SRC R  :results output raw drawer  :exports both  :session *R* :cache yes  
+hent_data(register = "HISB3",tid = 2023,bevægelse = "M+K")
+#+END_SRC
 
 
 Folketal fra register (=FT=) bliver vist i Figur [[fig:1]].
@@ -128,7 +146,6 @@ ggplot(dt,aes(TID,INDHOLD))+geom_line()+geom_point()+
 #+CAPTION: Figuren viser udviklingen af det danske folketal siden 1769 fra folketællinger, statistikbankens register FT.
 [[file:./figure1.pdf]]
 
-[fn:1] https://statistikbanken.dk/
 
 ** Middelfolketal
 
