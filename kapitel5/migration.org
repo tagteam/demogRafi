@@ -24,7 +24,7 @@ $Summarisk indvandringsrate=  I(t,t+1)/M$
 
 I Figur 1 vises udviklingen i de summariske indvandrings- og udvandringsrater for årene 1980-2022. Der ses en jævn stigning over alle årene med en summarisk indvandringsrate, der ligger højere end den summariske udvandringsrate fra 1983. Den stigende indvandring over årene skyldes forskellige strømninger. Først og fremmest er indvandringen drevet af arbejdsmuligheder i Danmark. Disse migranter omtales arbejdsmigranter. Over de seneste årtier er personer fra Holland eksempelvis flyttet til Danmark for at drive landbrug. Samtidig er indvandring også drevet af forholdene i udlandet. Eksempelvis ses et peak i den summariske indvandringsrate i 2015, hvilket er det år, hvorfra mange måske husker billeder af det store antal flygtninge, der gik på motorvejene. Der var tale om en stor flygtningestrøm fra krigsramte Syrien. Der ses ligeledes en stor stigning i 2022, hvilket blandt andet skyldes krigen i Ukraine. Ligeledes ses et falde både i indvandring og udvandring i de år, hvor COVID-19 begrænsede mulighederne for at rejse (2020-2021). 
 
-[[file:./Figur1.pdf]]
+[[file:./Figur1.png]]
 
 Kilde: Danmarks Statistik
 
@@ -50,7 +50,7 @@ $flytning_{x,x+n}=  FLYTNING_{x,x+n}/M_{x,x+n} $
 
 Vi kan også vælge at udregne rater specifik for køn eller for fødselskohorter. Fremgangsmåden er den samme som for de aldersspecifikke rater. I Figur 2 ses en beregning af alders- og kønsspecifikke flytterater i 2022 i Danmark. Det er således en opgørelse over interne flytninger uanset til- og fraflytningsområde. Her fremgår det, at langt de fleste flytninger for både mænd og kvinder sker omkring 20-årsalderen. Det er meget normalt at flytte hjemmefra i årene efter endt gymnasium og i forbindelse med opstart af studie. Ligesom at nogle flytter fra deres hjemby til et område med flere uddannelsesmuligheder. Det fremgår også, at en del små børn flytter. Det skyldes ofte, at familier flytter ud af byerne og til større boliger ifm. Familieforøgelse. Og endeligt ses en stigning i antal flytninger pr. 1000 indbyggere blandt de 75+ årige. Det afspejler eksempelvis flytninger til beskyttede boliger og plejehjem. 
 
-[[file:./Figur2.pdf]]
+[[file:./Figur2.png]]
 
 Kilde: Danmarks Statistik
 
