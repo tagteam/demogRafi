@@ -38,7 +38,7 @@ Kilde: Danmarks Statistik
 Beregningen af summariske rater blev beskrevet i Kapitel 1, og vi vil derfor
 ikke beskrive dette ydereligere her. 
 
-Mortalitet kan også beskrives ud fra aldersspecifikke mortalitetsrater. Disse beregnes på 
+Mortalitet kan også beskrives ud fra /aldersspecifikke mortalitetsrater/. Disse beregnes på 
 samme vis som den summariske mortalitetsrate, men seperat for hver aldersgruppe. Det bliver 
 således muligt at undersøge forskelle i dødeligheden på tværs af aldersgrupper. Ligeledes, kan alderspecifikke mortalitetsrater udregnes per år over en given periode og 
 derved give information om ændringer i aldersspecifik dødelighed over tid. Altså
@@ -68,8 +68,8 @@ mortalitetsrater - på tværs af befolkninger.
 
 * Standardiserede rater
 
-Vi indfører nu begreberne /aldersspecifikke rater/ og /standardiserede
-rater/. Disse er forskelligt fra de summariske rater fra Kapitel 1. I
+Vi vil nu gå i dybden med begreberne /aldersspecifikke rater/ og /standardiserede
+rater/. Disse er forskellige fra de summariske rater fra Kapitel 1. I
 det følgende betegner vi derfor alle de rater, som Kapitel 1 har
 omtalt uden prædikat, med prædikatet /summarisk/. /Summarisk/ betyder
 at raterne tæller hændelser og risikotid i hele befolkningen, altså
@@ -86,8 +86,8 @@ Som udgangspunkt har det begrænset interesse at sammenligne forskelige
 befolkningers summariske rater. Det er især problematisk når
 befolkningerne, som man ønsker at sammenligne, har forskelige
 aldersfordelinger. Afhængig af formålet med undersøgelsen kan det
-alligevel godt være at man vil sammenligne summariske rater, men det
-er vigtigt at man er klar over at de afhænger
+alligevel godt være, at man vil sammenligne summariske rater, men det
+er vigtigt, at man er klar over at de afhænger af
 aldersfordelingen. Problemet som opstår ved sammenligning af
 summariske rater er ret nemt at indse ved følgende eksempel. En
 matematisk forklaring (Kitagawas dekomposition) følger i afsnit
@@ -96,7 +96,7 @@ ref:k2-kitagawa.
 *** Eksempel
 
 Vi beregner de summariske mortalitetsrater for året 2011 i den
-kvindelig danske befolkning og også i den mændlige danske befolkning.
+kvindelige danske befolkning og også i den mandlige danske befolkning.
 
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={library,list}
 #+BEGIN_SRC R  :results output example :exports both  :session *R* :cache yes  
@@ -132,29 +132,29 @@ dat
 
 Vi ser at den summariske mortalitetsrate i året 2011 var 9,47 døde per
 1000 personår for danske kvinder og 9,39 døde per 1000 personår for
-danske mænd. På første blik strider dette resultat imod den gængse
+danske mænd. Ved første øjekast strider dette resultat imod den gængse
 viden at danske kvinder lever længere end danske mænd. Det er
 problemet som eksemplet illustrerer: Fordi dødeligheden stiger med
-alder og fordi der er flere kvinder med høj alder end mænd med høj
+alderen og fordi der er flere kvinder med en høj alder end mænd med en høj
 alder, er den summariske mortalitetsrate højere for kvinder
 end for mænd. Den summariske mortalitetsrate afspejler nemlig ikke kun
 dødeligheden men også aldersfordelingen i befolkningen. Da kvinder
-lever længere end mænd, er der flere ældre kvinder end ældre mænd og
+lever længere end mænd, er der flere ældre kvinder end ældre mænd, og
 det forøger kvindernes summariske mortalitetsrate. Resultatet er dog
 helt korrekt, kvinderne havde en højre summariske mortalitetsrate end
 mænd i 2011. Det skyldes bar ikke deres køn men deres alder.
 
 Hvordan skal disse rater fortolkes? En rate er jo ikke en
-sandsynlighed og det ville ikke være helt korrekt at konkludere at der
+sandsynlighed, og det ville ikke være helt korrekt at konkludere, at der
 døde 9,47 kvinder blandt 1000 kvinder, som man følger igennem 2011,
-fordi de kvinder som dør midt i eller i starten af 2011 jo ikke
+fordi de kvinder, som dør midt i eller i starten af 2011, jo ikke
 bidrager med et helt personår til risikotiden. En bedre fortolkning
-opstår når man sammenligner mortalitetsraten med hastigheden af en
-cykel. Hastigheden er raten cyklen bevæger sig med, den kan for
+opstår, når man sammenligner mortalitetsraten med hastigheden af en
+cykel. Hastigheden er raten cyklen bevæger sig med og kan for
 eksempel være 20 km per time. Mortalitetsraten er hastigheden
 befolkningen dør med, den kan for eksempel være 9,39 døde per 1000
 personår. Denne hastighed, altså mortalitetsraten, betegner vi også
-med /dødelighed/. Det vil sige at resultatet kan fortolkes på følgende
+med /dødelighed/. Det vil sige, at resultatet kan fortolkes på følgende
 måde: Danske kvinder har haft en lidt højere dødelighed i 2011 end
 danske mænd (fordi de var ældre).
 
@@ -164,12 +164,12 @@ danske mænd (fordi de var ældre).
 
 For at sammenligne aldersfordelinger af kvinder og mænd, kan man tegne
 en alderspyramide. Figur ref:fig:alderspyramide viser alderspyramiden
-for den danske befolkning baseret på data fra 1 juli 2023. I toppen af
+for den danske befolkning baseret på data fra 1. juli 2023. I toppen af
 pyramiden, kan man tydeligt se forskelen mellem mænd og kvinder, der
 er flere ældre kvinder end ældre mænd. Pyramiden afspejler også
 historiske begivenheder som anden verdenskrig og nedgang i
 dødeligheden og fertiliteten som følge af den demografiske
-transition. En mere sofistikerede og dynamisk version af den danske
+transition. En mere sofistikeret og dynamisk version af den danske
 alderspyramide findes her
 https://extranet.dst.dk/pyramide/pyramide.htm.
 
@@ -204,16 +204,16 @@ g
 
 ** Folketal i aldersgrupper
 
-Aldersfordelingen af folketal angiver hvor mange personer i en
-befolkning har en bestemt alder, for alle aldre. Det kan den enten gør
+Aldersfordelingen i folketallet angiver hvor mange personer i en
+befolkning har en bestemt alder, for alle aldre. Det kan den enten gøre
 i absolutte antal, eller som procent i forhold til antal personer i
 hele befolkingen. For at beskrive aldersfordelinger, vil man typisk
 vælge et passende antal aldersintervaller (passende til opgaven man
-sidder med) og fordele befolkningen på intervallerne.  Intervallerne
+sidder med) og fordele befolkningen på intervallerne. Intervallerne
 behøver ikke være lige stor. Da alle personers aldre ændrer sig hele
-tiden, skal man angive det dato, som aldersfordelingen referer
-til. For eksempel kan vi tale om aldersfordeling af kvinder i Danmark
-den 8 marts 1910 og om aldersfordeling af Fynens population den 1
+tiden, skal man angive den dato, som aldersfordelingen referer
+til. For eksempel kan vi tale om aldersfordelingen af kvinder i Danmark
+den 8. marts 1910 og om aldersfordelingen af Fyns population den 1.
 juli 1989.
 
 *** Eksempel
@@ -222,15 +222,15 @@ juli 1989.
 :END:
 
 Vi finder aldersfordeling af folketal for hele den danske befolkning
-den 1 januar 2023 og inddeler den i 4 intervaller: \([0,25], (25,50],
-(50,75], (75,125]\). Bemærk at vores notation for intervaller betyder
+den 1. januar 2023 og inddeler den i 4 intervaller: \([0,25], (25,50],
+(50,75], (75,125]\). Bemærk at vores notation for intervaller betyder,
 at intervalgrænsen er ekskluderet hvis parentesen er rundt og
 inkluderet hvis parentesen er firkantet. Det vil sige at personer, som
 er præcis 25 år gamle falder i intervallet \([0,25]\) og personer som
 er 50 falder ikke i intervallet \((50,75]\) men i intervallet
 \((25,50]\). Vi beregner nu andelen, som de enkelte aldersgrupper
-udgør og angiver den i procent (per hundrede). De fir procenttal er
-nettop aldersfordelingen med hensyn til de fir intervaller.
+udgør og angiver den i procent (per hundrede). De fire procenttal er
+nettop aldersfordelingen med hensyn til de fire intervaller.
 
 #+ATTR_LATEX: :options otherkeywords={group,mutate,hent_data}, deletekeywords={dt,list,c}
 #+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
@@ -262,7 +262,7 @@ En hver definition af aldersintervaller opdeler en befolkning i
 aldersgrupper. For \(x=1,\dots,m\) aldersgrupper betegner vi med
 \(N_x(t)\) folketal i aldersgruppe \(x\) til kalendertid \(t\). Vi
 betegner fortsæt med \(N(t)\) folketal i hele befolkningen til
-kalendertid \(t\) og udtrykker det som sum af folketal i
+kalendertid \(t\) og udtrykker det som summen af folketal i
 aldersgrupperne:
 
 #+begin_export latex
@@ -300,15 +300,15 @@ altså for en given opdeling i aldersintervaller givet ved vektoren:
 #+end_export
 
 I eksemplet fra afsnit ref:eksempel_aldersgrupper har vi allerede
-beregnet aldersfordeling den 1 januar 2023 og angivet den som procent.
+beregnet aldersfordeling den 1. januar 2023 og angivet den som procent.
 
 *** Sammenligning af aldersfordelinger
 
 Vi sammenligner aldersfordelingen i hovedstadsområdet med
-aldersfordelingen i landdistrikter i Danmark i 2023.  For at gør det
+aldersfordelingen i landdistrikter i Danmark i 2023.  For at gøre det
 enkelt bruger vi inddelingen af befolkningen i de 4 aldersgrupper fra
 afsnit ref:eksempel_aldersgrupper. Vi henter folketal data fra
-statistikbankens register BY2 hvor man kan specificere bystørrelse.
+statistikbankens register BY2, hvor man kan specificere bystørrelse.
 
 #+ATTR_LATEX: :options otherkeywords={group,hent_data,mutate,summarise}, deletekeywords={list,c}
 #+BEGIN_SRC R  :results output verbatim :exports both  :cache yes
@@ -346,10 +346,10 @@ af
 
 
 
-En sammenligning af de to aldersfordelinger viser at andelen af
+En sammenligning af de to aldersfordelinger viser, at andelen af
 mennesker, der er over 75 år gamle, er cirka det samme, men at andelen
 af mennesker under 50 år er højst i hovedstadsområdet og andelen af
-mennesker mellem 50 og 75 er højst i landdistrikterne.
+mennesker mellem 50 og 75 år er højst i landdistrikterne.
 
 ** Risikotid i aldersgrupper
 :PROPERTIES:
