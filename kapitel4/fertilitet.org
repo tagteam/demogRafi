@@ -1,4 +1,4 @@
-* Fertilitet
+* 1 Fertilitet
 
 Fertilitet er en vigtig komponent i demografien og beskriver sammen med mortalitet den naturlige vækst i befolkningen. Ændringer i fertiliteten har stor betydning for befolkningens udvikling, og det fylder derfor meget i den offentlige debat, når fertiliteten falder. Hvilket netop er den tendens, der ses i de fleste vestlige lande.  
 
@@ -8,7 +8,7 @@ Over det sidste århundrede har fertiliteten gennemgået store forandringer. Det
 
 Kilde: Statistik Banken
 
-** Fertilitetsmål 
+** 1.1 Fertilitetsmål 
 
 Når fertilitet undersøges i demografiske analyser er det med fokus på fødsler af levendefødte børn. Ifølge Sundhedsstyrelsen anses et barn for levendefødt, hvis barnet kommer til verden med tydelige tegn på liv uanset graviditetens længde. Er dette ikke tilfældet beskrives barnet som dødfødt og indgår ikke i demografiske analyser. Begrundelsen for dette er, at disse fødsler ikke bidrager til befolkningsudviklingen eller -sammensætningen. 
 
