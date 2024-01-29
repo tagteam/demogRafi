@@ -431,10 +431,10 @@ af
 Et Lexis diagram visualiserer sammenhæng mellem kalendertid (vertikal)
 og alder (horisontal). Hver person er repræsenteret af sin
 livslinje (Figur ref:fig:k2-lexis-liv). I en /lukket befolkning/ (hvor ind- og udvandring ikke
-forkommer) starter alle livslinjer i fødselsdagen hvor personen er 0
-år gamle og ender i dødsdatoen den alder personen har livet til. I en
+forkommer) starter alle livslinjer på fødselsdagen, hvor personen er 0
+år gamle og ender i dødsdatoen - den alder personen har livet til. I en
 åben befolkning, starter livslinjer for immigranter den dag de
-immigrerer og slutter for emigranter den dag de emigrerer.
+immigrerer og slutter for emigranter den dag, de emigrerer.
 
 #+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-lexis-liv.pdf :exports none :session *R* :cache yes :width 8 :height 5
 library(LexisPlotR)
@@ -460,7 +460,7 @@ l+ggtitle("Lexis diagram: livslinjer")
 [[file:./k2-lexis-liv.pdf]]
 
 Figur ref:fig:k2-lexis-liv viser 5 personers livslinjer fra en åben
-befolkning. Den mørkeblå linje representerer en person som bliver født
+befolkning. Den mørkeblå linje representerer en person, som bliver født
 i foråret 2015 og forbliver i befolkingen indtil foråret 2020 hvor
 lexis diagrammet slutter. Lexis diagrammet kan også bruges til at
 forklare forskelen mellem kohorteprincippet (man følger en
@@ -571,12 +571,12 @@ x
 For at sammenligne mortalitet i to befolkninger (vi kalder dem
 studiebefolkning \(A\) versus befolkning \(B)\) kan man sammenligne de
 aldersspecifikke mortalitetsrater mellem de to befolkninger (\(M_x^A
-\text{ versus } M_x^B\)). Det giver lige så mange resultater som der
+\text{ versus } M_x^B\)). Det giver lige så mange resultater, som der
 er aldersintervaller, altså et resultat for hver aldersgruppe (Figur
 ref:fig:k2-ammk). Hvis der er blot 4
 aldersgrupper kan man på en overskulig måde vise resultater i en
-tabel. Men, med mange aldersgrupper er det nemmere at se forskelen i
-en figur som viser de aldersspecifikke mortalitetsrater af de to
+tabel. Men med mange aldersgrupper er det nemmere at se forskelen i
+en figur, som viser de aldersspecifikke mortalitetsrater af de to
 befolkninger ved siden af hinanden.
 
 *** Eksempel
@@ -623,21 +623,21 @@ g
 
 Formålet med alderstandardisering er at sammenligne mortalitetsrater
 (og andre rater) mellem to eller flere befolkninger, som har
-forskelige aldersfordelinger. Den overordnede ide er at udskifte den
+forskelige aldersfordelinger. Den overordnede idé er at udskifte den
 rigtige aldersfordeling med en anden aldersfordeling og at beregne
-mortalitetsraten som den ville havde været hvis befolkningen havde
-haft den anden aldersfordeling. På den måde kan man sammenligne
+mortalitetsraten, som den ville havde været, hvis befolkningen havde
+haft den nye aldersfordeling. På den måde kan man sammenligne
 dødelighed mellem to eller flere befolkninger uanset
-aldersfordeling. Her er det vigtigt at man vælger den samme
-aldersfordeling for alle befolkninger som skal sammenlignes, men
+aldersfordeling. Her er det vigtigt, at man vælger den samme
+aldersfordeling for alle befolkninger, som skal sammenlignes, men
 typisk ikke så vigtigt hvilken aldersfordeling man vælger. For
-eksempel, kan vi spørge hvor meget højere er mortalitetsraten blandt
-danske mænd sammenlignet med danske kvinder hvis aldersfordeling havde
-været den samme blandt mænd og kvinder. Vi mangler kun at specificere
-den aldersfordeling som de standardiserede rater skal have i
-fælles. Her er der umiddelbart flere forskelige muligheder:
-aldersfordeling bland mænd, aldersfordeling bland kvinder,
-aldersfordeling bland alle dansker uanset køn, og en helt tredje
+eksempel, kan vi spørge hvor meget højere, er mortalitetsraten blandt
+danske mænd sammenlignet med danske kvinder, hvis aldersfordeling havde
+været den samme for mænd og kvinder. Vi mangler kun at specificere
+den aldersfordeling, som de standardiserede rater skal have til
+fælles. Her er der umiddelbart flere forskellige muligheder:
+aldersfordeling blandt mænd, aldersfordeling blandt kvinder,
+aldersfordeling blandt alle dansker uanset køn, eller en helt fjerde
 aldersfordeling.
 
 Vi beskriver to standardiseringsformer, /direkte standardisering/
