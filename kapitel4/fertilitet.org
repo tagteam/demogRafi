@@ -68,14 +68,14 @@ Kilde: Statistik Banken
 
 Endeligt kan fertilitet undersøges gennem beregninger af /netto- og bruttoreproduktionstal/. Bruttoreproduktionstallet beregnes på samme vis som den samlede fertilitet, men dog kun med nyfødte piger i tælleren. Definitionen er derfor antallet af levendefødte pige, som vil blive født af 1000 kvinder i løbet af deres fertile alder (15-49 år) givet at ingen af kvinderne dør før de fylder 50 år og at de i hvert aldersinterval føder det antal børn, som periodens aldersspecifikke fertilitetsrater angiver. Formlen ser således ud:
 
-$S_b = n * ∑_{x}(_{n}f_{x})$
+$S_{B} = n * ∑_{x}(_{n}f_{x})$
 
 /n/ angiver aldersintervallets længde, og /_{n}f_{x}/ angiver den aldersspecifikke fertilitetsrate af piger fra alder x til alder x+n. 
 
 Nettoreproduktionstallet er et mere komplekst mål. Her tages der højde for at kvinderne godt kan dø inden de fylder 50 år ligesom det er tilfældet i den virkelige verden. Nettoreproduktionstallet defineres således som antallet af levendefødte piger, som vil blive født af 1000 kvinder i løbet af deres fertile alder (15-49 år) givet af at kvinderne dør fra alder 0 i overensstemmelse med dødelighedstavlen (for kvinder) for den givne periode, og at kvinderne i hvert aldersinterval føder det antal børn, som periodens aldersspecifikke fertilitetsrater angiver. Der tages derfor højde for, at kvinderne kan dø, men det ignoreres, at de nyfødte piger ligeledes kan dø inden de når den fertile alder. Formlen ser således ud:
 
 
-$S_n= ∑_{x} _{n}f_{x} * _{n}L_{x}/l_{0} $
+$S_{N}= ∑_{x} _{n}f_{x} * _{n}L_{x}/l_{0} $
 
 /n/ angiver aldersintervallets længde, /_{n}f_{x}/ angiver den aldersspecifikke fertilitetsrate af piger fra alder x til alder x+n, /_{n}L_{x}/ angiver overlevelsesraten for kvinder i alder x til alder x+n og /l_{0}/ angiver antallet af kvinder i overlevelsestavlen, der når til alder x. 
 
