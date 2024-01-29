@@ -1,17 +1,16 @@
 * Demografi
 
-Demografi er studiet af menneskers befolkningsegenskaber og deres
-jlkjfkjslkgjflkjsdl
-forandringer over tid og sted. Det inkluderer undersøgelser af
-befolkningens størrelse, aldersfordeling, kønsfordeling, etnicitet,
+Demografi er studiet af humane befolkningers størrelse, udvikling og 
+struktur. Det inkluderer undersøgelser af befolkningstørrelse, 
+aldersfordeling, kønsfordeling, etnicitet, familiedannelse, fertilitet,
 sprog, religion, uddannelse, erhverv og andre relevante faktorer.
 Demografer anvender forskellige metoder, såsom dataindsamling og
 statistisk analyse, til at undersøge og beskrive befolkningstendenser- og
-mønstre. Demografi spiller en vigtig rolle i samfundets planlægning
+mønstre. Demografi spiller en vigtig rolle i samfundsplanlægning
 og i politikudvikling, da det kan give vigtig information om en
 befolknings sundhedstilstand, uddannelsesbehov, arbejdsstyrke og
 økonomisk udvikling. Nogle af de områder, hvor demografi er relevant,
-inkluderer folkesundhed, økonomi, planlægning af byer og samfund,
+inkluderer folkesundhed, økonomi,  byplanlægning,
 arbejdsmarked og socialpolitik. Metoderne, som vi bruger til demografi,
 er tæt beslægtet med metoder fra epidemiologi og statistik.
 
