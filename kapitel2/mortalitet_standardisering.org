@@ -30,7 +30,7 @@ beskrive dødeligheden i en befolkning i en given periode. Summariske mortalitet
 kan udregnes per år i en given periode og således informere om ændringer
 i dødeligheden over tid. Et eksempel på dette kan ses i Figur 1. 
 
-./kapitel2/figure1.pdf
+[[file:./Figur1.pdf]]
 
 Kilde: Danmarks Statistik
 
@@ -43,7 +43,7 @@ således muligt at undersøge forskelle i dødeligheden på tværs af aldersgrup
 derved give information om ændringer i aldersspecifik dødelighed over tid. Altså
 oplever nogle aldersgrupper et fald i mortaliteten, hvor andre oplever en stigning? 
 
-./kapitel2/figure2.pdf
+[[file:./Figur1.pdf]]
 
 Kilde: Danmarks Statistik
 
