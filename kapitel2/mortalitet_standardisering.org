@@ -30,7 +30,9 @@ beskrive dødeligheden i en befolkning i en given periode. Summariske mortalitet
 kan udregnes per år i en given periode og således informere om ændringer
 i dødeligheden over tid. Et eksempel på dette kan ses i Figur 1. 
 
-Indsæt eksempel/graf
+./kapitel2/figure1.pdf
+
+Kilde: Danmarks Statistik
 
 Beregningen af summariske rater blev beskrevet i Kapitel 1, og vi vil derfor
 ikke beskrive dette ydereligere her. 
@@ -41,7 +43,9 @@ således muligt at undersøge forskelle i dødeligheden på tværs af aldersgrup
 derved give information om ændringer i aldersspecifik dødelighed over tid. Altså
 oplever nogle aldersgrupper et fald i mortaliteten, hvor andre oplever en stigning? 
 
-Indsæt eksempel/graf
+./kapitel2/figure2.pdf
+
+Kilde: Danmarks Statistik
 
 Endeligt, beregner man ofte middellevetid inden for demografi. Dette er et mål for, hvor længe 
 en nyfødt kan forvente at leve givet de aldersspecifikke mortalitetsrater, der er gældende det år, 
