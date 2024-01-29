@@ -33,7 +33,7 @@ april 2000. En befolkning kan opdeles og analyseres efter kriterier
 som for eksempel bopæl, køn, alder, civilstand, etnisk gruppe,
 uddannelse, erhverv, fag og stilling. Tilsammen er alle disse grupper
 udtryk for befolkningsstrukturen. En /befolkningsgruppe/ er en del af
-en befolkning som opfylder yderlige kriterier. For eksempel, danner
+en befolkning som opfylder yderlige kriterier. For eksempel danner
 alle kvinder, som modtager SU, er yngre end 25 år, og bor i Region
 Sjælland 1. januar 2023, en befolkninggruppe.
 
@@ -41,10 +41,10 @@ Befolkning i demografi kan beskrives og analyseres med statistikker
 som befolkningsstørrelse, befolkningstæthed, aldersfordeling,
 kønsfordeling, etnicitet og mange andre faktorer, der kan give indsigt
 i befolkningens dynamik og sammensætning. Disse statistikker bruges
-ofte til at forudsige og planlægge behovet for offentlige tjenester og
-politikker, såsom sundhedsvæsnet, uddannelse og beskæftigelse.
+ofte til at forudsige og planlægge behovet for offentlige tjenester på 
+eksempeltvis sundheds-, uddannelses- og beskæftigelsesområdet.
 
-** Lukket og åben befolkninger
+** Lukkede og åbne befolkninger
 :PROPERTIES:
 :CUSTOM_ID: k1-lukket-befolkning
 :END:
@@ -80,8 +80,8 @@ På et senere tidspunkt vil befolkningens størrelse have ændret sig som
 følge af fødsler, dødsfald og ind- og udvandring. Den 1. januar 2023
 var der 5.932.654 personer i Danmarks befolkning. Dermed er den danske
 befolkning vokset med 126.573 personer i de 1461 dage mellem den 1.
-januar 2019 og den 1. januar 2023. Her er R-koder som kan bruges til at
-beregne antal dage mellem to datoer og ændring af folketal i perioden.
+januar 2019 og den 1. januar 2023. Nedenfor er givet nogle linjer R-koder, som kan bruges til at
+beregne antallet af dage mellem to datoer og ændringen i folketallet i perioden.
 
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={t,as,c}
 #+BEGIN_SRC R  :results output verbatim :exports both  :session *R* :cache yes  
@@ -100,27 +100,27 @@ data.frame("dato"=c(t_1,t_2),"Folketal"=c(N_1,N_2),
 : 2 2023-01-01  5932654       1461 126573
 
 Folketallet ændrer sig hver dag, men det er svært at registrere og
-tælle nøjagtigt hvor mange personer der er i befolkning hver enkelt
+tælle nøjagtigt, hvor mange personer der er i befolkning for hver enkelt
 dag. Heldigvis betyder små unøjagtigheder i tallene typisk ikke meget
 for demografiske konklusioner. Statistikbanken angiver folketal i
-starten af hvert kvartal siden 2008 (register =FOLK1A=), den første
-januar per år siden 1971 (register =BEFOLK1= ), den første januar per
+starten af hvert kvartal siden 2008 (register =FOLK1A=), den 1.
+januar per år siden 1971 (register =BEFOLK1= ), den 1. januar per
 år siden 1901 (register =HISB3= ). Desuden er der summariske tal fra
-folketællinger hele vejen fra 1769 (register =FT=).
+folketællinger helt tilbage fra 1769 (register =FT=).
 [fn:1] https://statistikbanken.dk/
 
 ** Instruks til brugen af R koder
 
-For at hente data fra statistikbanken bruger vi en R pakke som hedder
+For at hente data fra statistikbanken bruger vi en R pakke, som hedder
 =danstat=. Desuden bruger vi en række andre R pakker og også R
-funktioner, som gør det nemt arbejde med data fra statistikbanken, og
+funktioner, som gør det nemt arbejde med data fra statistikbanken og
 implementere specifikke demografiske metoder. For at afprøve R koder,
-som bliver vist her, i jeres computer skal I først hente filen
+som bliver vist her, skal I først hente filen
 https://github.com/tagteam/demogRafi/blob/main/R_funk/demofunk.R og
-gemme den i projekt folderen =demografi=. Måske den vigtigste funktion
-hedder =hent_data=. Den henter data fra statistikbankens register. For
-at se hvilke register der er og hvad de hedder, skal man besøge internetsiden
-https://statistikbanken.dk/ hvor man finder register under EMNE Borgere. 
+gemme den i projekt folderen =demografi= på jeres computer. Funktionen
+=hent_data= er måske den vigtigste for jer. Den henter data fra statistikbankens registre. For
+at se hvilke registre, der er, og hvad de hedder, kan I besøge internetsiden
+https://statistikbanken.dk/, hvor I finder registre under EMNE Borgere. 
 
 #+ATTR_LATEX: :options otherkeywords={hent_data}, deletekeywords={}
 #+BEGIN_SRC R  :results output raw drawer  :exports both  :session *R* :cache yes  
@@ -156,7 +156,7 @@ ggplot(dt,aes(TID,INDHOLD))+geom_line()+geom_point()+
 
 ** Middelfolketal
 
-Vi indfører nu begrebet middelfolketal, som bruges til at estimere et
+Vi indfører nu begrebet middelfolketal, som bruges til at estimere det
 gennemsnitlige folketal i en given tidsperiode.  Middelfolketallet er
 en vigtig demografisk indikator, der indgår f.eks., i fertilitetsrater
 og dødelighedstavler. Middelfolketallet er defineret som det
@@ -164,15 +164,15 @@ gennemsnitlige folketal i en given tidsperiode.  Vi betegner
 middelfolketallet med $\tilde N$.
 
 For at beregne middelfolketallet helt korrekt, ville man for alle
-personer være nødt til at tælle hvor mange dage de har levet i
-perioden i befolkningen.  Så kunne man beregne middelfolketallet
+personer være nødt til at tælle, hvor mange dage de har levet i befolkningen i
+perioden. Så kunne man beregne middelfolketallet
 eksakt som den samlede gennemlevede tid divideret med periodens
 længde. Denne beregning giver et gennemsnitligt antal mennesker, der
 bor i området over en given tidsperiode.
 
-Praktisk kender man desværre ikke de præcise tal, altså hvor mange
+Rent praktisk kender man desværre ikke de præcise tal, altså hvor mange
 dage alle personer fra en befolkning har levet i en given
-tidsperiode. Derfor er flere metoder, der kan bruges til at beregne
+tidsperiode. Flere metoder kan dog bruges til at beregne
 middelfolketallet approksimativt baseret på enkelte folketal i en
 given tidsperiode.
 
@@ -180,26 +180,26 @@ given tidsperiode.
 
 Her skal man kun kende et enkelt folketal, nemlig folketallet cirka i
 midten af perioden. Hvis perioden starter i tidspunkt $t_1$ og slutter
-i tidspunkt $t_2$, så er tidspunkt i midten given som $(t_1+t_2)/2$, og
-folketal i midten er given ved $\tilde N[t_1,t_2]=N((t_1+t_2)/2)$.
+i tidspunkt $t_2$, så er tidspunktet i midten af perioden given som $(t_1+t_2)/2$, og
+folketallet i midten af perioden er given ved $\tilde N[t_1,t_2]=N((t_1+t_2)/2)$.
 
-Dette tal bruges som et estimat for middelfolketallet. Denne metode er
+Dette tal bruges som et estimat for middelfolketallet. Metode er
 simpel og tilstrækkelig for mange formål, især når folketallet ikke
 ændrer sig særlig meget i den givne tidsperiode. For eksempel bruger
 Danmark Statistik folketal fra den 1. juli som årets middelfolketal i
-de årlige rapporter om befolkningens udvikling [fn:2].
+deres årlige rapporter om befolkningens udvikling [fn:2].
 
 [fn:2] https://www.dst.dk/da/Statistik/nyheder-analyser-publ/Publikationer/
 
 ***  Metode 2
 
-For at bruge denne metode skal man kende folketal i starten og i
+For at bruge denne metode skal man kende folketallet i starten og i
 slutningen af perioden. Det estimerede middelfolketal er
-gennemsnit af de to folketal: $\tilde N[t_1,t_2]=(N(t_1)+N(t_2))/2$.
+gennemsnittet af de to folketal: $\tilde N[t_1,t_2]=(N(t_1)+N(t_2))/2$.
 
 ***  Metode 3 
 
-Her skal man kende folketal i starten, i slutningen og ved mindst et
+Her skal man kende folketallet i starten, i slutningen og ved mindst et
 tidspunkt mere i perioden. Lad os antage, at vi kender folketal til $J$
 forskelige tidspunkter $t_1 < t_2 < \dots <t_J$. Det estimerede
 middelfolketal for perioden $[t_1,t_J]$ kan beregnes med følgende
@@ -267,7 +267,7 @@ plotrix::addtable2plot(x=-.7,y=-.5,tab,cex=1.3,hlines=1,vlines=1,xpad=.5,ypad=1)
 *** Eksempel
 
 Vi beregner middelfolketal for den danske befolkning i en periode, som
-starter den 1. januar 2016 og slutter den 1. januar 2023. Fra
+starter den 1. januar 2009 og slutter den 1. januar 2023. Fra
 statistikbankens =BEFOLK1= henter vi folketal i starten, midten og
 slutningen af perioden:
 
@@ -294,14 +294,14 @@ bruger vi R som lommerregner:
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
 #+BEGIN_SRC R  :results output  example  :exports both  :session *R* :cache yes
 # Metode 2
-(5511451 + 5707251)/2
+(5511451 + 5932654)/2
 #+END_SRC
 
 #+RESULTS[(2023-11-06 10:01:11) 78791514d677aa50d446ee4966a524a61a369c65]:
-: [1] 5609351
+: [1] 5722052.5
 
 Med metode 2 estimerer vi middelfolketallet i perioden 2009--2023 dermed til
-$5.609.351$ personer. For metode 3 er beregningen i R den følgende:
+$5.722.053$ personer. For metode 3 er beregningen i R den følgende:
 
 #+ATTR_LATEX: :options otherkeywords={hent_data,format_dato}, deletekeywords={rep,dt,variable}
 #+BEGIN_SRC R  :results output example  :exports both  :session *R* :cache yes  
@@ -314,7 +314,7 @@ $5.609.351$ personer. For metode 3 er beregningen i R den følgende:
 
 Med metode 3 estimerer vi middelfolketallet i perioden 2009--2023 til
 $5.714.652$ personer baseret på de 3 folketal fra perioden.  Vi ser
-i dette eksempel at der er mere end 100.000 personers forskel mellem
+i dette eksempel, at der er mindre end 10.000 personers forskel mellem
 metode 3 og metode 2. Om denne forskel er vigtig eller ej ville
 afhænge af formålet med den konkrete demografiske undersøgelse. Er den
 vigtigt, ville man prøve at estimere middelfolketallet så godt som
@@ -357,9 +357,9 @@ personer.
 Den demografiske ligevægtsligning er en formel, der bruges i
 demografisk analyse til at beskrive forholdet mellem antallet af
 fødsler, dødsfald og migration i en periode i en befolkning. Jo flere
-dødsfald der sker og jo flere personer der emigrerer jo mindre er folketal i
+dødsfald og jo flere personer, der emigrerer, jo mindre er folketallet i
 slutningen af perioden sammenlignet med starten af perioden. Ligeledes
-er folketal i slutningen af perioden højere jo flere personer bliver født og
+er folketallet i slutningen af perioden højere jo flere personer bliver født og
 indvandrer til befolkningen. Den demografiske ligevægtsligning for en
 periode $[t_1,t_2]$ er:
 $$
@@ -388,8 +388,8 @@ $$
 $$
 
 Figur [[fig:3]] viser vækst, fødsler, dødsfald, ind- og udvandring
-mellem 1980 og 2023 i den danske befolkning. Det er tydeligt at
-indvandring er er den dominerede faktor for ændringer af folketal i
+mellem 1980 og 2023 i den danske befolkning. Det er tydeligt, at
+indvandring er den dominerede faktor for ændringer af folketallet i
 denne periode, hvorimod fødsler og dødsfald er på et rimeligt konstant
 niveau. Man kan også se, at udvandring er stigende helt op til 2019 men
 knækker i 2020 på grund af coronakrisen.
@@ -460,9 +460,9 @@ tibble(X=c("Folketal jan 2022",
 
 Baseret på disse tal beregner vi at den danske befolkningens vækst i
 perioden til $(5.932.654 - 5.873.420) = 59.234$ personer. Den naturlige
-vækst i perioden er negativt: $(58.430 - 59.345) = -915$ personer og
-nettovandring i perioden positivt: $(121.183 - 62.927) = 58.256$
-personer. Vi ser at ligevægtsligningen ikke går op, da der mangler 1893
+vækst i perioden er negativ: $(58.430 - 59.345) = -915$ personer og
+nettovandring i perioden positiv: $(121.183 - 62.927) = 58.256$
+personer. Vi ser, at ligevægtsligningen ikke går op, da der mangler 1893
 personer:
 
 #+begin_export latex
@@ -472,36 +472,36 @@ $$
 $$
 #+end_export
 
-Det vil sige, at de forskelige registre
-som statistikbanken internt bogfører ikke er konsistente. Det kan der være
+Det vil sige, at de forskelige registre,
+som statistikbanken internt bogfører, ikke er konsistente. Det kan der være
 mange grunde til. En vigtig grund er, at det er svært at registrere de
-præcise datoer hvor ind- og udvandringer sker.
+præcise datoer, hvor ind- og udvandringer sker.
 
 * Rater
 
 I demografi bruger vi rater til at beskrive befolkningens relative
-ændringer, for at sammenligne forskelige befolkninger og for at
+ændringer for at sammenligne forskelige befolkninger og for at
 sammenligne befolkningsgrupper indenfor en befolkning. For eksempel
 beskriver dødsraten antal døde relativt til befolkningens
 størrelse. Det er som udgangspunkt typisk ikke meningsfyldt at
 sammenligne absolut antal døde i befolkninger af forskellig størrelse. For
 eksempel døde 569 personer på Bornholm og 2 personer på Christiansø
-i 2022. Her kan man næppe konkludere at dødeligheden var højere på
+i 2022. Her kan man næppe konkludere, at dødeligheden var højere på
 Bornholm end på Christiansø. Brugen af rater frem for absolut antal er
-yderst relevant når formålet er at sammenligne befolkninger som har
+yderst relevant, når formålet er at sammenligne befolkninger, som har
 forskellig størrelse. For eksempel var mortalitetsraten på Bornholm i
 2022 lig med $569/39817 = 14,3$ per 1000 personår og på Christiansø
 $2/91 = 22,0$ per 1000 personår i samme tidsperiode.
 
 Som enhed for dødsraten bruges ofte /antal døde per personår/. Her
-dividerer man antal døde i en periode med antal personår som personer
-fra befolkningen har levet i samme periode. Mere generalt har en rate
-som kendetegn at den er defineret som kvotient af to størrelser i
+dividerer man antal døde i en periode med antal personår, som personer
+fra befolkningen har levet i samme periode. Mere generelt har en rate
+som kendetegn, at den er defineret som kvotient af to størrelser i
 forskelige måleenheder. Ved beskrivelse af en rates enheder bruges
 ordet ``per'' til at adskille enhederne for de to målinger, der bruges
-til at beregne raten. For eksempel er hastighed af en cykel en rate
+til at beregne raten. For eksempel er hastighed af en cykel en rate,
 som kan beskrives med enheden /kilometer per time/. Der findes også
-dimensionsløse rater som er kvotient af to forskelige størrelser med
+dimensionsløse rater, som er kvotient af to forskelige størrelser med
 samme måleenhed. Disse kan udtrykkes som en procentdel. De fleste
 demografiske rater bruger /risikotid/ i nævneren og antal begivenheder
 i tælleren og har dermed en enhed /antal begivenheder per personår/.
@@ -509,24 +509,24 @@ i tælleren og har dermed en enhed /antal begivenheder per personår/.
 
 ** Risikotid
 
-Vi betegner med $R[t_1,t_2]$ det samlede gennemlevede tid i perioden
-$[t_1,t_2]$ af alle personer i en befolkning og kalder den også for
+Vi betegner med $R[t_1,t_2]$ den samlede gennemlevede tid i perioden
+$[t_1,t_2]$ for alle personer i en befolkning og kalder den også for
 /risikotid/. Udtrykket /risikotid/ giver egentlig kun mening når man
 studerer en risikabel hændelse, som for eksempel død blandt personer,
-som er eksponeret for denne hændelse i perioden. Det er især i
-epidemiologi hvor man for eksempel kan interessere sig for
-sygdomsrater hvor nævneren er risikotid fra personer som var
-eksponeret til sygdomsrisiko. Men i demografi bruger vi udtrykket
-/risikotid/ også i andre sammenhænge. Enheden for risikotid er antal
-personår. For at beskrive risikotid i lille befolkninger kan den
-regnes om til antal personuger eller antal persondage. For stor
+som er eksponeret for risikoen for denne hændelse i perioden. Det er især i
+epidemiologi, hvor man for eksempel kan interessere sig for
+sygdomsrater, hvor nævneren er risikotid for personer, som var
+eksponeret for sygdomsrisiko. Men i demografi bruger vi også udtrykket
+/risikotid/ i andre sammenhænge. Enheden for risikotid er antal
+personår. For at beskrive risikotid i små befolkninger kan den
+regnes om til antal personuger eller antal persondage. For store
 befolkninger vil man typisk regne om til enheder som /10.000
 personår/, /100.000 personår/ eller /1.000.000 personår/. Kender man
-det eksakte antal dage som alle personer fra en befolkning har levet i
-en given periode beregner man risikotiden eksakt som sum af alle
-persondage. Det kræver dog at man kender eksakte datoer for alle
-fødsler, dødsfald, ind- og udvandringer i perioden.  Det gør man
-sjældent. Men, man kan estimere risikotid baseret på registerdata. For
+det eksakte antal dage, som alle personer i en befolkning har levet i
+en given periode, beregner man risikotiden eksakt som sum af alle
+persondage. Det kræver dog, at man kender eksakte datoer for alle
+fødsler, dødsfald samt ind- og udvandringer i perioden. Det gør man
+sjældent. Men man kan estimere risikotid baseret på registerdata. For
 at estimere risikotid i en befolkning baseret på registerdata
 ganger vi typisk periodens middelfolketal med periodens
 længde. For eksempel var middelfolketallet i 2022 på Bornholm 39.817
@@ -544,10 +544,10 @@ $$
 \mbox{Rate}_X[t_1,t_2]=\frac{\text{Antal begivenheder X i perioden } [t_1,t_2]}{R[t_1,t_2]}
 $$
 
-Denne formel kan anvendes rimlig generalt. Man skal dog være opmærksom
+Denne formel kan anvendes rimelig generelt. Man skal dog være opmærksom
 på at en korrekt fortolkning af  perioderater kræver
-kendskab af begivenheden (hvad), befolkningen (hvem) og perioden
-(hvornår). Desuden skal man huske at angive enheden når man
+kendskab til begivenheden (hvad), befolkningen (hvem) og perioden
+(hvornår). Desuden skal man huske at angive enheden, når man
 rapporterer perioderater.
 
 ** Terminologi
