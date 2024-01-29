@@ -1,9 +1,14 @@
 * Demografi
 
-Demografi er studiet af humane befolkningers størrelse, udvikling og 
-struktur. Det inkluderer undersøgelser af befolkningstørrelse, 
-aldersfordeling, kønsfordeling, etnicitet, familiedannelse, fertilitet,
-sprog, religion, uddannelse, erhverv og andre relevante faktorer.
+Demografi er studiet af humane befolkningers størrelse, sammensætning 
+og udvikling. Demografi beskæftiger sig særligt med tre kernebegivenheder: 
+Fødsel, migration og død. Befolkningens sammensætning eller befolkningens 
+struktur er vigtig for at kunne forstå befolkningens udvikling. Derfor 
+er demografi også mere end metoder til at at holde regnskab over befolkninger, og beskæftiger sig 
+også at forstå hvor aldersfordeling, kønsfordeling, etnicitet, familiedannelse, 
+fertilitet, sprog, religion, uddannelse, erhverv og andre relevante faktorer påvirker
+befolkningens udvikling.
+
 Demografer anvender forskellige metoder, såsom dataindsamling og
 statistisk analyse, til at undersøge og beskrive befolkningstendenser- og
 mønstre. Demografi spiller en vigtig rolle i samfundsplanlægning
