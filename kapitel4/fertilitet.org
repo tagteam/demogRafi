@@ -4,7 +4,7 @@ Fertilitet er en vigtig komponent i demografien og beskriver sammen med mortalit
 
 Over det sidste århundrede har fertiliteten gennemgået store forandringer. Det skyldes blandt andet økonomiske kriser, krig, ændringer i kvinders rolle på arbejdsmarkedet, introduktionen af p-pillen og ændrede familiemønstre og holdninger til familieplanlægning. Da der i starten af 1900-tallet forekom en stigende urbanisering, hvormed befolkningen rykkede ind til byerne, skete et markant fald i fertiliteten. Den samlede fertilitet (defineres senere i kapitlet) faldt hurtigt i 1930’erne og nåede i 1933 under 2,1 børn per kvinde. Under Anden Verdenskrig steg fertiliteten derimod. Den stigende fertilitet skete i alle aldersgrupper, og det medførte derfor også meget store fødselsårgange. På trods af udsving, fortsatte en lille stigning i fertiliteten frem til slut 1960’erne. Denne periode omtales ofte som babyboomperioden. Der skete også en stigning i antallet af ægteskaber i samme periode. I 1967 blev p-pillen introduceret og i 1973 blev fri abort indført. Det gav kvinder – og familier - mulighed for i højere grad at planlægge, hvornår de ønskede at få børn. Det betød, at alderen for førstegangsfødende kvinder steg (se figur 1). Samtidig opstod nye familieformer og det blev mere normalt for kvinder og par at få børn uden for ægteskabet. Endeligt fik kvinder en voksende rolle på arbejdsmarkedet. Alle disse ændringer betød, at fertiliteten faldt i denne periode og frem til midten af 1980’erne. Dette fald skete i alle aldersgrupper. Og den samlede fertilitet nåede igen ned under 2,1 børn per kvinde. Siden har fertiliteten været let stigende særligt blandt de 30+ årige kvinder. Førstegangsforældre bliver stadigt ældre, som det ses af Figur 1, og dermed en udsættelse af første fødsel. I 2022 var kvinder i gennemsnit 29,9 år og mænd 31.5 år, da de fik deres første barn. 
 
-[[file:./Figur1.pdf]]
+[[file:./Figur1.png]]
 
 Kilde: Statistik Banken
 
@@ -15,7 +15,7 @@ Når fertilitet undersøges i demografiske analyser er det med fokus på fødsle
 Forskellige mål kan anvendes til at beskrive fertiliteten og udviklingen heraf. En simpel fremgangsmåde er en opgørelse af /antallet af levendefødte/. Et eksempel på sådan en opgørelse fremgår af Figur 2, som viser udviklingen i antallet af levendefødte børn siden 1973. Det absolutte antal levendefødte beskriver størrelsen på en fødselskohorte, hvilket i demografisk sammenhæng har betydning for befolkningssammensætningen og dens udvikling. For eksempel har størrelsen på en fødselskohorte betydning for, hvor mange pladser der er brug for i daginstitutionerne. Ligeledes har det senere betydning for, hvor mange der vil være på arbejdsmarkedet og endnu senere, hvor mangle ældre der vil være i samfundet. Alt dette har betydning for politiske beslutninger og planlægning. Det absolutte antal levendefødte har dog også dets begrænser i og med, det ikke kan bruges til at sammenligne fertiliteten over tid eller på tværs af befolkningsgrupper/lande. Hertil er der brug for relative mål. 
 
 
-[[file:./Figur2.pdf]]
+[[file:./Figur2.png]]
 
 Kilde: Statistik Banken
 
@@ -38,7 +38,7 @@ $f[t,t+1] =  F(t,t+1)/M_{K:15,49}$
 
 Sammenlignet med den summariske fertilitetsrate vil den generelle fertilitetsrate vil være mere retvisende, da denne rate tager højde for størrelsen på den kvindelige befolkning. Udviklingen i både den generelle og summariske fertilitetsrate siden 1973 fremgår af Figur 1. Hvor den summariske fertilitetsrate har ligget mere stabilt over årene, er den generelle fertilitetsrate udsat for flere udsving. Disse udsving er netop tydelige, fordi den generelle fertilitetsrate tager højde for størrelsen på den kvindelige befolkning. 
 
-[[file:./Figur3.pdf]]
+[[file:./Figur3.png]]
 
 Kilde: Statistik Banken
 
@@ -48,7 +48,7 @@ $f_{x,x+n}=  F_{x,x+n}/M_x $
 
 /f/ angiver fertilitetsraten, /x/ er aldersintervallets startalder (fx 30 år), /n/ er intervallet længde (fx 5 år), /F/ er antal levendefødte, og /M/ er middelfolketallet for den pågældende aldersgruppe. 
 
-[[file:./Figur4.pdf]]
+[[file:./Figur4.png]]
 
 Kilde: Statistik Banken
 
@@ -62,7 +62,7 @@ $S= n * ∑_{x}(_{n}f_{x})$
 
 I beregningen ligger en antagelse om, at der er lige mange kvinder i hver aldersgruppe. Den samlede fertilitet beregnes som summen af de aldersspecifikke fertilitetsrater multipliceret med aldersintervallets længde. Der multipliceret med aldersintervallets længde, da kvinderne kan føde børn i alle årene i et givent aldersinterval. Tal for den samlede fertilitet nævnes ofte i den offentlige debat om fertilitetsniveauet i Danmark. Det er nemlig tal for den samlede fertilitet, der angiver, at kvinder skal føde 2,1 børn i gennemsnit for, at den danske befolkning kan reproducere sig selv. Udviklingen i den samlede fertiliteten siden 1973 kan ses i Figur 5.  
 
-[[file:./Figur5.pdf]]
+[[file:./Figur5.png]]
 
 Kilde: Statistik Banken
 
