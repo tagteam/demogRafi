@@ -24,7 +24,7 @@ $Summarisk indvandringsrate=  I(t,t+1)/M$
 
 I Figur 1 vises udviklingen i de summariske indvandrings- og udvandringsrater for årene 1980-2022. Der ses en jævn stigning over alle årene med en summarisk indvandringsrate, der ligger højere end den summariske udvandringsrate fra 1983. Den stigende indvandring over årene skyldes forskellige strømninger. Først og fremmest er indvandringen drevet af arbejdsmuligheder i Danmark. Disse migranter omtales arbejdsmigranter. Over de seneste årtier er personer fra Holland eksempelvis flyttet til Danmark for at drive landbrug. Samtidig er indvandring også drevet af forholdene i udlandet. Eksempelvis ses et peak i den summariske indvandringsrate i 2015, hvilket er det år, hvorfra mange måske husker billeder af det store antal flygtninge, der gik på motorvejene. Der var tale om en stor flygtningestrøm fra krigsramte Syrien. Der ses ligeledes en stor stigning i 2022, hvilket blandt andet skyldes krigen i Ukraine. Ligeledes ses et falde både i indvandring og udvandring i de år, hvor COVID-19 begrænsede mulighederne for at rejse (2020-2021). 
 
-./kapitel5/Figur1.pdf
+[[file:./kapitel5/Figur1.pdf]]
 
 I den demografiske ligevægtsligning, som blev beskrevet i Kapitel 1, informerer differencen mellem mortalitet og fertilitet om den naturlige vækst af befolkningen, mens differencen mellem indvandring (immigration) og udvandring (emigration) informere om /nettoindvandring/. Helt konkret beregnes denne ved at trække antallet af udvandringer fra antallet af indvandringer. Nettoindvandringen kan være positiv og dermed afspejle befolkningstilvækst eller omvendt. Formlen beskrives således:
 
