@@ -30,9 +30,10 @@ beskrive dødeligheden i en befolkning i en given periode. Summariske mortalitet
 kan udregnes per år i en given periode og således informere om ændringer
 i dødeligheden over tid. Et eksempel på dette kan ses i Figur 1. 
 
-[[file:./Figur1.pdf]]
+[[file:./Figur1.png]]
 
 Kilde: Danmarks Statistik
+
 
 Beregningen af summariske rater blev beskrevet i Kapitel 1, og vi vil derfor
 ikke beskrive dette ydereligere her. 
@@ -41,11 +42,19 @@ Mortalitet kan også beskrives ud fra aldersspecifikke mortalitetsrater. Disse b
 samme vis som den summariske mortalitetsrate, men seperat for hver aldersgruppe. Det bliver 
 således muligt at undersøge forskelle i dødeligheden på tværs af aldersgrupper. Ligeledes, kan alderspecifikke mortalitetsrater udregnes per år over en given periode og 
 derved give information om ændringer i aldersspecifik dødelighed over tid. Altså
-oplever nogle aldersgrupper et fald i mortaliteten, hvor andre oplever en stigning? 
+oplever nogle aldersgrupper et fald i mortaliteten, hvor andre oplever en stigning? Det kan vi se i nedenstående Figur 2, som viser køns- og aldersspecifikke mortalitetsrater. Her ser vi, at dødeligheden er faldet i samtlige aldersgrupper og for begge køn i løbet af årene 1973-2022.
 
-[[file:./Figur1.pdf]]
+[[file:./Figur2.jpg]]
 
 Kilde: Danmarks Statistik
+
+
+Aldersspecifikke mortalitetsrater kan også angives for et enkelt år, hvilket giver et indtryk af forskelle i dødeligheden over livsforløbet. Køns- og aldersspecifikke mortalitetsrater for 2022 kan ses i Figur 3. Her ser vi, at mortaliteten er lav og forbliver sådan frem til efter 60årsalderen, hvorefter mortaliteten stiger - først en lille stigning og senere en mere markant stigning. Det er også tydeligt, at mortaliteten stiger hurtigere for mænd end for kvinder. 
+
+[[file:./Figur3.tiff]]
+
+Kilde: Danmarks Statistik
+
 
 Endeligt, beregner man ofte middellevetid inden for demografi. Dette er et mål for, hvor længe 
 en nyfødt kan forvente at leve givet de aldersspecifikke mortalitetsrater, der er gældende det år, 
