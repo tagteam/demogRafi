@@ -51,7 +51,7 @@ Kilde: Danmarks Statistik
 
 Aldersspecifikke mortalitetsrater kan også angives for et enkelt år, hvilket giver et indtryk af forskelle i dødeligheden over livsforløbet. Køns- og aldersspecifikke mortalitetsrater for 2022 kan ses i Figur 3. Her ser vi, at mortaliteten er lav og forbliver sådan frem til efter 60årsalderen, hvorefter mortaliteten stiger - først en lille stigning og senere en mere markant stigning. Det er også tydeligt, at mortaliteten stiger hurtigere for mænd end for kvinder. 
 
-[[file:./Figur3.tiff]]
+[[file:./Figur3.jpg]]
 
 Kilde: Danmarks Statistik
 
