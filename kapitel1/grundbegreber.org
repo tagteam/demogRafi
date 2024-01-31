@@ -178,7 +178,7 @@ ggplot(dt,aes(TID,INDHOLD))+geom_line()+geom_point()+
 * Befolkningsstatistik i Denmark
 
 Befolkningsstatistikken i Danmark har en lang historie. Siden den
-første folketælling i 1769 har der være foretaget regelmæssig og
+første folketælling i 1769 er der foretaget regelmæssig og
 systematisk optælling af befolkningen. Efter folkestyrets indførelse i
 1849 blev opgaven med at gennemføre folketællinger varetaget af Det
 Statistiske Bureau, som blev etableret i 1850. Det Statistiske Bureau
@@ -192,8 +192,8 @@ Statistik) og Hagstova Føyora (Færøernes Statistik).
 ** Administrative registre i demografisk statistik
 
 På det demografiske område har Danmarks Statistik været en
-foregangsinstitution et særligt område: Registerbaseret statistik. I
-1968 blev Det Centrale Personregister oprettes, og CPR-nummeret
+foregangsinstitution på et særligt område: Registerbaseret statistik. I
+1968 blev Det Centrale Personregister oprettet, og CPR-nummeret
 indføres som identifikationsnummer for personer for at lette den
 offentlige administration. Sammen med en række andre administrative
 kilder som Det Centrale Erhvervsregister (1975) og Bygnings- og
@@ -204,7 +204,7 @@ af de første folketællinger, der alene var baseret på administrative
 registre. I dag er CPR registeret rygraden i den demografiske
 statistik.
 
-CPR er et administrativt register. Det betyder, at registeret ikke er
+CPR er et administrativt register. Det betyder, at registeret er
 lavet for at kunne bruges til at understøtte den offentlige
 administration generelt gennem let identifikation, for eksempel for at
 sikre adgang til offentlige ydelser (for eksempel lægebehandlinger,
@@ -241,13 +241,13 @@ baseret på spørgeskema eller besøgsinterview.
 
 For at kunne opgøre befolkningstallet i den officielle statistik er
 det nødvendigt at have en præcis definition, som kan implementeres i
-data. Ydermere, så er det i praktisk også sådan, at definitionerne er
+data. Ydermere, er det i praktisk også sådan, at definitionerne er
 samordnet mellem lande, sådan at alle personer tælles en gang og kun
 en gang. I de nordiske lande foregår samordningen ved, at de
 administrative registre er koordinerede, mens man i EU/EØS generelt
 sikre overensstemmelse ved at dele statistikoplysninger mellem
-landene. Særlige i små og åbne lande som Danmark er det ikke helt
-trivielt, at sikre, at befolkningen tælles korrekt på baggrund af
+landene. Særligt i små og åbne lande som Danmark er det ikke helt
+trivielt at sikre, at befolkningen tælles korrekt på baggrund af
 registerdata. Det gælder generelt, at migrationskomponenten er langt
 sværere både at beregne og at fremskrive end fødsler og dødsfald.
 
