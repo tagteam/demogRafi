@@ -109,7 +109,7 @@ januar per år siden 1971 (register =BEFOLK1= ), den 1. januar per
 folketællinger helt tilbage fra 1769 (register =FT=).
 [fn:1] https://statistikbanken.dk/
 
-** Instruks til brugen af R koder
+* Instruks til brugen af R koder
 
 For at hente data fra statistikbanken bruger vi en R pakke, som hedder
 =danstat=. Desuden bruger vi en række andre R pakker og også R
@@ -117,24 +117,45 @@ funktioner, som gør det nemt arbejde med data fra statistikbanken og
 implementere specifikke demografiske metoder. For at afprøve R koder,
 som bliver vist her, skal I først hente filen
 https://github.com/tagteam/demogRafi/blob/main/R_funk/demofunk.R og
-gemme den i projekt folderen =demografi= på jeres computer. Funktionen
-=hent_data= er måske den vigtigste for jer. Den henter data fra statistikbankens registre. For
-at se hvilke registre, der er, og hvad de hedder, kan I besøge internetsiden
-https://statistikbanken.dk/, hvor I finder registre under EMNE Borgere. 
+gemme den i projekt folderen =demografi= i undermappen =R-scripts=.
+En vigtig funktion hedder =hent_data=. Den henter data fra
+statistikbankens register. For at se hvilke register der er og hvad de
+hedder, skal man besøge internetsiden https://statistikbanken.dk/ hvor
+man finder registerne under EMNE Borgere.
 
 #+ATTR_LATEX: :options otherkeywords={hent_data}, deletekeywords={}
-#+BEGIN_SRC R  :results output raw drawer  :exports both  :session *R* :cache yes  
+#+BEGIN_SRC R  :results output   :exports both  :session *R* :cache yes
+source("R-scripts/demofunk.R")
 hent_data(register = "folk1a",tid = "2023K1")
 #+END_SRC
 
-#+BEGIN_SRC R  :results output raw drawer  :exports both  :session *R* :cache yes  
+#+RESULTS[(2024-01-30 09:27:59) 01fc3c5c6ba42288feaed5bb3a3f0193fbfdc7f2]:
+: # A tibble: 1 × 2
+:   TID    INDHOLD
+:   <chr>    <dbl>
+: 1 2023Q1 5932654
+
+#+ATTR_LATEX: :options otherkeywords={hent_data}, deletekeywords={}
+#+BEGIN_SRC R  :results output   :exports both  :session *R* :cache yes  
 hent_data(register = "befolk1",tid = 2023)
 #+END_SRC
 
-#+BEGIN_SRC R  :results output raw drawer  :exports both  :session *R* :cache yes  
+#+RESULTS[(2024-01-30 09:28:03) f4e39d8ba3b9dc4d0ddbd5b259bab1e25dc5ace2]:
+: # A tibble: 1 × 2
+:     TID INDHOLD
+:   <dbl>   <dbl>
+: 1  2023 5932654
+
+#+ATTR_LATEX: :options otherkeywords={hent_data}, deletekeywords={}
+#+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
 hent_data(register = "HISB3",tid = 2023,bevægelse = "M+K")
 #+END_SRC
 
+#+RESULTS[(2024-01-30 09:23:19) 79ebfaa17103ea95643fc14bcb715f7e0ac0e09e]:
+: # A tibble: 1 × 3
+:     TID BEVÆGELSE         INDHOLD
+:   <dbl> <chr>               <dbl>
+: 1  2023 Population Janua…    5933
 
 Folketal fra register (=FT=) bliver vist i Figur [[fig:1]].
 
@@ -154,7 +175,84 @@ ggplot(dt,aes(TID,INDHOLD))+geom_line()+geom_point()+
 [[file:./figure1.pdf]]
 
 
-** Middelfolketal
+* Befolkningsstatistik i Denmark
+
+Befolkningsstatistikken i Danmark har en lang historie. Siden den
+første folketælling i 1769 har der være foretaget regelmæssig og
+systematisk optælling af befolkningen. Efter folkestyrets indførelse i
+1849 blev opgaven med at gennemføre folketællinger varetaget af Det
+Statistiske Bureau, som blev etableret i 1850. Det Statistiske Bureau
+blev senere til Danmarks Statistik, der siden har udgivet de
+officielle demografiske statistikker for Danmark som den centrale
+myndighed for dansk statistik. Danmarks Statistik udarbejder alene
+officiel statistik for Danmark, mens Statistik for de andre lande i
+rigsfællesskabet varetages af Naatsorsueqqissaartarfik (Grønlands
+Statistik) og Hagstova Føyora (Færøernes Statistik).
+
+** Administrative registre i demografisk statistik
+
+På det demografiske område har Danmarks Statistik været en
+foregangsinstitution et særligt område: Registerbaseret statistik. I
+1968 blev Det Centrale Personregister oprettes, og CPR-nummeret
+indføres som identifikationsnummer for personer for at lette den
+offentlige administration. Sammen med en række andre administrative
+kilder som Det Centrale Erhvervsregister (1975) og Bygnings- og
+Boligregistret (1977) gjorde CPR det muligt at lave mange typer af
+demografisk statistik på baggrund af administrative registre. Som en
+konsekvens af de nye muligheder lavede Danmarks Statistisk i 1981 en
+af de første folketællinger, der alene var baseret på administrative
+registre. I dag er CPR registeret rygraden i den demografiske
+statistik.
+
+CPR er et administrativt register. Det betyder, at registeret ikke er
+lavet for at kunne bruges til at understøtte den offentlige
+administration generelt gennem let identifikation, for eksempel for at
+sikre adgang til offentlige ydelser (for eksempel lægebehandlinger,
+biblioteksadgang) og korrekte beskatning (for eksempel kilde- og
+ejedomsbeskatning).
+
+CPR administreres af kommuner og indeholder oplysninger om de centrale
+begivenheder, som er nødvendige for at belyse fænomener af særlig
+demografisk interesse. Fordi CPR indeholder datoerne for fødsler,
+indvandring, udvandring og død, så kan CPR bruges direkte til at
+opgøre komponenterne i den demografiske ligevægtsligning, som er en
+helt central størrelse i demografien. CPR indeholder også information
+om ægtefælle, link mellem børn og forældre, samt information om
+bopæl. De informationer kan bruges til for eksempel familiedemografi,
+der beskæftiger sig med formation, ændring, sammensætning og udvikling
+i familier og husholdninger.
+
+Kvaliteten af oplysningerne i CPR og de forskellige andre
+administrative registre, der anvendes til demografisk statistik er
+ikke altid af perfekt kvalitet. Kvaliteten af oplysningerne afhænger i
+praksis af om borgerne er motiveret til at sikre at oplysningerne er
+korrekte eller at oplysningerne er kvalitetssikret af de myndigheder,
+der skal bruge oplysningerne til administrative formål. En anden
+svaghed ved at anvende administrative registerdata fra for eksempel
+CPR er, at der ofte vil være oplysninger, som ikke er
+tilgængelige. Det kan for eksempel være oplysninger om kønsidentitet,
+familieformer eller religiøst tilhørsforhold, som ikke er noget, der
+findes data på i CPR. Styrken ved registerbaseret demografiske
+statistisk er, at den opgøres meget ofte og uden ret store
+omkostninger, sammenlignet med for eksempel demografisk statistik
+baseret på spørgeskema eller besøgsinterview.
+
+** Definitioner af befolkning
+
+For at kunne opgøre befolkningstallet i den officielle statistik er
+det nødvendigt at have en præcis definition, som kan implementeres i
+data. Ydermere, så er det i praktisk også sådan, at definitionerne er
+samordnet mellem lande, sådan at alle personer tælles en gang og kun
+en gang. I de nordiske lande foregår samordningen ved, at de
+administrative registre er koordinerede, mens man i EU/EØS generelt
+sikre overensstemmelse ved at dele statistikoplysninger mellem
+landene. Særlige i små og åbne lande som Danmark er det ikke helt
+trivielt, at sikre, at befolkningen tælles korrekt på baggrund af
+registerdata. Det gælder generelt, at migrationskomponenten er langt
+sværere både at beregne og at fremskrive end fødsler og dødsfald.
+
+
+* Middelfolketal
 
 Vi indfører nu begrebet middelfolketal, som bruges til at estimere det
 gennemsnitlige folketal i en given tidsperiode.  Middelfolketallet er
@@ -725,7 +823,7 @@ den demografiske ligevægtsligning ikke går op, gør denne formel heller
 ikke, og der er en fejlrate:
 
 # silent
-#+BEGIN_SRC R  :results output raw  :exports none  :session *R* :cache no  :eval always
+#+BEGIN_SRC R  :results output raw  :exports none  :session *R* :cache yes
 1000*(59234  + 915 - 58256)/risikotid
 10.03+0.17-9.87
 #+END_SRC
@@ -737,6 +835,8 @@ ikke, og der er en fejlrate:
 &+ \underbrace{\mbox{9,9}}_{\text{Nettovandringsrate}}+ \underbrace{\mbox{0,3}}_{\text{fejlrate}}.
 \end{xalignat*}
 #+end_export   
+
+
 
 #+TITLE: Grundbegreber
 #+AUTHOR: Anna-Vera Jørring Pallesen, Johan Sebastian Ohlendorff, Laust Hvas Mortensen and Thomas Alexander Gerds
