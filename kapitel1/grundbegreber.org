@@ -115,26 +115,39 @@ fra folketællinger helt tilbage fra 1769 (register =FT=).
 For at hente data fra statistikbanken bruger vi en R pakke, som hedder
 =danstat=. Desuden bruger vi en række andre R pakker og også R
 funktioner, som gør det nemt arbejde med data fra statistikbanken og
-implementere specifikke demografiske metoder. For at afprøve R koder,
-som bliver vist her, skal I først hente filen
-
-\small
-https://github.com/tagteam/demogRafi/blob/main/R_funk/demofunk.R
-\normalsize
-
-og gemme den i projekt folderen =demografi= i undermappen =R-scripts=.
-En vigtig funktion hedder =hent_data=. Den henter data fra
-statistikbankens register. For at se hvilke register der er og hvad de
-hedder, skal man besøge internetsiden https://statistikbanken.dk/ hvor
-man finder dem under EMNE Borgere.
+implementere specifikke demografiske metoder. For at afprøve R
+koderne er det nødvendigt at køre den følgende R-kode:
 
 #+ATTR_LATEX: :options otherkeywords={hent_data}, deletekeywords={}
 #+BEGIN_SRC R  :results output   :exports both  :session *R* :cache yes
 # load kursets funktioner direkte fra Internet
 source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
-# load fra filen som er gemt i undermappen R-scripts
-source("R-scripts/demofunk.R")
-# brug funktionen til at hente folketal fra 2023 1. kvartal 
+#+END_SRC
+
+Det vil dog kun virke med adgang til Internet. For at bruge
+funktionerne også uden adgang til Internet kan I hente filen her 
+
+\small
+https://github.com/tagteam/demogRafi/blob/main/R-scripts/demofunk.R
+\normalsize
+
+og gemme den i projekt mappen =demografi= i undermappen =R-scripts=.
+Hvis det er sket, kan funktionerne køres ved følgende kommando
+
+#+ATTR_LATEX: :options otherkeywords={hent_data}, deletekeywords={}
+#+BEGIN_SRC R  :results output   :exports both  :session *R* :cache yes
+source("R-scripts/demofunk.R").
+#+END_SRC
+
+En vigtig funktion hedder =hent_data=. Den henter data fra
+statistikbankens register. For at se hvilke register der er og hvad de
+hedder, skal man besøge internetsiden https://statistikbanken.dk/ hvor
+man finder dem under EMNE Borgere.
+
+
+#+ATTR_LATEX: :options otherkeywords={hent_data}, deletekeywords={}
+#+BEGIN_SRC R  :results output   :exports both  :session *R* :cache yes
+# Brug funktionen til at hente folketal fra 2023 1. kvartal 
 hent_data(register = "folk1a",tid = "2023K1")
 #+END_SRC
 
@@ -187,6 +200,11 @@ ggplot(dt,aes(TID,INDHOLD))+geom_line()+geom_point()+
 #+CAPTION: Figuren viser udviklingen af det danske folketal siden 1769 fra folketællinger, statistikbankens register FT.
 [[file:./figure1.pdf]]
 
+Alle R-koder som indgår i kapitel 1 kan også hentes som R-markdown fil her:
+
+\small
+https://github.com/tagteam/demogRafi/blob/main/R_funk/demofunk.R
+\normalsize
 
 * Befolkningsstatistik i Denmark
 
