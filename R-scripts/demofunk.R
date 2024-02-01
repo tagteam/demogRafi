@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Jan 27 2024 (14:53) 
+## Last-Updated: Feb  1 2024 (10:46) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 39
+##     Update #: 45
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -25,7 +25,7 @@ library(ggthemes)
 hent_register_info <- function(register){
   register = toupper(register)
   try <- tryCatch(defaults <- danstat::get_table_metadata(register)$variables,
-                  error = function(e) stop(paste0("The registry ", register, " could not be fetched. ")))
+                  error = function(e) stop(paste0("Are you offline? If not, then perhaps the registry ", register, " does not exist? Check at statistikbanken.dk. ")))
   varnames <- defaults$id
   values <- defaults$values
   names(values) <- varnames
@@ -75,23 +75,18 @@ hent_data <- function(register,...){
             list(code = requested_args[[u]],
                  values = values[[ua]]$id)
         }else{
-            ## handle 99- problem and e.g., the problem with men 
+            ## handle 99- problem and e.g., the problem with men
             if (length(not_value <- setdiff(user_args[[ua]],values[[ua]]$id))){
                 match_text_with_id <- match(tolower(not_value), tolower(values[[ua]]$text))
-                if (any(!is.na(match_text_with_id))){
-                  ## find which indeces of user_args[[ua]] are in a, ignoring case
-                  match_not_value_user_args <- na.omit(match(tolower(user_args[[ua]]),intersect(tolower(not_value), tolower(values[[ua]]$text))))
-                  user_args[[ua]][match_not_value_user_args] <- values[[ua]]$id[na.omit(match_text_with_id)]
-                  ## remove match_not_value_user_args from not_value
-                  not_value <- not_value[-match_not_value_user_args]
-                  if (length(not_value) > 0){
-                    warning("removing ", paste0(not_value, collapse = ", ")," from ", ua, " because it/they is/are not valid value(s)")
-                    ## remove not_value from user_args[[ua]]
-                    user_args[[ua]] <- user_args[[ua]][!user_args[[ua]] %in% not_value]
-                  }
+                if (all(!is.na(match_text_with_id))){
+                    ## find which indeces of user_args[[ua]] are in a, ignoring case
+                    match_not_value_user_args <- na.omit(match(tolower(user_args[[ua]]),intersect(tolower(not_value), tolower(values[[ua]]$text))))
+                    user_args[[ua]][match_not_value_user_args] <- values[[ua]]$id[na.omit(match_text_with_id)]
+                    list(code = requested_args[[u]],values = user_args[[ua]])
                 } 
                 else if (length(not_value) == 1 && not_value == "99" && ("99-" %in% values[[ua]]$id)){
-                  user_args[[ua]] <- sub("99","99-",user_args[[ua]])
+                    user_args[[ua]] <- sub("99","99-",user_args[[ua]])
+                    list(code = requested_args[[u]],values = user_args[[ua]])
                 } else{
                     # fix 99- problem of register dod
                     list(code = "error",
@@ -99,8 +94,9 @@ hent_data <- function(register,...){
                          problems = paste0(not_value,collapse = ","),
                          allowed = paste0(values[[ua]]$id,collapse = ","))
                 }
+            } else {
+                list(code = requested_args[[u]],values = user_args[[ua]])                
             } 
-            list(code = requested_args[[u]],values = user_args[[ua]])
         }})
     has_problems = any(sapply(vars,"[[","code") == "error")
     if (has_problems){
