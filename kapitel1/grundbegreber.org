@@ -526,7 +526,7 @@ statistikbankens register FOLK1a, DOD, FOD, INDVAN og UDVAN.
 #+ATTR_LATEX: :options otherkeywords={hent_data,tibble}, deletekeywords={list,c,D,I}
 #+BEGIN_SRC R  :results output verbatim  :exports both  :session *R* :cache yes
 N <- hent_data("FOLK1a",tid = c("2022K1","2023K1"))[["INDHOLD"]]
-D <- hent_data("DOD",tid=2022)))[["INDHOLD"]]
+D <- hent_data("DOD",tid=2022)[["INDHOLD"]]
 F <- hent_data("FOD",tid = 2022)[["INDHOLD"]]
 I <- hent_data("INDVAN",tid=2022)[["INDHOLD"]]
 U <- hent_data("UDVAN",tid=2022)[["INDHOLD"]]
@@ -595,7 +595,7 @@ dat <- tibble(rbind(cbind(X="Vækst",V),
                     cbind(X="Fødsler",F),
                     cbind(X="Indvandring",I),
                     cbind(X="Udvandring",U)))
-dat <- dat %<% mutate(X = factor(X))
+dat <- dat %>% mutate(X = factor(X))
 ggplot(dat,aes(TID,INDHOLD,color=X,group=X))+geom_line()+
   geom_point()+theme_wsj()+ scale_colour_wsj("colors6") +
 theme(legend.title=element_blank())
