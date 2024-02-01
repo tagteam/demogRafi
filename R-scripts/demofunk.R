@@ -49,7 +49,7 @@ hent_register_info <- function(register){
 hent_data <- function(register,...){
     register = toupper(register)
     try <- tryCatch(defaults <- danstat::get_table_metadata(register)$variables,
-                    error = function(e) stop(paste0("The registry ", register, " could not be fetched. ")))
+                    error = function(e) stop(paste0("Are you offline? If not, then perhaps the registry ", register, " does not exist? Check at statistikbanken.dk. ")))
     varnames <- tolower(defaults$id)
     values <- defaults$values
     names(values) <- varnames
@@ -74,13 +74,17 @@ hent_data <- function(register,...){
         if (length(user_args[[u]]) == 1&&tolower(user_args[[u]]) == "all"){
             list(code = requested_args[[u]],
                  values = values[[ua]]$id)
-        }else{
+        } else if (length(user_args[[u]]) == 1&&tolower(user_args[[u]]) == "all_no_total"){
+          list(code = requested_args[[u]],
+               values = values[[ua]]$id[-1])
+        } else{
             ## handle 99- problem and e.g., the problem with men
             if (length(not_value <- setdiff(user_args[[ua]],values[[ua]]$id))){
                 match_text_with_id <- match(tolower(not_value), tolower(values[[ua]]$text))
+                match_not_value_user_args <- match(tolower(not_value), tolower(user_args[[ua]]))
                 if (all(!is.na(match_text_with_id))){
                     ## find which indeces of user_args[[ua]] are in a, ignoring case
-                    match_not_value_user_args <- na.omit(match(tolower(user_args[[ua]]),intersect(tolower(not_value), tolower(values[[ua]]$text))))
+                    match_not_value_user_args <- match(tolower(not_value), tolower(user_args[[ua]]))
                     user_args[[ua]][match_not_value_user_args] <- values[[ua]]$id[na.omit(match_text_with_id)]
                     list(code = requested_args[[u]],values = user_args[[ua]])
                 } 
