@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Feb  1 2024 (10:46) 
+## Last-Updated: Feb  2 2024 (09:41) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 45
+##     Update #: 50
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -16,11 +16,20 @@
 ### Code:
 # load libraries
 # ---------------------------------------------------------------------
-library(danstat)
-library(tidyverse)
-library(stringi)
-library(ggplot2)
-library(ggthemes)
+
+for (a in c("danstat","tidyverse","stringi","ggplot2","ggthemes","ggquickeda")){
+    if (inherits(try(do.call("library",list(a,quietly = TRUE))),"try-error")){
+        stop(paste0("Package ",a," is not installed.\nInstall it with command\n install.packages('",a,"')\n
+If that does not work, maybe another package is missing which is required by ",a,"?\n
+Try to read and google the error message that occurs when you run\n",
+"install.packages('",a,"')",
+"\nand post the error message when you ask on Absalon for help."))
+        do.call("library",list(a))
+    }
+    else{
+        message("Successfully loaded package ", a)
+    }
+}
 
 hent_register_info <- function(register){
   register = toupper(register)
