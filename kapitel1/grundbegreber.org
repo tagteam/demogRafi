@@ -632,7 +632,9 @@ theme(legend.title=element_blank())
 
 
 * Rater
-
+:PROPERTIES:
+:CUSTOM_ID: kapitel1_rater
+:END:
 I demografi bruger vi rater til at beskrive befolkningens relative
 ændringer for at sammenligne forskelige befolkninger og for at
 sammenligne befolkningsgrupper indenfor en befolkning. For eksempel
@@ -691,7 +693,7 @@ R[t_1, t_2] = \tilde{N}[t_1,t_2] \cdot (t_2-t_1)
 #+end_export
 
 For eksempel var middelfolketallet i 2022 på Bornholm 39.817 personer
-(tal fra statistikbankens register FOLK1a, metode 2 for
+(tal fra statistikbankens register FOLK1a, metode 1 for
 middelfolketallet). Vi estimerer dermed risikotid af Bornholms
 befolkning i året 2022 til 39.817 personår.
 
@@ -713,17 +715,27 @@ kendskab til begivenheden (hvad), befolkningen (hvem) og perioden
 (hvornår). Desuden skal man huske at angive enheder, når man
 rapporterer perioderater.
 
-Vi beregner mortalitetsraten for Bornholm i året 2022:
-#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
+Vi beregner mortalitetsraten for Bornholm i året 2022. 
+#+ATTR_LATEX: :options otherkeywords={hent_data}, deletekeywords={de,c,D}
 #+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
-1000*569/39817 
+# folketal den 1. jan 2022 og 1 jan 2023
+N_bornholm=hent_data(register = "folk1a",
+                       tid = c("2022K1","2023K1"),
+                     område ="bornholm")
+# middelfolketal metode 2
+N_bornholm_metode2 = mean(N_bornholm$INDHOLD)
+# antal døde
+D_bornholm = hent_data(register = "fod207",tid = "2022",område ="bornholm")$INDHOLD
+# mortalitetsrate per 1000 personår
+1000*D_bornholm/N_bornholm_metode2
 #+END_SRC
 
-#+RESULTS[(2024-01-31 10:20:58) 7ae843ef05f0fad63be7b2e8f354f451b0fc7417]:
-: [1] 14.29038
+#+RESULTS[(2024-02-02 14:54:26) db72432f479bc3d872706aa37b0b5ccc6ff9b114]:
+: [1] 14.37831
+
 og konkluderer:
 
-/Mortalitetsraten på Bornholm i året 2022 var 14.3 per 1000 personår./
+/Mortalitetsraten på Bornholm i året 2022 var 14.4 per 1000 personår./
 
 #+begin_export latex
 \mybox{
