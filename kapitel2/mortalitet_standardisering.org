@@ -1,34 +1,49 @@
 * Mortalitet
 
-Mortalitet er synonymt med dødelighed og referer til hændelsen at dø. I demografi
-betragtes dødsfald som en måde, hvorpå personer kan forlade en befolkning og 
-mortalitet beskriver således en vigtig del af en befolknings dynamik og udvikling. 
-I forrige kapitel, blev I præsenteret for den demografiske ligevægtsligning, 
-som beskriver befolkningstilvæksten ud fra fire demografiske komponenter: fødsler, dødsfald, 
-indvandringer og udvandringer. Mortalitet beskriver altså en af de grundlæggende 
-emner inden for demografi. 
+Mortalitet er synonymt med dødelighed og referer til hændelsen at
+dø. I demografi betragtes dødsfald som en måde, hvorpå personer kan
+forlade en befolkning og mortalitet beskriver således en vigtig del af
+en befolknings dynamik og udvikling.  I forrige kapitel, blev I
+præsenteret for den demografiske ligevægtsligning, som beskriver
+befolkningstilvæksten ud fra fire demografiske komponenter: fødsler,
+dødsfald, indvandringer og udvandringer. Mortalitet beskriver altså en
+af de grundlæggende emner inden for demografi.
 
-Fra et samfundsperspektiv spiller demografiske undersøgelser af befolkningens mortalitet
-en vigtig rolle i at forstå forandringer i befolkningssammensætningen og befolkningens sundhedstilstand. Et eksempel er den faldende dødelighed på tværs af alle aldersgrupper, som har resulteret i, at vi lever længere. Dette medfører en stigende andel af ældre i befolkningen. Desuden giver analyser af mortalitet indblik i befolkningens generelle sundhedstilstand ligesom, at de kan informere om ulighed i sundhed/dødelighed på tværs af befolkningsgrupper. Disse informationer er væsentlige for det politiske arbejde, som former sundhedspolitikker og påvirker ressourceallokering i sundhedsvæsenet.
+Fra et samfundsperspektiv spiller demografiske undersøgelser af
+befolkningens mortalitet en vigtig rolle i at forstå forandringer i
+befolkningssammensætningen og befolkningens sundhedstilstand. Et
+eksempel er den faldende dødelighed på tværs af alle aldersgrupper,
+som har resulteret i, at vi lever længere. Dette medfører en stigende
+andel af ældre i befolkningen. Desuden giver analyser af mortalitet
+indblik i befolkningens generelle sundhedstilstand ligesom, at de kan
+informere om ulighed i sundhed/dødelighed på tværs af
+befolkningsgrupper. Disse informationer er væsentlige for det
+politiske arbejde, som former sundhedspolitikker og påvirker
+ressourceallokering i sundhedsvæsenet.
 
 
 ** Den demografiske transition
 
-Den demografiske transition beskriver et historisk skift i befolkningsmønstre fra
-et traditionelt samfund med høj fertilitet og høj dødelighed til et samfund præget 
-af lav fertitet og lav dødelighed. Nedgangen i dødelighed er det element af transitionen,
-der kommer først, hvorefter fertilitetsnedgangen følger. Dette skift er ofte drevet af økonomisk vækst, forbedret sundhed og sociale forandringer, som påvirker beslutninger om familiedannelse. 
-Som konsekvens af den demografiske transition ændres befolkningssammensætningen.
+Den demografiske transition beskriver et historisk skift i
+befolkningsmønstre fra et traditionelt samfund med høj fertilitet og
+høj dødelighed til et samfund præget af lav fertitet og lav
+dødelighed. Nedgangen i dødelighed er det element af transitionen, der
+kommer først, hvorefter fertilitetsnedgangen følger. Dette skift er
+ofte drevet af økonomisk vækst, forbedret sundhed og sociale
+forandringer, som påvirker beslutninger om familiedannelse.  Som
+konsekvens af den demografiske transition ændres
+befolkningssammensætningen.
 
 
 ** Mål for mortalitet
 
-Demografien anvender forskellige mål til at kvantificere og opgøre mortalitet. 
-En summarisk mortalitetsrate angiver antallet af dødsfald per personår i en given 
-periode. Den summariske mortalitetsrate er for eksempel nyttig, når formålet er at 
-beskrive dødeligheden i en befolkning i en given periode. Summariske mortalitetsrater 
-kan udregnes per år i en given periode og således informere om ændringer
-i dødeligheden over tid. Et eksempel på dette kan ses i Figur 1. 
+Demografien anvender forskellige mål til at kvantificere og opgøre
+mortalitet.  En summarisk mortalitetsrate angiver antallet af dødsfald
+per personår i en given periode. Den summariske mortalitetsrate er for
+eksempel nyttig, når formålet er at beskrive dødeligheden i en
+befolkning i en given periode. Summariske mortalitetsrater kan
+udregnes per år i en given periode og således informere om ændringer i
+dødeligheden over tid. Et eksempel på dette kan ses i Figur 1.
 
 [[file:./Figur1.png]]
 
@@ -38,18 +53,31 @@ Kilde: Danmarks Statistik
 Beregningen af summariske rater blev beskrevet i Kapitel 1, og vi vil derfor
 ikke beskrive dette ydereligere her. 
 
-Mortalitet kan også beskrives ud fra /aldersspecifikke mortalitetsrater/. Disse beregnes på 
-samme vis som den summariske mortalitetsrate, men seperat for hver aldersgruppe. Det bliver 
-således muligt at undersøge forskelle i dødeligheden på tværs af aldersgrupper. Ligeledes, kan alderspecifikke mortalitetsrater udregnes per år over en given periode og 
-derved give information om ændringer i aldersspecifik dødelighed over tid. Altså
-oplever nogle aldersgrupper et fald i mortaliteten, hvor andre oplever en stigning? Det kan vi se i nedenstående Figur 2, som viser køns- og aldersspecifikke mortalitetsrater. Her ser vi, at dødeligheden er faldet i samtlige aldersgrupper og for begge køn i løbet af årene 1973-2022.
+Mortalitet kan også beskrives ud fra /aldersspecifikke
+mortalitetsrater/. Disse beregnes på samme vis som den summariske
+mortalitetsrate, men seperat for hver aldersgruppe. Det bliver således
+muligt at undersøge forskelle i dødeligheden på tværs af
+aldersgrupper. Ligeledes, kan alderspecifikke mortalitetsrater
+udregnes per år over en given periode og derved give information om
+ændringer i aldersspecifik dødelighed over tid. Altså oplever nogle
+aldersgrupper et fald i mortaliteten, hvor andre oplever en stigning?
+Det kan vi se i nedenstående Figur 2, som viser køns- og
+aldersspecifikke mortalitetsrater. Her ser vi, at dødeligheden er
+faldet i samtlige aldersgrupper og for begge køn i løbet af årene
+1973-2022.
 
 [[file:./Figur2.jpg]]
 
 Kilde: Danmarks Statistik
 
 
-Aldersspecifikke mortalitetsrater kan også angives for et enkelt år, hvilket giver et indtryk af forskelle i dødeligheden over livsforløbet. Køns- og aldersspecifikke mortalitetsrater for 2022 kan ses i Figur 3. Her ser vi, at mortaliteten er lav og forbliver sådan frem til efter 60årsalderen, hvorefter mortaliteten stiger - først en lille stigning og senere en mere markant stigning. Det er også tydeligt, at mortaliteten stiger hurtigere for mænd end for kvinder. 
+Aldersspecifikke mortalitetsrater kan også angives for et enkelt år,
+hvilket giver et indtryk af forskelle i dødeligheden over
+livsforløbet. Køns- og aldersspecifikke mortalitetsrater for 2022 kan
+ses i Figur 3. Her ser vi, at mortaliteten er lav og forbliver sådan
+frem til efter 60årsalderen, hvorefter mortaliteten stiger - først en
+lille stigning og senere en mere markant stigning. Det er også
+tydeligt, at mortaliteten stiger hurtigere for mænd end for kvinder.
 
 [[file:./Figur3.jpg]]
 
