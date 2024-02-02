@@ -5,7 +5,7 @@
 ## Version: 
 ## Last-Updated: Feb  2 2024 (09:43) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 51
+##     Update #: 52
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -31,14 +31,14 @@ Try to read and google the error message that occurs when you run\n",
     }
 }
 
-hent_register_info <- function(register){
-  register = toupper(register)
-  try <- tryCatch(defaults <- danstat::get_table_metadata(register)$variables,
-                  error = function(e) stop(paste0("Are you offline? If not, then perhaps the registry ", register, " does not exist? Check at statistikbanken.dk. ")))
-  varnames <- defaults$id
-  values <- defaults$values
-  names(values) <- varnames
-  values
+register_info <- function(register){
+    register = toupper(register)
+    try <- tryCatch(defaults <- danstat::get_table_metadata(register)$variables,
+                    error = function(e) stop(paste0("Are you offline? If not, then perhaps the registry ", register, " does not exist? Check at statistikbanken.dk. ")))
+    varnames <- defaults$id
+    values <- defaults$values
+    names(values) <- varnames
+    values
 }
 
 # hent data fra statistikbanken.dk
