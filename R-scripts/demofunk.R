@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Feb  2 2024 (09:41) 
+## Last-Updated: Feb  2 2024 (09:43) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 50
+##     Update #: 51
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -17,7 +17,7 @@
 # load libraries
 # ---------------------------------------------------------------------
 
-for (a in c("danstat","tidyverse","stringi","ggplot2","ggthemes","ggquickeda")){
+for (a in c("danstat","tidyverse","stringi","ggplot2","ggthemes")){
     if (inherits(try(do.call("library",list(a,quietly = TRUE))),"try-error")){
         stop(paste0("Package ",a," is not installed.\nInstall it with command\n install.packages('",a,"')\n
 If that does not work, maybe another package is missing which is required by ",a,"?\n
