@@ -870,6 +870,7 @@ SMR for studiebefolkning \(A\) med SMR for studiebefolkning \(B\).
 #+LaTeX_HEADER:\usepackage{hyperref}
 #+LaTeX_HEADER:\usepackage{amssymb}
 #+LaTeX_HEADER:\usepackage{latexsym}
+#+LaTeX_HEADER:\renewcommand\theequation{K2.\arabic{equation}}
 #+OPTIONS:   H:3  num:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:t todo:t pri:nil tags:not-in-toc author:t
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://publicifsv.sund.ku.dk/~tag/styles/all-purpose.css" />

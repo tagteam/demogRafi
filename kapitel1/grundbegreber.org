@@ -319,9 +319,9 @@ i tidspunkt $t_2$, så er tidspunktet i midten af perioden given som $(t_1+t_2)/
 folketallet i midten af perioden er given ved formlen:
 
 #+begin_export latex
-\begin{equation*}
+\begin{equation}\label{eq:folketal_metode1}
 \tilde N[t_1,t_2]=N((t_1+t_2)/2). 
-\end{equation*}
+\end{equation}
 #+end_export
 
 Dette tal bruges som et estimat for middelfolketallet. Metode er
@@ -339,9 +339,9 @@ slutningen af perioden. Det estimerede middelfolketal er gennemsnittet
 af de to folketal:
 
 #+begin_export latex
-\begin{equation*}
+\begin{equation}\label{eq:folketal_metode2}
 \tilde N[t_1,t_2]=(N(t_1)+N(t_2))/2. 
-\end{equation*}
+\end{equation}
 #+end_export
 
 **  Metode 3 
@@ -353,10 +353,12 @@ middelfolketal for perioden $[t_1,t_J]$ kan beregnes med følgende
 formel:
 
 #+begin_export latex
-\begin{align*}
+\begin{equation}\label{eq:folketal_metode3}
+\begin{split}
 \tilde N[t_1,t_J] &= \frac 1 {(t_J-t_1)}\sum_{j=2}^J (t_j-t_{j-1}) \frac{(N(t_{j-1})+N(t_j)}{2}\\
              &= \frac{(t_2-t_1)}{(t_J-t_1)}  \frac{(N(t_{2})+N(t_1)}{2} +\cdots +\frac{(t_J-t_{J-1})}{(t_J-t_1)}  \frac{(N(t_{J})+N(t_{J-1})}{2}
-\end{align*}
+\end{split}
+\end{equation}
 #+end_export
 
 Alle tre metoder er lige gode, hvis folketallet er
@@ -680,11 +682,18 @@ dog, at man kender eksakte datoer for alle fødsler, dødsfald samt ind-
 og udvandringer i perioden. Det gør man sjældent. Man kan dog estimere
 risikotid baseret på registerdata. For at estimere risikotid i en
 befolkning baseret på registerdata ganger vi typisk periodens
-middelfolketal med periodens længde. For eksempel var
-middelfolketallet i 2022 på Bornholm 39.817 personer (tal fra
-statistikbankens register FOLK1a, metode 2 for middelfolketallet). Vi
-estimerer dermed risikotid af Bornholms befolkning i året 2022 til
-39.817 personår.
+middelfolketal med periodens længde:
+
+#+begin_export latex
+\begin{equation}\label{eq:risikotid}
+R[t_1, t_2] = \tilde{N}[t_1,t_2] \cdot (t_2-t_1) 
+\end{equation}
+#+end_export
+
+For eksempel var middelfolketallet i 2022 på Bornholm 39.817 personer
+(tal fra statistikbankens register FOLK1a, metode 2 for
+middelfolketallet). Vi estimerer dermed risikotid af Bornholms
+befolkning i året 2022 til 39.817 personår.
 
 ** Perioderater
 
@@ -926,6 +935,7 @@ ikke, og der er en fejlrate:
 #+LaTeX_HEADER:\usepackage{hyperref}
 #+LaTeX_HEADER:\usepackage{amssymb}
 #+LaTeX_HEADER:\usepackage{latexsym}
+#+LaTeX_HEADER:\renewcommand\theequation{K1.\arabic{equation}}
 #+LaTeX_HEADER: \renewcommand{\figurename}{Figur}
 #+LaTeX_HEADER:\usepackage{tcolorbox}
 #+LaTeX_HEADER:\definecolor{lightGray}{gray}{0.98}
