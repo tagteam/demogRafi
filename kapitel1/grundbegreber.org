@@ -295,13 +295,12 @@ og dødelighedstavler.
 given tidsperiode.  Vi betegner middelfolketallet med $\tilde N$.}
 #+end_export
 
-
 For at beregne middelfolketallet helt korrekt, ville man for alle
-personer være nødt til at tælle, hvor mange dage de har levet i befolkningen i
-perioden. Så kunne man beregne middelfolketallet
-eksakt som den samlede gennemlevede tid divideret med periodens
-længde. Denne beregning giver et gennemsnitligt antal mennesker, der
-bor i området over en given tidsperiode.
+personer være nødt til at tælle, hvor mange dage de har levet i
+befolkningen i perioden. Så kunne man beregne middelfolketallet eksakt
+som den samlede gennemlevede tid divideret med periodens længde. Denne
+beregning giver et gennemsnitligt antal mennesker, der bor i området
+over en given tidsperiode.
 
 Rent praktisk kender man desværre ikke de præcise tal, altså hvor
 mange dage alle personer fra en befolkning har levet i en given
