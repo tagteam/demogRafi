@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Feb  3 2024 (08:38) 
+## Last-Updated: Feb  3 2024 (10:32) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 53
+##     Update #: 54
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -129,7 +129,7 @@ hent_data <- function(register,...){
         d <- danstat::get_data(register,variables=vars)
         # formatere ALDER til numerisk 
         if ("ALDER" %in% names(d)){
-            num_alder = as.numeric(gsub(" year[s]?| years and over","",d$ALDER))
+            suppressWarnings(num_alder <- as.numeric(gsub(" year[s]?| years and over","",d$ALDER)))
             if (any(!is.na(num_alder)))
                 d <- mutate(d,alder = num_alder)
         }
