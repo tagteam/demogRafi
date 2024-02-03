@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Feb  2 2024 (09:43) 
+## Last-Updated: Feb  3 2024 (08:38) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 52
+##     Update #: 53
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -84,8 +84,8 @@ hent_data <- function(register,...){
             list(code = requested_args[[u]],
                  values = values[[ua]]$id)
         } else if (length(user_args[[u]]) == 1&&tolower(user_args[[u]]) == "all_no_total"){
-          list(code = requested_args[[u]],
-               values = values[[ua]]$id[-1])
+            list(code = requested_args[[u]],
+                 values = values[[ua]]$id[-1])
         } else{
             ## handle 99- problem and e.g., the problem with men
             if (length(not_value <- setdiff(user_args[[ua]],values[[ua]]$id))){
@@ -123,12 +123,24 @@ hent_data <- function(register,...){
         }
         stop()
     }else{
+        # fjern variable som har ingen values
+        null_value <- sapply(vars,function(x){length(x$values)})
+        vars <- vars[null_value>0]
         d <- danstat::get_data(register,variables=vars)
         # formatere ALDER til numerisk 
-        if ("ALDER" %in% names(d))
-            d <- mutate(d,ALDER=as.numeric(gsub(" year[s]?| years and over","",ALDER)))
+        if ("ALDER" %in% names(d)){
+            num_alder = as.numeric(gsub(" year[s]?| years and over","",d$ALDER))
+            if (any(!is.na(num_alder)))
+                d <- mutate(d,alder = num_alder)
+        }
         d
     }
+}
+
+mutate_cond <- function(.data, condition, ..., envir = parent.frame()) {
+    condition <- eval(substitute(condition), .data, envir)
+    .data[condition, ] <- .data[condition, ] %>% mutate(...)
+    .data
 }
 
 samle_alder <- function(data,variable,value,by){

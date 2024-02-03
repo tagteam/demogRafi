@@ -60,7 +60,9 @@ simplificeret situation.
 En kohorte er en gruppe personer som oplever en bestemt (demografisk)
 begivenhed i en bestemt periode og følges derefter, for eksempel alle
 kvinder født i Danmark i året 1900 (fødselskohorte) eller alle mænd,
-som påbegyndte FSV studiet mellem 2017 og 2020.
+som påbegyndte FSV studiet mellem 2017 og 2020. En kohorte er
+defineret hvis der angives begivenheden (hvad), befolkningen (hvem) og
+perioden (hvornår).
 
 ** Befolkningens størrelse
 
@@ -532,10 +534,12 @@ forskellen mellem fødsler og dødsfald $(F[t_1,t_2] - D[t_1,t_2])$ for
 U[t_1,t_2])$ for /nettovandring/. Det giver følgende version af den
 demografiske ligevægtsligning (formel eqref:eq:ligevaekst):
 
-$$
+#+begin_export latex
+\begin{equation*}
 \underbrace{N(t_2)-N(t_1)}_{\text{Vækst}}=\quad\underbrace{(F[t_1,t_2]-D[t_1,t_2])}_{\text{Naturlig vækst}} + 
-\quad \underbrace{(I[t_1,t_2]-U[t_1,t_2])}_{\text{Nettovandring}}
-$$
+\quad \underbrace{(I[t_1,t_2]-U[t_1,t_2])}_{\text{Nettovandring}} 
+\end{equation*}
+#+end_export
 
 *** Eksempel
 
