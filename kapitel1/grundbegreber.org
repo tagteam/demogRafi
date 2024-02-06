@@ -738,7 +738,7 @@ D_bornholm = hent_data(register = "fod207",tid = "2022",område ="bornholm")$IND
 
 og konkluderer:
 
-/Mortalitetsraten på Bornholm i året 2022 var 14.4 per 1000 personår./
+/Mortalitetsraten på Bornholm i året 2022 var 14,4 per 1000 personår./
 
 #+begin_export latex
 \mybox{
