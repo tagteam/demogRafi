@@ -142,7 +142,7 @@ source("R-scripts/demofunk.R").
 #+END_SRC
 
 En vigtig funktion hedder =hent_data=. Den henter data fra
-statistikbankens register. For at se hvilke register der er og hvad de
+statistikbankens register. For at se hvilke registrer der er og hvad de
 hedder, skal man besøge internetsiden https://statistikbanken.dk/ hvor
 man finder dem under EMNE Borgere.
 
@@ -225,60 +225,61 @@ Statistik) og Hagstova Føyora (Færøernes Statistik).
 ** Administrative registre i demografisk statistik
 
 På det demografiske område har Danmarks Statistik været en
-foregangsinstitution på et særligt område: Registerbaseret statistik. I
-1968 blev Det Centrale Personregister oprettet, og CPR-nummeret
-indføres som identifikationsnummer for personer for at lette den
-offentlige administration. Sammen med en række andre administrative
-kilder som Det Centrale Erhvervsregister (1975) og Bygnings- og
-Boligregistret (1977) gjorde CPR det muligt at lave mange typer af
-demografisk statistik på baggrund af administrative registre. Som en
-konsekvens af de nye muligheder lavede Danmarks Statistisk i 1981 en
-af de første folketællinger, der alene var baseret på administrative
-registre. I dag er CPR registeret rygraden i den demografiske
-statistik.
+foregangsinstitution på et særligt område: Registerbaseret
+statistik. I 1968 blev Det Centrale Personregister oprettet, og
+CPR-nummeret indført som identifikationsnummer for personer for at
+lette den offentlige administration. Sammen med en række andre
+administrative kilder som Det Centrale Erhvervsregister (1975) og
+Bygnings- og Boligregistret (1977) gjorde CPR det muligt at lave mange
+typer af demografisk statistik på baggrund af administrative
+registre. Som en konsekvens af de nye muligheder lavede Danmarks
+Statistisk i 1981 en af de første folketællinger, der alene var
+baseret på administrative registre. I dag er CPR registeret rygraden i
+den demografiske statistik.
 
-CPR er et administrativt register. Det betyder, at registeret er
-lavet for at kunne bruges til at understøtte den offentlige
-administration generelt gennem let identifikation, for eksempel for at
-sikre adgang til offentlige ydelser (for eksempel lægebehandlinger,
-biblioteksadgang) og korrekte beskatning (for eksempel kilde- og
-ejedomsbeskatning).
+CPR er et administrativt register. Det betyder, at registeret er lavet
+for at kunne bruges til at understøtte den offentlige administration
+generelt gennem let identifikation, for eksempel for at sikre adgang
+til offentlige ydelser (for eksempel lægebehandlinger,
+biblioteksadgang) og korrekt beskatning (for eksempel kilde- og
+ejendomsbeskatning).
 
 CPR administreres af kommuner og indeholder oplysninger om de centrale
 begivenheder, som er nødvendige for at belyse fænomener af særlig
 demografisk interesse. Fordi CPR indeholder datoerne for fødsler,
 indvandring, udvandring og død, så kan CPR bruges direkte til at
-opgøre komponenterne i den demografiske ligevægtsligning, som er en
-helt central størrelse i demografien. CPR indeholder også information
-om ægtefælle, link mellem børn og forældre, samt information om
-bopæl. De informationer kan bruges til for eksempel familiedemografi,
-der beskæftiger sig med formation, ændring, sammensætning og udvikling
-i familier og husholdninger.
+opgøre komponenterne i den demografiske ligevægtsligning (se afsnit
+ref:kapitel1_ligevaegtsligning), som er en helt central størrelse i
+demografien. CPR indeholder også information om ægtefælle, link mellem
+børn og forældre, samt information om bopæl. De informationer kan
+bruges til for eksempel familiedemografi, der beskæftiger sig med
+formation, ændring, sammensætning og udvikling i familier og
+husholdninger.
 
 Kvaliteten af oplysningerne i CPR og de forskellige andre
 administrative registre, der anvendes til demografisk statistik er
-ikke altid af perfekt kvalitet. Kvaliteten af oplysningerne afhænger i
-praksis af om borgerne er motiveret til at sikre at oplysningerne er
-korrekte eller at oplysningerne er kvalitetssikret af de myndigheder,
-der skal bruge oplysningerne til administrative formål. En anden
-svaghed ved at anvende administrative registerdata fra for eksempel
-CPR er, at der ofte vil være oplysninger, som ikke er
-tilgængelige. Det kan for eksempel være oplysninger om kønsidentitet,
-familieformer eller religiøst tilhørsforhold, som ikke er noget, der
-findes data på i CPR. Styrken ved registerbaseret demografiske
-statistisk er, at den opgøres meget ofte og uden ret store
-omkostninger, sammenlignet med for eksempel demografisk statistik
-baseret på spørgeskema eller besøgsinterview.
+ikke altid perfekt. Kvaliteten af oplysningerne afhænger i praksis af
+om borgerne er motiveret til at sikre, at oplysningerne er korrekte
+eller at oplysningerne er kvalitetssikret af de myndigheder, der skal
+bruge oplysningerne til administrative formål. En anden svaghed ved at
+anvende administrative registerdata fra for eksempel CPR er, at der
+ofte vil være oplysninger, som ikke er tilgængelige. Det kan for
+eksempel være oplysninger om kønsidentitet, familieformer eller
+religiøst tilhørsforhold, som ikke er noget, der findes data på i
+CPR. Styrken ved registerbaseret demografisk statistisk er, at den
+opgøres meget ofte og uden ret store omkostninger, sammenlignet med
+for eksempel demografisk statistik baseret på spørgeskema eller
+besøgsinterview.
 
 ** Definitioner af befolkning
 
 For at kunne opgøre befolkningstallet i den officielle statistik er
 det nødvendigt at have en præcis definition, som kan implementeres i
-data. Ydermere, er det i praktisk også sådan, at definitionerne er
+data. Ydermere, er det i praksis også sådan, at definitionerne er
 samordnet mellem lande, sådan at alle personer tælles en gang og kun
 en gang. I de nordiske lande foregår samordningen ved, at de
 administrative registre er koordinerede, mens man i EU/EØS generelt
-sikre overensstemmelse ved at dele statistikoplysninger mellem
+sikrer overensstemmelse ved at dele statistikoplysninger mellem
 landene. Særligt i små og åbne lande som Danmark er det ikke helt
 trivielt at sikre, at befolkningen tælles korrekt på baggrund af
 registerdata. Det gælder generelt, at migrationskomponenten er langt
@@ -307,7 +308,7 @@ over en given tidsperiode.
 Rent praktisk kender man desværre ikke de præcise tal, altså hvor
 mange dage alle personer fra en befolkning har levet i en given
 tidsperiode. Fødselsdage og dødsdage har man typisk registreret
-korrekt, men ind- og udvandringsdatoer har man typisk mindre nøjagtig
+korrekt, men ind- og udvandringsdatoer har man typisk mindre nøjagtigt
 registreret. Flere metoder kan dog bruges til at beregne
 middelfolketallet approksimativt baseret på enkelte folketal i en
 given tidsperiode.
@@ -316,8 +317,9 @@ given tidsperiode.
 
 Her skal man kun kende et enkelt folketal, nemlig folketallet cirka i
 midten af perioden. Hvis perioden starter i tidspunkt $t_1$ og slutter
-i tidspunkt $t_2$, så er tidspunktet i midten af perioden given som $(t_1+t_2)/2$, og
-folketallet i midten af perioden er given ved formlen:
+i tidspunkt $t_2$, så er tidspunktet i midten af perioden givet som
+$(t_1+t_2)/2$, og folketallet i midten af perioden er givet ved
+formlen:
 
 #+begin_export latex
 \begin{equation}\label{eq:folketal_metode1}
@@ -325,7 +327,7 @@ folketallet i midten af perioden er given ved formlen:
 \end{equation}
 #+end_export
 
-Dette tal bruges som et estimat for middelfolketallet. Metode er
+Dette tal bruges som et estimat for middelfolketallet. Metoden er
 simpel og tilstrækkelig for mange formål, især når folketallet ikke
 ændrer sig særlig meget i den givne tidsperiode. For eksempel bruger
 Danmark Statistik folketal fra den 1. juli som årets middelfolketal i
@@ -357,7 +359,7 @@ formel:
 \begin{equation}\label{eq:folketal_metode3}
 \begin{split}
 \tilde N[t_1,t_J] &= \frac 1 {(t_J-t_1)}\sum_{j=2}^J (t_j-t_{j-1}) \frac{(N(t_{j-1})+N(t_j)}{2}\\
-             &= \frac{(t_2-t_1)}{(t_J-t_1)}  \frac{(N(t_{2})+N(t_1)}{2} +\cdots +\frac{(t_J-t_{J-1})}{(t_J-t_1)}  \frac{(N(t_{J})+N(t_{J-1})}{2}
+             &= \frac{(t_2-t_1)}{(t_J-t_1)}  \frac{(N(t_{2})+N(t_1))}{2} +\cdots +\frac{(t_J-t_{J-1})}{(t_J-t_1)}  \frac{(N(t_{J})+N(t_{J-1}))}{2}
 \end{split}
 \end{equation}
 #+end_export
@@ -412,7 +414,7 @@ plotrix::addtable2plot(x=-.7,y=-.5,tab,cex=1.3,hlines=1,vlines=1,xpad=.5,ypad=1)
 
 #+NAME: fig:2
 #+ATTR_LATEX: :width 0.9\textwidth
-#+CAPTION: Figuren viser de 3 metoder for at beregne middelfolketal baseret på 5 folketal: 1. januar 2019, 1. april 2019, 1. juli 2019, 1. oktober 2019, 1. januar 2023.
+#+CAPTION: Figuren viser de 3 metoder for at beregne middelfolketal baseret på 5 folketal: 1. januar 2019, 1. april 2019, 1. juli 2019, 1. oktober 2019, 1. januar 2020.
 [[file:./figure2.pdf]]
 
 
@@ -467,7 +469,7 @@ og 1 januar 2023 til $5.714.652$ personer baseret på de 3 folketal fra
 perioden.  Vi ser i dette eksempel, at der er mindre end 10.000
 personers forskel mellem metode 3 og metode 2. Om denne forskel er
 vigtig eller ej ville afhænge af formålet med den konkrete
-demografiske undersøgelse. Er den vigtigt, ville man prøve at estimere
+demografiske undersøgelse. Er det vigtigt, ville man prøve at estimere
 middelfolketallet så godt som muligt. For at gøre det ville man hente
 så mange folketal som muligt fra perioden, og så beregne
 middelfolketallet med metode 3 på alle disse tal. Følgende R-koder
@@ -503,13 +505,16 @@ januar 2023 estimerer vi middelfolketal for perioden til at være 5.717.974
 personer.
 
 * Den demografiske ligevægtsligning
+:PROPERTIES:
+:CUSTOM_ID: kapitel1_ligevaegtsligning
+:END:
 
 Den demografiske ligevægtsligning er en formel, der bruges i
 demografisk analyse til at beskrive forholdet mellem antallet af
 fødsler, dødsfald og migration i en periode i en befolkning. Jo flere
-dødsfald og jo flere personer, der emigrerer, jo mindre er folketallet i
+dødsfald og jo flere personer, der udvandrer, jo mindre er folketallet i
 slutningen af perioden sammenlignet med starten af perioden. Ligeledes
-er folketallet i slutningen af perioden højere jo flere personer bliver født og
+er folketallet i slutningen af perioden højere jo flere personer der bliver født og
 indvandrer til befolkningen. Den demografiske ligevægtsligning for en
 periode $[t_1,t_2]$ er:
 #+begin_export latex
@@ -530,9 +535,10 @@ $t_2$ er lig den samlede befolkning på tidspunktet $t_1$ plus en
 stigning i befolkningen på grund af fødsler og indvandring og en
 reduktion i befolkningen på grund af dødsfald og udvandring. Vi kalder
 forskellen mellem fødsler og dødsfald $(F[t_1,t_2] - D[t_1,t_2])$ for
-/naturlig vækst/ og forskellen mellem ind- og udvandring $(I[t_1,t_2] -
-U[t_1,t_2])$ for /nettovandring/. Det giver følgende version af den
-demografiske ligevægtsligning (formel eqref:eq:ligevaekst):
+/naturlig vækst/ (som kan være negativ) og forskellen mellem ind- og
+udvandring $(I[t_1,t_2] - U[t_1,t_2])$ for /nettovandring/. Det giver
+følgende version af den demografiske ligevægtsligning (formel
+eqref:eq:ligevaekst):
 
 #+begin_export latex
 \begin{equation*}
@@ -575,7 +581,7 @@ tibble(X=c("Folketal jan 2022",
 : 6 Udvandre 2022       62927
 
 
-Baseret på disse tal beregner vi vækst i den danske befolkningens i
+Baseret på disse tal beregner vi væksten i den danske befolkning i
 perioden til $(5.932.654 - 5.873.420) = 59.234$ personer. Den
 naturlige vækst i perioden er negativ: $(58.430 - 59.345) = -915$
 personer og nettovandring i perioden positiv: $(121.183 - 62.927) =
@@ -659,9 +665,7 @@ som kendetegn, at den er defineret som kvotient af to størrelser i
 forskelige måleenheder. Ved beskrivelse af en rates enheder bruges
 ordet ``per'' til at adskille enhederne for de to målinger, der bruges
 til at beregne raten. For eksempel er hastighed af en cykel en rate,
-som kan beskrives med enheden /kilometer per time/. Der findes også
-dimensionsløse rater, som er kvotient af to forskelige størrelser med
-samme måleenhed. Disse kan udtrykkes som en procentdel. De fleste
+som kan beskrives med enheden /kilometer per time/. De fleste
 demografiske rater bruger /risikotid/ i nævneren og antal begivenheder
 i tælleren og har dermed en enhed /antal begivenheder per personår/.
 
@@ -712,8 +716,8 @@ gennemlevede personår i samme periode i en befolkning:
 \end{equation}
 #+end_export
 
-Denne formel kan anvendes rimelig generelt. Man skal dog være opmærksom
-på at en korrekt fortolkning af  perioderater kræver
+Denne formel kan anvendes rimeligt generelt. Man skal dog være opmærksom
+på, at en korrekt fortolkning af  perioderater kræver
 kendskab til begivenheden (hvad), befolkningen (hvem) og perioden
 (hvornår). Desuden skal man huske at angive enheder, når man
 rapporterer perioderater.
@@ -837,17 +841,16 @@ dekomposition af befolkningens vækstrate i perioden $[t_1,t_2]$:
 \end{multline} 
 #+end_export
 
-Vi bemærker at mortalitetsrater og udvandringsrater er
-begivenhedsrater/eksponeringsrater. Her giver udtrykket /risikotid/ mening,
-fordi $R[t_1,t_2]$ stammer fra de personer som faktisk var under
-risiko for hændelsen.
+Vi bemærker at for mortalitetsrater og udvandringsrater giver
+udtrykket /risikotid/ mening, fordi $R[t_1,t_2]$ stammer fra de
+personer som faktisk var under risiko for hændelsen. 
 
 *** Eksempel
 
 Vi beregner vækstrater, som defineret i ligning
-eqref:eq:ligevaekstrate, for den danske befolkingen i
+eqref:eq:ligevaekstrate, for den danske befolkning i
 perioden 1. januar 2022 til 1. januar 2023. Ud over data, som vi
-allerede har brugt i eksempel for den demografiske ligevægtsligning,
+allerede har brugt i eksemplet for den demografiske ligevægtsligning,
 har vi nu brug for risikotid for den danske befolkning i perioden. Vi
 anvender metode 2 for middelfolketallet og beregner risikotid ved at
 gange med 1 år:
@@ -935,7 +938,7 @@ ikke, og der er en fejlrate:
 
 
 #+TITLE: Grundbegreber
-#+AUTHOR: Anna-Vera Jørring Pallesen, Johan Sebastian Ohlendorff, Laust Hvas Mortensen and Thomas Alexander Gerds
+#+AUTHOR: Anna-Vera Jørring Pallesen, Johan Sebastian Ohlendorff, Laust Hvas Mortensen og Thomas Alexander Gerds
 #+DATE: 
 #+LANGUAGE: dk
 #+LaTeX_CLASS: danish-article
