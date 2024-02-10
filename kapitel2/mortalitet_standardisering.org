@@ -45,9 +45,26 @@ befolkning i en given periode. Summariske mortalitetsrater kan
 udregnes per år i en given periode og således informere om ændringer i
 dødeligheden over tid. Et eksempel på dette kan ses i Figur 1.
 
-[[file:./Figur1.png]]
+#+ATTR_LATEX: :options otherkeywords={ggplot,hent_data}, deletekeywords={list,dt,data,scale,D,R}
+#+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-summa-mortalitetsrater.pdf :exports code :session *R* :cache yes
+# R-koder der producerer figur 1
+dod=hent_data(register = "dod",køn = c("M","K"),tid = "all") %>% rename(D = "INDHOLD")
+N=hent_data(register = "befolk2",køn = c("1","2"),tid = 1974:2022) %>% rename(R = "INDHOLD")
+dat <- left_join(dod,N,by = c("KØN","TID"))
+dat <- mutate(dat,M = 1000*D/R)
+levels(dat$KØN) <- list("Kvinder" = "Women","Mænd" = "Men")
+ggplot(dat,aes(TID,M,color = KØN))+geom_line()+geom_point()+
+  theme_economist()+ scale_colour_wsj("colors6")+ylim(c(5,15))+
+  xlab("")+ylab("Dødsfald per 1000 personår")
+#+END_SRC
 
-Kilde: Danmarks Statistik
+#+RESULTS[(2024-02-10 15:21:38) 259d5a258cac521e80a574d10ad275d466295aa5]:
+[[file:./kapitel2/k2-summa-mortalitetsrater.pdf]]
+
+#+name: fig:k2-sum-mort
+#+ATTR_LATEX: :width 0.7\textwidth
+#+CAPTION: Udvikling i den summariske mortalitetsrate i perioden 1974-2022. Kilde: statistikbankens register DOD, BEFOLK2
+[[file:./k2-summa-mortalitetsrater.pdf]]
 
 
 Beregningen af summariske rater blev beskrevet i Kapitel 1, og vi vil derfor
@@ -206,23 +223,23 @@ https://extranet.dst.dk/pyramide/pyramide.htm.
 ## begge køn
 folk <- hent_data("FOLK1a","alder"=0:125,"køn"=1:2,tid="2023K3")
 # fjern tomme aldre
-folk <- subset(folk,ALDER<106)
+folk <- subset(folk,alder<106)
 # mænd skal vises på venstre siden, derfor bliver INDHOLD negativt 
 folk_m <- subset(folk,KØN=="Men") %>% mutate(INDHOLD=-INDHOLD)
 # for kvinder på højre siden er INDHOLD  positivt
 folk_k <- subset(folk,KØN=="Women")
 # plot
-g <- ggplot(folk, aes(x = ALDER, y = INDHOLD, fill = KØN)) +
+g <- ggplot(folk, aes(x = alder, y = INDHOLD, fill = KØN)) +
   geom_bar(data=folk_m, stat = "identity") +
   geom_bar(data=folk_k, stat = "identity") +
-  coord_flip() + theme_solarized_2() +
+  coord_flip() + theme_economist() +
   ylab("Folketal N(t)")+xlab("Alder (år)") +
   theme(legend.title=element_blank())
 g <- g+ggtitle("Alderspyramide Danmark 1 juli 2023")
 g
 #+END_SRC
 
-#+RESULTS[(2024-01-27 08:29:09) 0cbb6963642c673739eb338bd2d102317b373684]:
+#+RESULTS[(2024-02-10 15:30:35) fac98c2a078d12736394a306ca3488761f982a85]:
 [[file:./kapitel2/k2-alderspyramide.pdf]]
 
 #+name: fig:alderspyramide
@@ -264,7 +281,7 @@ nettop aldersfordelingen med hensyn til de fire intervaller.
 #+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
 folk <- hent_data("FOLK1a","alder"=0:125,tid="2023K3")
 # Aldersintervaller
-folk <- mutate(folk,Aldersinterval=cut(ALDER,
+folk <- mutate(folk,Aldersinterval=cut(alder,
                                    breaks=c(0,25,50,75,125),
                                    include.lowest = TRUE))
 # antal person i de 4 aldersintervaller
@@ -344,7 +361,7 @@ statistikbankens register BY2, hvor man kan specificere bystørrelse.
 b2 <- hent_data(register = "BY2",alder=0:125,
                 BYST=c("HOVEDS","LAND"),tid="2023")
 # aldersintervaller
-b2 <- mutate(b2,Aldersinterval=cut(ALDER,
+b2 <- mutate(b2,Aldersinterval=cut(alder,
                                    breaks=c(0,25,50,75,125),
                                    include.lowest = TRUE))
 # antal person i de 4 aldersintervaller
@@ -431,10 +448,10 @@ den i fire aldersintervaller: \([0,25], (25,50], (50,75], (75,125]\).
 #+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
 folk <- hent_data("FOLK1a", alder=0:125), tid=c("2022K1","2023K1")
 # Risikotid= 1* Middelfolketal metode 2
-folk <- folk %>% group_by(ALDER) %>%
+folk <- folk %>% group_by(alder) %>%
                             summarise(Risikotid=1*mean(INDHOLD))
 # Aldersintervaller
-folk <- mutate(folk,Aldersinterval=cut(ALDER,
+folk <- mutate(folk,Aldersinterval=cut(alder,
                                            breaks=c(0,25,50,75,125),
                                            include.lowest = TRUE))
 # antal personår i de 4 aldersintervaller
@@ -553,7 +570,7 @@ og bemærker at det sidste aldersinterval hedder ``99 years and over''.
 #+BEGIN_SRC R :results value verbatim :exports both  :session *R* :cache yes  
 dd <- get_data("dod",alder=agevals,tid="2022")
 # Aldersintervaller
-dd <- mutate(dd,Aldersinterval=cut(ALDER,
+dd <- mutate(dd,Aldersinterval=cut(alder,
                                    breaks=c(0,25,50,75,125),
                                    include.lowest = TRUE))
 # antal døde i de 4 aldersintervaller
@@ -625,17 +642,17 @@ dd <- hent_data(register="dod",alder=0:99,køn=c("K","M"),tid="2011")
 # ændre variable navn
 dd <- dd %>% rename("antal_døde"="INDHOLD")
 # join folketal og antal dødsfald
-x <- left_join(folk,dd,by=c("ALDER","KØN"))
+x <- left_join(folk,dd,by=c("alder","KØN"))
 # aldersspecifikke mortalitetsrater
 x <- x %>% group_by(KØN) %>% mutate(mrate=1000*antal_døde/risikotid)
 # grafik
-g <- ggplot(x,aes(x=ALDER,y=mrate,color= KØN))+geom_line()
-g <- g+theme_solarized_2()+scale_colour_wsj("colors6") +theme(legend.title=element_blank())
+g <- ggplot(x,aes(x=alder,y=mrate,color= KØN))+geom_line()
+g <- g+theme_economist()+scale_colour_wsj("colors6") +theme(legend.title=element_blank())
 g <- g+ylab("Mortalitetsrate per 1000 personår")+xlab("Alder (år)")+ggtitle("Danmark 2011")
 g
 #+END_SRC
 
-#+RESULTS[(2023-12-28 13:51:20) 8b0c7472c42c8c00be233152faec69b9739cde0a]:
+#+RESULTS[(2024-02-10 15:31:47) 420558c55fa8b3d6362f5d418fea3aa33dfd8e6e]:
 [[file:./kapitel2/k2-aldersspecifikke-mortalitet-maend-kvinder.pdf]]
 
 #+name: fig:k2-ammk

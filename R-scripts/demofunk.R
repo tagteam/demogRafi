@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Feb  3 2024 (10:32) 
+## Last-Updated: Feb 10 2024 (15:33) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 54
+##     Update #: 55
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -146,16 +146,16 @@ mutate_cond <- function(.data, condition, ..., envir = parent.frame()) {
 samle_alder <- function(data,variable,value,by){
     if (value == "99plus"){
         if (by == "køn"){
-            kvinder99plus <- data %>% filter(ALDER>98 & KØN == "Women") %>%
+            kvinder99plus <- data %>% filter(alder>98 & KØN == "Women") %>%
                 summarise(sum(risikotid)) %>% pull()
-            maend99plus <- data %>% filter(ALDER>98 & KØN == "Men") %>%
+            maend99plus <- data %>% filter(alder>98 & KØN == "Men") %>%
                 summarise(sum(risikotid)) %>% pull()
             # erstat værdi i rækkerne hvor alder er lige med 99
-            data <- data %>% mutate(risikotid=replace(risikotid, ALDER==99 & KØN=="Women",kvinder99plus))
-            data <- data %>% mutate(risikotid=replace(risikotid, ALDER==99 & KØN=="Men",maend99plus))
+            data <- data %>% mutate(risikotid=replace(risikotid, alder==99 & KØN=="Women",kvinder99plus))
+            data <- data %>% mutate(risikotid=replace(risikotid, alder==99 & KØN=="Men",maend99plus))
         }
         # slet rækker hvor alder er over 99
-        data <- data %>% filter(ALDER<100)
+        data <- data %>% filter(alder<100)
     }
     data
 }

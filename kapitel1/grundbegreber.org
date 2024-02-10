@@ -523,12 +523,12 @@ N(t_2) = N(t_1) + (F[t_1,t_2] - D[t_1,t_2]) + (I[t_1,t_2] - U[t_1,t_2]).
 \end{equation}
 #+end_export
 hvor vi har brugt følgende notation:
-- $N(t_1)$ er folketal på tidspunkt $t_1$.
-- $N(t_2)$ er folketal på tidspunkt $t_2$.
-- $F(t_1,t_2)$ er antallet af fødsler i perioden.
-- $D(t_1,t_2)$ er antallet af dødsfald i perioden.
-- $I(t_1,t_2)$ er antallet af indvandrere i perioden.
-- $U(t_1,t_2)$ er antallet af udvandrere i perioden.
+- $N[t_1]$ er folketal på tidspunkt $t_1$.
+- $N[t_2]$ er folketal på tidspunkt $t_2$.
+- $F[t_1,t_2]$ er antallet af fødsler i perioden.
+- $D[t_1,t_2]$ er antallet af dødsfald i perioden.
+- $I[t_1,t_2]$ er antallet af indvandrere i perioden.
+- $U[t_1,t_2]$ er antallet af udvandrere i perioden.
 
 Formlen siger kort sagt, at den samlede befolkning på et tidspunkt
 $t_2$ er lig den samlede befolkning på tidspunktet $t_1$ plus en
