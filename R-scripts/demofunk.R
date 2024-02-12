@@ -33,11 +33,19 @@ Try to read and google the error message that occurs when you run\n",
 
 register_info <- function(register){
     register = toupper(register)
-    try <- tryCatch(defaults <- danstat::get_table_metadata(register)$variables,
+    try <- tryCatch(defaults <- danstat::get_table_metadata(register, language = "en")$variables,
                     error = function(e) stop(paste0("Are you offline? If not, then perhaps the registry ", register, " does not exist? Check at statistikbanken.dk. ")))
+    try_da <- tryCatch(defaults_da <- danstat::get_table_metadata(register, language = "da")$variables,
+                    error = function(e) stop(paste0("Are you offline? If not, then perhaps the registry ", register, " does not exist? Check at statistikbanken.dk. ")))
+    ## combine the two lists
     varnames <- defaults$id
     values <- defaults$values
     names(values) <- varnames
+    values_da <- defaults_da$values
+    names(values_da) <- varnames
+    for (va in names(values)){
+        values[[va]]$tekst <- values_da[[va]]$text
+    }
     values
 }
 
@@ -57,8 +65,13 @@ register_info <- function(register){
 ##' @author Thomas A. Gerds <tag@@biostat.ku.dk>
 hent_data <- function(register,...){
     register = toupper(register)
-    try <- tryCatch(defaults <- danstat::get_table_metadata(register)$variables,
+    try <- tryCatch(defaults <- danstat::get_table_metadata(register,language="en")$variables,
                     error = function(e) stop(paste0("Are you offline? If not, then perhaps the registry ", register, " does not exist? Check at statistikbanken.dk. ")))
+    try_da <- tryCatch(defaults_da <- danstat::get_table_metadata(register, language = "da")$variables,
+                       error = function(e) stop(paste0("Are you offline? If not, then perhaps the registry ", register, " does not exist? Check at statistikbanken.dk. ")))
+    for (i in 1:length(defaults$values)){
+      defaults$values[[i]]$tekst <- defaults_da$values[[i]]$text
+    }
     varnames <- tolower(defaults$id)
     values <- defaults$values
     names(values) <- varnames
@@ -90,6 +103,8 @@ hent_data <- function(register,...){
             ## handle 99- problem and e.g., the problem with men
             if (length(not_value <- setdiff(user_args[[ua]],values[[ua]]$id))){
                 match_text_with_id <- match(tolower(not_value), tolower(values[[ua]]$text))
+                match_text_with_id_da <- match(tolower(not_value), tolower(values[[ua]]$tekst))
+                match_text_with_id <- dplyr::coalesce(match_text_with_id, match_text_with_id_da)
                 match_not_value_user_args <- match(tolower(not_value), tolower(user_args[[ua]]))
                 if (all(!is.na(match_text_with_id))){
                     ## find which indeces of user_args[[ua]] are in a, ignoring case
@@ -129,9 +144,9 @@ hent_data <- function(register,...){
         d <- danstat::get_data(register,variables=vars)
         # formatere ALDER til numerisk 
         if ("ALDER" %in% names(d)){
-            suppressWarnings(num_alder <- as.numeric(gsub(" year[s]?| years and over","",d$ALDER)))
+            suppressWarnings(num_alder <- as.numeric(gsub(" year[s]?| years and over| år| år og derover","",d$ALDER)))
             if (any(!is.na(num_alder)))
-                d <- mutate(d,alder = num_alder)
+                d <- mutate(d,alder_numerisk = num_alder) 
         }
         d
     }
