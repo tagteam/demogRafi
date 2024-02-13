@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Feb 10 2024 (15:33) 
+## Last-Updated: Feb 13 2024 (11:00) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 55
+##     Update #: 69
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -120,7 +120,8 @@ hent_data <- function(register,...){
                     list(code = "error",
                          variable = requested_args[[u]],
                          problems = paste0(not_value,collapse = ","),
-                         allowed = paste0(values[[ua]]$id,collapse = ","))
+                         allowed_text = paste0(values[[ua]]$text,collapse = ","),
+                         allowed_id = paste0(values[[ua]]$id,collapse = ","))
                 }
             } else {
                 list(code = requested_args[[u]],values = user_args[[ua]])                
@@ -131,10 +132,11 @@ hent_data <- function(register,...){
         cat(paste0("\nSome of the requested values are not in the register:\n"))
         for (v in vars){
             if (v[[1]] == "error")
-                cat(paste0("\nProblem with values of variable ",
-                           v[["variable"]],"\n",
-                           "Requested: ", v[["problems"]],"\n",
-                           "Available: ", v[["allowed"]]),"\n")
+            cat(paste0("\nProblem with values of variable ",
+                       v[["variable"]],"\n",
+                       "Requested: ", v[["problems"]],"\n",
+                       "Available text: ", v[["allowed_text"]],"\n",
+                       "Available id: ", v[["allowed_id"]]),"\n")
         }
         stop()
     }else{
@@ -145,8 +147,8 @@ hent_data <- function(register,...){
         # formatere ALDER til numerisk 
         if ("ALDER" %in% names(d)){
             suppressWarnings(num_alder <- as.numeric(gsub(" year[s]?| years and over| år| år og derover","",d$ALDER)))
-            if (any(!is.na(num_alder)))
-                d <- mutate(d,alder_numerisk = num_alder) 
+            if (mean(!is.na(num_alder))>0.5) d <- mutate(d,alder = num_alder)
+            else d = mutate(d,alder = gsub(" year[s]?| years and over| år| år og derover","",d$ALDER))
         }
         d
     }
@@ -173,6 +175,63 @@ samle_alder <- function(data,variable,value,by){
         data <- data %>% filter(alder<100)
     }
     data
+}
+
+intervAlder <- function(data,alder="alder",breaks,vars,by="køn",right=TRUE,label_one = NULL,label_last = NULL){
+    data = mutate(data,aldersinterval=cut(alder,breaks=breaks,right=right,include.lowest=TRUE))
+    ll <- levels(data$aldersinterval)
+    if (right==TRUE){
+        ll <- paste0(breaks[-length(breaks)]+1,"-",breaks[-1])
+        if (is.infinite(breaks[length(breaks)]))
+            ll[length(ll)] <- paste0(">",breaks[length(breaks)-1])
+        if (is.infinite(breaks[1]) || breaks[1]<0)
+            ll[1] <- paste0("<=",breaks[2])
+        else
+            ll[1] <- paste0(breaks[1],"-",breaks[2])
+    } else{
+        ll <- paste0(breaks[-length(breaks)],"-",breaks[-1]-1)
+        # label last element
+        if (length(label_last) == 1){
+            ll[length(ll)] = label_last
+        } else{
+            if (is.infinite(breaks[length(breaks)]))
+                ll[length(ll)] <- paste0(breaks[length(breaks)-1],"+")
+        }
+        # label first element 
+        if (length(label_one) == 1){
+            ll[1] <- label_one
+        }else{
+            if (breaks[[1]]==0){
+                ll[1] <- "0"
+            } else{
+                if (is.infinite(breaks[[1]]) || breaks[1]<0){
+                    ll[1] <- paste0("<",breaks[2])
+                } else{
+                    ll[1] <- paste0(breaks[1],"-",breaks[2])
+                }
+            }
+        }
+    }
+    levels(data$aldersinterval) <- ll
+    by <- names(data)[match(by,names(data),nomatch=0)]
+    if (length(by)>0)
+        data = do.call("arrange",c(list(data,"aldersinterval"),by))
+    else
+        data = arrange(data,"aldersinterval")
+    out <- NULL
+    for (v in vars){
+        data = rename(data,"tHiSvAr" = v)
+        if (length(by)>0){
+            suppressMessages(out.v <- group_by(data,.dots = c("aldersinterval",by)) %>% summarise(tHiSvAr = sum(tHiSvAr)))
+        } else{
+            suppressMessages(out.v <- group_by(data,"aldersinterval") %>% summarise(tHiSvAr = sum(tHiSvAr)))
+        }
+        names(out.v)[names(out.v) == "tHiSvAr"] = v
+        if (!is.null(out))
+            out <- left_join(out,out.v,by = by)
+        else out <- out.v
+    }
+    out[]
 }
 
 format_dato <- function(data,variable = "TID"){

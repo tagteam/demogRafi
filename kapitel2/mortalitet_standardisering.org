@@ -39,26 +39,29 @@ befolkningssammensætningen.
 
 Demografien anvender forskellige mål til at kvantificere og opgøre
 mortalitet.  En summarisk mortalitetsrate angiver antallet af dødsfald
-per personår i en given periode. Den summariske mortalitetsrate er for
-eksempel nyttig, når formålet er at beskrive dødeligheden i en
-befolkning i en given periode. Summariske mortalitetsrater kan
-udregnes per år i en given periode og således informere om ændringer i
-dødeligheden over tid. Et eksempel på dette kan ses i Figur 1.
+per personår i en given periode. Beregningen af summariske
+mortalitetsrater bliver forklaret i Kapitel 1. Den summariske
+mortalitetsrate er for eksempel nyttig, når formålet er at beskrive
+dødeligheden i en befolkning i en given periode.  Summariske
+mortalitetsrater kan udregnes per år i en given periode og således
+informere om ændringer i dødeligheden over tid. Et eksempel på dette
+kan ses i Figur ref:fig:k2-sum-mort.
 
 #+ATTR_LATEX: :options otherkeywords={ggplot,hent_data}, deletekeywords={list,dt,data,scale,D,R}
-#+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-summa-mortalitetsrater.pdf :exports code :session *R* :cache yes
+#+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-summa-mortalitetsrater.pdf :exports none :session *R* :cache yes
 # R-koder der producerer figur 1
 dod=hent_data(register = "dod",køn = c("M","K"),tid = "all") %>% rename(D = "INDHOLD")
 N=hent_data(register = "befolk2",køn = c("1","2"),tid = 1974:2022) %>% rename(R = "INDHOLD")
 dat <- left_join(dod,N,by = c("KØN","TID"))
 dat <- mutate(dat,M = 1000*D/R)
+dat <- mutate(dat,KØN = factor(KØN))
 levels(dat$KØN) <- list("Kvinder" = "Women","Mænd" = "Men")
 ggplot(dat,aes(TID,M,color = KØN))+geom_line()+geom_point()+
   theme_economist()+ scale_colour_wsj("colors6")+ylim(c(5,15))+
   xlab("")+ylab("Dødsfald per 1000 personår")
 #+END_SRC
 
-#+RESULTS[(2024-02-10 15:21:38) 259d5a258cac521e80a574d10ad275d466295aa5]:
+#+RESULTS[(2024-02-10 15:47:11) 257224338dec5045ec53db8a0d931436fc8a760f]:
 [[file:./kapitel2/k2-summa-mortalitetsrater.pdf]]
 
 #+name: fig:k2-sum-mort
@@ -66,13 +69,10 @@ ggplot(dat,aes(TID,M,color = KØN))+geom_line()+geom_point()+
 #+CAPTION: Udvikling i den summariske mortalitetsrate i perioden 1974-2022. Kilde: statistikbankens register DOD, BEFOLK2
 [[file:./k2-summa-mortalitetsrater.pdf]]
 
-
-Beregningen af summariske rater blev beskrevet i Kapitel 1, og vi vil derfor
-ikke beskrive dette ydereligere her. 
-
+# R-koder som producerer Figur ref:fig:k2-sum-mort findes her:
 Mortalitet kan også beskrives ud fra /aldersspecifikke
 mortalitetsrater/. Disse beregnes på samme vis som den summariske
-mortalitetsrate, men seperat for hver aldersgruppe. Det bliver således
+mortalitetsrate, men separat for hver aldersgruppe. Det bliver således
 muligt at undersøge forskelle i dødeligheden på tværs af
 aldersgrupper. Ligeledes, kan alderspecifikke mortalitetsrater
 udregnes per år over en given periode og derved give information om
@@ -82,6 +82,32 @@ Det kan vi se i nedenstående Figur 2, som viser køns- og
 aldersspecifikke mortalitetsrater. Her ser vi, at dødeligheden er
 faldet i samtlige aldersgrupper og for begge køn i løbet af årene
 1973-2022.
+
+#+ATTR_LATEX: :options otherkeywords={ggplot,hent_data}, deletekeywords={list,dt,data,scale,D,R}
+#+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-summa-mortalitetsrater.pdf :exports none :session *R* :cache yes
+# R-koder der producerer figur 1
+dod=hent_data(register = "dod",køn = c("M","K"),tid = "all",alder = "all_no_total") %>% rename(D = "INDHOLD")
+dod <- intervAlder(dod,breaks=c(-Inf,seq(5,85,5),Inf),right=FALSE,var="D",alder="ALDER",by=c("KØN","TID"),label_one = "0-4",label_last = "85")
+N=hent_data(register = "befolk2",køn = c("1","2"),tid = 1974:2022,alder = "all_no_total") %>% rename(R = "INDHOLD")
+N <- rename(N,aldersinterval = alder)
+dat <- left_join(dod,N,by = c("KØN","TID","aldersinterval"))
+dat <- mutate(dat,M = 1000*D/R)
+dat <- mutate(dat,KØN = factor(KØN))
+levels(dat$KØN) <- list("Kvinder" = "Women","Mænd" = "Men")
+ggplot(dat,aes(TID,M,color = KØN))+geom_line()+geom_point()+
+  theme_economist()+ scale_colour_wsj("colors6")+ylim(c(5,15))+
+  xlab("")+ylab("Dødsfald per 1000 personår")
+#+END_SRC
+
+#+RESULTS[(2024-02-10 15:47:11) 257224338dec5045ec53db8a0d931436fc8a760f]:
+[[file:./kapitel2/k2-summa-mortalitetsrater.pdf]]
+
+#+name: fig:k2-sum-mort
+#+ATTR_LATEX: :width 0.7\textwidth
+#+CAPTION: Udvikling i den summariske mortalitetsrate i perioden 1974-2022. Kilde: statistikbankens register DOD, BEFOLK2
+[[file:./k2-summa-mortalitetsrater.pdf]]
+
+
 
 [[file:./Figur2.jpg]]
 
@@ -644,21 +670,25 @@ dd <- dd %>% rename("antal_døde"="INDHOLD")
 # join folketal og antal dødsfald
 x <- left_join(folk,dd,by=c("alder","KØN"))
 # aldersspecifikke mortalitetsrater
-x <- x %>% group_by(KØN) %>% mutate(mrate=1000*antal_døde/risikotid)
+x <- x %>% group_by(KØN) %>% mutate(mrate=1000*antal_døde/risikotid) 
+x <- mutate(x,KØN = factor(KØN))
+levels(x$KØN) <- list("Kvinder" = "Women","Mænd" = "Men")
 # grafik
 g <- ggplot(x,aes(x=alder,y=mrate,color= KØN))+geom_line()
 g <- g+theme_economist()+scale_colour_wsj("colors6") +theme(legend.title=element_blank())
 g <- g+ylab("Mortalitetsrate per 1000 personår")+xlab("Alder (år)")+ggtitle("Danmark 2011")
-g
+g <- g + theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))
+g + theme(axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)))
+g + theme(plot.background = element_rect(fill = "gray88", colour = NA))
 #+END_SRC
 
-#+RESULTS[(2024-02-10 15:31:47) 420558c55fa8b3d6362f5d418fea3aa33dfd8e6e]:
+#+RESULTS[(2024-02-10 15:45:51) 5ae5a29c6ebaac9a16023c4a95d87888a72232d0]:
 [[file:./kapitel2/k2-aldersspecifikke-mortalitet-maend-kvinder.pdf]]
 
 #+name: fig:k2-ammk
 #+ATTR_LATEX: :width 0.7\textwidth
 #+CAPTION: Aldersspecifikke mortalitetsrater fra hele den danske befolkning i 2011. Vi ser at
-#+CAPTION: dødeligheden var højre for mænd for alle aldrer undtagen aldersgruppe 99+
+#+CAPTION: dødeligheden var højre for mænd for alle aldre undtagen aldersgruppe 99+
 [[file:./k2-aldersspecifikke-mortalitet-maend-kvinder.pdf]]
 
 * Aldersstandardisering
