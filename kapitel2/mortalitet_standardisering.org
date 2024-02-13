@@ -884,7 +884,6 @@ given ved
 \end{equation*}
 #+end_export
 
-
 En sammenligning af mortalitetsrater mellem studiebefolkning \(A\) og
 referencebefolkning \(S\) er det såkaldte standardiserede mortalitetsratio:
 #+begin_export latex

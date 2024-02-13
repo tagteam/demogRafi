@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Feb 13 2024 (11:00) 
+## Last-Updated: Feb 13 2024 (12:11) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 69
+##     Update #: 73
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -31,9 +31,9 @@ Try to read and google the error message that occurs when you run\n",
     }
 }
 
-register_info <- function(register){
+register_info <- function(register,language = "en"){
     register = toupper(register)
-    try <- tryCatch(defaults <- danstat::get_table_metadata(register, language = "en")$variables,
+    try <- tryCatch(defaults <- danstat::get_table_metadata(register, language = language)$variables,
                     error = function(e) stop(paste0("Are you offline? If not, then perhaps the registry ", register, " does not exist? Check at statistikbanken.dk. ")))
     try_da <- tryCatch(defaults_da <- danstat::get_table_metadata(register, language = "da")$variables,
                     error = function(e) stop(paste0("Are you offline? If not, then perhaps the registry ", register, " does not exist? Check at statistikbanken.dk. ")))
@@ -63,15 +63,10 @@ register_info <- function(register){
 ##' hent_data("befolk1",tid=2023)
 ##' @export 
 ##' @author Thomas A. Gerds <tag@@biostat.ku.dk>
-hent_data <- function(register,...){
+hent_data <- function(register,...,language = "en"){
     register = toupper(register)
-    try <- tryCatch(defaults <- danstat::get_table_metadata(register,language="en")$variables,
+    try <- tryCatch(defaults <- danstat::get_table_metadata(register,language=language)$variables,
                     error = function(e) stop(paste0("Are you offline? If not, then perhaps the registry ", register, " does not exist? Check at statistikbanken.dk. ")))
-    try_da <- tryCatch(defaults_da <- danstat::get_table_metadata(register, language = "da")$variables,
-                       error = function(e) stop(paste0("Are you offline? If not, then perhaps the registry ", register, " does not exist? Check at statistikbanken.dk. ")))
-    for (i in 1:length(defaults$values)){
-      defaults$values[[i]]$tekst <- defaults_da$values[[i]]$text
-    }
     varnames <- tolower(defaults$id)
     values <- defaults$values
     names(values) <- varnames
@@ -101,10 +96,8 @@ hent_data <- function(register,...){
                  values = values[[ua]]$id[-1])
         } else{
             ## handle 99- problem and e.g., the problem with men
-            if (length(not_value <- setdiff(user_args[[ua]],values[[ua]]$id))){
+            if (length(not_value <- setdiff(tolower(user_args[[ua]]),tolower(values[[ua]]$id)))>0){
                 match_text_with_id <- match(tolower(not_value), tolower(values[[ua]]$text))
-                match_text_with_id_da <- match(tolower(not_value), tolower(values[[ua]]$tekst))
-                match_text_with_id <- dplyr::coalesce(match_text_with_id, match_text_with_id_da)
                 match_not_value_user_args <- match(tolower(not_value), tolower(user_args[[ua]]))
                 if (all(!is.na(match_text_with_id))){
                     ## find which indeces of user_args[[ua]] are in a, ignoring case
@@ -124,7 +117,10 @@ hent_data <- function(register,...){
                          allowed_id = paste0(values[[ua]]$id,collapse = ","))
                 }
             } else {
-                list(code = requested_args[[u]],values = user_args[[ua]])                
+                # repair case mistakes
+                want = sapply(tolower(user_args[[ua]]),function(x)grep(x,tolower(values[[ua]]$id),value = TRUE))
+                has = values[[ua]]$id[tolower(values[[ua]]$id)%in%want]
+                list(code = requested_args[[u]],values = has)                
             } 
         }})
     has_problems = any(sapply(vars,"[[","code") == "error")
@@ -132,18 +128,18 @@ hent_data <- function(register,...){
         cat(paste0("\nSome of the requested values are not in the register:\n"))
         for (v in vars){
             if (v[[1]] == "error")
-            cat(paste0("\nProblem with values of variable ",
-                       v[["variable"]],"\n",
-                       "Requested: ", v[["problems"]],"\n",
-                       "Available text: ", v[["allowed_text"]],"\n",
-                       "Available id: ", v[["allowed_id"]]),"\n")
+                cat(paste0("\nProblem with values of variable ",
+                           v[["variable"]],"\n",
+                           "Requested: ", v[["problems"]],"\n",
+                           "Available text: ", v[["allowed_text"]],"\n",
+                           "Available id: ", v[["allowed_id"]]),"\n")
         }
         stop()
     }else{
         # fjern variable som har ingen values
         null_value <- sapply(vars,function(x){length(x$values)})
         vars <- vars[null_value>0]
-        d <- danstat::get_data(register,variables=vars)
+        d <- danstat::get_data(register,variables=vars,language = language)
         # formatere ALDER til numerisk 
         if ("ALDER" %in% names(d)){
             suppressWarnings(num_alder <- as.numeric(gsub(" year[s]?| years and over| år| år og derover","",d$ALDER)))
