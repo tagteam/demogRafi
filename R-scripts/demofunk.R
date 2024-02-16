@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Feb 13 2024 (12:11) 
+## Last-Updated: Feb 13 2024 (15:37) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 73
+##     Update #: 74
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -174,7 +174,11 @@ samle_alder <- function(data,variable,value,by){
 }
 
 intervAlder <- function(data,alder="alder",breaks,vars,by="køn",right=TRUE,label_one = NULL,label_last = NULL){
-    data = mutate(data,aldersinterval=cut(alder,breaks=breaks,right=right,include.lowest=TRUE))
+    data = mutate(data,
+                  aldersinterval=cut(alder,
+                                     breaks=breaks,
+                                     right=right,
+                                     include.lowest=TRUE))
     ll <- levels(data$aldersinterval)
     if (right==TRUE){
         ll <- paste0(breaks[-length(breaks)]+1,"-",breaks[-1])
@@ -211,9 +215,9 @@ intervAlder <- function(data,alder="alder",breaks,vars,by="køn",right=TRUE,labe
     levels(data$aldersinterval) <- ll
     by <- names(data)[match(by,names(data),nomatch=0)]
     if (length(by)>0)
-        data = do.call("arrange",c(list(data,"aldersinterval"),by))
+        data <- do.call("arrange",c(list(data,"aldersinterval"),by))
     else
-        data = arrange(data,"aldersinterval")
+        data <- arrange(data,"aldersinterval")
     out <- NULL
     for (v in vars){
         data = rename(data,"tHiSvAr" = v)
