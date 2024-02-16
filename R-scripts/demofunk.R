@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Feb 16 2024 (07:26) 
+## Last-Updated: Feb 16 2024 (08:03) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 78
+##     Update #: 82
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -173,7 +173,7 @@ samle_alder <- function(data,variable,value,by){
     data
 }
 
-intervAlder <- function(data,alder="alder",breaks,vars,by="køn",right=TRUE,label_one = NULL,label_last = NULL){
+intervAlder <- function(data,alder="alder",breaks,vars,by = NULL,right=TRUE,label_one = NULL,label_last = NULL){
     data = mutate(data,
                   aldersinterval=cut(alder,
                                      breaks=breaks,
@@ -213,7 +213,7 @@ intervAlder <- function(data,alder="alder",breaks,vars,by="køn",right=TRUE,labe
         }
     }
     levels(data$aldersinterval) <- ll
-    by <- names(data)[match(by,names(data),nomatch=0)]
+    by <- intersect(names(data),by)
     if (length(by)>0)
         data <- do.call("arrange",c(list(data,"aldersinterval"),by))
     else
@@ -222,7 +222,7 @@ intervAlder <- function(data,alder="alder",breaks,vars,by="køn",right=TRUE,labe
     for (v in vars){
         data = rename(data,"tHiSvAr" = v)
         if (length(by)>0){
-            suppressMessages(out.v <- group_by(data,.dots = c("aldersinterval",by)) %>% summarise(tHiSvAr = sum(tHiSvAr)))
+            suppressMessages(out.v <- group_by(data,across(c("aldersinterval",by))) %>% summarise(tHiSvAr = sum(tHiSvAr)))
         } else{
             suppressMessages(out.v <- group_by(data,"aldersinterval") %>% summarise(tHiSvAr = sum(tHiSvAr)))
         }
@@ -231,7 +231,7 @@ intervAlder <- function(data,alder="alder",breaks,vars,by="køn",right=TRUE,labe
             out <- left_join(out,out.v,by = by)
         else out <- out.v
     }
-    out[]
+    ungroup(out)
 }
 
 format_dato <- function(data,variable = "TID"){

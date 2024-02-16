@@ -887,31 +887,60 @@ studiebefolkning \(B\), og vælger alle dansker i 2011 (uanset køn) som
 reference befolkning \(S\).
 
 #+ATTR_LATEX: :options otherkeywords={hent_data}, deletekeywords={c,D}
-#+BEGIN_SRC R  :results output raw drawer  :exports both  :session *R* :cache yes  
+#+BEGIN_SRC R  :results output   :exports both  :session *R* :cache yes  
+# Fordeling af risikotid i aldersintervaller
 folk <- hent_data("FOLK1a","alder"=0:125,tid="2011K3",køn = c(1,2,"TOT"),language = "da")
-# Aldersintervaller
-folk <- mutate(folk,Aldersinterval=cut(alder,
-                                   breaks=c(0,25,50,75,125),
-                                   include.lowest = TRUE))
-# antal person i de 4 aldersintervaller
-af <- folk %>% group_by(Aldersinterval) %>%
-      summarise(Antal=sum(INDHOLD))
-# beregne procenter 
-af <- af %>% mutate(Procent=100*Antal/sum(Antal))
-af
+af <- intervAlder(folk,breaks = c(0,25,50,75,125),by = "KØN",vars = "INDHOLD")
+af <- rename(af,R = INDHOLD)
+# Antal døde i aldersintervaller
+D <- hent_data("DOD","alder"="all_no_total",tid="2011",køn = c("M","K"),language = "da")
+dd <- intervAlder(D,breaks = c(0,25,50,75,125),by = "KØN",vars = "INDHOLD")
+dd <- rename(dd,D = INDHOLD)
+# Aldersspecifikke mortalitetsrater
+# Kvinder
+A <- left_join(filter(af,KØN == "Kvinder"),
+               filter(dd, KØN == "Kvinder"),
+               by = c("KØN","aldersinterval"))
+A <- mutate(A,M = 1000*D/R)
+A <- select(A,aldersinterval,M)
+# Mænd
+B <- left_join(filter(af,KØN == "Mænd"),
+               filter(dd, KØN == "Mænd"),
+               by = c("KØN","aldersinterval"))
+B <- mutate(B,M = 1000*D/R)
+B <- select(B,aldersinterval,M)
+# Aldersfordeling i reference 
+S <- select(filter(af,KØN == "I alt"),!KØN)
+S <- mutate(S,V=(R/sum(R)))
+# Join
+A <- left_join(A,S,by = "aldersinterval")
+B <- left_join(B,S,by = "aldersinterval")
+# Direkte standardisering
+tibble("srate_kvinder" = pull(summarise(A,sum(M * V))),
+       "srate_maend" = pull(summarise(B,sum(M * V))))
 #+END_SRC
 
+#+RESULTS[(2024-02-16 08:58:08) f18da991b72291a12fca20603b40ca1065018c84]:
+: # A tibble: 1 × 2
+:   srate_kvinder srate_maend
+:           <dbl>       <dbl>
+: 1          8.35        10.7
 
-Her har vi brugt aldersfordeling af risikotid fra studiebefolkning \(A\) som
+Resultatet fortolkes på følgende måde. Den standardiserede
+mortalitetsrate i Danmark i 2011 var 8,4 døde per 1000 personår for
+kvinder og 10,7 døde per 1000 personår for mænd, hvis
+aldersfordelingen havde været lige som blandt alle dansker
+i 2011. Dette bekræfter at grunden til, at den summariske
+mortalitetsrate var højere for mænd end for kvinder i 2011, var
+forskelle i aldersfordeling.
+
+# Her har vi brugt aldersfordeling af risikotid fra studiebefolkning \(A\) som
 # reference. Vi kan ligeledes bruge aldersfordeling af risikotid fra
 # studiebefolkning \(B\) eller en helt anden befolkning som reference. Hvis vi
 # bruger en helt tredje befolkning som reference, lad os kalde den
 # referencebefolkning \(S\), kan vi direkte sammenligne de to standardiserede
 # mortalitetsrater:
 # #+begin_export latex
-
-
-
 
 ** Indirekte standardisering
 :PROPERTIES:
