@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Feb 13 2024 (15:37) 
+## Last-Updated: Feb 16 2024 (07:26) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 74
+##     Update #: 78
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -63,7 +63,7 @@ register_info <- function(register,language = "en"){
 ##' hent_data("befolk1",tid=2023)
 ##' @export 
 ##' @author Thomas A. Gerds <tag@@biostat.ku.dk>
-hent_data <- function(register,...,language = "en"){
+hent_data <- function(register,...,language = "da"){
     register = toupper(register)
     try <- tryCatch(defaults <- danstat::get_table_metadata(register,language=language)$variables,
                     error = function(e) stop(paste0("Are you offline? If not, then perhaps the registry ", register, " does not exist? Check at statistikbanken.dk. ")))
@@ -118,7 +118,7 @@ hent_data <- function(register,...,language = "en"){
                 }
             } else {
                 # repair case mistakes
-                want = sapply(tolower(user_args[[ua]]),function(x)grep(x,tolower(values[[ua]]$id),value = TRUE))
+                want = sapply(tolower(user_args[[ua]]),function(x)grep(paste0("^",x,"$"),tolower(values[[ua]]$id),value = TRUE))
                 has = values[[ua]]$id[tolower(values[[ua]]$id)%in%want]
                 list(code = requested_args[[u]],values = has)                
             } 
