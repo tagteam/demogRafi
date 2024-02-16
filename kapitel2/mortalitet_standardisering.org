@@ -170,11 +170,12 @@ g
 Vi vil nu gå i dybden med begreberne /aldersspecifikke rater/ og
 /standardiserede rater/. Disse skal ikke forveksles med de summariske
 rater som Kapitel 1 har indført. I det følgende betegner vi derfor
-alle rater som Kapitel 1 har indført som /summariske rater/. /Summarisk/ betyder
-at raterne tæller hændelser og risikotid i hele befolkningen, altså
-uanset alder og uden standardisering. For at motivere standardiserede
-rater starter vi med at forklare begrænsningerne med de summariske
-rater når det kommer til sammenligning af forskelige befolkninger.
+alle rater som Kapitel 1 har indført som /summariske
+rater/. /Summarisk/ betyder at raterne tæller hændelser og risikotid i
+hele befolkningen, altså uanset alder og uden standardisering. For at
+motivere standardiserede rater starter vi med at forklare
+begrænsningerne med de summariske rater når det kommer til
+sammenligning af forskelige befolkninger.
 
 ** Sammenligning af summariske rater
 :PROPERTIES:
@@ -727,31 +728,31 @@ g
 :CUSTOM_ID: Aldersstandardisering
 :END:
 
-Formålet med alderstandardisering er at sammenligne mortalitetsrater
+Formålet med aldersstandardisering er at sammenligne mortalitetsrater
 (og andre rater) mellem to eller flere befolkninger, som har
-forskelige aldersfordelinger. Den overordnede idé er at udskifte den
-rigtige aldersfordeling med en anden aldersfordeling og at beregne
-mortalitetsraten, som den ville havde været, hvis befolkningen havde
-haft den nye aldersfordeling. På den måde kan man sammenligne
+forskellige aldersfordelinger. Den overordnede idé er at udskifte den
+rigtige aldersfordeling med en anden aldersfordeling, og at beregne
+mortalitetsraten som den ville have været, hvis befolkningen havde
+haft den anden aldersfordeling. På den måde kan man sammenligne
 dødelighed mellem to eller flere befolkninger uanset
 aldersfordeling. Her er det vigtigt, at man vælger den samme
-aldersfordeling for alle befolkninger, som skal sammenlignes, men
+aldersfordeling for alle befolkninger, som skal sammenlignes, men det er
 typisk ikke så vigtigt hvilken aldersfordeling man vælger. For
-eksempel, kan vi spørge hvor meget højere, er mortalitetsraten blandt
-danske mænd sammenlignet med danske kvinder, hvis aldersfordeling havde
-været den samme for mænd og kvinder. Vi mangler kun at specificere
-den aldersfordeling, som de standardiserede rater skal have til
-fælles. Her er der umiddelbart flere forskellige muligheder:
+eksempel kan vi spørge hvor meget højere, mortalitetsraten er blandt
+danske mænd sammenlignet med danske kvinder, hvis aldersfordelingen
+havde været den samme for mænd og kvinder. Vi mangler kun at
+specificere den aldersfordeling, som de standardiserede rater skal
+have til fælles. Her er der umiddelbart flere forskellige muligheder:
 aldersfordeling blandt mænd, aldersfordeling blandt kvinder,
-aldersfordeling blandt alle dansker uanset køn, eller en helt fjerde
+aldersfordeling blandt alle danskere uanset køn eller en helt anden
 aldersfordeling.
 
 Vi beskriver to standardiseringsformer, /direkte standardisering/
 (afsnit ref:direkte_standardisering) og /indirekte standardisering/
 (afsnit ref:indirekte_standardisering). Vi starter med en matematisk
 forklaring af resultatet fra afsnit ref:samesumma (afsnit
-ref:k2-kitagawa) og slutter med en sammenligning af metoderne direkte
-versus indirekte standardisering.
+ref:k2-kitagawa) og slutter med en sammenligning af direkte
+og indirekte standardisering.
 
 ** Kitagawas dekomposition
 :PROPERTIES:
@@ -759,7 +760,7 @@ versus indirekte standardisering.
 :END:
 
 For en given inddeling af en befolkning i aldersgrupper i en periode
-\([t_1,t_2]\), er dens summariske mortalitetsrate et vægtet gennemsnit
+\([t_1,t_2]\) er dens summariske mortalitetsrate et vægtet gennemsnit
 af de aldersspecifikke mortalitetsrater. For at indse dette, skal vi
 bruge aldersfordelingen af risikotid som vi har indført i afsnit
 ref:risikotid_aldersgrupper. For aldersgruppe \(x\) er andelen af
@@ -767,7 +768,7 @@ risikotid givet som
 #+begin_export latex
 \begin{align}\label{eq:risikotid_vaegte}
 V_x &= \frac{R_x}{R}
-\intertext{hvor \(R\) betegner befolkningens total risikotid i perioden, lige som i formel \eqref{eq:sum_risikotid}. Vi omskriver formlen for den aldersspecifikke
+\intertext{hvor \(R\) betegner befolkningens totale risikotid i perioden, lige som i formel \eqref{eq:sum_risikotid}. Vi omskriver formlen for den aldersspecifikke
 mortalitetsrate \eqref{eq:aldersspecifikke_mortalitetsrate} sådan at antal dødsfald i aldersgruppen står isoleret:}
  D_x &= M_x R_x.\label{eq:D_lige_MR}
 \end{align}
