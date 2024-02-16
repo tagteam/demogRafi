@@ -312,7 +312,7 @@ g
 Aldersfordelingen i folketallet angiver hvor mange personer i en
 befolkning har en bestemt alder, for alle aldre. Det kan den enten gøre
 i absolutte antal, eller som procent i forhold til antal personer i
-hele befolkingen. For at beskrive aldersfordelinger, vil man typisk
+hele befolkningen. For at beskrive aldersfordelinger, vil man typisk
 vælge et passende antal aldersintervaller (passende til opgaven man
 sidder med) og fordele befolkningen på intervallerne. Intervallerne
 behøver ikke være lige stor. Da alle personers aldre ændrer sig hele
@@ -465,7 +465,7 @@ Med hensyn til mortalitetsrater, har vi brug for aldersfordeling af
 risikotid i en bestemt kalenderperiode. Vi betegner med
 \(R_x[t_1,t_2]\) den samlede gennemlevede tid i perioden \([t_1,t_2]\)
 af alle personer i aldersgruppe \(x\). Vi bemærker at en person, som
-har levet i befolkingen i perioden \([t_1,t_2]\) kan bidrage med
+har levet i befolkningen i perioden \([t_1,t_2]\) kan bidrage med
 risikotid til et eller flere aldersintervaller. Det sker for personer
 som har fødselsdag mellem dato \(t_1\) og dato \(t_2\), hvis de den
 dag skifter fra aldersgruppe \(x\) til aldersgruppe \(x+1\). Vi
@@ -490,7 +490,7 @@ V_x[t_1,t_2]= \frac{R_x[t_1,t_2]}{R[t_1,t_2]}=\{\text{Andel af risikotid i alder
 Risikotid beregnes ofte ved at gange middelfolketal med periodens
 længde. I den særlige situation, hvor perioden er 1 år lang, altså når
 \(t_2-t_1=1\) år, har middelfolketal (antal) og risikotid (personår)
-den samme værdi, men forskelige endheder. Vi skal bruge \(V_x\) som
+den samme værdi, men forskelige enheder. Vi skal bruge \(V_x\) som
 vægte i definitionen af aldersstandardiserede rater (afsnit
 ref:Aldersstandardisering).
 
@@ -565,7 +565,7 @@ l+ggtitle("Lexis diagram: livslinjer")
 
 Figur ref:fig:k2-lexis-liv viser 5 personers livslinjer fra en åben
 befolkning. Den mørkeblå linje representerer en person, som bliver født
-i foråret 2015 og forbliver i befolkingen indtil foråret 2020 hvor
+i foråret 2015 og forbliver i befolkningen indtil foråret 2020 hvor
 lexis diagrammet slutter. Lexis diagrammet kan også bruges til at
 forklare forskelen mellem kohorteprincippet (man følger en
 fødselskohorte i en relativt lang periode) og kalenderårsprincippet
@@ -769,12 +769,12 @@ bruge aldersfordelingen af risikotid som vi har indført i afsnit
 ref:risikotid_aldersgrupper. For aldersgruppe \(x\) er andelen af
 risikotid givet som 
 #+begin_export latex
-\begin{align*}
+\begin{align}\label{eq:risikotid_vaegte}
 V_x &= \frac{R_x}{R}
 \intertext{hvor \(R\) betegner befolkningens total risikotid i perioden, lige som i formel \eqref{eq:sum_risikotid}. Vi omskriver formlen for den aldersspecifikke
 mortalitetsrate \eqref{eq:aldersspecifikke_mortalitetsrate} sådan at antal dødsfald i aldersgruppen står isoleret:}
- D_x &= M_x R_x.
-\end{align*}
+ D_x &= M_x R_x.\label{eq:D_lige_MR}
+\end{align}
 #+end_export
 Vi betegner fortsæt med \(M\) befolkningens summariske mortalitetsrate
 og med \(D\) antal dødsfald i hele befolkningen i perioden. Det følgende regnestykke viser
@@ -848,32 +848,33 @@ giver formel eqref:eq:kitagawa.
 :PROPERTIES:
 :CUSTOM_ID: direkte_standardisering
 :END:
-# HER
+
 Formålet med den såkaldte direkte standardisering er at sammenligne
 mortalitetsrater mellem to befolkninger uanset forskele i
 aldersfordeling. Direkte standardisering er en metode, som
 sammenfatter forskellen af mortalitetsrater i kun et tal, det såkaldte
 /standardiserede rate ratio/. For at definere direkte standardisering
 skal vi bruge to studiebefolkninger (A versus B) og en
-referencebefolkning (S). Ideen er at se om studiebefolkning A har
+standardbefolkning (S). Ideen er at se om studiebefolkning A har
 højere mortalitet end studiebefolkning B hvis (hypotetisk) begge havde
-sammen aldersfordeling som referencebefolkningen S. Vi fortolker den
+sammen aldersfordeling som standardbefolkningen S. Vi fortolker den
+direkte standardiserede mortalitetsrate
 #+begin_export latex
 \begin{equation}\label{eq:direkte_standard_mort}
-\text{direkte standardiserede mortalitetsrate} =  \sum_{x=1}^m M_x^A V_x^S,
+\tilde M^A_{S} =  \sum_{x=1}^m M_x^A V_x^S,
 \end{equation}
 #+end_export
 som den mortalitetsrate vi ville havde set i studiebefolkning \(A\),
 hvis aldersfordeling af risikotid havde været den samme som i
-referencebefolkning \(S\).  Ideen er at vi nu kan direkte sammenligne
+standardbefolkning \(S\).  Ideen er at vi nu kan direkte sammenligne
 de standardiserede mortalitetsrater fra studiebefolkninger \(A\) og
-\(B\) hvis reference befolkningen er den samme. Den hyppigste form af
+\(B\) hvis standardbefolkningen er den samme. Den hyppigste form af
 rapportere denne sammenligning mellem to standardiserede
 mortalitetsrater er det /standardiserede rate ratio/:
 #+begin_export latex
-\begin{equation*}
- \text{SRR} = \frac{\sum_{x=1}^m M_x^B V_x^S}{\sum_{x=1}^m M_x^A V_x^S}.
-\end{equation*}
+\begin{equation}\label{eq:SRR}
+ \operatorname{SRR}(A,B,S) = \frac{\sum_{x=1}^m M_x^A V_x^S}{\sum_{x=1}^m M_x^B V_x^S}.
+\end{equation}
 #+end_export
 
 *** Eksempel
@@ -884,18 +885,19 @@ havde en lavere summariske mortalitetsrate end kvinder i 2011. Vi
 anvender direkte standardisering hvor vi bruger alle danske kvinder i
 2011 som studiebefolkning \(A\), alle danske mænd i 2011 som
 studiebefolkning \(B\), og vælger alle dansker i 2011 (uanset køn) som
-reference befolkning \(S\).
+standardbefolkning \(S\).
 
-#+ATTR_LATEX: :options otherkeywords={hent_data}, deletekeywords={c,D}
+#+ATTR_LATEX: :options otherkeywords={hent_data,rename,intervAlder,left_join,mutate,select,tibble,filter}, deletekeywords={c,D,R,by,sum}
 #+BEGIN_SRC R  :results output   :exports both  :session *R* :cache yes  
 # Fordeling af risikotid i aldersintervaller
-folk <- hent_data("FOLK1a","alder"=0:125,tid="2011K3",køn = c(1,2,"TOT"),language = "da")
-af <- intervAlder(folk,breaks = c(0,25,50,75,125),by = "KØN",vars = "INDHOLD")
+folk <- hent_data("FOLK1a","alder"=0:125,tid="2011K3",
+                  køn = c(1,2,"TOT"))
 af <- rename(af,R = INDHOLD)
+af <- intervAlder(folk,breaks=c(0,25,50,75,125),by="KØN",vars="R")
 # Antal døde i aldersintervaller
-D <- hent_data("DOD","alder"="all_no_total",tid="2011",køn = c("M","K"),language = "da")
-dd <- intervAlder(D,breaks = c(0,25,50,75,125),by = "KØN",vars = "INDHOLD")
+D <- hent_data("DOD","alder"="all_no_total",tid="2011",køn=c("M","K"))
 dd <- rename(dd,D = INDHOLD)
+dd <- intervAlder(D,breaks=c(0,25,50,75,125),by="KØN",vars="DD")
 # Aldersspecifikke mortalitetsrater
 # Kvinder
 A <- left_join(filter(af,KØN == "Kvinder"),
@@ -909,7 +911,7 @@ B <- left_join(filter(af,KØN == "Mænd"),
                by = c("KØN","aldersinterval"))
 B <- mutate(B,M = 1000*D/R)
 B <- select(B,aldersinterval,M)
-# Aldersfordeling i reference 
+# Aldersfordeling i standardbefolkning 
 S <- select(filter(af,KØN == "I alt"),!KØN)
 S <- mutate(S,V=(R/sum(R)))
 # Join
@@ -934,41 +936,36 @@ i 2011. Dette bekræfter at grunden til, at den summariske
 mortalitetsrate var højere for mænd end for kvinder i 2011, var
 forskelle i aldersfordeling.
 
-# Her har vi brugt aldersfordeling af risikotid fra studiebefolkning \(A\) som
-# reference. Vi kan ligeledes bruge aldersfordeling af risikotid fra
-# studiebefolkning \(B\) eller en helt anden befolkning som reference. Hvis vi
-# bruger en helt tredje befolkning som reference, lad os kalde den
-# referencebefolkning \(S\), kan vi direkte sammenligne de to standardiserede
-# mortalitetsrater:
-# #+begin_export latex
-
 ** Indirekte standardisering
 :PROPERTIES:
 :CUSTOM_ID: indirekte_standardisering
 :END:
 
-Formålet med den såkaldte indirekte standardisering er også at
-sammenligne mortalitetsraterne mellem to befolkninger. Man
-sammenligner det totale antal dødsfald i studiebefolkning \(A\) med det
-forventede antal døde i studiebefolkning \(A\) hvis (hypotetisk) de
-aldersspecifikke mortalitetsrater havde været lige som i en reference
-befolkning, vi kalder den igen referencebefolkning \(S\). Er de forventede
-antal dødsfald højere, kan man konkludere, at den samlede dødelighed
-(det vil sige de aldersspecifikke mortalitetsrater samlet set) var
-højere i reference befolkningen end i studiebefolkning \(A\). 
+Formålet med den såkaldte indirekte standardisering er at sammenligne
+mortalitetsrater i studiebefolkning \(A\) med mortalitetsrater i en
+standardbefolkning \(S\). Konkret sammenligner man det totale antal
+dødsfald i studiebefolkning \(A\) med det forventede antal døde i
+studiebefolkning \(A\) hvis (hypotetisk) de aldersspecifikke
+mortalitetsrater havde været lige som i standardbefolkning \(S\). Er
+de forventede antal dødsfald højere, kan man konkludere, at den
+samlede dødelighed (det vil sige de aldersspecifikke mortalitetsrater
+samlet set) har været højere i standardbefolkningen end i
+studiebefolkning \(A\).
 
-Beregningen kræver kendskab til de aldersspecifikke mortalitetsrater i
-referencebefolkning \(S\), de aldersspecifikke risikotider i studiebefolkning \(A\)
-og det totale antal dødsfald i studiebefolkning \(A\). Det totale antal
-dødsfald i studiebefolkning \(A\) er givet ved
+Beregningen af indirekte standardisering kræver kendskab til de
+aldersspecifikke mortalitetsrater i standardbefolkning \(S\), de
+aldersspecifikke risikotider i studiebefolkning \(A\) og det totale
+antal dødsfald i studiebefolkning \(A\). For \(x=1,\dots,m\)
+aldersgrupper er det totale antal dødsfald i studiebefolkning \(A\)
+givet ved
 #+begin_export latex
 \begin{equation*}
-D^A = \sum_{x=1}^m D_x^A= \sum_{x=1}^m M_x^A R_x^A.
+D^A = D^A_1 + \cdots + D^A_{m} = \sum_{x=1}^m D_x^A= \sum_{x=1}^m M_x^A R_x^A.
 \end{equation*}
 #+end_export
-Relativt til den totale risikotid \(R^A\) er det forventede antal døde
-hvis dødeligheden havde været lige som i referencebefolkning \(S\)
-givet ved
+Her har vi brugt formel eqref:eq:D_lige_MR. Relativt til den totale
+risikotid \(R^A\) er det forventede antal døde hvis dødeligheden havde
+været lige som i standardbefolkning \(S\) givet ved
 #+begin_export latex
 \begin{equation*}
 \sum_{x=1}^m M_x^S V_x^A = \sum_{x=1}^m M_x^S \frac{R_x^A}{R^A} = \frac{1}{R^A} \sum_{x=1}^m M_x^S R_x^A.
@@ -976,39 +973,71 @@ givet ved
 #+end_export
 
 En sammenligning af mortalitetsrater mellem studiebefolkning \(A\) og
-referencebefolkning \(S\) er det såkaldte standardiserede mortalitetsratio:
+standardbefolkning \(S\) er det såkaldte standardiserede mortalitetsrateratio:
 #+begin_export latex
-\begin{align*}
- {\text{SMR}} &=\frac{\sum_{x=1}^m M_x^A V_x^A}{\sum_{x=1}^m M_x^S V_x^A}\\
+\begin{equation}\label{eq:SMR}
+\begin{split}
+ {\operatorname{SMR}(A)} &=\frac{\sum_{x=1}^m M_x^A V_x^A}{\sum_{x=1}^m M_x^S V_x^A}\\
  &=\frac{\sum_{x=1}^m M_x^A R_x^A}{\sum_{x=1}^m M_x^S R_x^A}\\
 &=\frac{\sum_{x=1}^m D_x^A}{\sum_{x=1}^m M_x^S R_x^A}\\ 
 &=\frac{\text{Observeret antal døde}}{\text{Forventet antal døde}}
-\end{align*}
+\end{split}
+\end{equation}
 #+end_export
 
-Den indirekte standardiserede mortalitetsrate i befolking \(A\) er
+Den indirekte standardiserede mortalitetsrate i befolkning \(A\) er
 givet ved
 #+begin_export latex
-\begin{equation*}
-SMR * M^S
-\end{equation*}
+\begin{equation}\label{eq:indirekt_std_rate}
+{\bar{M}}^A_{S} = \operatorname{SMR(A,S)}\cdot M^S = \frac{\sum_{x=1}^m M_x^A V_x^A}{\sum_{x=1}^m M_x^S V_x^A} \sum_{x = 1}^m M_x^S V_x^S.
+\end{equation}
 #+end_export
 
 ** Direkte versus indirekte standardisering
 
-Direkte og indirekte standardisering er meget tæt beslægtet. Det ses
-når vi bruger aldersfordeling fra studiebefolkning \(A\) som reference i
-formlen for SRR: 
+Typisk ønsker man sammenligne flere studiepopulationer, og man vil
+derfor beregne en standardiseret rate for hver studiepopulation, idet
+den samme standardbefolkning bruges i alle beregninger. Dødeligheden i
+de forskellige populationer kan så sammenlignes ved at sammenligne de
+standardiserede rater. Direkte standardisering kræver kendskab til
+aldersfordeling af risikotid i standardbefolkningen. Kender man ikke
+aldersfordeling fra standardbefolkningen kan man ikke andvende direkte
+standardisering og dermed ikke beregne SRR. Hvis man tilgengæld kender
+de aldersspecifikke mortalitetsrater i standardbefolkningen kan man
+beregne SMR. Man kan dog umiddelbart ikke direkte sammenligne SMR for
+to studiebefolkninger \(A\) og \(B\) fordi \(\operatorname{SMR}(A,S)\)
+afhænger aldersfordeling af studiebefolkning \(A\) og
+\(\operatorname{SMR}(B,S)\) afhænger aldersfordeling af
+studiebefolkning \(B\). Dette problem har direkte standardisering
+\(\operatorname{SRR}(A,B,S)\) ikke. Derfor vil man bruge direkte
+standardisering i en situation hvor man kan vælge mellem direkte og
+indirekte standardisering.
 
-Direkte standardisering kræver kendskab til
-aldersfordeling af risikotid i reference befolkningen (vi kalder den
-referencebefolkning \(S\)). 
+For at foretage direkte eller indirekte standardisering, skal man
+først have valgt en standard population. Valget vil typisk afspejle
+problemstillingen. Hvis vi skal sammenligne dødeligheden i forskellige
+lande i Europa, vil det være naturligt at vælge hele Europa som
+standard population. Hvis vi vil sammenligne dødeligheden i
+forskellige erhvervsgrupper, vil det være naturligt at bruge alle
+erhvervsaktive som standard population. Det kan også være rimeligt at
+vælge en af studiepopulationerne eller summen af de to
+studiepopulationer som standard population.  I et enkelt tilfælde vil
+en direkte standardisering og en indirekte standardisering altid give
+det samme resultat. Hvis man har man to studiepopulationer, vil en
+sammenligning baseret på en direkte standardisering med den ene
+population som standard være identisk med en sammenligning baseret på
+en indirekte standardisering med den anden population som standard.
 
-Kender man ikke aldersfordeling fra referencebefolkning \(S\) kan man ikke
-andvende direkte standardisering og dermed ikke beregne SRR. Hvis man
-tilgengæld kender de aldersspecifikke mortalitetsrater i befolkning S
-kan man i stedet for beregne SMR. Man kan dog ikke direkte sammenligne
-SMR for studiebefolkning \(A\) med SMR for studiebefolkning \(B\).
+Det ses når vi bruger aldersfordeling fra studiebefolkning \(A\) som
+standardbefolkning i formlen for SRR:
+#+begin_export latex
+\begin{equation*}
+ \operatorname{SRR}(A,B,A) = \frac{\sum_{x=1}^m M_x^B V_x^A}{\sum_{x=1}^m M_x^A V_x^A}.
+\end{equation*}
+#+end_export
+
+
+
 
 * Opgaver :noexport:
 
