@@ -315,7 +315,7 @@ sidder med) og fordele befolkningen på intervallerne. Intervallerne
 behøver ikke at være lige store. Da alle personers aldre ændrer sig hele
 tiden, skal man angive den dato, som aldersfordelingen refererer
 til. For eksempel kan vi tale om aldersfordelingen af kvinder i Danmark
-den 8. marts 1910 og om aldersfordelingen af Fyns population den 1.
+den 8. marts 1910 og om aldersfordelingen af Fyns befolkning den 1.
 juli 1989.
 
 *** Eksempel
@@ -992,10 +992,10 @@ givet ved
 
 ** Direkte versus indirekte standardisering
 
-Typisk ønsker man sammenligne flere studiepopulationer, og man vil
-derfor beregne en standardiseret rate for hver studiepopulation, idet
+Typisk ønsker man sammenligne flere studiebefolkninger, og man vil
+derfor beregne en standardiseret rate for hver studiebefolkning, idet
 den samme standardbefolkning bruges i alle beregninger. Dødeligheden i
-de forskellige populationer kan så sammenlignes ved at sammenligne de
+de forskellige befolkninger kan så sammenlignes ved at sammenligne de
 standardiserede rater. Direkte standardisering kræver kendskab til
 aldersfordeling af risikotid i standardbefolkningen. Kender man ikke
 aldersfordeling fra standardbefolkningen kan man ikke andvende direkte
@@ -1011,30 +1011,22 @@ standardisering i en situation hvor man kan vælge mellem direkte og
 indirekte standardisering.
 
 For at foretage direkte eller indirekte standardisering, skal man
-først have valgt en standard population. Valget vil typisk afspejle
+først have valgt en standard befolkning. Valget vil typisk afspejle
 problemstillingen. Hvis vi skal sammenligne dødeligheden i forskellige
 lande i Europa, vil det være naturligt at vælge hele Europa som
-standard population. Hvis vi vil sammenligne dødeligheden i
+standard befolkning. Hvis vi vil sammenligne dødeligheden i
 forskellige erhvervsgrupper, vil det være naturligt at bruge alle
-erhvervsaktive som standard population. Det kan også være rimeligt at
-vælge en af studiepopulationerne eller summen af de to
-studiepopulationer som standard population.  I et enkelt tilfælde vil
+erhvervsaktive som standard befolkning. Det kan også være rimeligt at
+vælge en af studiebefolkningerne eller summen af de to
+studiebefolkninger som standard befolkning.  I et enkelt tilfælde vil
 en direkte standardisering og en indirekte standardisering altid give
-det samme resultat. Hvis man har man to studiepopulationer, vil en
+det samme resultat: Hvis man har man to studiebefolkninger, vil en
 sammenligning baseret på en direkte standardisering med den ene
-population som standard være identisk med en sammenligning baseret på
-en indirekte standardisering med den anden population som standard.
+befolkning som standard være identisk med en sammenligning baseret på
+en indirekte standardisering med den anden befolkning som standard.
 
-Det ses når vi bruger aldersfordeling fra studiebefolkning \(A\) som
-standardbefolkning i formlen for SRR:
-#+begin_export latex
-\begin{equation*}
- \operatorname{SRR}(A,B,A) = \frac{\sum_{x=1}^m M_x^B V_x^A}{\sum_{x=1}^m M_x^A V_x^A}.
-\end{equation*}
-#+end_export
-
-
-
+# Det ses når vi bruger aldersfordeling fra studiebefolkning \(A\) som
+# standardbefolkning i formlen for SRR:
 
 * Opgaver :noexport:
 
