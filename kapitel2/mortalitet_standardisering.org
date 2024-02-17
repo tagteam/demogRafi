@@ -1,13 +1,13 @@
 * Mortalitet
 
-Mortalitet er et synonym til dødelighed og refererer til hændelsen død.
-I demografi betragtes dødsfald som en måde, hvorpå personer kan
+Mortalitet er et synonym til dødelighed og refererer til hændelsen
+død.  I demografi betragtes dødsfald som en måde, hvorpå personer kan
 forlade en befolkning og mortalitet beskriver således en vigtig del af
 en befolknings dynamik og udvikling.  I forrige kapitel blev I
 præsenteret for den demografiske ligevægtsligning, som beskriver
 befolkningstilvæksten ud fra fire demografiske komponenter: fødsler,
-dødsfald, indvandringer og udvandringer. Mortalitet er altså en
-af de grundlæggende emner inden for demografi.
+dødsfald, indvandringer og udvandringer. Mortalitet er altså en af de
+grundlæggende emner inden for demografi.
 
 Fra et samfundsperspektiv spiller demografiske undersøgelser af
 befolkningens mortalitet en vigtig rolle i at forstå forandringer i
@@ -27,25 +27,26 @@ ressourceallokering i sundhedsvæsenet.
 Den demografiske transition beskriver et historisk skift i
 befolkningsmønstre fra et traditionelt samfund med høj fertilitet og
 høj dødelighed til et samfund præget af lav fertilitet og lav
-dødelighed. Den faldende tendens i dødelighed er det element af transitionen, der
-kommer først, hvorefter et fald i fertiliteten følger. Dette skift er
-ofte drevet af økonomisk vækst, forbedret sundhed og sociale
-forandringer, som påvirker beslutninger om familiedannelse.  Som
-konsekvens af den demografiske transition ændres
-befolkningssammensætningen.
+dødelighed. Den faldende tendens i dødelighed er det element af
+transitionen, der kommer først, hvorefter et fald i fertiliteten
+følger (Kapitel 4). Dette skift er ofte drevet af økonomisk vækst,
+forbedret sundhed og sociale forandringer, som påvirker beslutninger
+om familiedannelse.  Som konsekvens af den demografiske transition
+ændres befolkningssammensætningen.
 
 
 ** Mål for mortalitet
 
-Feltet demografi anvender forskellige mål til at kvantificere og opgøre
-mortalitet.  En summarisk mortalitetsrate angiver antallet af dødsfald
+Demografien anvender forskellige mål til at kvantificere og opgøre
+mortalitet. En summarisk mortalitetsrate angiver antallet af dødsfald
 per personår i en given periode. Beregningen af summariske
 mortalitetsrater bliver forklaret i Kapitel 1. Den summariske
 mortalitetsrate er for eksempel nyttig, når formålet er at beskrive
 dødeligheden i en befolkning i en given periode.  Summariske
 mortalitetsrater kan udregnes per år i en given periode og således
-informere om ændringer i dødeligheden over tid. Et eksempel på dette
-kan ses i Figur ref:fig:k2-sum-mort.
+informere om ændringer i dødeligheden over tid. Udvikling af
+dødelighed i Danmark mellem 1974 og 2022 ses i Figur
+ref:fig:k2-sum-mort.
 
 #+ATTR_LATEX: :options otherkeywords={ggplot,hent_data}, deletekeywords={list,dt,data,scale,D,R}
 #+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-summa-mortalitetsrater.pdf :exports none :session *R* :cache yes
@@ -64,7 +65,7 @@ ggplot(dat,aes(TID,M,color = KØN))+geom_line()+geom_point()+
 
 #+name: fig:k2-sum-mort
 #+ATTR_LATEX: :width 1.0\textwidth
-#+CAPTION: Udvikling i den summariske mortalitetsrate i perioden 1974-2022. Kilde: statistikbankens register DOD, BEFOLK2
+#+CAPTION: Udvikling i den summariske mortalitetsrate i perioden 1974-2022 i Danmark. Kilde: statistikbankens register DOD, BEFOLK2
 [[file:./k2-summa-mortalitetsrater.pdf]]
 
 # R-koder som producerer Figur ref:fig:k2-sum-mort findes her:
@@ -72,14 +73,13 @@ Mortalitet kan også beskrives ud fra /aldersspecifikke
 mortalitetsrater/. Disse beregnes på samme vis som den summariske
 mortalitetsrate, men separat for hver aldersgruppe. Det bliver således
 muligt at undersøge forskelle i dødeligheden på tværs af
-aldersgrupper. Ligeledes kan alderspecifikke mortalitetsrater
-udregnes per år over en given periode og derved give information om
-ændringer i aldersspecifik dødelighed over tid. Altså oplever nogle
-aldersgrupper et fald i mortaliteten, hvor andre oplever en stigning?
-Det kan vi se i nedenstående Figur 2, som viser køns- og
-aldersspecifikke mortalitetsrater. Her ser vi, at dødeligheden er
-faldet i samtlige aldersgrupper og for begge køn i løbet af årene
-1974--2022.
+aldersgrupper. Ligeledes kan alderspecifikke mortalitetsrater udregnes
+per år over en given periode og derved give information om ændringer i
+aldersspecifik dødelighed over tid. Altså oplever nogle aldersgrupper
+et fald i mortaliteten, hvor andre oplever en stigning?  Det kan vi se
+i nedenstående Figur 2, som viser køns- og aldersspecifikke
+mortalitetsrater. Her ser vi, at dødeligheden er faldet i samtlige
+aldersgrupper og for begge køn i løbet af årene 1974--2022.
 
 #+ATTR_LATEX: :options otherkeywords={ggplot,hent_data}, deletekeywords={list,dt,data,scale,D,R}
 #+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-aldersspecifik-mortalitet.pdf :exports none :session *R* :cache yes
@@ -107,27 +107,28 @@ g
 
 #+name: fig:k2-sum-mort
 #+ATTR_LATEX: :width 1.0\textwidth
-#+CAPTION: Udvikling i den summariske mortalitetsrate i perioden 1974-2022. Kilde: statistikbankens register DOD, BEFOLK2.
+#+CAPTION: Udvikling i de køns- og aldersspecifikke mortalitetsrater i perioden 1974-2022 i Danmark. Kilde: statistikbankens register DOD, BEFOLK2.
 [[file:./k2-aldersspecifik-mortalitet.pdf]]
 
 
 Aldersspecifikke mortalitetsrater kan også angives for et enkelt år,
-hvilket giver et indtryk af forskelle i dødeligheden over
-livsforløbet. Køns- og aldersspecifikke mortalitetsrater for 2022 kan
-ses i Figur ref:fig:k2-ammk-2022. Her ser vi, at mortaliteten er lav og
-forbliver sådan frem til efter 60-årsalderen, hvorefter mortaliteten
-stiger - først en lille stigning og senere en mere markant
-stigning. Det er også tydeligt, at mortaliteten stiger hurtigere for
-mænd end for kvinder. Endeligt beregner man ofte middellevetid inden
-for demografi. Dette er et mål for, hvor længe en nyfødt kan forvente
-at leve givet de aldersspecifikke mortalitetsrater, der er gældende
-det år, barnet er født i. Middellevetid er et komplekst mål, og dets
-udregning bygger på konstruktionen af livstabeller/life tables. Denne
-udregning kræver en detaljeret beskrivelse, og vi har derfor dedikeret
-Kapitel 3 til netop dette. I dette kapitel vil vi fokusere på, hvordan
-summariske og aldersspecifikke rater kan standardiseres for at gøre
-det muligt at sammenligne rater - herunder mortalitetsrater - på tværs
-af befolkninger.
+hvilket giver et indtryk af forskelle i dødeligheden på tværs af
+aldersspektrum. Køns- og aldersspecifikke mortalitetsrater for 2022
+kan ses i Figur ref:fig:k2-ammk-2022. Her ser vi, at mortaliteten er
+lav og forbliver sådan frem til efter 60-årsalderen, hvorefter
+mortaliteten stiger - først en lille stigning og senere en mere
+markant stigning. Det er også tydeligt, at mortaliteten stiger
+hurtigere for mænd end for kvinder.
+
+For at sammenfatte dødelighed i et tal beregner man ofte middellevetid
+inden for demografi. Dette er et mål for, hvor længe en nyfødt kan
+forvente at leve givet at de aldersspecifikke mortalitetsrater, der er
+gældende det år, barnet er født i, holder sig konstant i al
+fremtid. Middellevetidens udregning bygger på konstruktionen af
+såkaldte overlevelsestavler, som vi beskrivelser i Kapitel 3. I dette
+kapitel vil vi fokusere på, hvordan summariske og aldersspecifikke
+rater kan standardiseres for at gøre det muligt at sammenligne rater -
+herunder mortalitetsrater - på tværs af befolkninger.
 
 #+ATTR_LATEX: :options otherkeywords={hent_data,mutate,summarise,pull,ggplot}, deletekeywords={c,&,title,legend,de,scale,by}
 #+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-aldersspecifikke-mortalitet-maend-kvinder-2022.pdf :exports none :session *R* :cache yes :width 8 :height 5
@@ -149,10 +150,10 @@ x <- x %>% group_by(KØN) %>% mutate(mrate=1000*antal_døde/risikotid)
 g <- ggplot(x,aes(x=alder,y=mrate,color= KØN))+geom_line()+geom_point()
 g <- g+theme_economist()+scale_colour_wsj("colors6") +theme(legend.title=element_blank())
 g <- g+ylab("Mortalitetsrate per 1000 personår")+xlab("Alder (år)")+ggtitle("Danmark 2022")
-g <- g + theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))
-g = g + theme(axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)))
-g = g + theme(plot.background = element_rect(fill = "gray88", colour = NA))
-g = g+theme(legend.title=element_blank())+theme(legend.position="bottom")
+g <- g+theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))
+g <- g+theme(axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)))
+g <- g+theme(plot.background = element_rect(fill = "gray88", colour = NA))
+g <- g+theme(legend.title=element_blank())+theme(legend.position="bottom")
 g
 #+END_SRC
 
@@ -162,7 +163,7 @@ g
 #+name: fig:k2-ammk-2022
 #+ATTR_LATEX: :width 1.0\textwidth
 #+CAPTION: Aldersspecifikke mortalitetsrater fra hele den danske befolkning i 2022. Vi ser at
-#+CAPTION: dødeligheden var højre for mænd for alle aldre.
+#+CAPTION: dødeligheden blandt de ældre var højre for mænd end for kvinder.
 [[file:./k2-aldersspecifikke-mortalitet-maend-kvinder-2022.pdf]]
 
 * Standardiserede rater
@@ -187,8 +188,8 @@ befolkningers summariske rater. Det er især problematisk når
 befolkningerne, som man ønsker at sammenligne, har forskelige
 aldersfordelinger. Afhængig af formålet med undersøgelsen kan det
 alligevel godt være, at man vil sammenligne summariske rater, men det
-er vigtigt, at man er klar over at de afhænger af
-aldersfordelingen. Problemet som opstår ved sammenligning af
+er vigtigt, at man er klar over at resultatet afhænger af
+aldersfordelingerne. Problemet som opstår ved sammenligning af
 summariske rater er ret nemt at indse ved følgende eksempel. En
 matematisk forklaring (Kitagawas dekomposition) følger i afsnit
 ref:k2-kitagawa.
@@ -198,53 +199,56 @@ ref:k2-kitagawa.
 :CUSTOM_ID: k2-summariske-rater-2011
 :END:
 Vi beregner de summariske mortalitetsrater for året 2011 i den
-kvindelige danske befolkning og også i den mandlige danske befolkning.
+kvindelige og i den mandlige befolkning.
 
-#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={library,list}
-#+BEGIN_SRC R  :results output example :exports both  :session *R* :cache yes  
-library(danstat)
-library(tidyverse)
-# Risikotid i 2011 baseret på middelfolketal metode 1
-# ganget med 1 år 
+#+begin_export latex
+\mybox{I det følgende viser vi de R-koder som vi har brugt til at generere figurer og eksempler. For at afprøve R-koderne og
+for at se mellemresultaterne kan du hente filen:
+\url{https://github.com/tagteam/demogRafi/blob/main/R-scripts/kapitel2.Rmd}
+}
+#+end_export
+
+#+ATTR_LATEX: :options otherkeywords={hent_data,left_join,rename,mutate}, deletekeywords={library,list}
+#+BEGIN_SRC R  :results output example :exports both  :session *R* :cache yes
+# R-koder til beregning af summariske mortalitetsrater 
 x <- hent_data("FOLK1a",tid = "2011K3",køn = c(2,1))
 # fjern TID fordi den er konstant
 x$TID <- NULL
-# ændre variable navn
+# Risikotid i 2011 baseret på middelfolketal metode 1
+# ganget med 1 år 
 x <- rename(x,"risiko_tid"="INDHOLD")
-# number of doedsfald i 2011
+# Antal dødsfald i 2011
 d <- hent_data("DOD",tid="2011","køn" = c("K","M"))
-# fjern TID fordi den er konstant
+# Fjern TID fordi den er konstant
 d$TID <- NULL
-# ændre variable navn
+# Ændre variable navn
 d <- rename(d,"antal_dod"="INDHOLD")
-# join
+# join folktal og antal døde
 dat <- left_join(x,d,by="KØN")
-# summariske mortalitetsrater per 1000 personaar
-dat <- mutate(dat,"Summariske mortalitetsrate"=1000*antal_dod/risiko_tid)
+# Summariske mortalitetsrater per 1000 personår
+dat <- mutate(dat,
+              "Summariske mortalitetsrate"=1000*antal_dod/risiko_tid)
 dat
 #+END_SRC
 
 #+RESULTS[(2024-01-27 08:11:12) 4ab3593bba3bd26b0d15dbe4ba9bdfd3d432957e]:
 : # A tibble: 2 × 4
-:   KØN   risiko_tid antal_dod `Summariske mortalitetsrate`
-:   <chr>      <dbl>     <dbl>                        <dbl>
-: 1 Women    2806716     26577                         9.47
-: 2 Men      2760140     25939                         9.40
-
+:   KØN     risiko_tid antal_dod `Summariske mortalitetsrate`
+:   <chr>        <dbl>     <dbl>                        <dbl>
+: 1 Mænd       2760140     25939                         9.40
+: 2 Kvinder    2806716     26577                         9.47
 
 Vi ser at den summariske mortalitetsrate i året 2011 var 9,47 døde per
 1000 personår for danske kvinder og 9,40 døde per 1000 personår for
 danske mænd. Ved første øjekast strider dette resultat imod den gængse
-viden, at danske kvinder lever længere end danske mænd.
-Fordi dødeligheden stiger med
-alderen og fordi der er flere kvinder med en høj alder end mænd med en høj
-alder, er den summariske mortalitetsrate højere for kvinder
-end for mænd. Den summariske mortalitetsrate afspejler nemlig ikke kun
-dødeligheden men også aldersfordelingen i befolkningen. Da kvinder
-lever længere end mænd, er der flere ældre kvinder end ældre mænd, og
-det forøger kvindernes summariske mortalitetsrate. Resultatet er dog
-helt korrekt; kvinderne havde en højere summarisk mortalitetsrate end
-mænd i 2011. Den skyldes ikke deres køn men deres alder.
+viden, at danske kvinder lever længere end danske mænd.  Fordi
+dødeligheden stiger med alderen og fordi der er flere kvinder med en
+høj alder end mænd med en høj alder, er den summariske mortalitetsrate
+højere for kvinder end for mænd. Den summariske mortalitetsrate
+afspejler nemlig ikke kun dødeligheden men også aldersfordelingen i
+befolkningen. Resultatet er dog helt korrekt; kvinderne havde en
+højere summarisk mortalitetsrate end mænd i 2011. Den skyldes ikke
+deres køn men deres alder.
 
 Hvordan skal disse rater fortolkes? En rate er jo ikke en
 sandsynlighed, og det ville ikke være helt korrekt at konkludere, at der
@@ -262,6 +266,12 @@ danske mænd (fordi de var ældre).
 
 * Aldersfordeling
 
+En aldersfordeling af folketal angiver hvor mange personer har en
+bestemt alder relativt til hvor mange personer der er i
+befolkningen. Man kan også beregne aldersfordeling af andre størrelser
+end folketal. For eksempel skal vi bruge aldersfordeling af risikotid
+i beregningen af aldersstandardiserede mortalitetsrater.
+
 ** Alderspyramide
 
 For at sammenligne aldersfordelinger af kvinder og mænd, kan man tegne
@@ -277,15 +287,15 @@ https://extranet.dst.dk/pyramide/pyramide.htm.
 
 #+ATTR_LATEX: :options otherkeywords={group,mutate,ggplot,hent_data}, deletekeywords={list,dt,stat,library,data,legend,title,as.numeric,c}
 #+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-alderspyramide.pdf :exports code :session *R* :cache yes
-## begge køn
+# R-koder der genererer alderspyramiden for Danmark den 1. januar 2023
 folk <- hent_data("FOLK1a","alder"=0:125,"køn"=1:2,tid="2023K3")
-# fjern tomme aldre
+# Fjern tomme aldre
 folk <- subset(folk,alder<106)
-# mænd skal vises på venstre siden, derfor bliver INDHOLD negativt 
-folk_m <- subset(folk,KØN=="Men") %>% mutate(INDHOLD=-INDHOLD)
-# for kvinder på højre siden er INDHOLD  positivt
-folk_k <- subset(folk,KØN=="Women")
-# plot
+# Mænd skal vises på venstre siden, derfor bliver INDHOLD negativt 
+folk_m <- subset(folk,KØN=="Mænd") %>% mutate(INDHOLD=-INDHOLD)
+# For kvinder på højre siden er INDHOLD  positivt
+folk_k <- subset(folk,KØN=="Kvinder")
+# Grafik
 g <- ggplot(folk, aes(x = alder, y = INDHOLD, fill = KØN)) +
   geom_bar(data=folk_m, stat = "identity") +
   geom_bar(data=folk_k, stat = "identity") +
@@ -293,10 +303,12 @@ g <- ggplot(folk, aes(x = alder, y = INDHOLD, fill = KØN)) +
   ylab("Folketal N(t)")+xlab("Alder (år)") +
   theme(legend.title=element_blank())
 g <- g+ggtitle("Alderspyramide Danmark 1 juli 2023")
+g <- g+theme(axis.title.y=element_text(margin=margin(t=0,r=20,b=0,l=0)))
+g <- g+theme(axis.title.x=element_text(margin=margin(t=20,r=0,b=0,l=0)))
 g
 #+END_SRC
 
-#+RESULTS[(2024-02-10 15:30:35) fac98c2a078d12736394a306ca3488761f982a85]:
+#+RESULTS[(2024-02-17 11:35:48) be708aacb67656169989da5fc88bdc119cb5e7a0]:
 [[file:./kapitel2/k2-alderspyramide.pdf]]
 
 #+name: fig:alderspyramide
@@ -312,9 +324,9 @@ i det absolutte antal eller som procent i forhold til antal personer i
 hele befolkningen. For at beskrive aldersfordelinger, vil man typisk
 vælge et passende antal aldersintervaller (passende til opgaven man
 sidder med) og fordele befolkningen på intervallerne. Intervallerne
-behøver ikke at være lige store. Da alle personers aldre ændrer sig hele
-tiden, skal man angive den dato, som aldersfordelingen refererer
-til. For eksempel kan vi tale om aldersfordelingen af kvinder i Danmark
+behøver ikke at være lige store. Da alle personers aldre ændrer sig
+hele tiden, skal man angive den dato, som folketal refererer til. For
+eksempel kan vi tale om aldersfordelingen af kvinder i Danmark
 den 8. marts 1910 og om aldersfordelingen af Fyns befolkning den 1.
 juli 1989.
 
@@ -323,19 +335,21 @@ juli 1989.
 :CUSTOM_ID: eksempel_aldersgrupper
 :END:
 
-Vi finder aldersfordelingen af folketallet for hele den danske befolkning 1. januar 2023
-og inddeler den i 4 intervaller: \([0,25], (25,50],(50,75], (75,125]\). 
-Bemærk at vores notation for intervaller betyder,
-at intervalgrænsen er ekskluderet hvis parentesen er rund og
+Vi finder aldersfordelingen af folketallet for hele den danske
+befolkning 1. januar 2023 og inddeler den i 4 intervaller: \([0,25],
+(25,50],(50,75], (75,125]\).  Bemærk at vores notation for intervaller
+betyder, at intervalgrænsen er ekskluderet hvis parentesen er rund og
 inkluderet hvis parentesen er firkantet. Det vil sige at personer, som
 er præcis 25 år gamle falder i intervallet \([0,25]\) og personer som
 er 50 falder ikke i intervallet \((50,75]\) men i intervallet
 \((25,50]\). Vi beregner nu andelen, som de enkelte aldersgrupper
 udgør og angiver den i procent (per hundrede). De fire procenttal er
-netop aldersfordelingen med hensyn til de fire intervaller.
+netop aldersfordelingen af folketal den 1. januar 2023 med hensyn til
+de fire intervaller.
 
 #+ATTR_LATEX: :options otherkeywords={group,mutate,hent_data}, deletekeywords={dt,list,c}
-#+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
+#+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes
+# R-koder til beregning af aldersfordeling af folketal
 folk <- hent_data("FOLK1a","alder"=0:125,tid="2023K3")
 # Aldersintervaller
 folk <- mutate(folk,Aldersinterval=cut(alder,
@@ -358,7 +372,7 @@ af
 : 3 (50,75]        1778084   29.9 
 : 4 (75,125]        540222    9.09
 
-*** Aldersfordeling i formler
+*** Aldersfordeling af folketal i formler
 
 Enhver definition af aldersintervaller opdeler en befolkning i
 aldersgrupper. For \(x=1,\dots,m\) aldersgrupper betegner vi med
@@ -391,12 +405,12 @@ tid \(t\):
 \end{equation*}
 #+end_export
 
-Aldersfordelingen er lig med de aldersspecifikke andele af folketal,
-altså for en given opdeling i aldersintervaller givet ved vektoren:
+Aldersfordelingen af folketal er lig med de aldersspecifikke andele af folketal,
+altså for en given opdeling i aldersintervaller givet ved:
 
 #+begin_export latex
 \begin{equation}\label{eq:aldersfordeling}
-\text{Aldersfordeling}=\left(\frac{N_1(t)}{N(t)},\dots, \frac{N_m(t)}{N(t)}\right).
+\text{Aldersfordeling af folketal}=\left(\frac{N_1(t)}{N(t)},\dots, \frac{N_m(t)}{N(t)}\right).
 \end{equation}
 #+end_export
 
@@ -409,22 +423,24 @@ procent.
 Vi sammenligner aldersfordelingen i hovedstadsområdet med
 aldersfordelingen i landdistrikter i Danmark i 2023.  For at gøre det
 enkelt bruger vi inddelingen af befolkningen i de 4 aldersgrupper fra
-afsnit ref:eksempel_aldersgrupper. Vi henter folketalsdata fra
+afsnit ref:eksempel_aldersgrupper. Vi henter folketal fra
 statistikbankens register BY2, hvor man kan angive bystørrelse.
 
-#+ATTR_LATEX: :options otherkeywords={group,hent_data,mutate,summarise}, deletekeywords={list,c}
+#+ATTR_LATEX: :options otherkeywords={group,register_info,hent_data,mutate,summarise}, deletekeywords={list,c,names}
 #+BEGIN_SRC R  :results output verbatim :exports both  :cache yes
-## meta <- get_table_metadata("BY2")
+# R-koder til aldersfordeling af folketal for given bystørrelse
+info <- register_info("BY2")
+names(info)
 b2 <- hent_data(register = "BY2",alder=0:125,
                 BYST=c("HOVEDS","LAND"),tid="2023")
-# aldersintervaller
+# Aldersintervaller
 b2 <- mutate(b2,Aldersinterval=cut(alder,
                                    breaks=c(0,25,50,75,125),
                                    include.lowest = TRUE))
-# antal person i de 4 aldersintervaller
+# Antal person i de 4 aldersintervaller
 af <- b2 %>% group_by(BYST,Aldersinterval) %>%
                                 summarise(Antal=sum(INDHOLD))
-# procent 
+# Procent 
 af <- af %>% mutate(Procent=100*Antal/sum(Antal))
 af
 #+END_SRC
@@ -458,21 +474,22 @@ mennesker mellem 50 og 75 år er højest i landdistrikterne.
 :CUSTOM_ID: risikotid_aldersgrupper
 :END:
 
-Med hensyn til mortalitetsrater har vi brug for aldersfordelingen af
-risikotiden i en bestemt kalenderperiode. Vi betegner med
-\(R_x[t_1,t_2]\) den samlede gennemlevede tid i perioden \([t_1,t_2]\)
-af alle personer i aldersgruppe \(x\). Vi bemærker at en person, som
-har levet i befolkningen i perioden \([t_1,t_2]\) kan bidrage med
-risikotid til et eller flere aldersintervaller. Det sker for personer
-som har fødselsdag mellem dato \(t_1\) og dato \(t_2\), da de den
-dag skifter fra aldersgruppe \(x\) til aldersgruppe \(x+1\). Vi
-betegner fortsæt med \(R[t_1,t_2]\) risikotiden for hele befolkningen
-og kan nu udtrykke den som en sum af de aldersspecifikke risikotider:
+For beregningen af aldersspecifikke mortalitetsrater har vi brug for
+aldersfordelingen af risikotiden i en bestemt kalenderperiode. Vi
+betegner med \(R_x[t_1,t_2]\) den samlede gennemlevede tid i perioden
+\([t_1,t_2]\) af alle personer i aldersgruppe \(x\). Vi bemærker at en
+person, som har levet i befolkningen i perioden \([t_1,t_2]\) kan
+bidrage med risikotid til et eller flere aldersintervaller. Det sker
+for personer som har fødselsdag mellem dato \(t_1\) og dato \(t_2\),
+hvis de den dag skifter fra aldersgruppe \(x\) til aldersgruppe
+\(x+1\). Vi betegner fortsæt med \(R[t_1,t_2]\) risikotiden for hele
+befolkningen og kan nu udtrykke den som en sum af de aldersspecifikke
+risikotider:
 
 #+begin_export latex
-\begin{equation}\label{eq:sum_risikotid}
+\begin{equation*}
 R[t_1,t_2]=R_1[t_1,t_2]+\dots+R_m[t_1,t_2]=\sum_{x=1}^m R_x[t_1,t_2].
-\end{equation}
+\end{equation*}
 #+end_export
 
 Vi beregner andelen af risikotid i aldersgruppe \(x\) ved at dividere
@@ -480,17 +497,17 @@ risikotiden i aldersgruppen med risikotiden i hele befolkningen i perioden
 \([t_1,t_2]\) og betegner den med \(V_x\):
 
 #+begin_export latex
-\begin{equation*}
+\begin{equation}\label{eq:sum_risikotid}
 V_x[t_1,t_2]= \frac{R_x[t_1,t_2]}{R[t_1,t_2]}=\{\text{Andel af risikotid i aldersgruppe }x \text{ i perioden } [t_1,t_2]\}.
-\end{equation*}
+\end{equation}
 #+end_export
 
 Risikotid beregnes ofte ved at gange middelfolketal med periodens
-længde. I den særlige situation, hvor perioden er 1 år langt, altså når
-\(t_2-t_1=1\) år, har middelfolketallet (antal) og risikotiden (personår)
-den samme værdi men forskelige enheder. Vi vil senere bruge \(V_x\) som
-vægte i definitionen af aldersstandardiserede rater (afsnit
-ref:Aldersstandardisering).
+længde (se Kapitel 1). I den særlige situation, hvor perioden er 1 år
+langt, altså når \(t_2-t_1=1\) år, har middelfolketallet (antal) og
+risikotiden (personår) den samme værdi men forskelige enheder. Vi vil
+senere bruge \(V_x\) som vægte i definitionen af aldersstandardiserede
+rater (afsnit ref:Aldersstandardisering).
 
 *** Eksempel
 :PROPERTIES:
@@ -502,7 +519,8 @@ i perioden mellem 1. januar 2022 og 1. januar 2023 og inddeler
 den i fire aldersintervaller: \([0,25], (25,50], (50,75], (75,125]\).
 
 #+ATTR_LATEX: :options otherkeywords={group,mutate,summarise,hent_data}, deletekeywords={dt,list,c}
-#+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
+#+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes
+# Beregningen af aldersfordelingen af risikotiden
 folk <- hent_data("FOLK1a", alder=0:125), tid=c("2022K1","2023K1")
 # Risikotid= 1* Middelfolketal metode 2
 folk <- folk %>% group_by(alder) %>%
@@ -511,10 +529,10 @@ folk <- folk %>% group_by(alder) %>%
 folk <- mutate(folk,Aldersinterval=cut(alder,
                                            breaks=c(0,25,50,75,125),
                                            include.lowest = TRUE))
-# antal personår i de 4 aldersintervaller
+# Antal personår i de 4 aldersintervaller
 af <- folk %>% group_by(Aldersinterval) %>%
                                  summarise(Personår=sum(Risikotid))
-# aldersfordeling i procent 
+# Aldersfordelingen af risikotiden i procent 
 af <- af %>% mutate(Procent=100*Personår/sum(Personår))
 af
 #+END_SRC
@@ -539,6 +557,7 @@ forekommer) starter alle livslinjer på fødselsdagen, hvor personen er 0
 immigrerer og slutter for emigranter den dag, de emigrerer.
 
 #+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-lexis-liv.pdf :exports none :session *R* :cache yes :width 8 :height 5
+# R-koder der genererer Lexis plot
 library(LexisPlotR)
 # Plot a Lexis grid from year 1997 to year 2023, representing the ages from 0 to 25
 l <- lexis_grid(year_start = 2015, year_end = 2023, age_start = 0, age_end = 5,lwd=0.01)
@@ -574,6 +593,7 @@ igennem kalendertid, og en fødselskohorte igennem både kalendertid og
 alder.
 
 #+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-lexis.pdf :exports none :session *R* :cache yes :width 8 :height 5
+# R-koder der genererer Lexis plot
 library(LexisPlotR)
 # Plot a Lexis grid from year 1997 to year 2023, representing the ages from 0 to 25
 l <- lexis_grid(year_start = 2015, year_end = 2023, age_start = 0, age_end = 5,lwd=0.1)
@@ -598,23 +618,22 @@ lexis_cohort(l,cohort=2016,fill="#56B4E9",alpha=0.3)+ggtitle("Lexis diagram: ske
 * Aldersspecifikke mortalitetsrater
 
 Vi ser på en befolkning i en kalenderperiode \([t_1,t_2]\) og inddeler
-den i  \(\{x=1,\dots,m\}\) aldersgrupper. Vi betegner med
-\(D_x[t_1,t_2]\) antal dødsfald i perioden hvor personens alder ved
-dødsdatoen falder i aldersgruppe \(x\).  For at lette notationsbyrden
-dropper vi kalenderperioden og forkorter \(D_x[t_1,t_2]\) til \(D_x\)
-og ligeledes skriver vi \(R_x\) for den aldersspecifikke risikotid
+den i \(x=1,\dots,m\) aldersgrupper. Vi betegner med \(D_x[t_1,t_2]\)
+antal dødsfald i perioden hvor personens alder ved dødsdatoen falder i
+aldersgruppe \(x\).  For at lette notationsbyrden dropper vi
+kalenderperioden og forkorter \(D_x[t_1,t_2]\) til \(D_x\) og
+ligeledes skriver vi \(R_x\) for den aldersspecifikke risikotid
 \(R_x[t_1,t_2]\) i samme periode. De aldersspecifikke mortalitetsrater
-er defineret som kvotienten mellem antal dødsfald og risikotid.
+er defineret som kvotienten mellem antal dødsfald og risikotid:
 #+begin_export latex
 \begin{equation}\label{eq:aldersspecifikke_mortalitetsrate}
 \text{Aldersspecifikke mortalitetsrate:}\qquad M_x=\frac{D_x}{R_x}, \qquad x=1,...,m. 
 \end{equation}
 #+end_export
+Bemærk at den aldersspecifikke mortalitetsrate \(M_x\) afhænger
+kalenderperioden: \(M_x = M_x[t_1,t_2]\).
 
-Bemærk at den aldersspecifikke mortalitetsrate \(M_x\) afhænger også
-kalenderperioden, så vi bruger også notationen \(M_x[t_1,t_2]\) for at angive kalenderperioden.
-
-*** Eksempel
+** Eksempel
 
 Vi finder antal dødsfald for hele den danske befolkning i perioden
 mellem 1. januar 2022 og 1. januar 2023 og beregner det
@@ -625,14 +644,15 @@ og bemærker at det sidste aldersinterval hedder ``99 år og derover''.
 
 #+ATTR_LATEX: :options otherkeywords={hent_data,summarise,mutate}, deletekeywords={list,de,by,c}
 #+BEGIN_SRC R :results value verbatim :exports both  :session *R* :cache yes  
-dd <- get_data("dod",alder=agevals,tid="2022")
+# R-koder der henter aldersfordelingen af antal døde
+dd <- hent_data("dod",alder="all_no_total",tid="2022")
 # Aldersintervaller
 dd <- mutate(dd,Aldersinterval=cut(alder,
                                    breaks=c(0,25,50,75,125),
                                    include.lowest = TRUE))
-# antal døde i de 4 aldersintervaller
+# Antal døde i de 4 aldersintervaller
 group_dd <-dd %>% group_by(Aldersinterval) %>%
-                             summarise(antal_døde=sum(INDHOLD))
+  summarise(antal_døde=sum(INDHOLD))
 group_dd
 #+END_SRC
 
@@ -648,12 +668,14 @@ group_dd
 
 For at beregne de aldersspecifikke mortalitetsrater skal vi samle
 personår (afnit ref:k2_personaar_4_aldersgrupper) og antal døde i
-aldersgrupper. Det gør vi med **left\under{}join** i R:
+aldersgrupper i et =tibble= . Det gør vi med funktionen
+\texttt{left}\under{}\texttt{join}:
 
 #+ATTR_LATEX: :options otherkeywords={mutate,left_join}, deletekeywords={dt,list,group,by,de}
 #+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes
+# Fortsættelse af sidste R-chunk
 x <- left_join(af,group_dd,by="Aldersinterval")
-# aldersspecifikke mortalitetsrater
+# Aldersspecifikke mortalitetsrater
 x <- x %>% mutate(mrate=1000*antal_døde/Personår)
 x
 #+END_SRC
@@ -672,55 +694,58 @@ x
 
 For at sammenligne mortalitet i to befolkninger (studiebefolkning
 \(A\) mod studiebefolkning \(B)\) kan man sammenligne de
-aldersspecifikke mortalitetsrater mellem de to befolkninger (\(M_x^A
-\text{ versus } M_x^B\)). Det giver lige så mange resultater, som der
-er aldersintervaller, altså et resultat for hver aldersgruppe. Figur
-ref:fig:k2-ammk-2011 viser raterne for 100 aldersgrupper hvor den
-sidste samler personer som er 99 år og derover. Hvis der er blot 4 aldersgrupper kan
-man på en overskulig måde vise resultater i en tabel. Men med mange
-aldersgrupper er det nemmere at se forskellen i en figur, som viser de
-aldersspecifikke mortalitetsrater af de to befolkninger ved siden af
-hinanden.
+aldersspecifikke mortalitetsrater mellem dem (\(M_x^A \text{ mod }
+M_x^B\)). Det giver lige så mange resultater, som der er
+aldersintervaller, altså et resultat for hver aldersgruppe.  Hvis der
+er blot 4 aldersgrupper kan man på en overskulig måde vise resultater
+i en tabel. Men med mange aldersgrupper er det nemmere at se
+forskellen i en figur, som viser de aldersspecifikke mortalitetsrater
+af de to befolkninger ved siden af hinanden. Figur
+ref:fig:k2-ammk-2011 viser mortalitetsrater for kvinder og mænd i
+Danmark i 2011 for 100 aldersgrupper hvor den sidste samler personer
+som er 99 år og derover. Forskellen mellem Figur ref:fig:k2-ammk-2022
+som viser mortalitetsrater for 2022 og Figur ref:fig:k2-ammk-2011 er
+at vi nu bruger en logaritmisk skala.
 
 *** Eksempel
 
 Vi beregner aldersspecifikke mortalitetsrater for mænd og kvinder i
 2011 og visualiserer forskellen.
 
-#+ATTR_LATEX: :options otherkeywords={hent_data,mutate,summarise,pull,ggplot}, deletekeywords={c,&,title,legend,de,scale,by,axis,plot,margin,t,text,rect,list,factor}
+#+ATTR_LATEX: :options otherkeywords={hent_data,scale_y_log10,mutate,summarise,pull,ggplot}, deletekeywords={c,&,title,legend,de,scale,by,axis,plot,margin,t,text,rect,list,factor}
 #+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-aldersspecifikke-mortalitet-maend-kvinder-2011.pdf :exports code :session *R* :cache yes :width 8 :height 5
-# hent folketal fra 2011
+# R-koder der genererer grafik som viser køns- og aldersspecifikke mortalitetsrater 
 folk <- hent_data("FOLK1a",alder=0:125,køn=c(2,1),tid="2011K3")
-# ændre variable navn
+# Ændre variable navn
 folk <- folk %>% rename("risikotid"="INDHOLD")
-# samle antal personer over 99 (fordi register DOD gør det samme)
+# Samle antal personer over 99 (fordi register DOD gør det samme)
 folk <- samle_alder(folk,variable = "risikotid",value = "99plus",by = "køn")
-# hent dødstal fra 2011
+# Hent dødstal fra 2011
 dd <- hent_data(register="dod",alder=0:99,køn=c("K","M"),tid="2011")
-# ændre variable navn
+# Ændre variable navn
 dd <- dd %>% rename("antal_døde"="INDHOLD")
-# join folketal og antal dødsfald
+# Join folketal og antal dødsfald
 x <- left_join(folk,dd,by=c("alder","KØN"))
-# aldersspecifikke mortalitetsrater
+# Aldersspecifikke mortalitetsrater
 x <- x %>% group_by(KØN) %>% mutate(mrate=1000*antal_døde/risikotid) 
-# grafik
+# Grafik
 g <- ggplot(x,aes(x=alder,y=mrate,color= KØN))+geom_line()+geom_point()
 g <- g+theme_economist()+scale_colour_wsj("colors6") +theme(legend.title=element_blank())
 g <- g+ylab("Mortalitetsrate per 1000 personår")+xlab("Alder (år)")+ggtitle("Danmark 2011")
-g <- g + theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))
-g <- g + theme(axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)))
-g <- g + theme(plot.background = element_rect(fill = "gray88", colour = NA))
+g <- g+theme(axis.title.y=element_text(margin=margin(t=0,r=20,b=0,l=0)))
+g <- g+theme(axis.title.x=element_text(margin=margin(t=20,r=0,b=0,l=0)))
+g <- g+theme(plot.background=element_rect(fill="gray88",colour=NA))
 g <- g+theme(legend.title=element_blank())+theme(legend.position="bottom")
-g
+g + scale_y_log10()
 #+END_SRC
 
-#+RESULTS[(2024-02-16 14:10:49) 0f8a83d01c7e3071e73356962a3c2df8b63159e7]:
+#+RESULTS[(2024-02-17 11:59:10) 82525335961298b553fe6082cfa9011ab9fe1cfc]:
 [[file:./kapitel2/k2-aldersspecifikke-mortalitet-maend-kvinder-2011.pdf]]
 
 #+name: fig:k2-ammk-2011
 #+ATTR_LATEX: :width 1.0\textwidth
 #+CAPTION: Aldersspecifikke mortalitetsrater for hele den danske befolkning i 2011. Vi ser at
-#+CAPTION: dødeligheden var højere for mænd i alle aldre undtagen bland personer der er mindst 99 år gamle.
+#+CAPTION: dødeligheden var højere for mænd i de fleste aldersgrupper.
 [[file:./k2-aldersspecifikke-mortalitet-maend-kvinder-2011.pdf]]
 
 * Aldersstandardisering
@@ -751,8 +776,8 @@ Vi beskriver to standardiseringsformer, /direkte standardisering/
 (afsnit ref:direkte_standardisering) og /indirekte standardisering/
 (afsnit ref:indirekte_standardisering). Vi starter med en matematisk
 forklaring af resultatet fra afsnit ref:samesumma (afsnit
-ref:k2-kitagawa) og slutter med en sammenligning af direkte
-og indirekte standardisering.
+ref:k2-kitagawa) og slutter med en sammenligning af direkte og
+indirekte standardisering (afsnit ref:k2-direkte-indirekte).
 
 ** Kitagawas dekomposition
 :PROPERTIES:
@@ -775,9 +800,10 @@ mortalitetsrate \eqref{eq:aldersspecifikke_mortalitetsrate} sådan at antal død
 #+end_export
 
 Vi betegner fortsat \(M\) som befolkningens summariske mortalitetsrate
-og \(D\) som antal dødsfald i hele befolkningen i perioden. Det følgende regnestykke viser
-at \(M\) er et vægtet gennemsnit af \(M_x\) hvor vægtene er
-aldersfordelingen af risikotid:
+og \(D\) som antal dødsfald i hele befolkningen i perioden. Det
+følgende regnestykke viser at den summariske mortalitetsrate er et
+vægtet gennemsnit af de aldersspecifikke mortalitetsrater hvor vægtene
+er lig med aldersfordelingen af risikotid:
 #+begin_export latex
 \begin{equation}\label{vgennemsnit}\begin{split}
 M & = \frac{D}{R} \\& = \frac{D_1+D_2+...+D_m}{R} \\
@@ -821,8 +847,9 @@ beskriver forskellen mellem to summariske mortalitetsrater:
 Her beskriver komponent 1 forskellen mellem de aldersspecifikke
 mortalitetsrater vægtet med de gennemsnitlige andele af risikotid og
 komponent 2 forskellen mellem aldersfordelingerne vægtet med de
-gennemsnitlige mortalitetsrater. Det kræver lidt algebra hvis man vil indse hvorfor Kitagawas komposition holder: For 
-hvert aldersinterval \(x\) gælder:
+gennemsnitlige mortalitetsrater. Det kræver lidt algebra hvis man vil
+indse hvorfor formel eqref:eq:kitagawa (Kitagawas dekomposition)
+holder: For hvert aldersinterval \(x\) gælder:
 
 #+begin_export latex
 \begin{equation}\label{eq:kitagawas_forklaring}
@@ -846,16 +873,16 @@ giver formel eqref:eq:kitagawa.
 :CUSTOM_ID: direkte_standardisering
 :END:
 
-Formålet med den såkaldte direkte standardisering er at sammenligne
+Formålet med den såkaldte /direkte/ standardisering er at sammenligne
 mortalitetsrater mellem to befolkninger uanset forskelle i
 aldersfordeling. Direkte standardisering er en metode, som
 sammenfatter forskellen af mortalitetsrater med et tal der benævnes
 /standardiserede rate ratio/. For at definere direkte standardisering
-skal vi bruge to studiebefolkninger (A mod B) og en
-standardbefolkning (S). Ideen er at se om studiebefolkning A har
-højere mortalitet end studiebefolkning B hvis (hypotetisk) begge havde
-sammen aldersfordeling som standardbefolkning S. Vi fortolker den
-direkte standardiserede mortalitetsrate
+skal vi bruge to studiebefolkninger (\(A\) mod \(B)\) og en
+standardbefolkning (\(S\)). Ideen er at se om studiebefolkning \(A\)
+har højere mortalitet end studiebefolkning B hvis (hypotetisk) begge
+havde sammen aldersfordeling som standardbefolkning \(S\). Vi
+fortolker den direkte standardiserede mortalitetsrate
 #+begin_export latex
 \begin{equation}\label{eq:direkte_standard_mort}
 \tilde M^A_{S} =  \sum_{x=1}^m M_x^A V_x^S,
@@ -865,9 +892,9 @@ som den mortalitetsrate vi ville have set i studiebefolkning \(A\),
 hvis aldersfordeling af risikotid havde været den samme som i
 standardbefolkning \(S\).  Ideen er at vi nu kan direkte sammenligne
 de standardiserede mortalitetsrater fra studiebefolkninger \(A\) og
-\(B\) hvis standardbefolkningen er den samme. Den hyppigste form der 
-afrapporterer denne sammenligning mellem to standardiserede
-mortalitetsrater er det /standardiserede rate ratio/:
+\(B\). Den hyppigste form der afrapporterer denne sammenligning mellem
+to standardiserede mortalitetsrater er det /standardiserede rate
+ratio/ (\(\operatorname{SRR}\)):
 #+begin_export latex
 \begin{equation}\label{eq:SRR}
  \operatorname{SRR}(A,B,S) = \frac{\sum_{x=1}^m M_x^A V_x^S}{\sum_{x=1}^m M_x^B V_x^S}.
@@ -885,10 +912,11 @@ studiebefolkning \(B\), og vælger alle dansker i 2011 (uanset køn) som
 standardbefolkning \(S\).
 
 #+ATTR_LATEX: :options otherkeywords={hent_data,rename,intervAlder,left_join,mutate,select,tibble,filter}, deletekeywords={c,D,R,by,sum}
-#+BEGIN_SRC R  :results output   :exports both  :session *R* :cache yes  
-# Fordeling af risikotid i aldersintervaller
+#+BEGIN_SRC R  :results output   :exports both  :session *R* :cache yes
+# R-koder der beregner direkte standardisering
 folk <- hent_data("FOLK1a","alder"=0:125,tid="2011K3",
                   køn = c(1,2,"TOT"))
+# Fordeling af risikotid i aldersintervaller
 af <- rename(af,R = INDHOLD)
 af <- intervAlder(folk,breaks=c(0,25,50,75,125),by="KØN",vars="R")
 # Antal døde i aldersintervaller
@@ -928,8 +956,8 @@ tibble("srate_kvinder" = pull(summarise(A,sum(M * V))),
 Resultatet fortolkes på følgende måde: Den standardiserede
 mortalitetsrate i Danmark i 2011 var 8,4 døde per 1000 personår for
 kvinder og 10,7 døde per 1000 personår for mænd, hvis
-aldersfordelingen havde været den samme blandt alle dansker
-i 2011. Dette bekræfter, at grunden til at den summariske
+aldersfordelingen havde været den samme som den var blandt alle
+dansker i 2011. Dette bekræfter, at grunden til at den summariske
 mortalitetsrate var højere for mænd end for kvinder i 2011, var
 forskelle i aldersfordeling.
 
@@ -938,7 +966,7 @@ forskelle i aldersfordeling.
 :CUSTOM_ID: indirekte_standardisering
 :END:
 
-Formålet med den såkaldte indirekte standardisering er at sammenligne
+Formålet med den såkaldte /indirekte/ standardisering er at sammenligne
 mortalitetsrater i studiebefolkning \(A\) med mortalitetsrater i en
 standardbefolkning \(S\). Konkret sammenligner man det totale antal
 dødsfald i studiebefolkning \(A\) med det forventede antal døde i
@@ -961,8 +989,9 @@ D^A = D^A_1 + \cdots + D^A_{m} = \sum_{x=1}^m D_x^A= \sum_{x=1}^m M_x^A R_x^A.
 \end{equation*}
 #+end_export
 Her har vi brugt formel eqref:eq:D_lige_MR. Relativt til den totale
-risikotid \(R^A\) er det forventede antal døde hvis dødeligheden havde
-været den samme i standardbefolkning \(S\) givet ved
+risikotid \(R^A\) er det forventede antal døde (hvis dødeligheden
+havde været den samme som den var i standardbefolkning \(S\)) givet
+ved
 #+begin_export latex
 \begin{equation*}
 \sum_{x=1}^m M_x^S V_x^A = \sum_{x=1}^m M_x^S \frac{R_x^A}{R^A} = \frac{1}{R^A} \sum_{x=1}^m M_x^S R_x^A.
@@ -974,10 +1003,10 @@ standardbefolkning \(S\) er det såkaldte /standardiserede mortalitetsrateratio/
 #+begin_export latex
 \begin{equation}\label{eq:SMR}
 \begin{split}
- \operatorname{SMR(A,S)} &=\frac{\sum_{x=1}^m M_x^A V_x^A}{\sum_{x=1}^m M_x^S V_x^A}\\
+ \operatorname{SMR(A,S)} &=\frac{\text{Observeret antal døde}}{\text{Forventet antal døde}}\\
+ &=\frac{\sum_{x=1}^m M_x^A V_x^A}{\sum_{x=1}^m M_x^S V_x^A}\\
  &=\frac{\sum_{x=1}^m M_x^A R_x^A}{\sum_{x=1}^m M_x^S R_x^A}\\
-&=\frac{\sum_{x=1}^m D_x^A}{\sum_{x=1}^m M_x^S R_x^A}\\ 
-&=\frac{\text{Observeret antal døde}}{\text{Forventet antal døde}}
+&=\frac{\sum_{x=1}^m D_x^A}{\sum_{x=1}^m M_x^S R_x^A}
 \end{split}
 \end{equation}
 #+end_export
@@ -990,7 +1019,9 @@ givet ved
 #+end_export
 
 ** Direkte versus indirekte standardisering
-
+:PROPERTIES:
+:CUSTOM_ID: k2-direkte-indirekte
+:END:
 Typisk ønsker man at sammenligne flere studiebefolkninger, og man vil
 derfor beregne en standardiseret rate for hver studiebefolkning, idet
 den samme standardbefolkning bruges i alle beregninger. Dødeligheden i
@@ -1013,16 +1044,20 @@ For at foretage en direkte eller indirekte standardisering skal man
 først have valgt en standardbefolkning. Valget vil typisk afspejle
 problemstillingen. Hvis vi skal sammenligne dødeligheden i forskellige
 lande i Europa, vil det være naturligt at vælge hele Europa som
-standardbefolkning. Hvis vi vil sammenligne dødeligheden i
-forskellige erhvervsgrupper, vil det være naturligt at bruge alle
-erhvervsaktive som standardbefolkning. Det kan også være rimeligt at
-vælge en af studiebefolkningerne eller de to
-studiebefolkninger sat sammen som standardbefolkning.  I et enkelt tilfælde vil
-en direkte standardisering og en indirekte standardisering altid give
-det samme resultat: Hvis man har man to studiebefolkninger vil en
-sammenligning baseret på en direkte standardisering med den ene
-befolkning som standard være identisk med en sammenligning baseret på
-en indirekte standardisering med den anden befolkning som standard.
+standardbefolkning. Hvis vi vil sammenligne dødeligheden i forskellige
+erhvervsgrupper, vil det være naturligt at bruge alle erhvervsaktive
+som standardbefolkning. Det kan også være rimeligt at vælge en af
+studiebefolkningerne eller de to studiebefolkninger sat sammen som
+standardbefolkning. I det specielle tilfælde hvor man bruger en af to
+studiebefolkninger som standardbefolkning vil \(\operatorname{SRR}\)
+fra direkte standardisering og \(\operatorname{SMR}\) fra en indirekte
+standardisering give det samme resultat:
+#+begin_export latex
+\begin{equation*}
+\operatorname{SRR}(A,B,A) =  \frac{\sum_{x=1}^m M_x^A V_x^A}{\sum_{x=1}^m M_x^B V_x^A} = \operatorname{SMR}(A,B).
+\end{equation*}
+#+end_export
+
 
 # Det ses når vi bruger aldersfordeling fra studiebefolkning \(A\) som
 # standardbefolkning i formlen for SRR:
@@ -1051,7 +1086,7 @@ en indirekte standardisering med den anden befolkning som standard.
 #+LaTeX_HEADER:\usepackage{hyperref}
 #+LaTeX_HEADER:\usepackage{amssymb}
 #+LaTeX_HEADER:\usepackage{latexsym}
-#+LaTeX_HEADER:\usepackage[danish]{babel}
+# #+LaTeX_HEADER:\usepackage[danish]{babel}
 #+LaTeX_HEADER:\hyphenation{studie-be-folk-ning}
 #+LaTeX_HEADER:\renewcommand\theequation{K2.\arabic{equation}}
 #+OPTIONS:   H:3  num:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
