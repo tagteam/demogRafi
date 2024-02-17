@@ -521,7 +521,7 @@ den i fire aldersintervaller: \([0,25], (25,50], (50,75], (75,125]\).
 #+ATTR_LATEX: :options otherkeywords={group,mutate,summarise,hent_data}, deletekeywords={dt,list,c}
 #+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes
 # Beregningen af aldersfordelingen af risikotiden
-folk <- hent_data("FOLK1a", alder=0:125), tid=c("2022K1","2023K1")
+folk <- hent_data("FOLK1a", alder=0:125, tid=c("2022K1","2023K1"))
 # Risikotid= 1* Middelfolketal metode 2
 folk <- folk %>% group_by(alder) %>%
                             summarise(Risikotid=1*mean(INDHOLD))
@@ -914,15 +914,15 @@ standardbefolkning \(S\).
 #+ATTR_LATEX: :options otherkeywords={hent_data,rename,intervAlder,left_join,mutate,select,tibble,filter}, deletekeywords={c,D,R,by,sum}
 #+BEGIN_SRC R  :results output   :exports both  :session *R* :cache yes
 # R-koder der beregner direkte standardisering
-folk <- hent_data("FOLK1a","alder"=0:125,tid="2011K3",
+af <- hent_data("FOLK1a","alder"=0:125,tid="2011K3",
                   køn = c(1,2,"TOT"))
 # Fordeling af risikotid i aldersintervaller
 af <- rename(af,R = INDHOLD)
-af <- intervAlder(folk,breaks=c(0,25,50,75,125),by="KØN",vars="R")
+af <- intervAlder(af,breaks=c(0,25,50,75,125),by="KØN",vars="R")
 # Antal døde i aldersintervaller
-D <- hent_data("DOD","alder"="all_no_total",tid="2011",køn=c("M","K"))
+dd <- hent_data("DOD","alder"="all_no_total",tid="2011",køn=c("M","K"))
 dd <- rename(dd,D = INDHOLD)
-dd <- intervAlder(D,breaks=c(0,25,50,75,125),by="KØN",vars="DD")
+dd <- intervAlder(dd,breaks=c(0,25,50,75,125),by="KØN",vars="D")
 # Aldersspecifikke mortalitetsrater
 # Kvinder
 A <- left_join(filter(af,KØN == "Kvinder"),
