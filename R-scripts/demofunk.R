@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Feb 19 2024 (10:12) 
+## Last-Updated: Feb 19 2024 (10:21) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 86
+##     Update #: 87
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -237,7 +237,7 @@ intervAlder <- function(data,alder="alder",breaks,vars,by = NULL,right=TRUE,labe
 
 format_dato <- function(data,variable = "TID"){
     # transform årstal + kvartal til dato
-    patt <- c("Q1","Q2","Q3","Q4")
+    patt <- c("Q1","Q2","Q3","Q4","K1","K2","K3","K4")
     repl <- c("-01-01","-01-04","-01-07","-01-10")
     data[[variable]] = as.Date(stri_replace_all_regex(data[[variable]],
                                               pattern=patt,

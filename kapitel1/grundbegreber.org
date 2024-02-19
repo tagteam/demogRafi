@@ -138,7 +138,7 @@ Hvis det er sket, kan funktionerne køres ved følgende kommando
 
 #+ATTR_LATEX: :options otherkeywords={hent_data}, deletekeywords={}
 #+BEGIN_SRC R  :results output   :exports both  :session *R* :cache yes
-source("R-scripts/demofunk.R").
+source("R-scripts/demofunk.R")
 #+END_SRC
 
 En vigtig funktion hedder =hent_data=. Den henter data fra
@@ -937,7 +937,7 @@ ikke, og der er en fejlrate:
 
 
 
-#+TITLE: Grundbegreber
+#+TITLE: Kapitel 1: Grundbegreber
 #+AUTHOR: Anna-Vera Jørring Pallesen, Johan Sebastian Ohlendorff, Laust Hvas Mortensen og Thomas Alexander Gerds
 #+DATE: 
 #+LANGUAGE: dk
@@ -953,6 +953,10 @@ ikke, og der er en fejlrate:
 #+LaTeX_HEADER:\usepackage{hyperref}
 #+LaTeX_HEADER:\usepackage{amssymb}
 #+LaTeX_HEADER:\usepackage{latexsym}
+#+LaTeX_HEADER:\usepackage{fancyhdr}
+#+LaTeX_HEADER:\pagestyle{fancy}
+#+LaTeX_HEADER:\lhead{Folkesundhedsvidenskab 2. semester, K{\o}benhavns Universitet}
+#+LaTeX_HEADER:\rhead{Demografi}
 #+LaTeX_HEADER:\renewcommand\theequation{K1.\arabic{equation}}
 #+LaTeX_HEADER: \renewcommand{\figurename}{Figur}
 #+LaTeX_HEADER:\usepackage{tcolorbox}

@@ -1072,7 +1072,7 @@ standardisering give det samme resultat:
 
 ** Header :noexport:
 
-#+TITLE: Mortalitet og standardisering
+#+TITLE: Kapitel 2: Mortalitet og standardisering
 #+AUTHOR: Anna-Vera Jørring Pallesen, Johan Sebastian Ohlendorff, Laust Hvas Mortensen and Thomas Alexander Gerds
 #+DATE: 
 #+LaTeX_CLASS: danish-article
@@ -1087,6 +1087,7 @@ standardisering give det samme resultat:
 #+LaTeX_HEADER:\usepackage{amssymb}
 #+LaTeX_HEADER:\usepackage{latexsym}
 #+LaTeX_HEADER:\usepackage{fancyhdr}
+#+LaTeX_HEADER:\pagestyle{fancy}
 #+LaTeX_HEADER:\lhead{Folkesundhedsvidenskab 2. semester, K{\o}benhavns Universitet}
 #+LaTeX_HEADER:\rhead{Demografi}
 # #+LaTeX_HEADER:\usepackage[danish]{babel}

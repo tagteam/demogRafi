@@ -1,14 +1,9 @@
----
-title: 'Demografi kompendium kapitel 1: R-koder'
-output: word_document
----
-
 ```{r   }
 source('https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R') 
 ```
 
 ```{r   }
-# Chunk1
+# R-code
 t_1= as.Date("2019-01-01")
 t_2= as.Date("2023-01-01")
 N_1 = 5806081
@@ -23,7 +18,7 @@ source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demof
 ```
 
 ```{r   }
-try(source("R-scripts/demofunk.R"),silent = TRUE)
+source("R-scripts/demofunk.R"). 
 ```
 
 ```{r   }
@@ -39,12 +34,12 @@ hent_data(register = "befolk1",tid = 2023)
 hent_data(register = "HISB3",tid = 2023,bevægelse = "M+K") 
 ```
 
-```{r   }
+[[file:```{r   }
 # R-koder der producerer figur 1
 dt=hent_data(register = "FT",tid = "all")
 ggplot(dt,aes(TID,INDHOLD))+geom_line()+geom_point()+
   theme_wsj()+ scale_colour_wsj("colors6") 
-```
+```]]
 
 ```{r   }
 dt=hent_data("BEFOLK1",tid=c(2009,2016,2023))
@@ -97,7 +92,7 @@ tibble(X=c("Folketal jan 2022",
        Antal=c(N[1],N[2],F,D,I,U)) 
 ```
 
-```{r   }
+[[file:```{r   }
 # R-koder der producerer figur 3
 V = hent_data("BEFOLK1",tid=1980:2022)
 V = V %>% mutate(INDHOLD = INDHOLD- c(INDHOLD[1],INDHOLD[-length(INDHOLD)]))
@@ -117,10 +112,19 @@ dat <- dat %>% mutate(X = factor(X))
 ggplot(dat,aes(TID,INDHOLD,color=X,group=X))+geom_line()+
   geom_point()+theme_wsj()+ scale_colour_wsj("colors6") +
 theme(legend.title=element_blank()) 
-```
+```]]
 
 ```{r   }
-1000*569/39817  
+# folketal den 1. jan 2022 og 1 jan 2023
+N_bornholm=hent_data(register = "folk1a",
+                       tid = c("2022K1","2023K1"),
+                     område ="bornholm")
+# middelfolketal metode 2
+N_bornholm_metode2 = mean(N_bornholm$INDHOLD)
+# antal døde
+D_bornholm = hent_data(register = "fod207",tid = "2022",område ="bornholm")$INDHOLD
+# mortalitetsrate per 1000 personår
+1000*D_bornholm/N_bornholm_metode2 
 ```
 
 ```{r   }
