@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Feb 19 2024 (10:21) 
+## Last-Updated: Feb 19 2024 (17:44) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 87
+##     Update #: 90
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -132,7 +132,7 @@ hent_data <- function(register,...,language = "da"){
                 cat(paste0("\nProblem with values of variable ",
                            v[["variable"]],"\n",
                            "Requested: ", v[["problems"]],"\n",
-                           "Available text: ", v[["allowed_text"]],"\n",
+                           "Available text: ", paste("all","all_no_total",v[["allowed_text"]],sep = ","),"\n",
                            "Available id: ", v[["allowed_id"]]),"\n")
         }
         stop()
@@ -222,6 +222,7 @@ intervAlder <- function(data,alder="alder",breaks,vars,by = NULL,right=TRUE,labe
     out <- NULL
     for (v in vars){
         data = rename(data,"tHiSvAr" = v)
+        browser()
         if (length(by)>0){
             suppressMessages(out.v <- group_by(data,across(c("aldersinterval",by))) %>% summarise(tHiSvAr = sum(tHiSvAr)))
         } else{
