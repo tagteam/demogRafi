@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Feb 16 2024 (08:03) 
+## Last-Updated: Feb 19 2024 (10:12) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 82
+##     Update #: 86
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -88,6 +88,7 @@ hent_data <- function(register,...,language = "da"){
     # check values
     vars <- lapply(1:length(user_args),function(u){
         ua = requested_args[[u]]
+        if (language == "ua") rename(ua,"text" = "tekst")
         if (length(user_args[[u]]) == 1&&tolower(user_args[[u]]) == "all"){
             list(code = requested_args[[u]],
                  values = values[[ua]]$id)
