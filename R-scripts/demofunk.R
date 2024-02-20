@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Feb 19 2024 (17:45) 
+## Last-Updated: Feb 20 2024 (07:13) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 91
+##     Update #: 93
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -223,9 +223,9 @@ intervAlder <- function(data,alder="alder",breaks,vars,by = NULL,right=TRUE,labe
     for (v in vars){
         data = rename(data,"tHiSvAr" = v)
         if (length(by)>0){
-            suppressMessages(out.v <- group_by(data,across(c("aldersinterval",by))) %>% summarise(tHiSvAr = sum(tHiSvAr)))
+            out.v <- group_by(data,across(c("aldersinterval",by))) %>% summarise(tHiSvAr = sum(tHiSvAr))
         } else{
-            suppressMessages(out.v <- group_by(data,"aldersinterval") %>% summarise(tHiSvAr = sum(tHiSvAr)))
+            out.v <- group_by(data,"aldersinterval") %>% summarise(tHiSvAr = sum(tHiSvAr))
         }
         names(out.v)[names(out.v) == "tHiSvAr"] = v
         if (!is.null(out))
