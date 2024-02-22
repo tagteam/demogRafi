@@ -16,6 +16,7 @@
 ### Code:
 # load libraries
 # ---------------------------------------------------------------------
+options("lifecycle_verbosity"="warning")
 
 for (a in c("danstat","tidyverse","stringi","ggplot2","ggthemes")){
     if (inherits(try(do.call("library",list(a,quietly = TRUE))),"try-error")){
