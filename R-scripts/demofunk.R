@@ -221,11 +221,10 @@ intervAlder <- function(data,alder="alder",breaks,vars,by = NULL,right=TRUE,labe
         data <- arrange(data,"aldersinterval")
     out <- NULL
     for (v in vars){
-        data = rename(data,"tHiSvAr" = v)
         if (length(by)>0){
-            out.v <- data %>% group_by(across(c("aldersinterval",by))) %>% summarise(tHiSvAr = sum(tHiSvAr))
+            out.v <- data %>% group_by_at(c("aldersinterval",by)) %>% summarise(tHiSvAr = sum(!!sym(v)), .groups = "drop")
         } else{
-            out.v <- data %>% group_by("aldersinterval") %>% summarise(tHiSvAr = sum(tHiSvAr))
+            out.v <- data %>% group_by("aldersinterval") %>% summarise(tHiSvAr = sum(!!sym(v)))
         }
         names(out.v)[names(out.v) == "tHiSvAr"] = v
         if (!is.null(out))
