@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Feb 22 2024 (09:29) 
+## Last-Updated: Feb 22 2024 (13:33) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 97
+##     Update #: 107
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -176,6 +176,7 @@ samle_alder <- function(data,variable,value,by){
 }
 
 intervAlder <- function(data,alder="alder",breaks,vars,by = NULL,right=TRUE,label_one = NULL,label_last = NULL){
+    stopifnot(all(vars %in% names(data)))
     data = mutate(data,
                   aldersinterval=cut(alder,
                                      breaks=breaks,
@@ -234,6 +235,67 @@ intervAlder <- function(data,alder="alder",breaks,vars,by = NULL,right=TRUE,labe
     }
     ungroup(out)
 }
+
+hent_aldersfordeling <- function(breaks,
+                                 køn = c("Kvinder","Mænd"),
+                                 tid = "2023",
+                                 område = "Hele landet"){
+    # risikotid metode 1
+    af <- hent_data("FOLK1a",
+                    "alder"=0:125,
+                    køn = køn,
+                    tid=paste0(tid,"K3"),
+                    Område = område,
+                    language = "da")
+    af = mutate(af,TID = as.numeric(sub("K3","",TID)))
+    # Fordeling af risikotid i aldersintervaller
+    af <- rename(af,R = INDHOLD)
+    by <- c("KØN","OMRÅDE","TID")
+    af <- intervAlder(af,breaks=breaks, by=by,vars="R")
+    af <- af %>% group_by_at(by) %>% mutate(V = R/sum(R))
+    ungroup(af)
+}
+
+hent_mortalitetsrate_data <- function(breaks,
+                                      køn = c("Kvinder","Mænd"),
+                                      tid = "2023",
+                                      område = "Hele landet"){
+    if (FALSE){
+        breaks = c(0,25,50,75,125)
+        køn = c("Kvinder","Mænd")
+        tid = "2023"
+        område = "Hele landet"
+    }
+    # risikotid metode 1
+    af <- hent_data("FOLK1a",
+                    "alder"=0:125,
+                    køn = køn,
+                    tid=paste0(tid,"K3"),
+                    Område = område,
+                    language = "da")
+    af = mutate(af,TID = as.numeric(sub("K3","",TID)))
+    # Fordeling af risikotid i aldersintervaller
+    af <- rename(af,R = INDHOLD)
+    by = c("KØN","OMRÅDE","TID")
+    af <- intervAlder(af,breaks=breaks, by=by,vars="R")
+    # Antal døde i aldersintervaller
+    dd <- hent_data("FOD207",
+                    "alder"="all_no_total",
+                    tid=tid,
+                    køn=køn,
+                    Område = område)
+    dd <- rename(dd,Dod = INDHOLD)
+    dd <- intervAlder(dd,
+                      breaks=breaks,
+                      by=c("KØN","OMRÅDE","TID"),
+                      vars="Dod")
+    # join
+    dat <- left_join(af,dd, by = c("aldersinterval",by))
+    dat
+}
+
+## std_mortalitetsrate <- function(område,tid,breaks,by){
+## }
 
 format_dato <- function(data,variable = "TID"){
     # transform årstal + kvartal til dato

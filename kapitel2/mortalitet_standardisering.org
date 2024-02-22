@@ -287,7 +287,7 @@ https://extranet.dst.dk/pyramide/pyramide.htm.
 
 #+ATTR_LATEX: :options otherkeywords={group,mutate,ggplot,hent_data}, deletekeywords={list,dt,stat,library,data,legend,title,as.numeric,c}
 #+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-alderspyramide.pdf :exports code :session *R* :cache yes
-# R-koder der genererer alderspyramiden for Danmark den 1. januar 2023
+# R-koder der genererer alderspyramiden for Danmark den 1. juli 2023
 folk <- hent_data("FOLK1a","alder"=0:125,"køn"=1:2,tid="2023K3")
 # Fjern tomme aldre
 folk <- subset(folk,alder<106)
