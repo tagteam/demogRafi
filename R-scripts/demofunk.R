@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Feb 22 2024 (13:33) 
+## Last-Updated: Feb 24 2024 (17:29) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 107
+##     Update #: 110
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -148,6 +148,11 @@ hent_data <- function(register,...,language = "da"){
             if (mean(!is.na(num_alder))>0.5) d <- mutate(d,alder = num_alder)
             else d = mutate(d,alder = gsub(" year[s]?| years and over| år| år og derover","",d$ALDER))
         }
+        if ("MODERSALDER" %in% names(d)){
+            suppressWarnings(num_alder <- as.numeric(gsub(" year[s]?| years and over| år| år og derover","",d$MODERSALDER)))
+            if (mean(!is.na(num_alder))>0.5) d <- mutate(d,alder = num_alder)
+            else d = mutate(d,alder = gsub(" year[s]?| years and over| år| år og derover","",d$MODERSALDER))
+        }
         d
     }
 }
@@ -175,7 +180,14 @@ samle_alder <- function(data,variable,value,by){
     data
 }
 
-intervAlder <- function(data,alder="alder",breaks,vars,by = NULL,right=TRUE,label_one = NULL,label_last = NULL){
+intervAlder <- function(data,
+                        alder="alder",
+                        breaks,
+                        vars,
+                        by = NULL,
+                        right=TRUE,
+                        label_one = NULL,
+                        label_last = NULL){
     stopifnot(all(vars %in% names(data)))
     data = mutate(data,
                   aldersinterval=cut(alder,
@@ -226,12 +238,14 @@ intervAlder <- function(data,alder="alder",breaks,vars,by = NULL,right=TRUE,labe
         if (length(by)>0){
             out.v <- data %>% group_by_at(c("aldersinterval",by)) %>% summarise(tHiSvAr = sum(!!sym(v)), .groups = "drop")
         } else{
-            out.v <- data %>% group_by("aldersinterval") %>% summarise(tHiSvAr = sum(!!sym(v)))
+            out.v <- data %>% group_by(aldersinterval) %>% summarise(tHiSvAr = sum(!!sym(v)))
         }
         names(out.v)[names(out.v) == "tHiSvAr"] = v
-        if (!is.null(out))
-            out <- left_join(out,out.v,by = by)
-        else out <- out.v
+        if (!is.null(out)){
+            out <- left_join(out,out.v,by = c(by,"aldersinterval"))
+        } else {
+            out <- out.v
+        }
     }
     ungroup(out)
 }
