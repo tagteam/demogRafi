@@ -1,0 +1,176 @@
+#+TITLE: Demografi: opgaver 4
+#+AUTHOR: Folkesundhedsvidenskab 2. semester
+#+DATE:
+#+LaTeX_HEADER:\usepackage{listings}
+#+LaTeX_HEADER:\usepackage{color}
+#+LaTeX_HEADER:\usepackage[usenames,dvipsnames]{xcolor}
+#+LaTeX_HEADER:\usepackage[utf8]{inputenc}
+#+LaTeX_HEADER:\usepackage{graphicx}
+#+LaTeX_HEADER:\usepackage{hyperref}
+#+LaTeX_HEADER:\usepackage{amssymb}
+#+LaTeX_HEADER:\usepackage{latexsym}
+#+LaTeX_HEADER:\renewcommand\theequation{K1.\arabic{equation}}
+#+LaTeX_HEADER: \renewcommand{\figurename}{Figur}
+#+LaTeX_HEADER:\usepackage{tcolorbox}
+#+LaTeX_HEADER:\pagestyle{fancy}
+#+LaTeX_HEADER:\definecolor{lightGray}{gray}{0.98}
+#+LaTeX_HEADER:\definecolor{medioGray}{gray}{0.83}
+#+LATEX_HEADER:\definecolor{mygray}{rgb}{.95, 0.95, 0.95}
+#+LATEX_HEADER:\newcommand{\mybox}[1]{\vspace{.5em}\begin{tcolorbox}[boxrule=0pt,colback=mygray] #1 \end{tcolorbox}}
+#+setupfile:~/emacs-genome/snps/org-templates/setup-demografi.org
+#+superman-export-target: opgave
+#+OPTIONS: :rmd_yaml:nil
+#+LaTeX_CLASS: danish-article
+#+begin_export html
+---
+title: 'Demografi: opgaver 4'
+output: word_document
+---
+```{r setup}
+knitr::opts_knit$set(root.dir = "..")
+source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
+```
+#+end_export
+
+* Opgave 1
+
+Til denne opgave bruger vi data fra den International Database. Find
+tal her
+
+\bigskip
+https://www.census.gov/data-tools/demo/idb/
+\bigskip
+
+\noindent Under fane =Tables= i menuen til venstre vælger du Danmark, USA,
+Indonesia og Nigeria (=Filter by Country/Area=), året 2022 (=Filter by
+Year=), og under =Custom Report Columns= vælger du alle andre kolonner
+fra og beholder kun
+- =Deaths, both sexes=
+- =Population=
+
+Tast data ind i R (se R-markdown dokument) og beregn de summariske
+mortalitetsrater for alle 4 lande. Angiv hvilken formel fra Kompendiet
+du har brugt. Tjek om du har tastet og regnet rigtigt ved at
+sammenligne med kolonne =Crude Death rate= som du nu tilføjer ved at
+bruge =Custom Report Columns=. Rapporter resultaterne som antal døde
+per 1000 personår. Hvad tænker du kunne være vigtige faktorer, som kan
+forklare forskellene i de summariske mortalitetsrater mellem de 4
+lande?
+
+** Instruks :rmd:ignore:
+
+#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
+#+BEGIN_SRC R  :results output raw drawer  :exports  (exercise-with-code)  :session *R* :cache yes    :eval (never-plain-export)
+dat <- tibble(land = c("Danmark", "USA", "Indonesia", "Nigeria"),
+              Population = c(0,0,0,0),
+              Deaths = c(0,0,0,0))
+#+END_SRC
+
+** Løsningen :solution:ignore:
+
+#+BEGIN_SRC R  :results output raw drawer  :exports  (exercise-with-solutions)  :session *R* :cache yes   :eval (never-plain-export)
+dat <- tibble(land = c("Danmark", "USA", "Indonesia", "Nigeria"),
+              Population = c(5920767,277329163,225082083,333287557),
+              Deaths = c(56373,1873021,1959083,3128620))
+dat <- mutate(dat,M = 1000*Deaths/Population)
+dat
+#+END_SRC
+
+I 2022 var den summariske mortalitetsrate 9,5 døde per 1000 personår i
+Danmark, 6,8 døde per 1000 personår i USA, 8,7 døde per 1000 personår
+i Indonesia og 9,4 døde per 1000 personår i Nigeria. Vigtige faktorer,
+som kan forklare forskellene, er forskel i aldersfordeling,
+sundhedsystemerne og livsstil.
+
+* Opgave 2
+
+Find folketal og antal døde i Danmark i 2022 i statistikbanken totalt
+(Alder i alt) og beregn den summariske mortalitetsrate. Sammenlign
+data og resultatet med tal, som du har fundet i den International
+Database (Opgave 1). Bagefter find folketal og antal døde for alle
+aldre i statistikbanken og inddel dem i 3 aldersintervaller: 0-14,
+15-64, 65+. Beregn de aldersspecifikke mortalitetsrater.
+
+** Instruks :rmd:ignore:
+
+Alder i alt:
+
+#+BEGIN_SRC R  :results output raw drawer  :exports  (exercise-with-code)  :session *R* :cache yes    :eval (never-plain-export)
+# Alder i alt
+R <- hent_data("folk1a",alder = "Alder i alt",tid = "2022K3")
+D <- hent_data("dod",alder = "Alder i alt",tid = 2022)
+dat <- tibble(R = R$INDHOLD,Dod = D$INDHOLD)
+#
+# Skriv her dine R-koder som beregner den summariske mortalitetsrate per 1000 personår 
+# 
+#+END_SRC
+
+#+BEGIN_SRC R  :results output raw drawer  :exports  (exercise-with-solutions)  :session *R* :cache yes    :eval (never-plain-export)
+# Alder i alt
+F <- hent_data("folk1a",alder = "Alder i alt",tid = "2022K3")
+D <- hent_data("dod",alder = "Alder i alt",tid = 2022)
+dat <- tibble(R = R$INDHOLD,Dod = D$INDHOLD)
+dat <- mutate(dat, M = 1000*Dod/R)
+dat
+#+END_SRC
+
+Aldersspecifikke mortalitetsrater:
+
+#+BEGIN_SRC R  :results output raw drawer  :exports  (exercise-with-code)  :session *R* :cache yes    :eval (never-plain-export)
+# Aldersintervaller
+x <- hent_mortalitetsrate_data(breaks = c(-Inf, 14, 65, Inf),
+                               køn = "i alt",
+                               tid = "2022",
+                               label_one = "0-14",
+                               label_last = "65+")
+# Aldersfordeling af risikotid
+#
+# Dine R-koder her
+# 
+# Aldersspecifikke mortalitetsrater
+#
+# Dine R-koder her
+# 
+#+END_SRC
+
+#+BEGIN_SRC R  :results output raw drawer  :exports  (exercise-with-solutions)  :session *R* :cache yes    :eval (never-plain-export)
+# Aldersintervaller
+x <- hent_mortalitetsrate_data(breaks = c(-Inf, 14, 65, Inf),
+                               køn = "i alt",
+                               tid = "2022",
+                               label_one = "0-14",
+                               label_last = "65+")
+# Aldersfordeling af risikotid
+x <- mutate(x, V = R/sum(R))
+# Aldersspecifikke mortalitetsrater
+x <- mutate(x, M = 1000*Dod/R)
+x
+#+END_SRC
+
+* Opgave 3
+
+Fortsæt med selektion af år 2022 og lande fra Opgave 1 her:
+
+\bigskip
+https://www.census.gov/data-tools/demo/idb/.
+\bigskip
+
+\noindent Find aldersfordeling af risikotid for Danmark, USA,
+Indonesia og Nigeria i 2022 i aldersintervallerne =0-14=, =15-65=,
+=65+=. I topmenuen vælger du =Population by Age= og i menuen til
+venstre vælger du =Age Tables= under =Show= og =Broad Age Groups=
+under =Age Groups=. Internetsiden skal se sådan her ud:
+
+[[./Screenshot_2024-02-28_InternationalDatabase.jpg]]
+
+Beregn det forventede antal dødsfald i USA,
+Indonesia og Nigeria hvis mortalitetsraterne følger de danske
+mortalitetsrater (Opgave 2). Beregn også ratio mellem antal dødsfald
+(=Deaths, both sexes=) fra Opgave 1 og det forventede antal dødsfald
+som du nu har beregnet. Hvilken demografiske betegnelse har denne
+ratio? Hvordan hjælper denne ratio med forklaring af forskellene
+mellem de 4 lande?
+
+
+
+
