@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Feb 24 2024 (17:29) 
+## Last-Updated: Feb 28 2024 (17:08) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 110
+##     Update #: 114
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -293,11 +293,19 @@ hent_mortalitetsrate_data <- function(breaks,
     by = c("KØN","OMRÅDE","TID")
     af <- intervAlder(af,breaks=breaks, by=by,vars="R")
     # Antal døde i aldersintervaller
-    dd <- hent_data("FOD207",
-                    "alder"="all_no_total",
-                    tid=tid,
-                    køn=køn,
-                    Område = område)
+    if (tolower(køn) == "i alt"){
+        dd <- hent_data("FOD207",
+                        "alder"="all_no_total",
+                        tid=tid,
+                        Område = område)
+        dd = mutate(dd,KØN = "I alt")
+    } else{
+        dd <- hent_data("FOD207",
+                        "alder"="all_no_total",
+                        tid=tid,
+                        køn=køn,
+                        Område = område)
+    }
     dd <- rename(dd,Dod = INDHOLD)
     dd <- intervAlder(dd,
                       breaks=breaks,
@@ -322,6 +330,11 @@ format_dato <- function(data,variable = "TID"){
     data
 }
 
+hent_IDB_screenshot_data <- function(){
+    af <- read_csv("Data/IDB_02-28-2024.csv")
+    af <- filter(af,GROUP != "TOTAL")
+    af
+}
 
 ######################################################################
 ### demografi_funktioner.R ends here
