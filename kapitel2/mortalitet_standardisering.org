@@ -21,7 +21,6 @@ befolkningsgrupper. Disse informationer er væsentlige for det
 politiske arbejde, som former sundhedspolitikker og påvirker
 ressourceallokering i sundhedsvæsenet.
 
-
 ** Den demografiske transition
 
 Den demografiske transition beskriver et historisk skift i
@@ -29,24 +28,23 @@ befolkningsmønstre fra et traditionelt samfund med høj fertilitet og
 høj dødelighed til et samfund præget af lav fertilitet og lav
 dødelighed. Den faldende tendens i dødelighed er det element af
 transitionen, der kommer først, hvorefter et fald i fertiliteten
-følger (Kapitel 4). Dette skift er ofte drevet af økonomisk vækst,
-forbedret sundhed og sociale forandringer, som påvirker beslutninger
-om familiedannelse.  Som konsekvens af den demografiske transition
-ændres befolkningssammensætningen.
-
+følger (Kapitel 4). Den demografiske transition er ofte drevet af
+økonomisk vækst, forbedret sundhed og sociale forandringer, som
+påvirker beslutninger om familiedannelse. Som konsekvens af den
+demografiske transition ændres befolkningssammensætningen.
 
 ** Mål for mortalitet
 
 Demografien anvender forskellige mål til at kvantificere og opgøre
 mortalitet. En summarisk mortalitetsrate angiver antallet af dødsfald
 per personår i en given periode. Beregningen af summariske
-mortalitetsrater bliver forklaret i Kapitel 1. Den summariske
+mortalitetsrater blev forklaret i Kapitel 1. Den summariske
 mortalitetsrate er for eksempel nyttig, når formålet er at beskrive
 dødeligheden i en befolkning i en given periode.  Summariske
 mortalitetsrater kan udregnes per år i en given periode og således
-informere om ændringer i dødeligheden over tid. Udvikling af
-dødelighed i Danmark mellem 1974 og 2022 ses i Figur
-ref:fig:k2-sum-mort.
+informere om ændringer i dødeligheden over tid. Figur
+ref:fig:k2-sum-mort viser hvordan dødelighed i Danmark har udviklet
+sig mellem 1974 og 2022.
 
 #+ATTR_LATEX: :options otherkeywords={ggplot,hent_data}, deletekeywords={list,dt,data,scale,D,R}
 #+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-summa-mortalitetsrater.pdf :exports none :session *R* :cache yes
@@ -75,7 +73,7 @@ mortalitetsrate, men separat for hver aldersgruppe. Det bliver således
 muligt at undersøge forskelle i dødeligheden på tværs af
 aldersgrupper. Ligeledes kan alderspecifikke mortalitetsrater udregnes
 per år over en given periode og derved give information om ændringer i
-aldersspecifik dødelighed over tid. Altså oplever nogle aldersgrupper
+aldersspecifik dødelighed over tid. Altså: oplever nogle aldersgrupper
 et fald i mortaliteten, hvor andre oplever en stigning?  Det kan vi se
 i nedenstående Figur 2, som viser køns- og aldersspecifikke
 mortalitetsrater. Her ser vi, at dødeligheden er faldet i samtlige
@@ -122,7 +120,7 @@ hurtigere for mænd end for kvinder.
 
 For at sammenfatte dødelighed i et tal beregner man ofte middellevetid
 inden for demografi. Dette er et mål for, hvor længe en nyfødt kan
-forvente at leve givet at de aldersspecifikke mortalitetsrater, der er
+forvente at leve, givet at de aldersspecifikke mortalitetsrater, der er
 gældende det år, barnet er født i, holder sig konstant i al
 fremtid. Middellevetidens udregning bygger på konstruktionen af
 såkaldte overlevelsestavler, som vi beskrivelser i Kapitel 3. I dette
@@ -171,8 +169,8 @@ g
 Vi vil nu gå i dybden med begreberne /aldersspecifikke rater/ og
 /standardiserede rater/. Disse skal ikke forveksles med de summariske
 rater som Kapitel 1 har indført. I det følgende betegner vi derfor
-alle rater som Kapitel 1 har indført som /summariske
-rater/. /Summarisk/ betyder at raterne tæller hændelser og risikotid i
+alle rater, som Kapitel 1 har indført, som /summariske
+rater/. /Summarisk/ betyder, at raterne tæller hændelser og risikotid i
 hele befolkningen, altså uanset alder og uden standardisering. For at
 motivere standardiserede rater starter vi med at forklare
 begrænsningerne med de summariske rater når det kommer til
@@ -184,11 +182,11 @@ sammenligning af forskelige befolkninger.
 :END:
 
 Som udgangspunkt har det begrænset interesse at sammenligne forskelige
-befolkningers summariske rater. Det er især problematisk når
+befolkningers summariske rater. Det er især problematisk, når
 befolkningerne, som man ønsker at sammenligne, har forskelige
 aldersfordelinger. Afhængig af formålet med undersøgelsen kan det
 alligevel godt være, at man vil sammenligne summariske rater, men det
-er vigtigt, at man er klar over at resultatet afhænger af
+er vigtigt, at man er klar over, at resultatet afhænger af
 aldersfordelingerne. Problemet som opstår ved sammenligning af
 summariske rater er ret nemt at indse ved følgende eksempel. En
 matematisk forklaring (Kitagawas dekomposition) følger i afsnit
@@ -267,14 +265,14 @@ danske mænd (fordi de var ældre).
 * Aldersfordeling
 
 En aldersfordeling af folketal angiver hvor mange personer har en
-bestemt alder relativt til hvor mange personer der er i
+bestemt alder relativt til hvor mange personer, der er i
 befolkningen. Man kan også beregne aldersfordeling af andre størrelser
 end folketal. For eksempel skal vi bruge aldersfordeling af risikotid
 i beregningen af aldersstandardiserede mortalitetsrater.
 
 ** Alderspyramide
 
-For at sammenligne aldersfordelinger af kvinder og mænd, kan man tegne
+For at sammenligne aldersfordelinger af kvinder og mænd kan man tegne
 en alderspyramide. Figur ref:fig:alderspyramide viser alderspyramiden
 for den danske befolkning baseret på data fra 1. juli 2023. I toppen
 af pyramiden, kan man tydeligt se forskellen mellem mænd og kvinder:
@@ -318,17 +316,17 @@ g
 
 ** Folketal i aldersgrupper
 
-Aldersfordelingen i folketallet angiver hvor mange personer i en
-befolkning har en bestemt alder for alle aldre. Det kan den enten gøre
-i det absolutte antal eller som procent i forhold til antal personer i
-hele befolkningen. For at beskrive aldersfordelinger, vil man typisk
-vælge et passende antal aldersintervaller (passende til opgaven man
-sidder med) og fordele befolkningen på intervallerne. Intervallerne
-behøver ikke at være lige store. Da alle personers aldre ændrer sig
-hele tiden, skal man angive den dato, som folketal refererer til. For
-eksempel kan vi tale om aldersfordelingen af kvinder i Danmark
-den 8. marts 1910 og om aldersfordelingen af Fyns befolkning den 1.
-juli 1989.
+Aldersfordelingen af folketallet angiver hvor mange personer i en
+befolkning, der har en bestemt alder for alle aldre. Det kan den enten
+gøre i det absolutte antal eller som procent i forhold til antal
+personer i hele befolkningen. For at beskrive aldersfordelinger vil
+man typisk vælge et passende antal aldersintervaller (passende til
+opgaven man sidder med) og fordele befolkningen på
+intervallerne. Intervallerne behøver ikke at være lige store. Da alle
+personers aldre ændrer sig hele tiden, skal man angive den dato, som
+folketallet refererer til. For eksempel kan vi tale om aldersfordelingen
+af kvinder i Danmark den 8. marts 1910 og om aldersfordelingen af Fyns
+befolkning den 1.  juli 1989.
 
 *** Eksempel
 :PROPERTIES:
@@ -337,11 +335,11 @@ juli 1989.
 
 Vi finder aldersfordelingen af folketallet for hele den danske
 befolkning 1. januar 2023 og inddeler den i 4 intervaller: \([0,25],
-(25,50],(50,75], (75,125]\).  Bemærk at vores notation for intervaller
+(25,50],(50,75], (75,125]\).  Bemærk, at vores notation for intervaller
 betyder, at intervalgrænsen er ekskluderet hvis parentesen er rund og
-inkluderet hvis parentesen er firkantet. Det vil sige at personer, som
-er præcis 25 år gamle falder i intervallet \([0,25]\) og personer som
-er 50 falder ikke i intervallet \((50,75]\) men i intervallet
+inkluderet hvis parentesen er firkantet. Det vil sige, at personer, som
+er præcis 25 år gamle, falder i intervallet \([0,25]\), og personer som
+er 50 falder ikke i intervallet \((50,75]\), men i intervallet
 \((25,50]\). Vi beregner nu andelen, som de enkelte aldersgrupper
 udgør og angiver den i procent (per hundrede). De fire procenttal er
 netop aldersfordelingen af folketal den 1. januar 2023 med hensyn til
@@ -376,9 +374,9 @@ af
 
 Enhver definition af aldersintervaller opdeler en befolkning i
 aldersgrupper. For \(x=1,\dots,m\) aldersgrupper betegner vi med
-\(N_x(t)\) folketal i aldersgruppen \(x\) til kalendertid \(t\). Vi
-betegner fortsat med \(N(t)\) folketal i hele befolkningen til
-kalendertid \(t\) og udtrykker det som summen af folketal i
+\(N_x(t)\) folketallet i aldersgruppen \(x\) til kalendertid \(t\). Vi
+betegner fortsat med \(N(t)\) folketallet i hele befolkningen til
+kalendertid \(t\) og udtrykker det som summen af folketallene i
 aldersgrupperne:
 #+begin_export latex
 \begin{equation*}
@@ -387,7 +385,7 @@ N(t)=N_1(t)+\dots+N_m(t)=\sum_{x=1}^m N_x(t).
 #+end_export
 
 I eksemplet fra afsnit ref:eksempel_aldersgrupper er der \(m=4\)
-aldersgrupper og når vi indsætter tal i formlen finder vi folketal som
+aldersgrupper og når vi indsætter tal i formlen finder vi folketallet som
 sum af de aldersspecifikke folketal:
 #+begin_export latex
 \begin{equation*}
@@ -396,7 +394,7 @@ N(\texttt{1 jan 2023})= 1742979 + 1882860 + 1778084 + 540222 = 5944145.
 #+end_export
 
 Vi beregner andelen af befolkningen i aldersgruppe \(x\) ved at
-dividere folketal i aldersgruppen med folketal i hele befolkningen til
+dividere folketal i aldersgruppen med folketallet i hele befolkningen til
 tid \(t\):
 
 #+begin_export latex
@@ -477,8 +475,8 @@ mennesker mellem 50 og 75 år er højest i landdistrikterne.
 For beregningen af aldersspecifikke mortalitetsrater har vi brug for
 aldersfordelingen af risikotiden i en bestemt kalenderperiode. Vi
 betegner med \(R_x[t_1,t_2]\) den samlede gennemlevede tid i perioden
-\([t_1,t_2]\) af alle personer i aldersgruppe \(x\). Vi bemærker at en
-person, som har levet i befolkningen i perioden \([t_1,t_2]\) kan
+\([t_1,t_2]\) af alle personer i aldersgruppe \(x\). Vi bemærker, at en
+person, som har levet i befolkningen i perioden \([t_1,t_2]\), kan
 bidrage med risikotid til et eller flere aldersintervaller. Det sker
 for personer som har fødselsdag mellem dato \(t_1\) og dato \(t_2\),
 hvis de den dag skifter fra aldersgruppe \(x\) til aldersgruppe
@@ -551,9 +549,9 @@ af
 Et Lexisdiagram visualiserer sammenhængen mellem kalendertid (vertikal)
 og alder (horisontal). Hver person er repræsenteret af sin
 livslinje (Figur ref:fig:k2-lexis-liv). I en /lukket befolkning/ (hvor ind- og udvandring ikke
-forekommer) starter alle livslinjer på fødselsdagen, hvor personen er 0
-år gamle og ender i dødsdatoen - den alder personen har livet til. I en
-åben befolkning, starter livslinjer for immigranter den dag de
+forekommer) starter alle livslinjer ved fødslen, hvor personen er 0
+år gammel og ender i dødsdatoen - den alder personen har levet til. I en
+åben befolkningen starter livslinjer for immigranter den dag, de
 immigrerer og slutter for emigranter den dag, de emigrerer.
 
 #+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-lexis-liv.pdf :exports none :session *R* :cache yes :width 8 :height 5
@@ -581,16 +579,15 @@ l+ggtitle("Lexis diagram: livslinjer")
 [[file:./k2-lexis-liv.pdf]]
 
 Figur ref:fig:k2-lexis-liv viser 5 personers livslinjer fra en åben
-befolkning. Den mørkeblå linje repræsenterer en person, som bliver født
-i foråret 2015 og forbliver i befolkningen indtil foråret 2020 hvor
-Lexisdiagrammet slutter. Lexisdiagrammet kan også bruges til at
+befolkning. Den mørkeblå linje repræsenterer en person, som bliver
+født i foråret 2015 og forbliver i befolkningen indtil foråret 2020
+hvor Lexisdiagrammet slutter. Lexisdiagrammet kan også bruges til at
 forklare forskellen mellem kohorteprincippet (man følger en
-fødselskohorte i en relativt lang periode) og kalenderårsprincippet
-(man studerer en befolkning i en kort periode). Figur ref:fig:k2-lexis
-viser et Lexisdiagram med skematisk forklaring til hvordan man kan
-studere en befolkning i en kort kalenderperiode, følge en aldersgruppe
-igennem kalendertid, og en fødselskohorte igennem både kalendertid og
-alder.
+fødselskohorte) og kalenderårsprincippet (man studerer en befolkning i
+en kort periode). Figur ref:fig:k2-lexis viser et Lexisdiagram med
+skematisk forklaring til, hvordan man kan studere en befolkning i en
+kort kalenderperiode, følge en aldersgruppe igennem kalendertid, og en
+fødselskohorte igennem både kalendertid og alder.
 
 #+BEGIN_SRC R :results file graphics :file ./kapitel2/k2-lexis.pdf :exports none :session *R* :cache yes :width 8 :height 5
 # R-koder der genererer Lexis plot
@@ -621,7 +618,7 @@ Vi ser på en befolkning i en kalenderperiode \([t_1,t_2]\) og inddeler
 den i \(x=1,\dots,m\) aldersgrupper. Vi betegner med \(D_x[t_1,t_2]\)
 antal dødsfald i perioden hvor personens alder ved dødsdatoen falder i
 aldersgruppe \(x\).  For at lette notationsbyrden dropper vi
-kalenderperioden og forkorter \(D_x[t_1,t_2]\) til \(D_x\) og
+kalenderperioden og forkorter \(D_x[t_1,t_2]\) til \(D_x\), og
 ligeledes skriver vi \(R_x\) for den aldersspecifikke risikotid
 \(R_x[t_1,t_2]\) i samme periode. De aldersspecifikke mortalitetsrater
 er defineret som kvotienten mellem antal dødsfald og risikotid:
@@ -668,7 +665,7 @@ group_dd
 
 For at beregne de aldersspecifikke mortalitetsrater skal vi samle
 personår (afnit ref:k2_personaar_4_aldersgrupper) og antal døde i
-aldersgrupper i et =tibble= . Det gør vi med funktionen
+aldersgrupper i et =tibble=. Det gør vi med funktionen
 \texttt{left}\under{}\texttt{join}:
 
 #+ATTR_LATEX: :options otherkeywords={mutate,left_join}, deletekeywords={dt,list,group,by,de}
@@ -688,7 +685,6 @@ x
 : 2 (25,50]        1867838.   31.6        1621  0.868
 : 3 (50,75]        1773568    30.0       18194 10.3  
 : 4 (75,125]        513944.    8.71      39159 76.2
-
 
 ** Sammenligning af aldersspecifikke mortalitetsrater
 
@@ -762,8 +758,8 @@ haft den anden aldersfordeling. På den måde kan man sammenligne
 dødelighed mellem to eller flere befolkninger uanset
 aldersfordeling. Her er det vigtigt, at man vælger den samme
 aldersfordeling for alle befolkninger, som skal sammenlignes, men det er
-typisk ikke så vigtigt hvilken aldersfordeling man vælger. For
-eksempel kan vi spørge hvor meget højere, mortalitetsraten er blandt
+typisk ikke så vigtigt, hvilken aldersfordeling man vælger. For
+eksempel kan vi spørge, hvor meget højere mortalitetsraten er blandt
 danske mænd sammenlignet med danske kvinder, hvis aldersfordelingen
 havde været den samme for mænd og kvinder. Vi mangler kun at
 specificere den aldersfordeling, som de standardiserede rater skal
@@ -786,23 +782,23 @@ indirekte standardisering (afsnit ref:k2-direkte-indirekte).
 
 For en given inddeling af en befolkning i aldersgrupper i en periode
 \([t_1,t_2]\) er dens summariske mortalitetsrate et vægtet gennemsnit
-af de aldersspecifikke mortalitetsrater. For at indse dette, skal vi
-bruge aldersfordelingen af risikotid som vi har indført i afsnit
+af de aldersspecifikke mortalitetsrater. For at indse dette skal vi
+bruge aldersfordelingen af risikotid, som vi har indført i afsnit
 ref:risikotid_aldersgrupper. For aldersgruppe \(x\) er andelen af
 risikotid givet som 
 #+begin_export latex
 \begin{align}\label{eq:risikotid_vaegte}
-V_x &= \frac{R_x}{R}
+V_x &= \frac{R_x}{R},
 \intertext{hvor \(R\) betegner befolkningens totale risikotid i perioden, lige som i formel \eqref{eq:sum_risikotid}. Vi omskriver formlen for den aldersspecifikke
-mortalitetsrate \eqref{eq:aldersspecifikke_mortalitetsrate} sådan at antal dødsfald i aldersgruppen står isoleret:}
+mortalitetsrate \eqref{eq:aldersspecifikke_mortalitetsrate} sådan, at antal dødsfald i aldersgruppen står isoleret:}
  D_x &= M_x R_x.\label{eq:D_lige_MR}
 \end{align}
 #+end_export
 
 Vi betegner fortsat \(M\) som befolkningens summariske mortalitetsrate
 og \(D\) som antal dødsfald i hele befolkningen i perioden. Det
-følgende regnestykke viser at den summariske mortalitetsrate er et
-vægtet gennemsnit af de aldersspecifikke mortalitetsrater hvor vægtene
+følgende regnestykke viser, at den summariske mortalitetsrate er et
+vægtet gennemsnit af de aldersspecifikke mortalitetsrater, hvor vægtene
 er lig med aldersfordelingen af risikotid:
 #+begin_export latex
 \begin{equation}\label{vgennemsnit}\begin{split}
@@ -815,7 +811,7 @@ M & = \frac{D}{R} \\& = \frac{D_1+D_2+...+D_m}{R} \\
 \end{equation}
 #+end_export
 
-I afsnit ref:samesumma har vi diskuteret at forskellen mellem kvinders
+I afsnit ref:samesumma har vi diskuteret, at forskellen mellem kvinders
 og mænds summariske mortalitetsrater skyldes ikke kun kønsforskellen
 af mortalitetsrater men også kønsforskellen af
 aldersfordelinger. Kitagawas dekomposition viser dette klart og mere
@@ -847,8 +843,8 @@ beskriver forskellen mellem to summariske mortalitetsrater:
 Her beskriver komponent 1 forskellen mellem de aldersspecifikke
 mortalitetsrater vægtet med de gennemsnitlige andele af risikotid og
 komponent 2 forskellen mellem aldersfordelingerne vægtet med de
-gennemsnitlige mortalitetsrater. Det kræver lidt algebra hvis man vil
-indse hvorfor formel eqref:eq:kitagawa (Kitagawas dekomposition)
+gennemsnitlige mortalitetsrater. Det kræver lidt algebra, hvis man vil
+indse, hvorfor formel eqref:eq:kitagawa (Kitagawas dekomposition)
 holder: For hvert aldersinterval \(x\) gælder:
 
 #+begin_export latex
@@ -879,8 +875,8 @@ aldersfordeling. Direkte standardisering er en metode, som
 sammenfatter forskellen af mortalitetsrater med et tal der benævnes
 /standardiserede rate ratio/. For at definere direkte standardisering
 skal vi bruge to studiebefolkninger (\(A\) mod \(B)\) og en
-standardbefolkning (\(S\)). Ideen er at se om studiebefolkning \(A\)
-har højere mortalitet end studiebefolkning B hvis (hypotetisk) begge
+standardbefolkning (\(S\)). Ideen er at se, om studiebefolkning \(A\)
+har højere mortalitet end studiebefolkning \(B\), hvis (hypotetisk) begge
 havde sammen aldersfordeling som standardbefolkning \(S\). Vi
 fortolker den direkte standardiserede mortalitetsrate
 #+begin_export latex
@@ -890,10 +886,10 @@ fortolker den direkte standardiserede mortalitetsrate
 #+end_export
 som den mortalitetsrate vi ville have set i studiebefolkning \(A\),
 hvis aldersfordeling af risikotid havde været den samme som i
-standardbefolkning \(S\).  Ideen er at vi nu kan direkte sammenligne
+standardbefolkning \(S\). Ideen er, at vi nu kan direkte sammenligne
 de standardiserede mortalitetsrater fra studiebefolkninger \(A\) og
-\(B\). Den hyppigste form der afrapporterer denne sammenligning mellem
-to standardiserede mortalitetsrater er det /standardiserede rate
+\(B\). Den hyppigste form, der afrapporterer denne sammenligning mellem
+to standardiserede mortalitetsrater, er den /standardiserede rate
 ratio/ (\(\operatorname{SRR}\)):
 #+begin_export latex
 \begin{equation}\label{eq:SRR}
@@ -904,11 +900,11 @@ ratio/ (\(\operatorname{SRR}\)):
 *** Eksempel
 
 For at illustrere idéen med at bruge den direkte standardisering fortsætter vi med 
-eksemplet fra afsnit ref:k2-summariske-rater-2011, som viste at mænd
+eksemplet fra afsnit ref:k2-summariske-rater-2011, som viste, at mænd
 havde en lavere summarisk mortalitetsrate end kvinder i 2011. Vi
-anvender direkte standardisering hvor vi bruger alle danske kvinder i
+anvender direkte standardisering, hvor vi bruger alle danske kvinder i
 2011 som studiebefolkning \(A\), alle danske mænd i 2011 som
-studiebefolkning \(B\), og vælger alle dansker i 2011 (uanset køn) som
+studiebefolkning \(B\), og vælger alle danskere i 2011 (uanset køn) som
 standardbefolkning \(S\).
 
 #+ATTR_LATEX: :options otherkeywords={hent_data,rename,intervAlder,left_join,mutate,select,tibble,filter}, deletekeywords={c,D,R,by,sum}
@@ -957,7 +953,7 @@ Resultatet fortolkes på følgende måde: Den standardiserede
 mortalitetsrate i Danmark i 2011 var 8,4 døde per 1000 personår for
 kvinder og 10,7 døde per 1000 personår for mænd, hvis
 aldersfordelingen havde været den samme som den var blandt alle
-dansker i 2011. Dette bekræfter, at grunden til at den summariske
+danskere i 2011. Dette bekræfter, at grunden til, at den summariske
 mortalitetsrate var højere for mænd end for kvinder i 2011, var
 forskelle i aldersfordeling.
 
@@ -970,9 +966,9 @@ Formålet med den såkaldte /indirekte/ standardisering er at sammenligne
 mortalitetsrater i studiebefolkning \(A\) med mortalitetsrater i en
 standardbefolkning \(S\). Konkret sammenligner man det totale antal
 dødsfald i studiebefolkning \(A\) med det forventede antal døde i
-studiebefolkning \(A\) hvis (hypotetisk) de aldersspecifikke
+studiebefolkning \(A\), hvis (hypotetisk) de aldersspecifikke
 mortalitetsrater havde de samme som i standardbefolkning \(S\). Er
-de forventede antal dødsfald højere kan man konkludere, at den
+det forventede antal dødsfald højere, kan man konkludere, at den
 samlede dødelighed (det vil sige de aldersspecifikke mortalitetsrater
 samlet set) har været højere i standardbefolkningen end i
 studiebefolkning \(A\).
@@ -999,7 +995,7 @@ ved
 #+end_export
 
 En sammenligning af mortalitetsrater mellem studiebefolkning \(A\) og
-standardbefolkning \(S\) er det såkaldte /standardiserede mortalitetsrateratio/:
+standardbefolkning \(S\) er den såkaldte /standardiserede mortalitetsrateratio/:
 #+begin_export latex
 \begin{equation}\label{eq:SMR}
 \begin{split}
@@ -1028,9 +1024,9 @@ den samme standardbefolkning bruges i alle beregninger. Dødeligheden i
 de forskellige befolkninger kan så sammenlignes ved at sammenligne de
 standardiserede rater. Direkte standardisering kræver kendskab til
 aldersfordelingen af risikotiden i standardbefolkningen. Kender man ikke
-aldersfordelingen fra standardbefolkningen kan man ikke anvende direkte
-standardisering og dermed ikke beregne SRR. Hvis man tilgengæld kender
-de aldersspecifikke mortalitetsrater i standardbefolkningen kan man
+aldersfordelingen fra standardbefolkningen, kan man ikke anvende direkte
+standardisering og dermed ikke beregne SRR. Hvis man til gengæld kender
+de aldersspecifikke mortalitetsrater i standardbefolkningen, kan man
 beregne SMR. Man kan dog umiddelbart ikke direkte sammenligne SMR for
 to studiebefolkninger \(A\) og \(B\), fordi \(\operatorname{SMR}(A,S)\)
 afhænger aldersfordeling af studiebefolkning \(A\) og
@@ -1048,8 +1044,8 @@ standardbefolkning. Hvis vi vil sammenligne dødeligheden i forskellige
 erhvervsgrupper, vil det være naturligt at bruge alle erhvervsaktive
 som standardbefolkning. Det kan også være rimeligt at vælge en af
 studiebefolkningerne eller de to studiebefolkninger sat sammen som
-standardbefolkning. I det specielle tilfælde hvor man bruger en af to
-studiebefolkninger som standardbefolkning vil \(\operatorname{SRR}\)
+standardbefolkning. I det specielle tilfælde, hvor man bruger en af to
+studiebefolkninger som standardbefolkning, vil \(\operatorname{SRR}\)
 fra direkte standardisering og \(\operatorname{SMR}\) fra en indirekte
 standardisering give det samme resultat:
 #+begin_export latex
