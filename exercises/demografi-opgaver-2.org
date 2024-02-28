@@ -1,0 +1,213 @@
+#+TITLE: Demografi: opgaver 2
+#+AUTHOR: Folkesundhedsvidenskab 2. semester
+#+DATE:
+#+LaTeX_HEADER:\usepackage{listings}
+#+LaTeX_HEADER:\usepackage{color}
+#+LaTeX_HEADER:\usepackage[usenames,dvipsnames]{xcolor}
+#+LaTeX_HEADER:\usepackage[utf8]{inputenc}
+#+LaTeX_HEADER:\usepackage{graphicx}
+#+LaTeX_HEADER:\usepackage{hyperref}
+#+LaTeX_HEADER:\usepackage{amssymb}
+#+LaTeX_HEADER:\usepackage{latexsym}
+#+LaTeX_HEADER:\renewcommand\theequation{K1.\arabic{equation}}
+#+LaTeX_HEADER: \renewcommand{\figurename}{Figur}
+#+LaTeX_HEADER:\usepackage{tcolorbox}
+#+LaTeX_HEADER:\definecolor{lightGray}{gray}{0.98}
+#+LaTeX_HEADER:\definecolor{medioGray}{gray}{0.83}
+#+LATEX_HEADER:\definecolor{mygray}{rgb}{.95, 0.95, 0.95}
+#+LATEX_HEADER:\newcommand{\mybox}[1]{\vspace{.5em}\begin{tcolorbox}[boxrule=0pt,colback=mygray] #1 \end{tcolorbox}}
+#+setupfile:~/emacs-genome/snps/org-templates/setup-demografi.org
+#+superman-export-target: opgave
+#+OPTIONS: :rmd_yaml:nil
+#+LaTeX_CLASS: danish-article
+#+begin_export html
+---
+title: 'Demografi: opgaver 2'
+output: word_document
+---
+```{r setup}
+knitr::opts_knit$set(root.dir = "..")
+source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
+```
+#+end_export
+
+# https://www.dst.dk/da/Statistik/emner/borgere
+
+* Opgave 1
+
+Svar på følgende spørgsmål:
+
+- Hvilke enheder har hhv., folketal, middelfolketal, risikotid og mortalitetsrate?
+- Angiv en formel som beregner middelfolketal i en situation, hvor man kender risikotid
+  for en periode der starter i tidspunkt =t_1= og slutter i
+  tidspunkt =t_2=.
+- I perioden fra 1 januar 2008 til 31 december 2009, bidrog Bornholms
+  befolkning samlet med 85380 personår (risikotid). Hvor stor var
+  middelfolketallet i perioden?
+- I 2008 og 2009 døde hhv. 544 og 543 personer på Bornholm. Brug disse tal og tal fra det forrige spørgsmål 
+  til at beregne mortalitetsraten for Bornholm i perioden fra 1 januar 2008 til 31 december 2009.
+- Rapporter resultatet (i en sætning) hvor du angiver mortalitetsraten som antal døde per 1000 personår.
+
+** Løsning :solution:ignore:
+
+- folketal :: /antal personer/:antal til et bestemt tidspunkt
+- middelfolketal :: /antal personer/: det gennemsnittetlige antal personer i en periode
+- risikotid :: antal personår i en periode
+- rate :: antal døde i perioden/risikotid
+- $\tilde N[t_1,t_2]= R[t_1,t_2]/(t_2-t_1)$
+- Middelfolketallet var 42690 på Bornholm i perioden fra 1 januar 2008
+  til 31 december 2009.
+#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
+#+BEGIN_SRC R  :results output raw  :exports code  :session *R* :cache yes  
+N_bornholm <- hent_data(register = "folk1a",tid = c("2008K1","2009K1"),område ="bornholm")
+risikotid <- 2*mean(N_bornholm$INDHOLD)
+middelfolketal <- risikotid/2
+dod <- sum(hent_data(register = "fod207",tid = c("2008","2009"),område ="bornholm")$INDHOLD)
+M <-  1000*D_bornholm/risikotid
+#+END_SRC
+
+I perioden fra 1 jan 2008 til 31 december 2009 var mortalitetsraten
+12,7 per 1000 personår.
+
+* Opgave 2
+
+Figuren nedenfor viser en hypotetisk befolkningsgruppe bestående af
+kun 5 personer. Baseret på de tal du aflæser fra grafen svar på
+følgende spørgsmål:
+
+- Hvor lang er perioden?
+- Hvor stort er folketallet ved starten og slutningen af perioden?
+- Beregn middelfolketallet eksakt og med metode 1 og metode 2 for hele perioden. 
+- Beregn risikotid eksakt for hele perioden. Angiv enheden.
+- Beregn mortalitetsrate for hele perioden. Angiv enheden.
+
+** not shown                                                  :opgave:ignore:
+
+#+BEGIN_SRC R :results file graphics :file ~/metropolis/Teaching/Demography/worg/opgaver/risikotid-figure-opgave-2-dag-2.pdf :exports none :session *R* :cache yes
+par(mar=c(6,6,4,4))
+dates <- seq(as.Date("2013-04-01"),as.Date("2013-04-01")+7*6,7)
+plot(0,0,xlim=range(dates),ylim=c(.5,5.5),axes=FALSE,type="n",ylab="",xlab="Kalender tid")
+for (i in 1:length(dates)) segments(x0=dates[i],x1=dates[i],y0=0,y1=5,col="gray55")
+axis(1,at=dates,labels=dates)
+axis(2,at=1:5,labels=paste("Person",1:5),las=2)
+segments(x0=dates[1],x1=dates[6],y0=1,y1=1,lwd=3)
+text(x=dates[6],y=1,"Udvandrer",cex=1.4,pos=3)
+segments(x0=dates[1],x1=dates[2],y0=2,y1=2,lwd=3)
+text(x=dates[2],y=2,"Død",cex=1.4,pos=3)
+segments(x0=dates[1],x1=dates[7],y0=3,y1=3,lwd=3)
+segments(x0=dates[3],x1=dates[7],y0=4,y1=4,lwd=3)
+text(x=dates[3],y=4,"Fødsel",cex=1.4,pos=3)
+segments(x0=dates[2],x1=dates[4],y0=5,y1=5,lwd=3)
+text(x=dates[2],y=5,"Indvandrer",cex=1.4,pos=3)
+text(x=dates[4],y=5,"Død",cex=1.4,pos=3)
+#+END_SRC
+
+#+RESULTS[(2024-02-12 13:47:41) c0bcc421ebb2e1767db8effc38083bc03b856f50]:
+[[file:~/metropolis/Teaching/Demography/worg/opgaver/risikotid-figure-opgave-2-dag-2.pdf]]
+
+#+name: fig:1
+#+ATTR_LATEX: :width 0.9\textwidth
+[[file:~/metropolis/Teaching/Demography/worg/opgaver/risikotid-figure-opgave-2-dag-2.pdf]]
+
+** not shown :rmd:ignore:
+
+For at se figuren i R-studio kan du køre følgende R-koder:
+
+#+BEGIN_SRC R  :results output :exports code :cache yes :eval (never-plain-export)
+par(mar=c(6,6,4,4))
+dates <- seq(as.Date("2013-04-01"),as.Date("2013-04-01")+7*6,7)
+plot(0,0,xlim=range(dates),ylim=c(.5,5.5),axes=FALSE,type="n",ylab="",xlab="Kalender tid")
+for (i in 1:length(dates)) segments(x0=dates[i],x1=dates[i],y0=0,y1=5,col="gray55")
+axis(1,at=dates,labels=dates)
+axis(2,at=1:5,labels=paste("Person",1:5),las=2)
+segments(x0=dates[1],x1=dates[6],y0=1,y1=1,lwd=3)
+text(x=dates[6],y=1,"Udvandrer",cex=1.4,pos=3)
+segments(x0=dates[1],x1=dates[2],y0=2,y1=2,lwd=3)
+text(x=dates[2],y=2,"Død",cex=1.4,pos=3)
+segments(x0=dates[1],x1=dates[7],y0=3,y1=3,lwd=3)
+segments(x0=dates[3],x1=dates[7],y0=4,y1=4,lwd=3)
+text(x=dates[3],y=4,"Fødsel",cex=1.4,pos=3)
+segments(x0=dates[2],x1=dates[4],y0=5,y1=5,lwd=3)
+text(x=dates[2],y=5,"Indvandrer",cex=1.4,pos=3)
+text(x=dates[4],y=5,"Død",cex=1.4,pos=3)
+#+END_SRC
+
+
+*** Løsning                                            :solution:ignore:
+
+ - 13 maj 2013 - 1 apr 2013  = 6 uger
+ - N(1 apr 2013)= 3 personer, N(13 maj 2013) = 2 personer
+ - Eksakt: \(\tilde N\)[1 apr 2013, 13 maj 2013] = 3 personer. Metode 1: 4 (eller 3). Metode 2: 2.5
+ - Risikotid: (2+4+6+1+5) = 18 uger
+ - Antal døde: D[1 apr 2013, 13 maj 2013] = 2
+ - Mortalitetsrate[1 apr 2013, 13 maj 2013] = 2/18 = 0,11 døde per personuge.
+
+* Opgave 3
+
+Sammenlign de 5 danske regioner med hensyn til mortalitetsrater i
+årene 2010 og 2020 ved at finde tal i statistikbanken.  Rapporter
+resultaterne som antal døde per 1000 personår. Diskuter forskelle
+mellem regionerne i 2020, og forskelle i regionerne mellem 2010
+og 2020.
+
+#+BEGIN_SRC R  :results output :exports code :cache yes :eval (never-plain-export)
+N <- hent_data(register = "folk1a",
+               tid = c("2010K3","2020K3"),
+               område =c("Region Hovedstaden",
+                         "Region Midtjylland",
+                         "Region Nordjylland",
+                         "Region Sjælland",
+                         "Region Syddanmark"
+                         ))
+N <- mutate(N,TID = as.numeric(sub("K3","",TID)))
+N <- rename(N,"N" = "INDHOLD")
+D = hent_data(register = "fod207",
+              tid = c("2010","2020"),
+              område =c("Region Hovedstaden",
+                        "Region Midtjylland",
+                        "Region Nordjylland",
+                        "Region Sjælland",
+                        "Region Syddanmark"))
+D <- rename(D,"D" = "INDHOLD")
+M <- left_join(D,N,by = c("OMRÅDE","TID"))
+M <- mutate(M,mortrate = 1000*D/N)
+M
+#+END_SRC
+
+#+RESULTS[(2024-02-26 06:57:52) ac3d873bfca1a3499f5f18224a12b0d7ac9b6474]:
+#+begin_example
+# A tibble: 10 × 5
+     TID OMRÅDE                 D       N mortrate
+   <dbl> <chr>              <dbl>   <dbl>    <dbl>
+ 1  2010 Region Hovedstaden 16329 1687071     9.68
+ 2  2010 Region Midtjylland 10995 1255876     8.75
+ 3  2010 Region Nordjylland  6063  579422    10.5 
+ 4  2010 Region Sjælland     8959  820609    10.9 
+ 5  2010 Region Syddanmark  12022 1200841    10.0 
+ 6  2020 Region Hovedstaden 15591 1847289     8.44
+ 7  2020 Region Midtjylland 11516 1327410     8.68
+ 8  2020 Region Nordjylland  5953  589837    10.1 
+ 9  2020 Region Sjælland     9286  837834    11.1 
+10  2020 Region Syddanmark  12299 1222967    10.1
+#+end_example
+
+** Besvarelse :solution:ignore:
+
+Besvarelse:
+
+I 2010 var mortalitetsraten 9,7 døde per 1000 personår i Region
+Hovedstaden, 8,8 døde per 1000 personår i Region Midtjylland, 10,5 per
+1000 personår i Region Nordjylland, 10,9 døde per 1000 personår i
+Region Sjælland og 10,0 døde per 1000 personår i Region Syddanmark. Ti
+år senere i 2020, var mortalitetsraten faldet i Region Hovedstaden til
+8,4 døde per 1000 personår, i Region Midtjylland til 8,7 døde per 1000
+personår og 10,1 døde per 1000 personår i Region Nordjylland, men
+steget til 11,1 døde per 1000 personår i Region Sjælland og til 10,1
+døde per 1000 personår i Region Syddanmark. At mortalitetsraten er
+betydelig mindre i Region Hovedstaden og Region Midtjylland end i de
+andre regioner skyldes aldersfordeling: Landes største byer København
+(Region Hovedstaden) og Århus (Region Midtjylland) tiltrækker unge
+mennesker. Ændringer af mortalitetsraten mellem 2010 og 2020 er
+formentlig relateret til en blanding af generel fald af mortalitet,
+stigende aldring af befolkning og urbanisering/afvandring fra
+landdistrikterne.

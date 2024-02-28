@@ -1,0 +1,192 @@
+#+TITLE: Demografi: opgaver 3
+#+AUTHOR: Folkesundhedsvidenskab 2. semester
+#+DATE:
+#+LaTeX_HEADER:\usepackage{listings}
+#+LaTeX_HEADER:\usepackage{color}
+#+LaTeX_HEADER:\usepackage[usenames,dvipsnames]{xcolor}
+#+LaTeX_HEADER:\usepackage[utf8]{inputenc}
+#+LaTeX_HEADER:\usepackage{graphicx}
+#+LaTeX_HEADER:\usepackage{hyperref}
+#+LaTeX_HEADER:\usepackage{amssymb}
+#+LaTeX_HEADER:\usepackage{latexsym}
+#+LaTeX_HEADER:\renewcommand\theequation{K1.\arabic{equation}}
+#+LaTeX_HEADER: \renewcommand{\figurename}{Figur}
+#+LaTeX_HEADER:\usepackage{tcolorbox}
+#+LaTeX_HEADER:\pagestyle{fancy}
+#+LaTeX_HEADER:\definecolor{lightGray}{gray}{0.98}
+#+LaTeX_HEADER:\definecolor{medioGray}{gray}{0.83}
+#+LATEX_HEADER:\definecolor{mygray}{rgb}{.95, 0.95, 0.95}
+#+LATEX_HEADER:\newcommand{\mybox}[1]{\vspace{.5em}\begin{tcolorbox}[boxrule=0pt,colback=mygray] #1 \end{tcolorbox}}
+#+setupfile:~/emacs-genome/snps/org-templates/setup-demografi.org
+#+superman-export-target: opgave
+#+OPTIONS: :rmd_yaml:nil
+#+LaTeX_CLASS: danish-article
+#+begin_export html
+---
+title: 'Demografi: opgaver 3'
+output: word_document
+---
+```{r setup}
+knitr::opts_knit$set(root.dir = "..")
+source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
+```
+#+end_export
+** bla :opgave:ignore:
+\thispagestyle{empty}
+
+* Opgave 1
+
+Diskuter den demografiske transition og dens faser ved at sammenligne
+aldersfordelinger (Dependency Ratio, Median Age) i Danmark, United
+States, Indonesia og Nigeria:
+
+\bigskip
+https://www.census.gov/data-tools/demo/idb/
+
+#+begin_export latex
+\mybox{
+\hfill Instruks\\[-3em]
+\begin{itemize}
+\item Vælg fanen \texttt{Population by Age} i topmenu
+\item Marker de 4 lande i menu på venstresiden under \texttt{Select by Country/Area} 
+\item Se på alderspyramider under fane \texttt{Population by Age} 
+\item Se på andel af unge og gamle mennesker i befolkningen (ældrekvote) under fanen
+\texttt{Trends}. Sæt \texttt{Measure} til \texttt{Old age dependency ratio} og
+begræns tidsrummet til perioden fra 1950 til 2024.
+\item Gentag for medianalderen. 
+\item Beskriv hvad du ser i forhold til faser af den demografiske
+transition.
+\end{itemize}
+  }
+#+end_export
+\vspace{-1.5em}
+
+
+* Opgave 2
+
+Se på tidsudvikling af køns- og aldersfordelingen af folketal i Region
+Hovedstaden og Region Sjælland ved at sammenligne tal fra 2010 med tal
+fra 2020. Hvordan har befolkningspyramiden ændret sig og hvilke
+årsager kunne det have? Sammenlign bagefter køns- og aldersfordelingen
+af folketal mellem Region Hovedstaden og Region Sjælland i 2020. Hvad
+er mulige årsager for forskelle mellem regionerne?
+
+** Instruks :rmd:ignore:
+
+Følgende R-koder findes i kompendiets Kapitel 2. De genererer
+alderspyramiden for hele Danmark i 2023. Din opgave er at tilpasse
+koderne sådan at de genererer alderspyramider for begge regioner i
+begge år i en graf. Det der skal tilpasses er:
+1. Ændre den første linje sådan at folketal bliver hentet for begge regioner og begge år:
+#+BEGIN_SRC R  :results output :exports code  :session *R* :cache yes   :eval (never-plain-export)
+folk <- hent_data("FOLK1a","alder"=0:125,"køn"=1:2,tid=c("2010K3","2020K3"),Område = c("Region Hovedstaden","Region Sjælland"))
+#+END_SRC
+2. Ændre den sidste linje sådan at alderspyramider bliver vist separat for
+   begge år og begge regioner:
+#+BEGIN_SRC R  :results output :exports code  :session *R* :cache yes  :eval (never-plain-export)
+g + facet_grid(OMRÅDE~TID)
+#+END_SRC
+3. Tilpasse figurens titel i =ggtitle= og kommentarerne i R-koderne
+
+#+BEGIN_SRC R  :results output :exports (exercise-with-code) :cache yes :eval (never-plain-export)
+# R-koder der genererer alderspyramiden for Danmark den 1. juli 2023
+folk <- hent_data("FOLK1a","alder"=0:125,"køn"=1:2,tid="2023K3")
+# Fjern aldere, der har folketal 0
+folk <- subset(folk,alder<106)
+# Mænd skal vises på venstresiden, derfor bliver INDHOLD negativt 
+folk_m <- subset(folk,KØN=="Mænd") %>% mutate(INDHOLD=-INDHOLD)
+# For kvinder på højre siden er INDHOLD  positivt
+folk_k <- subset(folk,KØN=="Kvinder")
+# Grafik
+g <- ggplot(folk, aes(x = alder, y = INDHOLD, fill = KØN)) +
+  geom_bar(data=folk_m, stat = "identity") +
+  geom_bar(data=folk_k, stat = "identity") +
+  coord_flip() + theme_economist() +
+  ylab("Folketal N(t)")+xlab("Alder (år)") +
+  theme(legend.title=element_blank())
+g <- g+ggtitle("Alderspyramide Danmark 1 juli 2023")
+g <- g+theme(axis.title.y=element_text(margin=margin(t=0,r=20,b=0,l=0)))
+g <- g+theme(axis.title.x=element_text(margin=margin(t=20,r=0,b=0,l=0)))
+g
+#+END_SRC
+
+** Løsningen :solution:ignore:
+
+#+BEGIN_SRC R  :results output :exports (exercise-with-solutions) :cache yes :eval (never-plain-export)
+# R-koder der genererer alderspyramiden for 2 regioner den 1. juli 2010 og 1. juli 2020
+folk <- hent_data("FOLK1a","alder"=0:125,"køn"=1:2,tid=c("2010K3","2020K3"),Område = c("Region Hovedstaden","Region Sjælland"))
+# Fjern aldere, der har folketal 0
+folk <- subset(folk,alder<106)
+# Mænd skal vises på venstresiden, derfor bliver INDHOLD negativt 
+folk_m <- subset(folk,KØN=="Mænd") %>% mutate(INDHOLD=-INDHOLD)
+# For kvinder på højresiden er INDHOLD positivt
+folk_k <- subset(folk,KØN=="Kvinder")
+# Grafik
+g <- ggplot(folk, aes(x = alder, y = INDHOLD, fill = KØN)) +
+  geom_bar(data=folk_m, stat = "identity") +
+  geom_bar(data=folk_k, stat = "identity") +
+  coord_flip() + theme_economist() +
+  ylab("Folketal N(t)")+xlab("Alder (år)") +
+  theme(legend.title=element_blank())
+g <- g+ggtitle("Alderspyramide Region Hovedstaden 1. juli 2020")
+g <- g+theme(axis.title.y=element_text(margin=margin(t=0,r=20,b=0,l=0)))
+g <- g+theme(axis.title.x=element_text(margin=margin(t=20,r=0,b=0,l=0)))
+g + facet_grid(OMRÅDE~TID)
+#+END_SRC
+
+* Opgave 3
+
+Beregn køns- og alderstandardiserede mortalitetsrater for Region
+Hovedstaden og Region Sjælland i henholdsvis 2010 og 2020 med hele den
+danske befolkning i 2020 som standardbefolkning. Brug direkte
+standardisering og 10 års aldersintervaller. Beregn og diskuter
+resultaterne med og uden alderstandardisering.
+
+** R-kode                                                        :rmd:ignore:
+
+#+BEGIN_SRC R  :results output :exports  code :cache yes :eval (never-plain-export)
+dat <- hent_mortalitetsrate_data(breaks = c(seq(0,99,10),125),
+                                 køn = c("Kvinder","Mænd"),
+                                 område = c("Region Hovedstaden","Region Sjælland","Hele landet"),
+                                 tid = c(2010,2020))
+# aldersspecifikke mortalitetsrate
+dat <- mutate(dat,M = 1000*Dod/R)
+# summariske mortalitetsrate
+sum_mrate <- dat %>% group_by(KØN,TID,OMRÅDE) %>% summarise(sum_mrate = 1000*sum(Dod)/sum(R),.groups = "keep")
+# aldersfordeling for standardbefolkning
+std <- hent_aldersfordeling(breaks = c(seq(0,99,10),125),
+                            køn = c("Kvinder","Mænd"),
+                            område = "Hele landet",
+                            tid = c(2020))
+# fjern risikotid R, OMRÅDE og TID
+std <- mutate(std,R = NULL,OMRÅDE = NULL,TID = NULL)
+# standardiserede mortalitetsrate
+dat <- left_join(dat,std,by = c("aldersinterval","KØN"))
+std_mrate <- dat %>% group_by(KØN,TID,OMRÅDE) %>% summarise(std_mrate = sum(M*V),.groups = "keep")
+# sæt de summariske og standardiserede rater sammen
+left_join(sum_mrate,std_mrate)
+#+END_SRC
+
+#+RESULTS[(2024-02-26 06:56:42) 294c8c79b0bec7c87755c2a164a89d0b8e8ec032]:
+#+begin_example
+Joining with `by = join_by(KØN, TID, OMRÅDE)`
+# A tibble: 12 × 5
+# Groups:   KØN, TID, OMRÅDE [12]
+   KØN       TID OMRÅDE             sum_mrate std_mrate
+   <chr>   <dbl> <chr>                  <dbl>     <dbl>
+ 1 Kvinder  2010 Hele landet             9.87     11.1 
+ 2 Kvinder  2010 Region Hovedstaden      9.87     11.4 
+ 3 Kvinder  2010 Region Sjælland        10.6      11.6 
+ 4 Kvinder  2020 Hele landet             9.10      9.10
+ 5 Kvinder  2020 Region Hovedstaden      8.32      9.25
+ 6 Kvinder  2020 Region Sjælland        10.5       9.59
+ 7 Mænd     2010 Hele landet             9.74     12.0 
+ 8 Mænd     2010 Region Hovedstaden      9.48     12.8 
+ 9 Mænd     2010 Region Sjælland        11.3      12.9 
+10 Mænd     2020 Hele landet             9.66      9.66
+11 Mænd     2020 Region Hovedstaden      8.56     10.0 
+12 Mænd     2020 Region Sjælland        11.7      10.5
+#+end_example
+
+** Besvarelse :solution:ignore:
+
