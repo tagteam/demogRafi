@@ -17,13 +17,14 @@ at forstå modellens umiddelbare anvendelighed.
 ** Middellevetid
 
 Hvor mange år kan en nyfødt i dag forvente at leve? Dette spørgsmål er
-ret umuligt at besvare fordi svaret umiddelbart afhænger hvad der sker
-i fremtiden. Alligevel er middellevetid et demografisk værktøj som
+umuligt at besvare korrekt fordi svaret umiddelbart afhænger hvad der
+sker i fremtiden. Alligevel er middellevetid, altså den forventede
+gennemsnitlige levetid af en nyfødt, et demografisk værktøj som
 anvendes hyppigt til belysning af befolkningens nuværende
 dødelighedsniveau. Middellevetid bruges også som
 sammenligningsgrundlag på tværs af befolkninger og tid. Tallet angiver
-det gennemsnitlige antal år, som en nyfødt kan forventes at leve under
-den forudsætning, at de nuværende mortalitetsrater for alle
+det gennemsnitlige antal år, som en nyfødt kan forventes at leve /under
+den forudsætning/, at de nuværende mortalitetsrater for alle
 grupperinger af køn og alderstrin holder sig på det samme niveau i al
 fremtid. Med middellevetiden har man et relativt simpelt begreb, som
 gør det muligt at sammenligne forskellige befolkningers dødelighed. I
@@ -56,7 +57,41 @@ kohorten er lukket, er død den eneste mulige afgang fra kohorten. Der
 tages udgangspunkt i en fiktiv tabelbefolkning bestående af
 \(\ell_0\) personer, som antages at være født på nøjagtig samme
 tidspunkt. Antallet af fiktive tabelpersoner \(\ell_0\) kaldes for
-`radix' og radix sættes typisk til $\ell_0=100.000$.
+`radix', og radix sættes typisk til $\ell_0=100.000$.
+
+** Eksempel
+
+#+ATTR_LATEX: :options otherkeywords={c,rep,print,seq}, deletekeywords={}
+#+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
+x <- hent_mortalitetsrate_data(tid = 2019,
+                               breaks = c(0,1,5,10,seq(20,90,10),Inf),
+                               right = FALSE,
+                               alder = "all_no_total")
+x <- mutate(x,M = Dod/R)
+x_kvinder <- filter(x,KØN == "Kvinder")
+x_kvinder <- mutate(x_kvinder,a = c(0.1,2,rep(5,10)),n = c(1,4,rep(10,10)))
+tavle_kvinder <- overlevelsestavle(x_kvinder,
+                                   mortalitet = "M",
+                                   alder = "aldersinterval")
+print(tavle_kvinder,digits = 2)
+#+END_SRC
+
+#+RESULTS[(2024-02-29 10:58:04) 55afd66f6ec4feaecf93a34048b7d70c476718e6]:
+#+begin_example
+    Alder      l     d    p       q      L       T    e
+ 1:     0 100000   251 1.00 0.00251  99774 8829735 88.3
+ 2:   1-4  99749    40 1.00 0.00040 398917 8729961 87.5
+ 3:   5-9  99709    79 1.00 0.00080 996695 8331044 83.6
+ 4: 10-19  99630    96 1.00 0.00096 995819 7334349 73.6
+ 5: 20-29  99534   189 1.00 0.00190 994393 6338530 63.7
+ 6: 30-39  99345   377 1.00 0.00380 991560 5344137 53.8
+ 7: 40-49  98967   889 0.99 0.00899 985228 4352577 44.0
+ 8: 50-59  98078  2820 0.97 0.02876 966680 3367349 34.3
+ 9: 60-69  95258  7748 0.92 0.08133 913840 2400669 25.2
+10: 70-79  87510 16271 0.81 0.18593 793745 1486829 17.0
+11: 80-89  71239 36282 0.49 0.50930 530981  693084  9.7
+12:   90+  34957 34957 0.00 1.00000 162103  162103  4.6
+#+end_example
 
 ** Dekrementfunktion
 

@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Feb 29 2024 (10:31) 
+## Last-Updated: Feb 29 2024 (12:17) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 123
+##     Update #: 126
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -314,7 +314,7 @@ hent_mortalitetsrate_data <- function(breaks,
     # join
     dat <- left_join(af,dd, by = c("aldersinterval",by))
     if (tolower(køn)[1] == "i alt") dat$KØN = NULL
-    if (tolower(område) == "hele landet") dat$OMRÅDE = NULL
+    if (tolower(område)[1] == "hele landet") dat$OMRÅDE = NULL
     dat
 }
 
@@ -343,6 +343,98 @@ hent_IDB_screenshot_data <- function(){
     af <- select(af,År,Land,aldersinterval,Risikotid,V)
     af
 }
+
+overlevelsestavle <- function(data,
+                              mortalitet = "M",
+                              alder,
+                              radix=100000,
+                              snak=FALSE){
+    if (!(mortalitet %in% names(data))){
+        stop("Du skal angive kolonnenavn for mortalitet")
+    }
+    else{
+        M = data[[mortalitet]]
+    }
+    if (!(alder %in% names(data))){
+        stop("Du skal angive kolonnenavn for alder")
+    }
+    else{
+        alder = data[[alder]]
+    }
+    xmax <- length(M)
+    if (!("a" %in% names(data))){
+        a <- rep(0.5,xmax)
+        a[1] <- 0.1
+    }else{
+        a = data[["a"]]
+    }
+    if  (!("n" %in% names(data)))
+        n <- rep(1,xmax)
+    else
+        n = data[["n"]]
+    a[xmax] <- 1/M[xmax]
+    q=n*M/(1+(n-a)*M)
+    q[xmax] <- 1
+    l0 <- radix
+    l <- d <- L <- numeric(xmax)
+    l[1] <- l0
+    for (x in 1:xmax){
+        if (x<xmax){
+            l[x+1] <- l[x]*(1-q[x])
+            d[x] <- l[x]-l[x+1]
+        }else{
+            d[x] <- l[x]
+        }
+        L[x] <- n[x]*l[x]-d[x]*(n[x]-a[x])
+    }
+    T <- rev(cumsum(rev(L)))
+    e <- T/l
+    dt <- data.table(Alder=alder,
+                     l=round(l),
+                     d=round(d),
+                     p=1-q,
+                     q,
+                     L=round(L),
+                     T,
+                     e)
+    dt
+}
+dtavle <- function(M,a,n,Alder,radix=100000,snak=FALSE){
+    xmax <- length(M)
+    if (missing(a)){
+        a <- rep(0.5,xmax)
+        a[1] <- 0.1
+    }
+    if (missing(n)) n <- rep(1,xmax)
+    a[xmax] <- 1/M[xmax]
+    q=n*M/(1+(n-a)*M)
+    q[xmax] <- 1
+    l0 <- radix
+    l <- d <- L <- numeric(xmax)
+    l[1] <- l0
+    for (x in 1:xmax){
+        if (x<xmax){
+            l[x+1] <- l[x]*(1-q[x])
+            d[x] <- l[x]-l[x+1]
+        }else{
+            d[x] <- l[x]
+        }
+        L[x] <- n[x]*l[x]-d[x]*(n[x]-a[x])
+    }
+    T <- rev(cumsum(rev(L)))
+    e <- T/l
+    if (missing(Alder)) Alder <- 0:(xmax-1)
+    dt <- data.table(Alder=Alder,
+                     l=round(l),
+                     d=round(d),
+                     p=1-q,
+                     q,
+                     L=round(L),
+                     T,
+                     e)
+    dt
+}
+
 
 ######################################################################
 ### demografi_funktioner.R ends here
