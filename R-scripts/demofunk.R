@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Feb 29 2024 (07:04) 
+## Last-Updated: Feb 29 2024 (10:31) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 122
+##     Update #: 123
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -293,7 +293,7 @@ hent_mortalitetsrate_data <- function(breaks,
     by = c("KØN","OMRÅDE","TID")
     af <- intervAlder(af,breaks=breaks, by=by,vars="R",...)
     # Antal døde i aldersintervaller
-    if (tolower(køn) == "i alt"){
+    if (tolower(køn)[1] == "i alt"){
         dd <- hent_data("FOD207",
                         "alder"="all_no_total",
                         tid=tid,
@@ -313,7 +313,7 @@ hent_mortalitetsrate_data <- function(breaks,
                       vars="Dod",...)
     # join
     dat <- left_join(af,dd, by = c("aldersinterval",by))
-    if (tolower(køn) == "i alt") dat$KØN = NULL
+    if (tolower(køn)[1] == "i alt") dat$KØN = NULL
     if (tolower(område) == "hele landet") dat$OMRÅDE = NULL
     dat
 }
