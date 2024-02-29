@@ -166,17 +166,13 @@ aldersspecifikke mortalitetsrater.
 
 * Opgave 3
 
-Fortsæt med selektion af år 2022 og lande fra Opgave 1 her:
-
-\bigskip
-https://www.census.gov/data-tools/demo/idb/.
-\bigskip
-
-\noindent Find aldersfordeling af risikotid for Danmark, USA,
-Indonesia og Nigeria i 2022 i aldersintervallerne =0-14=, =15-65=,
-=65+=. I topmenuen vælger du =Population by Age= og i menuen til
-venstre vælger du =Age Tables= under =Show= og =Broad Age Groups=
-under =Age Groups=. Internetsiden skal se sådan her ud:
+Fortsæt med Internetsiden for den internationale database med
+selektionen af år 2022 og 4 lande fra Opgave 1. Find aldersfordeling
+af risikotid for Danmark, USA, Indonesia og Nigeria i 2022 i
+aldersintervallerne =0-14=, =15-65=, =65+=: I topmenuen vælger du
+=Population by Age= og i menuen til venstre vælger du =Age Tables=
+under =Show= og =Broad Age Groups= under =Age Groups=. Internetsiden
+skal se sådan her ud:
 
 [[./Screenshot_2024-02-28_InternationalDatabase.jpg]]
 
@@ -201,8 +197,15 @@ x <- mutate(x, V = R/sum(R))
 x <- mutate(x, M = 1000*Dod/R)
 # Aldersintervaller
 idb <- hent_IDB_screenshot_data()
+dk <- filter(idb,Land == "Denmark")
+dk <- left_join(dk,select(x,aldersinterval,M),by = "aldersinterval")
+summarize(dk,sum(M/1000*Risikotid))
+summarize(x,tibble(sum(M/1000*R),sum(Dod)))
+
 us <- filter(idb,Land == "United States")
 us <- left_join(us,select(x,aldersinterval,M),by = "aldersinterval")
 # indirekte standardisering
+summarize(us,sum(M*Risikotid))
 summarize(us,sum(M*V))
 #+END_SRC
+c(56373,1873021,1959083,3128620)

@@ -73,7 +73,7 @@ mortalitetsrate, men separat for hver aldersgruppe. Det bliver således
 muligt at undersøge forskelle i dødeligheden på tværs af
 aldersgrupper. Ligeledes kan alderspecifikke mortalitetsrater udregnes
 per år over en given periode og derved give information om ændringer i
-aldersspecifik dødelighed over tid. Altså: oplever nogle aldersgrupper
+aldersspecifik dødelighed over tid. Altså: Oplever nogle aldersgrupper
 et fald i mortaliteten, hvor andre oplever en stigning?  Det kan vi se
 i nedenstående Figur 2, som viser køns- og aldersspecifikke
 mortalitetsrater. Her ser vi, at dødeligheden er faldet i samtlige
