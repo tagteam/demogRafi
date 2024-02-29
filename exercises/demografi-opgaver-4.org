@@ -34,7 +34,7 @@ source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demof
 
 * Opgave 1
 
-Til denne opgave bruger vi data fra den International Database. Find
+Til denne opgave bruger vi data fra den internationale database IDB. Find
 tal her
 
 \bigskip
@@ -88,13 +88,13 @@ livsstil.
 
 Find folketal og antal døde i Danmark i 2022 i statistikbanken totalt
 (Alder i alt) og beregn den summariske mortalitetsrate. Sammenlign
-data og resultatet med tal, som du har fundet i den International
-Database (Opgave 1).  Hvad tænker du kunne være forklaring på
-forskellen mellem tal fra statistikbanken og International Database?
+data og resultatet med tal, som du har fundet i den internationale
+database (Opgave 1).  Hvad tænker du kunne være forklaring på
+forskellen mellem tal fra statistikbanken og den internationale database?
 Bagefter find folketal og antal døde for alle aldre i statistikbanken
 og inddel dem i 3 aldersintervaller: 0-14, 15-64, 65+. Beregn
 aldersfordeling af risikotid og de aldersspecifikke
-mortalitetsrater. Angiv hvilke formler fra Kompendium du bruger.
+mortalitetsrater. Angiv hvilke formler fra Kompendiet du bruger.
 
 ** Instruks :rmd:ignore:
 
@@ -155,7 +155,7 @@ x
 ** Løsningen :solution:ignore:
 
 Tallene fra statistikbanken stemmer ikke helt
-overens med tallene fra International Database. Ifølge data fra
+overens med tallene fra den international database. Ifølge data fra
 statistikbanken var den summariske mortalitetsrate 10,1 døde per 1000
 personår i Danmark i 2022. En forklaring for forskellene kunne være at
 statistikbanken har opdateret data for nyligt.
@@ -176,13 +176,16 @@ skal se sådan her ud:
 
 [[./Screenshot_2024-02-28_InternationalDatabase.jpg]]
 
-Beregn det forventede antal dødsfald i USA,
-Indonesia og Nigeria hvis mortalitetsraterne følger de danske
-mortalitetsrater (Opgave 2). Beregn også ratio mellem antal dødsfald
-(=Deaths, both sexes=) fra Opgave 1 og det forventede antal dødsfald
-som du nu har beregnet. Hvilken demografiske betegnelse har denne
-ratio? Hvordan hjælper denne ratio med forklaring af forskellene
-mellem de 4 lande?
+Brug tal fra Opgave 2 og nævneren i kompendiets formel K2.11 til at
+beregne det forventede antal dødsfald i henholdsvis USA, Indonesia og
+Nigeria, hvis mortalitetsraterne følger de aldersspecifikke danske
+mortalitetsrater fra 2022 (Resultat fra Opgave 2). Beregn også ratio
+mellem antal dødsfald (=Deaths, both sexes=) fra Opgave 1 og det
+forventede antal dødsfald som du nu har beregnet. Rapporter ratioerne
+som procenttal, angiv hvilken befolkning er standardbefolkning, og
+angiv den demografiske betegnelse for denne metode. Hvad kan man nu
+konkludere med hensyn til forskelle i dødelighed mellem de 4 lande?
+Beskriv også svaghederne i denne undersøgelse.
 
 #+BEGIN_SRC R  :results output raw drawer  :exports  (exercise-with-code)  :session *R* :cache yes    :eval (never-plain-export)
 # data fra statistikbanken
@@ -191,21 +194,64 @@ x <- hent_mortalitetsrate_data(breaks = c(-Inf, 14, 64, Inf),
                                tid = "2022",
                                label_one = "0-14",
                                label_last = "65+")
-# Aldersfordeling af risikotid
-x <- mutate(x, V = R/sum(R))
-# Aldersspecifikke mortalitetsrater
+# Aldersspecifikke mortalitetsrater i Danmark
 x <- mutate(x, M = 1000*Dod/R)
-# Aldersintervaller
+# Aldersfordeling i alle 4 lande
 idb <- hent_IDB_screenshot_data()
-dk <- filter(idb,Land == "Denmark")
-dk <- left_join(dk,select(x,aldersinterval,M),by = "aldersinterval")
-summarize(dk,sum(M/1000*Risikotid))
-summarize(x,tibble(sum(M/1000*R),sum(Dod)))
-
-us <- filter(idb,Land == "United States")
-us <- left_join(us,select(x,aldersinterval,M),by = "aldersinterval")
-# indirekte standardisering
-summarize(us,sum(M*Risikotid))
-summarize(us,sum(M*V))
+# Beregning af nævneren fra kompendiets formel K2.11 for Indonesia
+indonesia <- filter(idb,Land == "Indonesia")
+indonesia <- left_join(indonesia,select(x,aldersinterval,M),by = "aldersinterval")
+indonesia <- summarize(indonesia, expected = # skriv nævneren fra formel K2.11 her)
+# Antal dødsfald fra Opgave 1 
+indonesia <- mutate(indonesia,observed = # skriv antal dødsfald i Indonesia her)
+indonesia <- mutate(indonesia,SMR = observed/expected)
+indonesia
+# Beregning af kompendiets formel K2.11 for alle 4 lande
+idb <- left_join(idb,select(x,aldersinterval,M),by = "aldersinterval")
+y <- group_by(idb,Land) %>% summarize(expected = # skriv nævneren fra formel K2.11 her)
+# Antal dødsfald fra Opgave 1 
+y <- mutate(y,observed = c(,,,))# skriv antal dødsfald her (4 tal)
+y <- mutate(y,SMR = observed/expected)
+y                                        
 #+END_SRC
-c(56373,1873021,1959083,3128620)
+
+** Løsningen :solution:ignore:
+
+#+BEGIN_SRC R  :results output raw drawer  :exports  (exercise-with-solutions)  :session *R* :cache yes    :eval (never-plain-export)
+# data fra statistikbanken
+x <- hent_mortalitetsrate_data(breaks = c(-Inf, 14, 64, Inf),
+                               køn = "i alt",
+                               tid = "2022",
+                               label_one = "0-14",
+                               label_last = "65+")
+# Aldersspecifikke mortalitetsrater i Danmark
+x <- mutate(x, M = 1000*Dod/R)
+# Aldersfordeling i alle 4 lande
+idb <- hent_IDB_screenshot_data()
+# Beregning af kompendiets formel K2.11 
+idb <- left_join(idb,select(x,aldersinterval,M),by = "aldersinterval")
+y <- group_by(idb,Land) %>% summarize(expected = sum(M/1000*Risikotid))
+# Antal dødsfald fra Opgave 1 
+y <- mutate(y,observed = c(56373,3128620,1959083,1873021))
+y <- mutate(y,SMR = observed/expected)
+y
+#+END_SRC
+
+
+Antal dødsfald i Indonesia i 2022 var 146% højere end hvad man vil
+forvente hvis mortalitetsraterne var lige som i Danmark i 2022.  Antal
+dødsfald i Nigeria i 2022 var 230% højere end hvad man vil forvente
+hvis mortalitetsraterne var lige som i Danmark i 2022.  Antal dødsfald
+i USA i 2022 var 36% mindre end hvad man ville forvente hvis
+mortalitetsraterne var lige som i Danmark i 2022. Svagheder: Man kan
+bruge resultaterne til at sammenligne Danmark med de andre 3 lande,
+men ikke direkte til at sammenligne de andre 3 lande indbyrdes fordi
+SMR fra de 3 lande med Danmark som standardbefolkning afhænger
+landenes aldersfordeling af risikotid. Tallene er ikke særlig præcise
+på grund af de brede aldersintervaller. Data fra den internationale
+database er ikke præcise, det kan vi se for Danmark hvor tal fra
+statistikbanken afviger.
+
+
+
+
