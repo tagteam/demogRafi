@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Feb 28 2024 (17:08) 
+## Last-Updated: Feb 28 2024 (18:51) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 114
+##     Update #: 121
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -203,30 +203,29 @@ intervAlder <- function(data,
             ll[1] <- paste0("<=",breaks[2])
         else
             ll[1] <- paste0(breaks[1],"-",breaks[2])
-    } else{
+    }else{
+        # right == FALSE
         ll <- paste0(breaks[-length(breaks)],"-",breaks[-1]-1)
-        # label last element
-        if (length(label_last) == 1){
-            ll[length(ll)] = label_last
+        if (is.infinite(breaks[length(breaks)]))
+            ll[length(ll)] <- paste0(breaks[length(breaks)-1],"+")
+        if (breaks[[1]]==0){
+            ll[1] <- "0"
         } else{
-            if (is.infinite(breaks[length(breaks)]))
-                ll[length(ll)] <- paste0(breaks[length(breaks)-1],"+")
-        }
-        # label first element 
-        if (length(label_one) == 1){
-            ll[1] <- label_one
-        }else{
-            if (breaks[[1]]==0){
-                ll[1] <- "0"
+            if (is.infinite(breaks[[1]]) || breaks[1]<0){
+                ll[1] <- paste0("<",breaks[2])
             } else{
-                if (is.infinite(breaks[[1]]) || breaks[1]<0){
-                    ll[1] <- paste0("<",breaks[2])
-                } else{
-                    ll[1] <- paste0(breaks[1],"-",breaks[2])
-                }
+                ll[1] <- paste0(breaks[1],"-",breaks[2])
             }
         }
     }
+    # user label first element 
+    if (length(label_one) == 1){
+        ll[1] <- label_one
+    }
+    # user label last element
+    if (length(label_last) == 1){
+        ll[length(ll)] = label_last
+    } 
     levels(data$aldersinterval) <- ll
     by <- intersect(names(data),by)
     if (length(by)>0)
@@ -253,7 +252,8 @@ intervAlder <- function(data,
 hent_aldersfordeling <- function(breaks,
                                  køn = c("Kvinder","Mænd"),
                                  tid = "2023",
-                                 område = "Hele landet"){
+                                 område = "Hele landet",
+                                 ...){
     # risikotid metode 1
     af <- hent_data("FOLK1a",
                     "alder"=0:125,
@@ -265,7 +265,7 @@ hent_aldersfordeling <- function(breaks,
     # Fordeling af risikotid i aldersintervaller
     af <- rename(af,R = INDHOLD)
     by <- c("KØN","OMRÅDE","TID")
-    af <- intervAlder(af,breaks=breaks, by=by,vars="R")
+    af <- intervAlder(af,breaks=breaks, by=by,vars="R",...)
     af <- af %>% group_by_at(by) %>% mutate(V = R/sum(R))
     ungroup(af)
 }
@@ -273,7 +273,7 @@ hent_aldersfordeling <- function(breaks,
 hent_mortalitetsrate_data <- function(breaks,
                                       køn = c("Kvinder","Mænd"),
                                       tid = "2023",
-                                      område = "Hele landet"){
+                                      område = "Hele landet",...){
     if (FALSE){
         breaks = c(0,25,50,75,125)
         køn = c("Kvinder","Mænd")
@@ -291,7 +291,7 @@ hent_mortalitetsrate_data <- function(breaks,
     # Fordeling af risikotid i aldersintervaller
     af <- rename(af,R = INDHOLD)
     by = c("KØN","OMRÅDE","TID")
-    af <- intervAlder(af,breaks=breaks, by=by,vars="R")
+    af <- intervAlder(af,breaks=breaks, by=by,vars="R",...)
     # Antal døde i aldersintervaller
     if (tolower(køn) == "i alt"){
         dd <- hent_data("FOD207",
@@ -310,9 +310,11 @@ hent_mortalitetsrate_data <- function(breaks,
     dd <- intervAlder(dd,
                       breaks=breaks,
                       by=c("KØN","OMRÅDE","TID"),
-                      vars="Dod")
+                      vars="Dod",...)
     # join
     dat <- left_join(af,dd, by = c("aldersinterval",by))
+    if (tolower(køn) == "i alt") dat$KØN = NULL
+    if (tolower(område) == "hele landet") dat$OMRÅDE = NULL
     dat
 }
 
@@ -331,8 +333,14 @@ format_dato <- function(data,variable = "TID"){
 }
 
 hent_IDB_screenshot_data <- function(){
-    af <- read_csv("Data/IDB_02-28-2024.csv")
+    af <- read_csv("https://raw.githubusercontent.com/tagteam/demogRafi/main/data/IDB_02-28-2024.csv")
     af <- filter(af,GROUP != "TOTAL")
+    af <- rename(af,Land = "Country/Area Name")
+    af <- rename(af,År = "Year")
+    af <- rename(af,Risikotid = "Population")
+    af <- rename(af,V = "% of Population")
+    af <- mutate(af,aldersinterval = gsub(" ","",GROUP))
+    af <- select(af,År,Land,aldersinterval,Risikotid,V)
     af
 }
 
