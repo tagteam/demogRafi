@@ -58,7 +58,8 @@ g + ylab("Middellevetid for 0-årige (år)")+xlab("")
 
 #+name: fig:k3-middellevetid
 #+ATTR_LATEX: :width 0.9\textwidth
-#+CAPTION: Udviklingen i middellevetid for 0-årige. Kilde: statistikbankens HISB7.[[file:./K3-udvikling-middellevetid.pdf]]
+#+CAPTION: Udviklingen i middellevetid for 0-årige. Kilde: statistikbankens HISB7.
+[[file:./K3-udvikling-middellevetid.pdf]]
 
 ** Andre dødelighedsmål
 
@@ -572,7 +573,7 @@ Man kan se de nyeste beregninger fra Danmark Statistik her:
 #+LaTeX_HEADER:\usepackage{amssymb}
 #+LaTeX_HEADER:\usepackage{latexsym}
 #+LaTeX_HEADER:\usepackage{fancyhdr}
-#+LaTeX_HEADER:\usepackage[danish]{babel}
+#+LaTeX_HEADER:\usepackage[english,danish]{babel}
 #+LaTeX_HEADER:\pagestyle{fancy}
 #+LaTeX_HEADER:\lhead{Folkesundhedsvidenskab 2. semester, K{\o}benhavns Universitet}
 #+LaTeX_HEADER:\rhead{Demografi}
