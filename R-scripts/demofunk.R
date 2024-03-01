@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Mar  1 2024 (11:25) 
+## Last-Updated: Mar  1 2024 (16:50) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 129
+##     Update #: 132
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -371,7 +371,7 @@ overlevelsestavle <- function(data,
     if  (!("k" %in% names(data)))
         k <- rep(1,xmax)
     else
-        k = data[["n"]]
+        k = data[["k"]]
     a[xmax] <- 1/M[xmax]
     q=k*M/(1+(k-a)*M)
     q[xmax] <- 1

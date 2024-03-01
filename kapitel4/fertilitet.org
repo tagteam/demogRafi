@@ -1,16 +1,18 @@
 * Introduktion
 
 Fertilitet er en vigtig komponent i demografien og beskriver sammen
-med mortalitet den naturlige vækst i befolkningen. Ændringer i
+med mortalitet den naturlige vækst i befolkningen.  Ændringer i
 fertiliteten har stor betydning for befolkningens størrelse, og det
 fylder derfor meget i den offentlige debat, når fertiliteten
 falder. Hvilket netop er den tendens, der ses i de fleste vestlige
-lande.
+lande. Fertilitet i demografien handler dog ikke om den biologiske evne
+til at få børn hos enkeltpersoner (frugtbarheden), men om hvor mange
+børn en befolkning samlet set får.
 
 Over det sidste århundrede har fertiliteten gennemgået store
 forandringer i Danmark. Det skyldes blandt andet økonomiske kriser,
 krig, ændringer i kvinders rolle på arbejdsmarkedet, introduktionen af
-p-pillen, retten til abort og ændrede familiemønstre og holdninger til
+p-pillen, retten til abort, ændrede familiemønstre og holdninger til
 familieplanlægning. Da der i starten af 1900-tallet forekom en
 stigende urbanisering i Danmark, hvormed befolkningen rykkede ind til
 byerne, skete et markant fald i fertiliteten. Den /samlede fertilitet/
@@ -33,10 +35,10 @@ aldersgrupper. Og den samlede fertilitet nåede igen ned under 2,1 børn
 per kvinde. Siden har fertiliteten været let stigende særligt blandt
 de 30+ årige kvinder. Førstegangsforældre bliver stadigt ældre, som
 det ses af Figur ref:fig:k4-foerstegang, og der sker dermed en udsættelse af første
-fødsel. I 2022 var kvinder i gennemsnit 29,9 år og mænd 31,6 år, da de
+fødsel. I 2022 var kvinder i gennemsnit 29,9 år og mænd 31,6 år gammel, da de
 fik deres første barn:
 
-#+ATTR_LATEX: :options otherkeywords={hent_data}, deletekeywords={}
+#+ATTR_LATEX: :options otherkeywords={hent_data}, deletekeywords={c,paste}
 #+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
 x <- hent_data("fod11",tid = 2022,alder = c(610,617))
 with(x,paste(ALDER,INDHOLD))
@@ -102,7 +104,7 @@ vil være i samfundet. Alt dette har betydning for politiske
 beslutninger og planlægning. Det absolutte antal levendefødte har dog
 også dets begrænser i og med, det ikke kan bruges til at sammenligne
 fertiliteten over tid eller på tværs af
-befolkningsgrupper/lande. Hertil er der brug for relative mål.
+befolkningsgrupper/lande. Hertil er der brug for relative mål og rater.
 
 #+ATTR_LATEX: :options otherkeywords={hent_data,scale_y_log10,mutate,summarise,pull,ggplot}, deletekeywords={c,&,title,legend,de,scale,by,axis,plot,margin,t,text,rect,list,factor}
 #+BEGIN_SRC R :results file graphics :file ./kapitel4/k4-levendefoedte.pdf :exports none :session *R* :cache yes :width 10  :height 6.25
@@ -128,55 +130,57 @@ g
 #+CAPTION: Udvikling i antal levendefødte i perioden 1973-2023 i Danmark. Kilde: Statistikbankens register FOD.
 [[file:./k4-levendefoedte.pdf]]
 
-
-Alle tre mål udtrykkes pr. personår (for eksempel pr 1000 personår)
-eller pr. indbyggere (for eller pr 1000 indbyggere) og er relativt
-nemme at beregne.
+** Fertilitetsrater
 
 /Den summariske fertilitetsrate/ defineres som antal levendefødte
 per 1.000 indbyggere hvor moren er mellem 15 og 49 år gamle og beregnes
 ved at dividere antallet af levendefødte børn i en given periode med
 middelfolketallet for samme periode. Fremgangsmåden er altså den samme
-som for den summariske mortalitetsrate. Vi bruger følgende notation
-(som er standard i demografien, se Kapitel 3) for antal levendefødte
+som for den summariske mortalitetsrate (Kapitler 1 og 2). Vi bruger følgende notation,
+som er standard i demografien (Kapitel 3), for antal levendefødte
 børn i perioden \([t_1,t_2]\) hvor kvinden var mellem 15 og 49 år
 gammel ved fødslen:
 #+begin_export latex
-\begin{equation*}
+\begin{equation}\label{eq:f35}
  _{35}F_{15} = _{35}\negthickspace F_{15}[t_1,t_2].
-\end{equation*}
+\end{equation}
 #+end_export
-Formlen for den summariske fødselsrate ser således ud:
+Her er indeks til højre startalderen og indeks til venstre er antal år
+som tælles med inklusive startalderen. Dermed tæller formel
+eqref:eq:f35 alle levendefødte børn hvor moren var \(x\)-år gammel for
+alle \(x\in \{15, 16, \dots, 48, 49\}\) og der er \(35\) tal i denne
+mængde. Det er lidt uklar hvorfor man ikke tæller alle levendefødte
+børn, altså også dem hvor moren var yngre end 15 eller ældre end 49 år
+gammel. Formlen for den summariske fødselsrate ser således ud:
 #+begin_export latex
 \begin{equation}\label{eq:K4-sum_f}
-\text{Summariske fødselsrate: } f_{sum} = \frac{_{35}F_{15}[t_1,t_2]}{R[t_1,t_2]}=\frac{\text{Antal fødsler}}{\text{Risikotid}}
+f_{sum} = \frac{_{35}F_{15}[t_1,t_2]}{R[t_1,t_2]}=\frac{\text{Antal fødsler: Kvinder mellem 15 og 49 år}}{\text{Risikotid: hele befolkningen}}
 \end{equation}
 #+end_export
 Den summariske fødselsrate \(f_{sum}\) angiver dermed fertilitetsraten
 i tidsintervallet fra kalenderdato \(t_1\) til kalenderdato \(t_2\).
-Det er vigtigt at notere sig, at der i middelfolketallet for den givne
-periode indgår personer, som ikke kan føde børn -- herunder mænd, børn
-og ældre. Derfor anvendes /den generelle fertilitetsrate/ ofte, da der
-i dette mål kun divideres med kvinder i den fertile alder (15-49
-år). Den generelle fertilitetsrate defineres således som antal
-levendefødte børn per 1.000 kvinder i den fertile alder. Den generelle
-fertilitetsrate bruger kun risikotid fra kvinder mellem 15 og 49 år:
+Det er vigtigt at notere sig, at der i risikotid for den givne
+periode, \(R[t_1,t_2]\) indgår personer, som ikke kan føde børn --
+herunder mænd, børn og ældre kvinder. Den /generelle fertilitetsrate/
+erstatter risikotid af alle personer med risikotid af kvinder i den
+fertile alder (15-49 år). Den generelle fertilitetsrate defineres
+således som antal levendefødte børn per 1.000 kvinder i den fertile
+alder:
 #+begin_export latex
-\mybox{ 
-\begin{equation*}
-f_{gen} = \frac{_{35}F_{15}}{_{35}R^{\text{Kvinder}}_{15}[t_1,t_2]}=\frac{\text{Antal fødsler}}{\text{Risikotid: kvinder mellem 15 og 49}}
-\end{equation*}
-}
+\begin{equation}\label{eq:K4-gen_f}
+f_{gen} = \frac{_{35}F_{15}}{_{35}R^{\text{Kvinder}}_{15}[t_1,t_2]}=\frac{\text{Antal fødsler: Kvinder mellem 15 og 49 år}}{\text{Risikotid: kvinder mellem 15 og 49 år}}
+\end{equation}
 #+end_export
-Sammenlignet med den summariske fertilitetsrate vil den generelle
-fertilitetsrate have højere værdier, da risikotiden på den kvindelige
-befolkning mellem 15 og 49 er mindre end risikotiden fra hele
-befolkningen. Udviklingen i både den generelle og summariske
-fertilitetsrate siden 1973 fremgår af Figur
-ref:fig:k4-gensumfrate. Hvor den summariske fertilitetsrate har ligget
-mere stabilt over årene, er den generelle fertilitetsrate udsat for
-flere udsving. Disse udsving er netop tydelige, fordi den generelle
-fertilitetsrate tager højde for størrelsen på den kvindelige
+Her står notationen \(_{35}R^{\text{Kvinder}}_{15}\) for risikotid fra
+alle kvinder, som var mellem 15 og 49 år i perioden. Sammenlignet med
+den summariske fertilitetsrate har generelle fertilitetsrate højere
+værdier, da risikotiden på den kvindelige befolkning mellem 15 og 49
+er mindre end risikotiden fra hele befolkningen. Udviklingen i både
+den generelle og summariske fertilitetsrate siden 1973 fremgår af
+Figur ref:fig:k4-gensumfrate. Hvor den summariske fertilitetsrate har
+ligget mere stabilt over årene, er den generelle fertilitetsrate udsat
+for flere udsving. Disse udsving er netop tydelige, fordi den
+generelle fertilitetsrate tager højde for størrelsen på den kvindelige
 befolkning.
 
 #+ATTR_LATEX: :options otherkeywords={hent_data,scale_y_log10,mutate,summarise,pull,ggplot}, deletekeywords={c,&,title,legend,de,scale,by,axis,plot,margin,t,text,rect,list,factor}
@@ -214,27 +218,26 @@ g
 #+CAPTION: Udviklingen i både den generelle og summariske fertilitetsrate siden 1973 i Danmark. Kilde: statistikbankens register FOD, BEFOLK2.
 [[file:./k4-gensum-frate.pdf]]
 
-/Den aldersspecifikke fertilitetsrate/ udregnes på samme vis som den
-aldersspecifikke mortalitetsrate. For en given periode og en given
-aldersgruppe for eksempel 30-34 årige vil den aldersspecifikke
-fertilitetsrate beregnes ved at dividere antallet af levendefødte
-børn, der fødes af kvinder, der er 30-34 år på barnets fødselsdag, med
-det totale antal af 30-34 årige kvinder. Raten vil således definere
-hvor mange børn tusind 30-34årige kvinder føder i den givne
-periode. Formlen ser således ud:
-
+/Aldersspecifikke fertilitetsrater/ udregnes på samme vis som
+aldersspecifikke mortalitetsrater. For en given periode og en given
+aldersgruppe, for eksempel 30-34 årige, beregnes aldersspecifikke
+fertilitetsrater at dividere antallet af levendefødte børn, der fødes
+af kvinder, der er mellem 30 og 34 år gammel ved barnets fødsel, med
+det totale antal af 30-34 årige kvinder. Raten definerer således hvor
+mange børn tusind 30-34 årige kvinder føder i den givne
+periode:
 #+begin_export latex
-\mybox{ 
 \begin{equation*}
-f_{gen} = \frac{_{5}F_{30}}{_{5}R^{\text{Kvinder}}_{30}[t_1,t_2]}=\frac{\text{Antal fødsler}}{\text{Risikotid: kvinder mellem 30 og 34}}
+_{5}f_{30} = \frac{_{5}F_{30}}{_{5}R^{\text{Kvinder}}_{30}[t_1,t_2]}=\frac{\text{Antal fødsler: Kvinder mellem 30 og 34 år}}{\text{Risikotid: Kvinder mellem 30 og 34 år}}.
 \end{equation*}
-}
 #+end_export
-
-/f/ angiver fertilitetsraten, /x/ er aldersintervallets startalder
-(for eksempel 30 år), /n/ er intervallet længde (for eksempel 5 år),
-/F/ er antal levendefødte, og /R/ er risikotiden for den pågældende
-aldersgruppe (i den pågældende periode).
+Mere generalt ser formlen for den aldersspecifikke fertilitetsrate fra
+alder \(x\) til og med alder \(x+k-1\) således ud:
+#+begin_export latex
+\begin{equation*}
+_{k}f_{x} = \frac{_{k}F_{x}}{_{k}R^{\text{Kvinder}}_{x}[t_1,t_2]}=\frac{\text{Antal fødsler: Kvinder mellem \(x\) og \(x+k-1\) år}}{\text{Risikotid: Kvinder mellem  \(x\) og \(x+k-1\) år}}.
+\end{equation*}
+#+end_export
 
 #+ATTR_LATEX: :options otherkeywords={hent_data,scale_y_log10,mutate,summarise,pull,ggplot}, deletekeywords={c,&,title,legend,de,scale,by,axis,plot,margin,t,text,rect,list,factor}
 #+BEGIN_SRC R :results file graphics :file ./kapitel4/k4-aldersfoedelsrate.pdf :exports none :session *R* :cache yes :width 10  :height 6.25
@@ -271,50 +274,48 @@ g
 
 
 Aldersspecifikke fertilitetsrater gør det muligt at undersøge
-fertilitetsudviklingen for hver aldersgruppe. Det er således muligt at
-undersøge, om fertilitetsraten er stigende eller faldende i givne
-aldersgrupper. Når kvinder vælger at få børn senere, vil det således
-vise sig ved, at fertilitetsraten falder i yngre aldersgrupper og
-ligeledes stiger i ældre aldersgrupper. Ud fra tendenser i
-aldersspecifikke rater kan man altså sige noget om timing og
-spacing. Det vil sige, hvornår og men hvor stor tidsmæssig afstand
-fødes børn. Sådanne konklusioner kan drages på baggrund af udviklingen
-vist i Figur ref:fig:k4-aldersfoedelsrate. Her fremgår det, at fertiliteten blandt kvinder i de
-yngre alders grupper (15-19 år og 20-24 år) er faldet
-markant. Samtidig er fertiliteten blandt de ældre aldersgrupper (30-44
-årige) er steget betydeligt. Dette afspejler tendensen, at kvinder
-udsætter tidspunktet for familiestiftelse.
+fertilitetsudviklingen for enkelte aldersgrupper. Når kvinder og par
+vælger at få børn senere, vil det således vise sig ved, at
+fertilitetsraten falder i yngre aldersgrupper og ligeledes stiger i
+ældre aldersgrupper.  Figur ref:fig:k4-aldersfoedelsrate viser
+udviklingen af de aldersspecifikke fertilitetsrater i Danmark for 5-års
+aldersgrupper mellem 1973 og 2023. Her fremgår det, at fertiliteten
+blandt kvinder i de yngre alders grupper (15-19 år og 20-24 år) er
+faldet markant. Samtidig er fertiliteten blandt de ældre aldersgrupper
+(30-44 årige) steget betydeligt. Dette afspejler tendensen, at kvinder
+og par udsætter tidspunktet for familiestiftelse.
 
-Fertilitet kan også undersøges ved et mål for /den samlede
-fertilitet/. Denne beregnes ud fra de aldersspecifikke
-fertilitetsrater og ved samme fremgangsmåde som bruges i
-overlevelsestabeller, som blev beskrevet i dybden i tidligere kapitel
-(se Kapitel 3). Fortolkningen af den samlede fertilitet er derfor
-antal levendefødte børn som 1000 kvinder vil føde i løbet af deres
-fertile alder (15-49 år) givet at ingen af kvinderne dør før de fylder
-50 år, og at de i hvert aldersinterval føder som det var tilfældet i
-det givne kalenderår. Det er således et mål for fertiliteten i en
-hypotetisk kohorte. For 5-års aldersintervaller er
+** Den samlede fertilitet
+
+Fertilitetsniveauet i en befolkning kan beskrives med et enkelt tal,
+/den samlede fertilitet/. Denne beregnes ud fra de aldersspecifikke
+fertilitetsrater. Fortolkningen af den samlede fertilitet er det antal
+levendefødte børn som 1.000 kvinder vil føde i løbet af deres fertile
+alder (15-49 år), hvis hypotetisk ingen af kvinderne dør før de fylder
+50 år, og under antagelsen at de 1.000 kvinder i hvert aldersinterval
+føder som det var tilfældet i den givne kalenderperiode. Den samlede
+fertilitet er således et mål for fertiliteten i en hypotetisk kohorte
+i stil med dødelighedsmål for hypotetiske tabelbefolkninger (Kapitel 3). For
+5-års aldersintervaller er den samlede fertilitet given ved følgende
+formel:
 #+begin_export latex
-\begin{equation*}
+\begin{equation}\label{eq:f_samlet}
 \quad f_{samlet}=5\cdot _5f_{15}+5\cdot _5f_{20}+...+5\cdot_5f_{45}. 
-\end{equation*}
+\end{equation}
 #+end_export
-Fortolkning: \(f_{samlet}\) er det /forventede antal børn/, en kvinde vil
-få i løbet af de fødedygtige aldre i en (hypotetisk) population, hvor
-ingen dør, og hvor de aldersspecifikke fødselsrater er som observeret i
-perioden.
-
-I beregningen ligger en antagelse om, at der er lige mange kvinder i
-hver aldersgruppe. Den samlede fertilitet beregnes som summen af de
-aldersspecifikke fertilitetsrater multipliceret med aldersintervallets
-længde. Der multipliceret med aldersintervallets længde, da kvinderne
-kan føde børn i alle årene i et given aldersinterval. Tal for den
-samlede fertilitet nævnes ofte i den offentlige debat om fertilitet i
-Danmark. Det er nemlig tal for den samlede fertilitet, der angiver, at
-kvinder skal føde 2,1 børn i gennemsnit for, at den danske befolkning
-kan reproducere sig selv. Udviklingen i den samlede fertiliteten siden
-1973 kan ses i Figur ref:fig:k4-samlet-fertilitet.
+Fortolkning: \(f_{samlet}\) er det /forventede antal børn/, en kvinde
+vil få i løbet af de fødedygtige aldre i en (hypotetisk) befolkning,
+hvor ingen dør, og hvor de aldersspecifikke fødselsrater er som
+observeret i perioden. Formel eqref:eq:f_samlet viser at den samlede
+fertilitet beregnes som summen af de aldersspecifikke fertilitetsrater
+multipliceret med aldersintervallets længde. Der multipliceres med
+aldersintervallets længde, da kvinderne kan føde børn i alle årene i
+et givent aldersinterval. Tal for den samlede fertilitet nævnes ofte i
+den offentlige debat om fertilitet i Danmark. Det er nemlig tal for
+den samlede fertilitet, der angiver, at kvinder skal føde 2,1 børn i
+gennemsnit for, at den danske befolkning kan reproducere sig
+selv. Udviklingen i den samlede fertiliteten siden 1973 kan ses i
+Figur ref:fig:k4-samlet-fertilitet.
 
 #+ATTR_LATEX: :options otherkeywords={hent_data,scale_y_log10,mutate,summarise,pull,ggplot}, deletekeywords={c,&,title,legend,de,scale,by,axis,plot,margin,t,text,rect,list,factor}
 #+BEGIN_SRC R :results file graphics :file ./kapitel4/k4-samlet-fertilitet.pdf :exports none :session *R* :cache yes :width 10  :height 6.25
@@ -351,49 +352,50 @@ g
 [[file:./k4-samlet-fertilitet.pdf]]
 # [[file:./Figur5.png]]
 
-Kilde: Statistik Banken
+** Produktionstal
 
-Endeligt kan fertilitet undersøges gennem beregninger af /netto- og bruttoreproduktionstal/. Bruttoreproduktionstallet beregnes på samme
-vis som den samlede fertilitet, men dog kun med nyfødte piger i
-tælleren. Definitionen er derfor antallet af levendefødte pige, som
-vil blive født af 1000 kvinder i løbet af deres fertile alder (15-49
+Fertilitet kan også undersøges med hjælp af
+/bruttoreproduktionstal/[fn:1] og
+/nettoreproduktionstal/[fn:6]. Bruttoreproduktionstallet beregnes på
+samme vis som den samlede fertilitet, men kun med nyfødte piger i
+tælleren. Definitionen er derfor antallet af levendefødte piger, som
+vil blive født af 1.000 kvinder i løbet af deres fertile alder (15-49
 år) givet at ingen af kvinderne dør før de fylder 50 år og at de i
-hvert aldersinterval føder det antal børn, som periodens
-aldersspecifikke fertilitetsrater angiver. Formlen ser således ud:
-
-Bruttoreproduktionstallet (BRT)[fn:1]  er
-den samlede fertilitet svarende til aldersspecifikke pigefødselsrater. For
-5-års intervaller er:
-
+hvert aldersinterval føder børn per periodens aldersspecifikke
+fertilitetsrater. For 5-års aldersintervaller er
+bruttoreproduktionstallet (BRT) given ved
 #+begin_export latex
-\begin{equation*}
+\begin{equation}\label{eq:BRT}
 \quad \operatorname{BRT}=5\cdot _5\negthickspace{f}_{15}^{\text{piger}}+5\cdot
 _5\negthickspace{f}_{20}^{\text{piger}}+...+5\cdot _5\negthickspace{f}_{45}^{\text{piger}}=c\cdot
 f_{\operatorname{total}}.  
-\end{equation*} 
+\end{equation} 
 #+end_export
-
-Nettoreproduktionstallet er et mere komplekst mål. Her tages der højde for at kvinderne godt kan dø inden de fylder 50 år ligesom det er tilfældet i den virkelige verden. Nettoreproduktionstallet defineres således som antallet af levendefødte piger, som vil blive født af 1000 kvinder i løbet af deres fertile alder (15-49 år) givet af at kvinderne dør fra alder 0 i overensstemmelse med dødelighedstavlen (for kvinder) for den givne periode, og at kvinderne i hvert aldersinterval føder det antal børn, som periodens aldersspecifikke fertilitetsrater angiver. Der tages derfor højde for, at kvinderne kan dø, men det ignoreres, at de nyfødte piger ligeledes kan dø inden de når den fertile alder. Formlen ser således ud:
-
+Nettoreproduktionstallet er et mere komplekst mål. Her tages der højde
+for at kvinderne godt kan dø inden de fylder 50 år ligesom det er
+tilfældet i den virkelige verden. Nettoreproduktionstallet defineres
+således som antallet af levendefødte piger, som vil blive født af
+1.000 kvinder i løbet af deres fertile alder (15-49 år) givet af at
+kvinderne dør fra alder 0 i overensstemmelse med overlevelsestavlen
+(for kvinder) for den givne periode, og at kvinderne i hvert
+aldersinterval føder det antal børn per periodens aldersspecifikke
+fertilitetsrater. Der tages derfor højde for, at kvinderne kan dø.
+For 5-års aldersintervaller er nettoreproduktionstallet (NRT) given
+ved
 #+begin_export latex
-\begin{equation*}
+\begin{equation}\label{eq:NRT}
 \quad \operatorname{NRT}=_5\negthickspace{f}_{15}^{\text{piger}}\frac{_5L_{15}}{\ell_0}+
 _5\negthickspace{f}_{20}^{\text{piger}}\frac{_5 L_{20}}{\ell_0}+...+ 
 _5\negthickspace{f}_{45}^{\text{piger}}\frac{_5L_{45}}{\ell_0}. 
-\end{equation*}
+\end{equation}
 #+end_export
-Fortolkningen er antal piger, en kvinde vil føde i løbet af de
-fødedygtige aldre, hvis fødsels- og døds-raterne er som observeret i
-perioden. 
+Her er \(\ell_0\) radix og \(\L{k}\) den samlede gennemlevede af
+overlevelsestavlens tabelbefolkning (Kapitel 3). Fortolkningen er
+antal piger, en kvinde vil føde i løbet af de fødedygtige aldre, hvis
+fødsels- og dødsraterne er som observeret i perioden.
 
-/n/ angiver aldersintervallets længde, /_{n}f_{x}/ angiver den
-aldersspecifikke fertilitetsrate af piger fra alder x til alder x+n,
-/_{n}L_{x}/ angiver overlevelsesraten for kvinder i alder x til alder
-x+n og /l_{0}/ angiver antallet af kvinder i overlevelsestavlen, der
-når til alder x.
-
-[fn:6] Engelsk: `net reproduction rate' 
-[fn:1] Engelsk: `gross reproduction rate'
+[fn:1] Engelsk: Gross Reproduction Rate
+[fn:6] Engelsk: Net Reproduction Rate 
 * Header :noexport:
 
 #+TITLE: Kapitel 4: Fertilitet
@@ -414,6 +416,7 @@ når til alder x.
 #+LaTeX_HEADER:\pagestyle{fancy}
 #+LaTeX_HEADER:\lhead{Folkesundhedsvidenskab 2. semester, K{\o}benhavns Universitet}
 #+LaTeX_HEADER:\rhead{Demografi}
+#+Latex_Header: \renewcommand{\L}[2][x]{\ensuremath{{}_{#2}L_{#1}}}
 #+LaTeX_HEADER:\renewcommand\theequation{K4.\arabic{equation}}
 #+OPTIONS:   H:3  num:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:t todo:t pri:nil tags:not-in-toc author:t
