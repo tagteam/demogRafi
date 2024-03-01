@@ -128,17 +128,39 @@ g
 #+CAPTION: Udvikling i antal levendefødte i perioden 1973-2023 i Danmark. Kilde: Statistikbankens register FOD.
 [[file:./k4-levendefoedte.pdf]]
 
-Fertilitet kan beskrives som summarisk fødselsrate:
-#+begin_export latex
-\mybox{ 
-\begin{equation*}
-f_{sum} = \frac{_{35}F_{15}}{R[t_1,t_2]}=\frac{\text{Antal fødsler}}{\text{Risikotid}}
-\end{equation*}
-}
-#+end_export
-Her bidrager både mænd og kvinder med risikotid. Den generelle
-fertilitetsrate bruger kun risikotid fra kvinder mellem 15 og 49 år:
 
+Alle tre mål udtrykkes pr. personår (for eksempel pr 1000 personår)
+eller pr. indbyggere (for eller pr 1000 indbyggere) og er relativt
+nemme at beregne.
+
+/Den summariske fertilitetsrate/ defineres som antal levendefødte
+pr. 1000 indbyggere hvor moren er mellem 15 og 49 år gamle og beregnes
+ved at dividere antallet af levendefødte børn i en given periode med
+middelfolketallet for samme periode. Fremgangsmåden er altså den samme
+som for den summariske mortalitetsrate. Vi bruger følgende notation
+(som er standard i demografien, se Kapitel 3) for antal levendefødte
+børn i perioden \([t_1,t_2]\) hvor kvinden var mellem 15 og 49 år
+gammel ved fødslen:
+#+begin_export latex
+\begin{equation*}
+ _{35}F_{15} = _{35}\negthickspace F_{15}[t_1,t_2].
+\end{equation*}
+#+end_export
+Formlen for den summariske fødselsrate ser således ud:
+#+begin_export latex
+\begin{equation}\label{eq:K4-sum_f}
+\text{Summariske fødselsrate: } f_{sum} = \frac{_{35}F_{15}[t_1,t_2]}{R[t_1,t_2]}=\frac{\text{Antal fødsler}}{\text{Risikotid}}
+\end{equation}
+#+end_export
+Den summariske fødselsrate \(f_{sum}\) angiver dermed fertilitetsraten
+i tidsintervallet fra kalenderdato \(t_1\) til kalenderdato \(t_2\).
+Det er vigtigt at notere sig, at der i middelfolketallet for den givne
+periode indgår personer, som ikke kan føde børn -- herunder mænd, børn
+og ældre. Derfor anvendes /den generelle fertilitetsrate/ ofte, da der
+i dette mål kun divideres med kvinder i den fertile alder (15-49
+år). Den generelle fertilitetsrate defineres således som antal
+levendefødte børn pr. 1000 kvinder i den fertile alder. Den generelle
+fertilitetsrate bruger kun risikotid fra kvinder mellem 15 og 49 år:
 #+begin_export latex
 \mybox{ 
 \begin{equation*}
@@ -146,44 +168,11 @@ f_{gen} = \frac{_{35}F_{15}}{_{35}R^{\text{Kvinder}}_{15}[t_1,t_2]}=\frac{\text{
 \end{equation*}
 }
 #+end_export
-
-
-
-generel og aldersspecifikke rater. Disse begreber er ikke nye, men er
-beskrevet i tidligere kapitler (se kapitlet om mortalitet). Alle tre
-mål udtrykkes pr. personår (fx pr 1000 personår) eller pr. indbyggere
-(fx pr 1000 indbyggere) og er relativt nemme at beregne.
-
-/Den summariske fertilitetsrate/ defineres som antal levendefødte
-pr. 1000 indbyggere og beregnes ved at dividere antallet af
-levendefødte børn i en given periode med middelfolketallet for samme
-periode. Fremgangsmåden er altså den samme som for den summariske
-mortalitetsrate. Formlen ser således ud:
-
-# $f[t,t+1]=  F(t,t+1)/M$
-
-/f/ angiver fertilitetsraten i tidsintervallet fra /t/ til /t+1/, /F/ er antal levendefødte, og /M/ er middelfolketallet. 
-
-
-Det er vigtigt at notere sig, at der i middelfolketallet for den givne
-periode indgår personer, som ikke kan føde børn – herunder mænd, børn
-og ældre. Derfor anvendes /den generelle fertilitetsrate/ ofte, da der
-i dette mål kun divideres med kvinder i den fertile alder (15-49
-år). Den generelle fertilitetsrate defineres således som antal
-levendefødte børn pr. 1000 kvinder i den fertile alder. Og formlen ser
-således ud:
-
-
-# $f[t,t+1] =  F(t,t+1)/M_{K:15,49}$
-
-/f/ angiver fertilitetsraten, /F/ er antal levendefødte i
-tidsintervallet fra /t/ til /t+1/, og /M/ er middelfolketallet af
-15-49 årige kvinder.
-
 Sammenlignet med den summariske fertilitetsrate vil den generelle
-fertilitetsrate vil være mere retvisende, da denne rate tager højde
-for størrelsen på den kvindelige befolkning. Udviklingen i både den
-generelle og summariske fertilitetsrate siden 1973 fremgår af Figur
+fertilitetsrate have højere værdier, da risikotiden på den kvindelige
+befolkning mellem 15 og 49 er mindre end risikotiden fra hele
+befolkningen. Udviklingen i både den generelle og summariske
+fertilitetsrate siden 1973 fremgår af Figur
 ref:fig:k4-gensumfrate. Hvor den summariske fertilitetsrate har ligget
 mere stabilt over årene, er den generelle fertilitetsrate udsat for
 flere udsving. Disse udsving er netop tydelige, fordi den generelle
@@ -227,19 +216,19 @@ g
 
 /Den aldersspecifikke fertilitetsrate/ udregnes på samme vis som den
 aldersspecifikke mortalitetsrate. For en given periode og en given
-aldersgruppe fx 30-34 årige vil den aldersspecifikke fertilitetsrate
-beregnes ved at dividere antallet af levendefødte børn, der fødes af
-kvinder, der er 30-34 år på barnets fødselsdag, med det totale antal
-af 30-34 årige kvinder. Raten vil således definere hvor mange børn
-1000 30-34årige kvinder føder i den givne periode. Formlen ser således
-ud:
+aldersgruppe for eksempel 30-34 årige vil den aldersspecifikke
+fertilitetsrate beregnes ved at dividere antallet af levendefødte
+børn, der fødes af kvinder, der er 30-34 år på barnets fødselsdag, med
+det totale antal af 30-34 årige kvinder. Raten vil således definere
+hvor mange børn 1000 30-34årige kvinder føder i den givne
+periode. Formlen ser således ud:
 
-# $f_{x,x+n}=  F_{x,x+n}/M_x $
+# $f_{x,x+n}=  F_{x,x+n}/R_x $
 
-/f/ angiver fertilitetsraten, /x/ er aldersintervallets startalder (fx
-30 år), /n/ er intervallet længde (fx 5 år), /F/ er antal
-levendefødte, og /M/ er middelfolketallet for den pågældende
-aldersgruppe.
+/f/ angiver fertilitetsraten, /x/ er aldersintervallets startalder
+(for eksempel 30 år), /n/ er intervallet længde (for eksempel 5 år),
+/F/ er antal levendefødte, og /R/ er risikotiden for den pågældende
+aldersgruppe (i den pågældende periode).
 
 #+ATTR_LATEX: :options otherkeywords={hent_data,scale_y_log10,mutate,summarise,pull,ggplot}, deletekeywords={c,&,title,legend,de,scale,by,axis,plot,margin,t,text,rect,list,factor}
 #+BEGIN_SRC R :results file graphics :file ./kapitel4/k4-aldersfoedelsrate.pdf :exports none :session *R* :cache yes :width 10  :height 6.25
