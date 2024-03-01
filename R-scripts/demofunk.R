@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Mar  1 2024 (09:56) 
+## Last-Updated: Mar  1 2024 (11:25) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 128
+##     Update #: 129
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -368,12 +368,12 @@ overlevelsestavle <- function(data,
     }else{
         a = data[["a"]]
     }
-    if  (!("n" %in% names(data)))
-        n <- rep(1,xmax)
+    if  (!("k" %in% names(data)))
+        k <- rep(1,xmax)
     else
-        n = data[["n"]]
+        k = data[["n"]]
     a[xmax] <- 1/M[xmax]
-    q=n*M/(1+(n-a)*M)
+    q=k*M/(1+(k-a)*M)
     q[xmax] <- 1
     l0 <- radix
     l <- d <- L <- numeric(xmax)
@@ -385,7 +385,7 @@ overlevelsestavle <- function(data,
         }else{
             d[x] <- l[x]
         }
-        L[x] <- n[x]*l[x]-d[x]*(n[x]-a[x])
+        L[x] <- k[x]*l[x]-d[x]*(k[x]-a[x])
     }
     T <- rev(cumsum(rev(L)))
     e <- T/l
