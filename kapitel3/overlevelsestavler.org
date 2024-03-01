@@ -23,8 +23,8 @@ gennemsnitlige levetid af en nyfødt, et demografisk værktøj som
 anvendes hyppigt til belysning af befolkningens nuværende
 dødelighedsniveau. Middellevetid bruges også som
 sammenligningsgrundlag på tværs af befolkninger og tid. Tallet angiver
-det gennemsnitlige antal år, som en nyfødt kan forventes at leve /under
-den forudsætning/, at de nuværende mortalitetsrater for alle
+det gennemsnitlige antal år, som en nyfødt kan forventes at leve
+/under den forudsætning/, at de nuværende mortalitetsrater for alle
 grupperinger af køn og alderstrin holder sig på det samme niveau i al
 fremtid. Med middellevetiden har man et relativt simpelt begreb, som
 gør det muligt at sammenligne forskellige befolkningers dødelighed. I
@@ -39,15 +39,148 @@ forventes at leve, vil derfor formentlig undervurdere den faktiske
 middellevetid. Men formålet med middellevetiden er heller ikke at
 forudsige præcist, hvor længe nyfødte vil leve. Formålet er at have et
 simpelt begreb, der kan sammenlignes på tværs af befolkninger og tid.
+Figur ref:fig:k3-middellevetid viser udviklingen af middellevetid for
+0-årige i Danmark siden 1840.
 
+#+BEGIN_SRC R :results file graphics :file ./kapitel3/K3-udvikling-middellevetid.pdf :exports none :session *R* :cache yes
+m <- hent_data("HISB7",tid = "all",køn = "all")
+m <- mutate(m,kalender = as.numeric(sapply(strsplit(TID,":"),"[",1)))
+g <- ggplot(m,aes(kalender,INDHOLD,colour = KØN,group = KØN))+geom_line()
+g <- g+theme_wsj()+ scale_colour_wsj("colors6") + theme(axis.text.x = element_text(angle = -45))
+g <- g+theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))
+g <- g + theme(axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)))
+g <- g+scale_x_continuous(breaks = seq(1840,2023,10))
+g + ylab("Middellevetid for 0-årige (år)")+xlab("")
+#+END_SRC
+
+#+RESULTS[(2024-03-01 09:48:59) 906f5d7a78cc606c22b3cb67dfb5c43fd4eafa0a]:
+[[file:./kapitel3/K3-udvikling-middellevetid.pdf]]
+
+#+name: fig:k3-middellevetid
+#+ATTR_LATEX: :width 0.9\textwidth
+#+CAPTION: Udviklingen i middellevetid for 0-årige. Kilde: statistikbankens HISB7.
+[[file:./K3-udvikling-middellevetid.pdf]]
 
 ** Andre dødelighedsmål
 
-Middellevetiden er et mål som resulterer fra den såkaldte
-overlevelsestavle. En klassisk overlevelsestavle beskriver også en
-række andre dødelighedsmål, såsom den forventede restlevetid fra alder
-\(x\), sandsynligheden for at dø inden alder \(x\) og sandsynligheden
-for at være i live ved alder \(x\).
+Middellevetiden er måske det vigtigste mål, som resulterer fra
+overlevelsestavlen. En overlevelsestavle beskriver også en række andre
+dødelighedsmål, såsom den forventede restlevetid fra alder \(x\),
+sandsynligheden for at dø inden alder \(x\) og sandsynligheden for at
+være i live ved alder \(x\).
+Figur ref:fig:k3-middellevetid viser middelrestlevetiden for
+43-årige i Danmark siden 1981.
+
+
+#+BEGIN_SRC R :results file graphics :file ./kapitel3/K3-udvikling-middelrestlevetid.pdf :exports none :session *R* :cache yes
+m <- hent_data("HISB8",alder = 43,tavle = 3,tid = "all",køn = "all")
+m <- mutate(m,kalender = as.numeric(sapply(strsplit(TID,":"),"[",1)))
+g <- ggplot(m,aes(kalender,INDHOLD,colour = KØN,group = KØN))+geom_line()
+g <- g+theme_economist()+ scale_colour_wsj("colors6") + theme(axis.text.x = element_text(angle = -45))
+g <- g+theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))
+g <- g + theme(axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)))
+g <- g+scale_x_continuous(breaks = seq(1840,2023,10))
+g + ylab("Middelrestlevetid for 43 årige (år)")+xlab("")
+#+END_SRC
+
+#+RESULTS[(2024-03-01 09:48:53) c9af3a242ea2c505b0f102edf2b3639b89c1af65]:
+[[file:./kapitel3/K3-udvikling-middelrestlevetid.pdf]]
+
+#+name: fig:k3-middelrestlevetid
+#+ATTR_LATEX: :width 0.9\textwidth
+#+CAPTION: Udviklingen i middelrestlevetid for 43-årige. Kilde: statistikbankens HISB8.
+[[file:./K3-udvikling-middelrestlevetid.pdf]]
+
+** Eksempel
+
+Vi henter data fra statistikbankens register =FOLK1a= og =FOD207= og
+beregner aldersspecifikke mortalitetsrater for kvinder i Danmark i
+året 2019. Vi inddeler i 12 aldersintervaller hvor det første har
+længde 1 år, det andet har længde 9 år, resten har længde 10 år, og det
+sidste aldersinterval rækker fra 90 til 125 år. 
+
+#+ATTR_LATEX: :options otherkeywords={hent_mortalitetsrate_data,filter,mutate,overlevelsestavle}, deletekeywords={c,rep,print,seq,R}
+#+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
+x <- hent_mortalitetsrate_data(tid = 2019,
+                               breaks = c(0,1,10,seq(20,90,10),Inf),
+                               køn = "kvinder",
+                               right = FALSE,
+                               alder = "all_no_total")
+x <- mutate(x,M = Dod/R)
+x
+#+END_SRC
+
+#+RESULTS[(2024-03-01 09:55:07) d2db9294abb52f41cc0c375dcce49f61db0a9cf1]:
+#+begin_example
+# A tibble: 11 × 6
+   aldersinterval KØN       TID      R   Dod         M
+   <fct>          <chr>   <dbl>  <dbl> <dbl>     <dbl>
+ 1 0              Kvinder  2019  29448    74 0.00251  
+ 2 1-9            Kvinder  2019 270111    24 0.0000889
+ 3 10-19          Kvinder  2019 332202    32 0.0000963
+ 4 20-29          Kvinder  2019 383578    73 0.000190 
+ 5 30-39          Kvinder  2019 336414   128 0.000380 
+ 6 40-49          Kvinder  2019 378914   342 0.000903 
+ 7 50-59          Kvinder  2019 397594  1160 0.00292  
+ 8 60-69          Kvinder  2019 336747  2855 0.00848  
+ 9 70-79          Kvinder  2019 293474  6016 0.0205   
+10 80-89          Kvinder  2019 129929  8878 0.0683   
+11 90+            Kvinder  2019  32094  6921 0.216
+#+end_example
+
+Med disse tal fra den ægte befolkning konstruerer vi
+overlevelsestavlen, som beskriver dødeligheden i en hypotetisk
+befolkning, der bliver født i 2019 og lever helt deres ``liv'' igennem
+alle alderstrin i 2019 hvor de bliver udsæt for mortalitetsraterne
+fra 2019.
+
+#+ATTR_LATEX: :options otherkeywords={hent_mortalitetsrate_data,filter,mutate,overlevelsestavle}, deletekeywords={c,rep,print,seq,R}
+#+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
+x <- mutate(x,a = c(0.1,4.5,rep(5,9)),n = c(1,9,rep(10,9)))
+tavle_kvinder <- overlevelsestavle(x,
+                                   mortalitet = "M",
+                                   alder = "aldersinterval")
+print(tavle_kvinder,digits = 2)
+#+END_SRC
+
+#+RESULTS[(2024-03-01 09:56:07) 05faec4af649b08c3f49cb5ab3d81b1e6fed6ab5]:
+#+begin_example
+# A tibble: 11 × 9
+   Alder      l     d     p        q     o      L        T     e
+   <fct>  <dbl> <dbl> <dbl>    <dbl> <dbl>  <dbl>    <dbl> <dbl>
+ 1 0     100000   251 0.997 0.00251  1      99774 8334430. 83.3 
+ 2 1-9    99749    80 0.999 0.000799 0.997 897385 8234656. 82.6 
+ 3 10-19  99670    96 0.999 0.000963 0.997 996216 7337271. 73.6 
+ 4 20-29  99574   189 0.998 0.00190  0.996 994789 6341056. 63.7 
+ 5 30-39  99384   377 0.996 0.00380  0.994 991955 5346266. 53.8 
+ 6 40-49  99007   890 0.991 0.00899  0.990 985620 4354311. 44.0 
+ 7 50-59  98117  2821 0.971 0.0288   0.981 967065 3368691. 34.3 
+ 8 60-69  95296  7751 0.919 0.0813   0.953 914204 2401626. 25.2 
+ 9 70-79  87545 16278 0.814 0.186    0.875 794062 1487422. 17.0 
+10 80-89  71267 36296 0.491 0.509    0.713 531192  693360.  9.73
+11 90+    34971 34971 0     1        0.350 162168  162168.  4.64
+#+end_example
+
+
+#+Label: tab:overlevelstavle-kolonner
+#+CAPTION: Forklaring af kolonner i en overlevelsestavle
+#+ATTR_LATEX: :align l|l
+| Kolonne | Betydning                                                       |
+|---------+-----------------------------------------------------------------|
+| =Alder= | Aldersinterval                                                  |
+| =l=     | Dekrementfunktion: Antal tabelpersoner i starten af intervallet |
+| =d=     | Antal døde i intervallet                                        |
+| =p=     | Sandsynlighed for at overleve i intervallet                     |
+| =q=     | Dødshyppighed: sandsynlighed for at dø i intervallet            |
+| =o=     | Sandsynlighed for at overleve indtil starten af intervallet     |
+| =L=     | Samlede risikotid i intervallet                                 |
+| =T=     | Samlede levetid fra starten af intervallet                      |
+| =e=     | Middelrestlevetid (i første interval =  middellevetid)          |
+
+Fra overlevelsestavlen aflæser vi kolonne =e=: under antagelsen at
+mortalitetsraterne i 2019 ikke ændrer sig i al fremtid vil man
+forvente, at en nyfødt pige lever 88,3 år og at en kvinde som er 30 år
+gamle kan forvente at leve 53,8 år.
 
 * Konstruktion af overlevelsestavle
 
@@ -59,95 +192,97 @@ tages udgangspunkt i en fiktiv tabelbefolkning bestående af
 tidspunkt. Antallet af fiktive tabelpersoner \(\ell_0\) kaldes for
 `radix', og radix sættes typisk til $\ell_0=100.000$.
 
-** Eksempel
-
-#+ATTR_LATEX: :options otherkeywords={c,rep,print,seq}, deletekeywords={}
-#+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
-x <- hent_mortalitetsrate_data(tid = 2019,
-                               breaks = c(0,1,5,10,seq(20,90,10),Inf),
-                               right = FALSE,
-                               alder = "all_no_total")
-x <- mutate(x,M = Dod/R)
-x_kvinder <- filter(x,KØN == "Kvinder")
-x_kvinder <- mutate(x_kvinder,a = c(0.1,2,rep(5,10)),n = c(1,4,rep(10,10)))
-tavle_kvinder <- overlevelsestavle(x_kvinder,
-                                   mortalitet = "M",
-                                   alder = "aldersinterval")
-print(tavle_kvinder,digits = 2)
-#+END_SRC
-
-#+RESULTS[(2024-02-29 10:58:04) 55afd66f6ec4feaecf93a34048b7d70c476718e6]:
-#+begin_example
-    Alder      l     d    p       q      L       T    e
- 1:     0 100000   251 1.00 0.00251  99774 8829735 88.3
- 2:   1-4  99749    40 1.00 0.00040 398917 8729961 87.5
- 3:   5-9  99709    79 1.00 0.00080 996695 8331044 83.6
- 4: 10-19  99630    96 1.00 0.00096 995819 7334349 73.6
- 5: 20-29  99534   189 1.00 0.00190 994393 6338530 63.7
- 6: 30-39  99345   377 1.00 0.00380 991560 5344137 53.8
- 7: 40-49  98967   889 0.99 0.00899 985228 4352577 44.0
- 8: 50-59  98078  2820 0.97 0.02876 966680 3367349 34.3
- 9: 60-69  95258  7748 0.92 0.08133 913840 2400669 25.2
-10: 70-79  87510 16271 0.81 0.18593 793745 1486829 17.0
-11: 80-89  71239 36282 0.49 0.50930 530981  693084  9.7
-12:   90+  34957 34957 0.00 1.00000 162103  162103  4.6
-#+end_example
-
 ** Dekrementfunktion
 
-Funktionen \(\ell\) angiver hvor mange tabelpersoner er stadigvæk i
+Funktionen \(\ell_x\) angiver hvor mange tabelpersoner er stadigvæk i
 live ved alder \(x\) og beskriver hvordan tabelbefolkningen reduceres
 på grund af dødsfald. Startværdien \(\ell_0\) angiver hvor mange
 tabelpersoner der er i tabelbefolkningen helt i begyndelsen hvor alder
-er lige med \(0\), og \(\ell_30)\) angiver hvor mange tabelpersoner er
-i livet ved alder \(30\). Fordi \(\ell\) er monoton faldende som
-funktion af alder, altså \(\ell_x\ge\ell_{x+1}\), kalder man den for
-dekrementfunktion. For eksempel, \(\ell_30=91.047\) betyder at ud
-af \(\ell_0=100.000\) tabelpersoner \(91.047\) personer er stadigvæk
-i live ved alder \(30\). I dette eksempel er
-overlevelsessandsynligheden i tabelbefolkningen ved alder \(30\) lige
-med
+er lige med \(0\), og \(\ell_{30}\) angiver hvor mange tabelpersoner
+er i livet ved alder \(30\). Fordi \(\ell_x\) er monoton faldende som
+funktion af alder, det vil sige, at der gælder
+\(\ell_x\ge\ell_{x+1}\), kalder man den for dekrementfunktion. Fra
+tabellen kan man aflæse hvor mange personer forventes at overleve et
+bestemt alder. For eksempel betyder \(\ell_{30}=99.345\), at ud af
+\(\ell_0=100.000\) tabelpersoner \(99.345\) personer er stadigvæk i
+live ved alder \(30\). I dette eksempel er overlevelsessandsynligheden
+i tabelbefolkningen ved alder \(30\) lige med
 #+begin_export latex
 \begin{equation*}
-o(30)=\frac{\ell_30}{\ell_0} = \frac{91.047}{100.000} = 91,1\%.
+o(30)=\frac{\ell_30}{\ell_0} = \frac{99.345}{100.000} = 99,3\%.
 \end{equation*}
 #+end_export
 Overlevelsesfunktionen er defineret som
 #+begin_export latex
 \begin{equation*}
-o(x)=\frac{\ell_x}{\ell_0}. 
+o_x=\frac{\ell_x}{\ell_0}. 
 \end{equation*}
 #+end_export
 Under konstruktionen af overlevelsestavler er opgaven at beregne
 dekrementfunktionens værdier \(\ell_x\) for alle alderstrin \(x=0,1,
 \dots, x^{max}\) hvor \(x^{max}\) er det sidste alderstrin. Per
-konstruktion, der bliver forklaret i detaljer nedenfor, dør alle
-resterende tabelpersoner i det sidste alderstrin, det vil sige
-\(\ell_{x^{max}+1}=0\), og dermed har vi også \(o(x^{max}+1)=0\).
+konstruktion, der bliver forklaret nedenfor, dør alle resterende
+tabelpersoner i det sidste alderstrin, det vil sige
+\(\ell_{x^{max}+1}=0\), og dermed har vi også \(o_{x^{max}+1}=0\).
 
 ** Dødshyppigheder
 
-Dødshyppigheder \(\qxk\) beskriver sandsynligheden for at dø i
-aldersintervallet \((x,x+k]\) given overlevelse indtil alder
-\(x\). Dødshyppigheder forbinder den ægte, åbne befolkning, som man
+Dødshyppigheden \(\qxk\) beskriver for en person med eksakt alder
+\(x\) sandsynligheden for at dø indtil alderen
+\(x+k\). Dødshyppigheder forbinder den ægte, åbne befolkning, som man
 interesserer sig for, med den tænkte, lukkede tabelbefolkning der
-definerer overlevelsestavlen. Den underliggende idé er at
-mortalitetsraterne er det samme i disse to befolkninger for begge køn
-og alle alderstrin.
+definerer overlevelsestavlen. Man beregner dødshyppigheder baseret på
+aldersspecifikke mortalitetsrater, og den underliggende idé er, at
+mortalitetsraterne er ens i den ægte befolkning og i tabelbefolkningen
+for begge køn og alle alderstrin.
+
+#+begin_export latex
+\mybox{Bemærkning til notation:\\
+
+Det er standardnotation i demografien at have index på begge
+sidder af symbolet, lige som i \qxk. Her er index til højre 
+starten af et aldersinterval og index til venstre er længden af
+aldersintervallet. Det er lidt forvirrende, fordi
+intervallet inkluderer startalder \(x\):
+\begin{center}
+\begin{tabular}{lm{4em}rrl}
+Symbol & Start & Længden & Slut & Betydning\\[0pt]
+\hline
+\({}_{1}D_{0}\) & 0 & 1 & 1 & Antal døde i alder \(0\)\\[0pt]
+\({}_{4}D_{1}\) & 1 & 4 & 4 & Antal døde i alder 1, 2, 3, 4\\[0pt]
+\({}_{5}D_{5}\) & 5 & 5 & 9 & Antal døde i alder 5, 6, 7, 8, 9\\[0pt]
+\end{tabular}
+\end{center}
+Vi ændrer nu også notationen for de aldersspecifikke
+mortalitetsrater. I Kapitel 2 har vi brugt \(M_x\) for mortalitetsraten
+i det \(x\)-te aldersinterval.
+Fra nu af bruger vi den mere præcise betegnelse
+\(\Mxk\) for mortalitetsraten i det aldersinterval som starter i alder \(x\)
+og slutter i alder \(x+k\).
+}
+#+end_export
+
+# | Symbol          | Startalder | Længden | Slutalder | Betydning              |
+# |-----------------+------------+---------+-----------+------------------------|
+# | \({}_{1}D_{0}\) |          0 |       1 |         1 | Antal døde i \([0,1)\) |
+# | \({}_{4}D_{1}\) |          1 |       4 |         4 | Antal døde i \([1,4)\) |
+# | \({}_{5}D_{5}\) |          5 |       5 |         9 | Antal døde i \([5,9)\) |
 
 *** Approksimationsformel
 
-For at beregne dødshyppighederne \(\qxk\) bruger vi data fra den ægte
-befolkning, typisk fra en kort kalenderperiode. Problemet er at den
-ægte befolkning er /åben/. Dødsfald bliver ikke bliver registreret for
-personer som udvandrer i perioden og både udvandrer og indvandrer i
-perioden bidrager ikke med risikotid til hele perioden. Derfor er det
-uklar hvor mange personer der er i aldersintervallet. Aldersspecifikke
-summariske mortalitetsrater løser problemet ved at dividere antal
-dødsfald med antal risikotid hvor indvandrer og udvandrer bidrager med
-den tid de nu har været i befolkningen. Nøglen til en approksimation
-af dødshyppigheder baseret på mortalitetsrater er følgende centrale
-formel:
+For at beregne dødssandsynligheder i den ægte befolkning vil man gerne
+dividere antal dødsfald i en kalenderperiode med antal personer i
+starten af perioden. Problemet er at den ægte befolkning er /åben/:
+Dødsfald bliver ikke registreret for personer som udvandrer i
+perioden, og både udvandrer og indvandrer i perioden bidrager ikke med
+risikotid til hele perioden. Ideen er derfor at tilnærme
+dødshyppighederne baseret på mortalitetsrater. Aldersspecifikke
+mortalitetsrater kan beregnes på de registrerede data, ved at dividere
+antal dødsfald i befolkningen med antal risikotid, hvor indvandrer og
+udvandrer kun bidrager med den tid de har været i befolkningen (se
+Kapitler 1,2) . Nøglen til en approksimation af dødshyppighederne
+baseret på mortalitetsrater er følgende centrale formel for
+overlevelsestavlen:
 
 #+begin_export latex 
 \begin{equation}\label{k3-dhyppig}
@@ -158,9 +293,17 @@ formel:
 Formlen afhænger aldersspecifikke mortalitetsrater \Mxk, længden af
 aldersintervallet \(k\), og også en konstant \(\a{k}\), som kaldes
 Chiang's a. Konstanten \(\a{k}\) beskriver den gennemsnitlige levetid
-i aldersintervallet \((x,x+k]\) for personer, der døde mellem alder
-\(x\) og alder \(x+k\). Dermed beskriver \((k-\a{k})\) den
-gennemsnitlige tid som en person der døde i aldersintervallet var død.
+i aldersintervallet for personer, der døde mellem alder \(x\) og alder
+\(x+k\). Dermed beskriver \((k-\a{k})\) den gennemsnitlige tid som en
+person der døde i aldersintervallet var død.  Hvis vi for eksempel ser
+på et aldersinterval mellem 70 og 79 år og en person døde i alder 74,
+så er har den person været i live i 4 år (70, 71, 72, 73) og døde i 6
+år (74, 75, 76, 77, 78, 79). En person som døde i alder 78 har været i
+live i 8 år og døde i 2 år, og så videre. Værdien af \({}_{10}a_{70}\)
+skal afspejle det gennemsnitlige antal år, som personer der døde i
+denne aldersgruppe, var i live. For de fleste intervaller vil man
+antage at gennemsnittet ligger i midten, altså i eksemplet vil man
+vælge \({}_{10}a_{70} = 5\).
 
 *** Chiang's a
 :PROPERTIES:
@@ -168,20 +311,25 @@ gennemsnitlige tid som en person der døde i aldersintervallet var død.
 :END:
 For at beregne dødshyppigheder med den centrale formel
 eqref:k3-dhyppig har vi brug for at specificere Chiang's a for alle
-aldersintervaller. Chiang's a skal approksimere det forventede antal
-år levet i intervallet af en person, som dør i intervallet. Hvis
-Chiang's a opfylder dette, bliver
+aldersintervaller. Chiang's a skal tilnærme det forventede antal år
+levet i intervallet af en person, som dør i intervallet. Hvis Chiang's
+a opfylder dette, kan vi tilnærme den samlede dødstid, som alle
+personer der døde i aldersintervallet har været død:
 #+begin_export latex
 \begin{equation*}
-\text{Dødstid i aldersinterval}=(k- \a{k})\cdot\Dxk,
+\begin{split}
+\text{Samlede dødstid i aldersintervallet}&=(k- \a{k})\cdot\Dxk,\\
+ k &= \text{Antal år i aldersintervallet}\\
+ \Dxk &= \text{Antal døde i aldersintervallet}\\
+ \a{k} &= \text{Gennemsnitlige antal dødsår i intervallet}\\
+ \{x,x+1,\dots,x+k\} &= \text{År i intervallet}.
+\end{split}
 \end{equation*}
 #+end_export
-en god approksimation af antal dødstid som alle personer der døde i
-aldersintervallet har været død.
-
-Hvis vi antager at dødtider er jævnt fordelt i aldersintervallet,
-altså at det er lige sandsynligt at dø i starten som det er i
-slutningen af aldersintervallet, er det rimeligt at vælge
+Hvis vi antager at dødstider er
+jævnt fordelt i aldersintervallet, altså at det er lige sandsynligt at
+dø i starten som det er at dø i slutningen af aldersintervallet, er
+det rimeligt at vælge
 #+begin_export latex
 \begin{equation*}
 \a{k} = \frac k 2.
@@ -191,18 +339,25 @@ Det første og sidste aldersinterval vil dog altid kræve særlige
 værdier af \a{k}. I det første leveår er dødstiderne meget skævt
 fordelt over året, de fleste dødstider inden 1-års fødselsdagen ligger
 kort efter fødslen. Derfor sætter vi \(\a[0]{1}=0,1\). For det sidste
-interval \(x^{max}\) vil man typisk vælge \(\a[x^{max}]{\infty}\), så
-dødshyppigheden bliver 1. Det svarer til at vælge
-\(\a[x^{max}]{\infty} = \frac{1}{{}_\infty M_{x^{max}}}\).
+interval \(x^{max}\) vil vælger vi
+#+begin_export latex
+\begin{equation}\label{eq:amax}
+\a[x^{max}]{\infty} =
+\frac{1}{{}_\infty M_{x^{max}}}, 
+\end{equation}
+#+end_export
+så dødshyppigheden i det sidste interval bliver 1, og det betyder at
+alle tabelpersoner dør i det sidste aldersinterval.
 
-
-|               | 5-års aldersintervaller | 10-års aldersintervaller |
-|---------------+-------------------------+--------------------------|
-| første leveår | \(\a[0]{1}=0,1\)        | \(\a[0]{1}=0,1\)         |
-| aldersinterval 1-5 år | \(\a[1]{4}= 4\cdot 0,5=2\) |\(\a[1]{9}= 9\cdot 0,5=4,5\)
-| alle andre intervaller|  \(\a[5]{k}=5\cdot 0,5\)=2,5 | \(\a[10]{k}=10\cdot 0,5=5\)
-| sidste aldersinterval|   \(a_{x^{max}}=\frac{1}{{}_\infty M_{x^{max}}}\) | \(a_{x^{max}}=\frac{1}{{}_\infty M_{x^{max}}}\)|
-
+#+Label: tab-K3.1
+#+CAPTION: Tabellen viser hvordan vi vælger Chiang's a for 1-års, 5-års og 10-års aldersintervaller.
+#+ATTR_LATEX: :align l|l|l 
+|                        | 5-års aldersintervaller                         | 10-års aldersintervaller                        |
+|------------------------+-------------------------------------------------+-------------------------------------------------|
+| Første leveår          | \(\a[0]{1}=0,1\)                                | \(\a[0]{1}=0,1\)                                |
+| Aldersinterval 1-5 år  | \(\a[1]{4}= 4\cdot 0,5=2\)                      | \(\a[1]{9}= 9\cdot 0,5=4,5\)                    |
+| Alle andre intervaller | \(\a[5]{k}=5\cdot 0,5\)=2,5                     | \(\a[10]{k}=10\cdot 0,5=5\)                     |
+| Sidste aldersinterval  | \(a_{x^{max}}=\frac{1}{{}_\infty M_{x^{max}}}\) | \(a_{x^{max}}=\frac{1}{{}_\infty M_{x^{max}}}\) |
 
 *** Forklaring af den centrale formel
 
@@ -213,18 +368,19 @@ dødshyppighederne simpelt som antal dødsfald i aldersintervallet
 divideret med antal personer i starten af aldersintervallet:
 #+begin_export latex
 \begin{equation*}
-\text{Dødshyppighed} = \frac{\text{Antal dødsfald i aldersinterval}}{\text{Antal personer i starten}}.
+\text{Dødshyppighed} = \frac{\text{Antal dødsfald i aldersintervallet}}{\text{Antal personer i starten}}.
 \end{equation*}
 #+end_export
-Fordi aldersintervallet er \(k\) år lang gælder
+Hvis aldersintervallet inkluderer \(k\) år gælder
 #+begin_export latex
 \begin{equation*}
 \text{Antal personer i starten} = \frac{\text{Risikotid} + \text{Dødstid}}{k}.
 \end{equation*}
 #+end_export
-Her er risikotid antal år som befolkningens personer har livet (i
-aldersintervallet) og dødstid antal år som befolkningens personer var
-døde. Med denne formel kan dødshyppigheden skrives som
+Her er risikotid det samlede antal år, som befolkningens personer har
+livet (i aldersintervallet), og dødstid er tilsvarende det samlede
+antal år, som befolkningens personer var døde. Med denne formel kan
+dødshyppigheden skrives som
 #+begin_export latex
 \begin{equation}\label{eq:k3-uformel}
 \text{Dødshyppighed} = \frac{k\cdot \text{Antal dødsfald i aldersinterval}}{\text{Risikotid}+\text{Dødstid}}.
@@ -236,12 +392,13 @@ Vi sætter Chiang's a sådan at
 \text{Dødstid i aldersinterval}=(k- \a{k})\cdot\Dxk,
 \end{equation*}
 #+end_export
-er en god approksimation af antal dødstid som alle personer der døde i
-aldersintervallet har været død (c.f., afsnit ref:chiang). Hvis vi nu
-anvender formlen for den aldersspecifikke mortalitetsrate
+er en god approksimation af den samlede dødstid, som alle personer der
+døde i aldersintervallet har været død (c.f., afsnit ref:chiang). Hvis
+vi nu anvender formlen for den aldersspecifikke mortalitetsrate
+fra Kapitel 2, 
 #+begin_export latex
 \begin{equation*}
-\Mxk = \frac{\Dxk}{\Rxk} 
+\Mxk = \frac{\Dxk}{\Rxk},
 \end{equation*}
 #+end_export
 ser vi at den centrale formel
@@ -254,54 +411,57 @@ eqref:k3-dhyppig er faktisk lige med formel eqref:eq:k3-uformel:
 \end{align*}
 #+end_export
 
+*** Beregningen af antal dødsfald og overlever
 
-*** Beregning af antal dødsfald og overlever
-
-For at beregne antal tabelpersoner som overlever indtil det første
-alderstrin, \(x=1\), skal vi beregne hvor mange tabelpersoner dør
-mellem alder \(x=0\) og alder \(x=1\). For at beregne hvor mange
-tabelpersoner overlever alder \(x+k\) skal vi beregne hvor mange af de
-resterende \(\ell_x\) tabelpersoner dør i aldersintervallet
-\((x,x+k]\). Vi betegner med \(\d{k}\) antal tabelpersoner som dør
-mellem alder \(x\) og alder \(x+k\). Dermed er \(\d{1}\) antal
-tabelpersoner som dør mellem alder \(x\) og alder
+Vi fortsætter nu konstruktionen af overlevelsestavlen. Vi starter med
+en radix af \(\ell_0\) tabelpersoner. For at beregne antal
+tabelpersoner som overlever indtil det første alderstrin, \(x=1\),
+skal vi beregne hvor mange tabelpersoner dør mellem alder \(x=0\) og
+alder \(x=1\). For at beregne hvor mange tabelpersoner overlever alder
+\(x+k\) skal vi beregne hvor mange af de resterende \(\ell_x\)
+tabelpersoner dør i aldersintervallet. Vi betegner med \(\d{k}\) antal
+tabelpersoner som dør mellem alder \(x\) og alder \(x+k\). Dermed er
+\(\d{1}\) antal tabelpersoner som dør mellem alder \(x\) og alder
 \(x+1\). Sandsynligheden for at dø mellem to alderstrin
-(dødshyppighederne) er som sagt det centrale element ved
-konstruktionen af overlevelsestavlen. Vi beregner antal dødsfald i
-aldersintervallet \((x,x+k]\) ved at multiplicere antal tabelpersoner
-i starten af intervallet med dødshyppigheden:
+(dødshyppighederne) er det centrale element ved konstruktionen af
+overlevelsestavlen. Vi beregner antal dødsfald i aldersintervallet ved
+at multiplicere antal tabelpersoner i starten af intervallet med
+dødshyppigheden:
 #+begin_export latex
 \begin{equation}\label{antaltabeldod}
 \d{k} = \qxk\cdot\ell_x.
 \end{equation}
 #+end_export
 Det er vigtig at skelne mellem antal døde \(\Dxk\) i den ægte
-befolkning og antal døde \(\d{k}\) i tabelbefolkningen. Baseret på
-formel eqref:antaltabeldod kan vi beregne hvor mange tabelpersoner er
-i livet i starten af det næste aldersinterval:
+befolkning og antal døde \(\d{k}\) i tabelbefolkningen. Med formel
+eqref:antaltabeldod er det en let sag, at beregne hvor mange
+tabelpersoner er i livet i starten af det næste aldersinterval:
 #+begin_export latex
 \begin{equation*}
 \ell_{x+k}=\ell_{x} - \d{k}.
 \end{equation*}
 #+end_export
-Alternativt kan vi starte med at beregne dekrementfunktionen baseret
-på dødshyppigheden 
+Alternativt (det giver præcis samme resultat) kan vi starte med at beregne dekrementfunktionen baseret
+på dødshyppigheden
 #+begin_export latex
 \begin{equation*}
-\ell_{x+k}=\ell_{x}\cdot (1-q_x),
+\ell_{x+k}=\ell_{x}\cdot (1-q_x).
 \end{equation*}
 #+end_export
-og bagefter beregne antal dødsfald som
+Bagefter er det pærelet at beregne antal dødsfald som
 #+begin_export latex
 \begin{equation*}
 \d{k} = l_{x} - l_{x+k}.
 \end{equation*}
 #+end_export
+Med disse formler kan vi konstruere overlevelsestavlen vigtigste
+kolonner (\(\ell_0\) og \(\d{k}\)). Vi beskriver nu de vigtigste
+dødelighedsmål som overlevelsestavlen viser.
 
-*** Beregning af restlevetid og middellevetid 
+*** Beregning af middelrestlevetid og middellevetid 
 
 Vi betegner med \(\L{k}\) den samlede gennemlevede tid i
-tabelbefolkningen i en alder mellem \(x\) og \(x+k\). Da dødsfald er
+tabelbefolkningen i alderen mellem \(x\) og \(x+k\). Da dødsfald er
 eneste afgangsårsag i tabelbefolkningen har vi
 #+begin_export latex
 \begin{align*}
@@ -311,10 +471,10 @@ eneste afgangsårsag i tabelbefolkningen har vi
 \end{align*}
 #+end_export
 
-Vi skal nu beregne den forventede restlevetid for en \(x\)-årig
+Vi skal nu beregne den /forventede restlevetid/ for en \(x\)-årig
 tabelperson. For en nyfødt er \(x=0\) og dermed bliver den forventede
-restlevetid til den forventede levetid, som betegnes med
-middellevetid. Lad \(T_x\) angive den samlede levetid i
+middelrestlevetid til den forventede levetid, som betegnes med
+/middellevetid/. Lad \(T_x\) angive den samlede levetid i
 tabelbefolkningen efter \(x\)-års fødselsdagen, specielt er \(T_0\)
 den samlede levetid i tabelbefolkningen. Vi beregner
 #+begin_export latex
@@ -323,21 +483,42 @@ T_x &= \L{k} + \cdots + \L[x^{max}]{k}\\
     &= \a{k}\cdot\ell_x + (k- \a{k})\cdot \ell_{x+k} + \cdots + \a[x^{max}]{\infty}\cdot\ell_{x^{max}}.
 \end{align*}
 #+end_export
-I tabelbefolkning oplever \(\ell_x\) personer deres \(x\)-års
+I tabelbefolkningen overlever \(\ell_x\) personer til deres \(x\)-års
 fødselsdag, så den gennemsnitlige levetid efter \(x\)-års fødselsdagen
 bliver
 #+begin_export latex
-\begin{equation*}
+\begin{equation}\label{eq:restlevetid}
 e_x=\frac{T_x}{\ell_x} = \text{gennemsnitlige restlevetid}.
-\end{equation*}
+\end{equation}
 #+end_export
-Dette gennemsnit kaldes den forventede restlevetid for en \(x\)-årig
-tabelperson. På tilsvarende vis bliver middellevetid beregnet som
+Dette gennemsnit kaldes den forventede restlevetid eller
+middelrestlevetid for en \(x\)-årig tabelperson. På tilsvarende vis
+bliver middellevetid beregnet som
 #+begin_export latex
-\begin{equation*}
+\begin{equation}\label{eq:middellevetid}
 e_0=\frac{T_0}{\ell_0} = \text{middellevetid}.
-\end{equation*}
+\end{equation}
 #+end_export
+
+*** Fortolkning
+
+Når man fortolker middellevetid og middelrestlevetid er det vigtigt at huske
+og fremhave at beregningen bygger på en hypotetisk tabelbefolkning som
+lever helt deres liv i en kort kalenderperiode. Danmark Statistik
+forlklarer middelrestlevetiden sådan[fn:1]:
+
+#+begin_export latex
+\mybox{ Middelrestlevetiden er det gennemsnitlige antal år, som personer på en given
+fødselsdag har tilbage at leve i, {\it hvis deres dødelighed fremover
+(alder for alder) svarer til det niveau, som er konstateret i den
+aktuelle periode}.}
+#+end_export
+
+[fn:1] https://www.dst.dk/da/Statistik/emner/borgere/befolkning/middellevetid
+
+** Overlevelsestavle med 1-års intervaller
+
+
 
 
 ** Danmark statistik
@@ -367,8 +548,11 @@ alderstrin, som svarer til det antal år, de fyldte i startåret,
 hvilket i eksemplet vil sige 2008. En person, som fyldte 60 år 1. januar 2008 vil fx tilhøre de
 60-årige. Det samme vil en person, der fyldte 60 år 31. december 2008.
 Der kan altså i yderste konsekvens være næsten et års forskel mellem
-den periode, som personer på samme alderstrin følges. 
+den periode, som personer på samme alderstrin følges.
 
+Man kan se de nyeste beregninger fra Danmark Statistik her:
+[[https://www.dst.dk/da/Statistik/emner/borgere/befolkning/middellevetid][Middelevetid]], og finde dokumentation for beregningerne her: 
+[[https://www.dst.dk/ext/36380110073/0/befolkning/Hvordan-beregner-vi-middellevetid?--pdf][Dokumentation]].
 
 ** Header :noexport:
 
@@ -395,11 +579,16 @@ den periode, som personer på samme alderstrin følges.
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:t todo:t pri:nil tags:not-in-toc author:t
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://publicifsv.sund.ku.dk/~tag/styles/all-purpose.css" />
 #+LATEX_HEADER: \RequirePackage{tcolorbox}
+#+LATEX_HEADER: \hyphenation{alders-speci-fik-ke}
+#+LATEX_HEADER: \hyphenation{be-folk-ning}
+#+LATEX_HEADER: \hyphenation{ta-bel-be-folk-ning}
+#+LATEX_HEADER: \hyphenation{re-gist-re-ret}
 # #+LaTeX_HEADER:\usepackage[table,usenames,dvipsnames]{xcolor}
 #+LaTeX_HEADER:\definecolor{lightGray}{gray}{0.98}
 #+LaTeX_HEADER:\definecolor{medioGray}{gray}{0.83}
 #+LATEX_HEADER:\definecolor{mygray}{rgb}{.95, 0.95, 0.95}
 #+Latex_Header: \newcommand{\qxk}{\ensuremath{{}_{k}q_{x}}}
+#+Latex_Header: \newcommand{\dxk}{\ensuremath{{}_{k}d_{x}}}
 #+Latex_Header: \newcommand{\qxe}[1][x]{\ensuremath{{}_{1}q_{#1}}}
 #+Latex_Header: \newcommand{\Dxk}[1][x]{\ensuremath{{}_{k}D_{#1}}}
 #+Latex_Header: \renewcommand{\d}[2][x]{\ensuremath{{}_{#2}d_{#1}}}

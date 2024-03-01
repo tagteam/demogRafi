@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Feb 29 2024 (12:17) 
+## Last-Updated: Mar  1 2024 (09:56) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 126
+##     Update #: 128
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -389,49 +389,15 @@ overlevelsestavle <- function(data,
     }
     T <- rev(cumsum(rev(L)))
     e <- T/l
-    dt <- data.table(Alder=alder,
-                     l=round(l),
-                     d=round(d),
-                     p=1-q,
-                     q,
-                     L=round(L),
-                     T,
-                     e)
-    dt
-}
-dtavle <- function(M,a,n,Alder,radix=100000,snak=FALSE){
-    xmax <- length(M)
-    if (missing(a)){
-        a <- rep(0.5,xmax)
-        a[1] <- 0.1
-    }
-    if (missing(n)) n <- rep(1,xmax)
-    a[xmax] <- 1/M[xmax]
-    q=n*M/(1+(n-a)*M)
-    q[xmax] <- 1
-    l0 <- radix
-    l <- d <- L <- numeric(xmax)
-    l[1] <- l0
-    for (x in 1:xmax){
-        if (x<xmax){
-            l[x+1] <- l[x]*(1-q[x])
-            d[x] <- l[x]-l[x+1]
-        }else{
-            d[x] <- l[x]
-        }
-        L[x] <- n[x]*l[x]-d[x]*(n[x]-a[x])
-    }
-    T <- rev(cumsum(rev(L)))
-    e <- T/l
-    if (missing(Alder)) Alder <- 0:(xmax-1)
-    dt <- data.table(Alder=Alder,
-                     l=round(l),
-                     d=round(d),
-                     p=1-q,
-                     q,
-                     L=round(L),
-                     T,
-                     e)
+    dt <- tibble(Alder=alder,
+                 l=round(l),
+                 d=round(d),
+                 p=1-q,
+                 q,
+                 o = l/l[1],
+                 L=round(L),
+                 T,
+                 e)
     dt
 }
 
