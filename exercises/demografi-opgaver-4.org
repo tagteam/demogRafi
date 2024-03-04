@@ -237,17 +237,17 @@ y <- mutate(y,SMR = observed/expected)
 y
 #+END_SRC
 
-Antal dødsfald i Indonesien/Nigeria/USA i 2022 var 146% højere/230% højere/36% mindre end hvad man vil
-forvente, hvis mortalitetsraterne var de samme som i Danmark i 2022. 
-Svagheder: Man kan
-bruge resultaterne til at sammenligne Danmark med de andre 3 lande,
-men ikke direkte til at sammenligne de andre 3 lande indbyrdes, fordi
-SMR fra de 3 lande med Danmark som standardbefolkning afhænger af
-risikotidens aldersfordeling i landene. Tallene er ikke særligt præcise
-på grund af de brede aldersintervaller. Data fra den internationale
-database er ikke præcise; det kan vi se for Danmark, hvor tal fra
-statistikbanken afviger.
-
+Antal dødsfald i Indonesien/Nigeria/USA i 2022 var 146% højere/230%
+højere/36% mindre end hvad man vil forvente, hvis mortalitetsraterne
+var de samme som i Danmark i 2022.  Svagheder: Man kan bruge
+resultaterne til at sammenligne Danmark med de andre 3 lande, men ikke
+direkte til at sammenligne de andre 3 lande indbyrdes, fordi SMR fra
+de 3 lande med Danmark som standardbefolkning afhænger af risikotidens
+aldersfordeling i landene. Data fra den internationale database er
+ikke præcise; det kan vi se for Danmark, hvor tal fra statistikbanken
+afviger. Beregningen er ikke særligt præcise på grund af de brede
+aldersintervaller. Hvis vi bruger 1-års aldersintervaller bliver
+resultaterne ændret ret meget:
 
 #+BEGIN_SRC R  :results output raw drawer  :exports  (exercise-with-solutions)  :session *R* :cache yes    :eval (never-plain-export)
 # data fra statistikbanken
@@ -263,8 +263,8 @@ idb <- hent_IDB_data_USA_NIGERIA_INDONESIA_2022()
 # Beregning af kompendiets formel K2.11 
 idb <- left_join(idb,select(x,aldersinterval,M),by = "aldersinterval")
 y <- group_by(idb,Land) %>% summarize(expected = sum(M/1000*Risikotid))
-# Antal dødsfald fra Opgave 1 
-y <- mutate(y,observed = c(56373,3128620))#,1959083,1873021))
+# Antal dødsfald fra Opgave 1
+y <- mutate(y,observed = c(56373,3128620,1959083,1873021))
 y <- mutate(y,SMR = observed/expected)
 y
 #+END_SRC
