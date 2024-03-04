@@ -413,6 +413,7 @@ fødsels- og dødsraterne er som observeret i perioden.
 #+LaTeX_HEADER:\usepackage{amssymb}
 #+LaTeX_HEADER:\usepackage{latexsym}
 #+LaTeX_HEADER:\usepackage{fancyhdr}
+#+LaTeX_HEADER:\usepackage[english,danish]{babel}
 #+LaTeX_HEADER:\pagestyle{fancy}
 #+LaTeX_HEADER:\lhead{Folkesundhedsvidenskab 2. semester, K{\o}benhavns Universitet}
 #+LaTeX_HEADER:\rhead{Demografi}

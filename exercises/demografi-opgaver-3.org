@@ -61,6 +61,20 @@ transition.
 #+end_export
 \vspace{-1.5em}
 
+** Løsningen :solution:ignore:
+
+Den demografiske transition beskriver overgang fra et stadie med højt
+fertilitet og høj dødelighed til et stadie med lav dødelighed og lav
+fertilitet. Det betyder at befolkninger, som befinder sig i en sent
+fase af den demografiske transition, har en relativ stor andel ældre
+mennesker (lav dødelighed) og en relativ lille andel unge mennesker
+(lav fertilitet). For befolkninger i en tidlig fase af den
+demografiske transition er det omvendt, de består af en forholdsvis
+lav andel ældre mennesker og en forholdsvis høj andel unge
+mennesker. Tallene viser tydeligt, at især Nigeria men også Indonesien
+befinder sig i tidligere faser af den demografiske transition end USA
+og Danmark. Trendsene viser at Indonesien har udviklet sig hurtigere
+end Nigeria og at ældrekvoten i Danmark er højere end i USA.
 
 * Opgave 2
 
@@ -134,13 +148,24 @@ g <- g+theme(axis.title.x=element_text(margin=margin(t=20,r=0,b=0,l=0)))
 g + facet_grid(OMRÅDE~TID)
 #+END_SRC
 
+Kønsfordelingen har været rimlig lig i begge regioner i 2010 og det
+har ikke ændret sig i 2020. I Region Sjælland har unge mennesker rundt
+omkring 25-års alderen været stærkt underrepræsenteret i 2010 og det
+er blevet mindre ekstrem i 2020, men aldersgruppen 25-40 er stadigvæk
+relativt svagt besæt. I Region Hovedstaden er aldersgruppen 25-40 den
+største i 2010 og det har ikke ændret sig i 2020. I 2020 er der dog
+kommet mange flere mennesker i alderen rundt omkring 25 år. Meget
+tyder på at folk flytter væk fra Region Sjælland og hen til Region
+Hovedstaden når de skal have en uddannelse.
+
 * Opgave 3
 
-Beregn køns- og alderstandardiserede mortalitetsrater for Region
-Hovedstaden og Region Sjælland i henholdsvis 2010 og 2020 med hele den
-danske befolkning i 2020 som standardbefolkning. Brug direkte
-standardisering og 10 års aldersintervaller. Beregn og diskuter
-resultaterne med og uden alderstandardisering.
+Beregn alderstandardiserede mortalitetsrater for Region Hovedstaden og
+Region Sjælland i henholdsvis 2010 og 2020 med hele den danske
+befolkning i 2020 som standardbefolkning. Gør det for hver køn
+separat. Brug direkte standardisering og 10 års
+aldersintervaller. Beregn og diskuter resultaterne med og uden
+alderstandardisering.
 
 ** R-kode                                                        :rmd:ignore:
 
@@ -167,6 +192,9 @@ std_mrate <- dat %>% group_by(KØN,TID,OMRÅDE) %>% summarise(std_mrate = sum(M*
 left_join(sum_mrate,std_mrate)
 #+END_SRC
 
+** Besvarelse :solution:ignore:
+
+
 #+RESULTS[(2024-02-26 06:56:42) 294c8c79b0bec7c87755c2a164a89d0b8e8ec032]:
 #+begin_example
 Joining with `by = join_by(KØN, TID, OMRÅDE)`
@@ -188,5 +216,17 @@ Joining with `by = join_by(KØN, TID, OMRÅDE)`
 12 Mænd     2020 Region Sjælland        11.7      10.5
 #+end_example
 
-** Besvarelse :solution:ignore:
-
+Dødeligheden er faldet markant mellem 2010 og 2012 for begge køn og
+for begge regioner. I Region Sjælland ser vi det næsten ikke når vi
+sammenligner de summariske mortalitetsrater, og for mænd er den
+summariske mortalitetsrate faktisk steget fra 11,3 per 1000 personår
+til 11,7 per 1000 personår. Men det bliver tydeligt når vi
+sammenligner de alderstandardiserede mortalitetsrater. For eksempel er
+mortalitetsraten faldet fra 11,6 per 1000 personår til 9,6 per 1000
+personår for kvinder i Region Sjælland og fra 12,9 per 1000 personår
+til 10,5 per 1000 personår for mænd i Region Sjælland. De summariske
+mortalitetsrater er generelt laver i Region Hovedstaden end i Region
+Sjælland, hvilket giver god mening fordi der er flere unge i Region
+Hovedstaden (Opgave 2). Efter alderstandardisering er der næsten ingen
+forskel mellem regionerne dog er de standardiserede mortalitetsrater
+en smule højere i Region Sjælland for begge køn.
