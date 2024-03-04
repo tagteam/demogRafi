@@ -247,3 +247,24 @@ risikotidens aldersfordeling i landene. Tallene er ikke særligt præcise
 på grund af de brede aldersintervaller. Data fra den internationale
 database er ikke præcise; det kan vi se for Danmark, hvor tal fra
 statistikbanken afviger.
+
+
+#+BEGIN_SRC R  :results output raw drawer  :exports  (exercise-with-solutions)  :session *R* :cache yes    :eval (never-plain-export)
+# data fra statistikbanken
+x <- hent_mortalitetsrate_data(breaks = c(seq(0,99,1),Inf),
+                               right = FALSE,
+                               køn = "i alt",
+                               tid = "2022")
+# Aldersspecifikke mortalitetsrater i Danmark
+x <- mutate(x, M = 1000*Dod/R)
+x <- mutate(x,aldersinterval = as.character(0:99))
+# Aldersfordeling i alle 4 lande
+idb <- hent_IDB_data_USA_NIGERIA_INDONESIA_2022()
+# Beregning af kompendiets formel K2.11 
+idb <- left_join(idb,select(x,aldersinterval,M),by = "aldersinterval")
+y <- group_by(idb,Land) %>% summarize(expected = sum(M/1000*Risikotid))
+# Antal dødsfald fra Opgave 1 
+y <- mutate(y,observed = c(56373,3128620))#,1959083,1873021))
+y <- mutate(y,SMR = observed/expected)
+y
+#+END_SRC

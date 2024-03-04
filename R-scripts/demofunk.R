@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Mar  1 2024 (16:50) 
+## Last-Updated: Mar  4 2024 (18:23) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 132
+##     Update #: 135
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -343,6 +343,24 @@ hent_IDB_screenshot_data <- function(){
     af <- select(af,År,Land,aldersinterval,Risikotid,V)
     af
 }
+
+hent_IDB_data_USA_NIGERIA_INDONESIA_2022 <- function(){
+    idb <- read_csv("https://raw.githubusercontent.com/tagteam/demogRafi/main/data/IDB_USA_DK_INDONESIA_NIGERIA_2022.csv")
+    idb <- filter(idb,GROUP != "TOTAL")
+    idb <- rename(idb,Land = "Country/Area Name")
+    idb <- rename(idb,År = "Year")
+    idb <- rename(idb,Risikotid = "Population")
+    idb <- mutate(idb,aldersinterval = gsub(" ","",GROUP))
+    idb <- idb%>%mutate(aldersinterval = replace(aldersinterval,aldersinterval == "100+","99"))
+    idb <- idb%>%group_by(Land, aldersinterval) %>% mutate(Risikotid = sum(Risikotid))
+    idb <- filter(idb,!duplicated(interaction(Land,aldersinterval)))
+    idb <- rename(idb,V = "% of Population")
+    idb <- idb%>%group_by(Land) %>% mutate(totalR = sum(Risikotid))
+    idb <- idb%>%group_by(Land) %>% mutate(v = 100*Risikotid/totalR)
+    idb <- select(idb,År,Land,aldersinterval,Risikotid,v)
+    idb
+}
+
 
 overlevelsestavle <- function(data,
                               mortalitet = "M",
