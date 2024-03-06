@@ -35,33 +35,36 @@ source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demof
 
 * Opgave 1
 
-1. [@1] Angiv mindst en årsag til, hvorfor de aldersspecifikke
-   mortalitetsrater ikke var konstant de sidste 100 år i Danmark.
-2. [@2] Beskriv mindst en grund til, hvorfor de aldersspecifikke 
-   mortalitetsrater ikke ville være konstant de næste 100 år i Danmark.
-3. [@3] Hvilket tal i kompendiets Kapitel 3 angiver middelrestlevetid for en
-   7-årige pige under forudsætningen at mortalitetsraterne
-   fra 2019 holder sig på samme niveau i al fremtid  for alle alderstrin? 
+1. [@1] Angiv mindst en årsag til, at de aldersspecifikke
+   mortalitetsrater ikke var konstante de sidste 100 år i Danmark.
+2. [@2] Angiv mindst en grund til, at de aldersspecifikke 
+   mortalitetsrater ikke er konstante de næste 100 år i Danmark.
+3. [@3] Hvad angiver Kapitel 3 som middelrestlevetiden for en
+   7-årige pige under forudsætningen, at mortalitetsraterne
+   fra 2019 holder sig på samme niveau i al fremtid for alle alderstrin? 
 4. [@4] Under antagelsen at mortalitetsraterne ville følge samme kalendertidstrends 
-   som de sidste 40 år (se Kapitel 2 Figur 2) også de næste 
+   som de sidste 40 år (se Kapitel 2 Figur 2) i de næste 
    100 år, ville den forventede restlevetid for en 7-årige pige i 2019
    være mindre eller højere end 76,9 år?
 5. [@5] Hvorfor er det forkert at fortolke 21,2 år (se Kapitel 3 afsnit 2.4) som den 
-   middelrestlevetid, som en 65-årige kvinde i 2019 kan forvente at leve?  
+   restlevetid, som en 65-årig kvinde i 2019 kan forvente at leve?  
 
 ** Løsning                                                  :solution:ignore:
 *** Besvarelse
 
-1. Penicillin
-2. Pandemi
-3. 76,9 år. Middelrestlevetid for en 7-årige pige bliver vist i Kapitel 3 afsnit 2.4.
-4. Middelrestlevetiden ville være højere, hvis mortalitetsrater fortsætter med at falde.
-5. Fordi mortalitetsraterne kommer til at ændre sig! Den rigtige fortolkning er: 21,2 år er den forventede restlevetid for en 11 årige dreng, hvis mortalitetsraterne fra 2008/2009 ville holde sig konstant i al fremtid.
+1. Penicillin; bedre behandlinger generelt. 
+2. Pandemi; multiresistente bakterier, der gør at vi ikke kan behandle infektioner med penicillin. 
+3. 76,9 år. Middelrestlevetiden for en 7-årige pige bliver vist i afsnit 2.4 af Kapitel 3.
+4. Middelrestlevetiden ville være højere, hvis mortalitetsraterne fortsætter med at falde.
+5. Fordi mortalitetsraterne kommer til at ændre sig!
+   # Den rigtige fortolkning er: 21,2 år er den forventede restlevetid for en 11-årig
+   # dreng, hvis mortalitetsraterne fra 2008/2009 holder sig konstant i al fremtid. /Note:/ Det her giver ikke mening;
+   # hvad har det med en 11-årig /dreng/ at gøre? 
 
 * Opgave 2
 Se på formlerne for overlevelsestavler i kompendiets Kapitel 3 og besvar følgende spørgsmål:
 1. [@1] Hvad er forskellen mellem \({}_1d_8\) og \({}_1D_8\)?
-2. [@2] Hvilke endheder har henholdsvis \(l_x\) og \(L_x\)?
+2. [@2] Hvilke enheder har henholdsvis \(l_x\) og \(L_x\)?
 3. [@3] Hvis \(l_x\) er 273 og \({}_1d_x\) er 17, hvad er så \(l_{x+1}\)?
 4. [@6] Hvorfor sætter vi Chiang's a til 0,1 i det første aldersinterval og til 0,5 (for 1-års overlevelsestavlen) i de andre intervaller?
 5. [@5] Indsæt formlen for Chiang's a i det sidste aldersinterval (Kapitel 3, Formel K3.2) i 
@@ -72,19 +75,19 @@ Se på formlerne for overlevelsestavler i kompendiets Kapitel 3 og besvar følge
 ** Løsning                                                  :solution:ignore:
 *** Besvarelse                                                     
 
-1. [@1] \({}_1D_81\) er antal døde blandt 81-årige i den rigtige befolkningen i den givne kalenderperiode, \(_{}1d_81\) er antal døde blandt 81-årige i den hypotetiske tabelbefolkning.
-2. [@2] Begge størrelser hører til den hypotetiske tabelbefolkning: \(l_x\) er antal personer (enhed: personer) i starten af alderstrin \(x\), og \(L_x\) er antal gennemlevede tid (enhed: personår) i intervallet fra alderstrin \(x\) til næste alderstrin.
-3. [@3] I starten af alderstrin er der 273 personer. Der dør 17 personer i intervallet. Dermed er der 256 tilbage i starten af det næste aldersinterval.
-4. [@6] Det gør vi fordi dødeligheden i det første leveår ikke er ligfordelt på intervallet, da de fleste dødsfæld sker indenfor den første måned efter fødslen. I de andre aldersintervaller er dødeligheden omtrent ligfordelt og dermed er ``midten af intervallet'' en god tilnærmelse af det gennemsnitlige antal år en person som døde i intervallet var døde i intervallet.
-5. [@5] Resultatet er \(q_x^{max} = 1\) uanset værdien af \(M_x\). Dødshyppigheden i det sidste aldersinterval er 100\%. Det betyder at den resterende del af tabelbefolkningen dør i det sidste aldersinterval.
+1. [@1] \({}_1D_8\) er antal døde blandt 8-årige i den rigtige befolkning i den givne kalenderperiode, \(_{}1d_8\) er antal døde blandt 8-årige i den hypotetiske tabelbefolkning.
+2. [@2] Begge størrelser hører til den hypotetiske tabelbefolkning: \(l_x\) er antal personer (enhed: personer) i starten af alderstrin \(x\), og \(L_x\) er samlet antal gennemlevet tid (enhed: personår) i intervallet fra alderstrin \(x\) til næste alderstrin.
+3. [@3] I starten af alderstrinnet er der 273 personer. Der dør 17 personer i intervallet. Dermed er der 256 tilbage i starten af det næste aldersinterval.
+4. [@6] Det gør vi fordi dødeligheden i det første leveår ikke er ligefordelt i intervallet, da de fleste dødsfæld sker indenfor den første måned efter fødslen. I de andre aldersintervaller er dødeligheden omtrent ligefordelt og dermed er ``midten af intervallet'' en god tilnærmelse af det gennemsnitlige antal år en person som døde i intervallet var død i intervallet.
+5. [@5] Resultatet er \(q_x^{max} = 1\) uanset værdien af \(M_x\). Dødshyppigheden i det sidste aldersinterval er 100\%. Det betyder, at den resterende del af tabelbefolkningen dør i det sidste aldersinterval.
 
 * Opgave 3
 
 1. [@1] Find aldersspecifikke mortalitetsrater for mænd i 2009 i Danmark i 1-års aldersintervaller.
 2. Rapporter mortalitetsraten for 0-årige og 5-årige drenge.
-3. Beregn overlevelsestavlen baseret på de aldersspecifikke mortalitetsrater fra 2009 i Danmark, og for en radix af 100.000
-   personer, Chiang's a fra Kapitel 3 (Tabel 2).
-4. Rapporterer tabellens værdi i kolonne =e= for alderstrin 0 år og for 84 år.
+3. Beregn overlevelsestavlen baseret på de aldersspecifikke mortalitetsrater fra 2009 i Danmark for en radix af 100.000
+   personer med Chiang's a fra Kapitel 3 (Tabel 2).
+4. Rapporterer tabellens værdi i kolonne =e= for alderstrinnene 0 og 84 år.
 
 ** Instruks                                                 :instruks:ignore:
 *** Instruks
@@ -100,7 +103,7 @@ metoden. Tilpas koderne sådan at de besvarer opgaven.
 x1 <- hent_mortalitetsrate_data(tid = 2009,
                                breaks = c(0:99,Inf),
                                køn = "mænd",
-                               right = FALSE,
+                               right = FALSE, ## bemærk: dette splitter 0 og 1-årige ad
                                alder = "all_no_total")
 x1 <- mutate(x1,M = Dod/R)
 x1
@@ -126,7 +129,7 @@ x1
 :end:
 
 #+BEGIN_SRC R  :results output raw drawer :exports (exercise-with-solutions) :session *R* :cache yes :eval (never-plain-export)
-x1 <- mutate(x1,a = c(0.1,rep(1,99)),k = rep(1,100))
+x1 <- mutate(x1,a = c(0.1,rep(0.5,99)),k = rep(1,100)) ## burde det ikke være 0.5 i stedet for 1?
 tavle_mænd_1 <- overlevelsestavle(x1,
                                      mortalitet = "M",
                                      alder = "aldersinterval")
@@ -240,9 +243,9 @@ print(tavle_mænd_1,digits = 2,n = 100)
 100 99+      396   396 0     1         0.00396   955     955.  2.41
 :end:
 
-2. [@2] Rapporter mortalitetsraten for 0-årige og 5-årige drenge.
-4. [@4] Rapporterer tabellens værdi i kolonne =e= for alderstrin 0 år og for 84 år:
-        Middellevetiden for mænd i 2009 i Danmark er 77,1 år, under antagelsen
-        at de aldersspecifikke mortalitetsrater fra 2009 ikke ændrer sig i al fremtid.
-        Den forvente middelrestlevetid af 84 årige mænd i 2009 i Danmark er 5,6 år, under antagelsen
-        at de aldersspecifikke mortalitetsrater fra 2009 ikke ændrer sig i al fremtid.
+2. [@2] Rapporter mortalitetsraten for 0-årige og 5-årige drenge. Mortalitetsraten for 0-årige drenge var 3,1 døde/1000 personår og for 5-årige drenge 0,03 døde/1000 personår i 2009.
+4. [@4] Rapporterer tabellens værdi i kolonne =e= for alderstrinnene 0 og 84 år:
+        Middellevetiden for mænd i 2009 i Danmark er 77,1 år under antagelsen, 
+        at de aldersspecifikke mortalitetsrater fra 2009 ikke ændrer sig i fremtiden.
+        Den forventede middelrestlevetid af 84-årige mænd i 2009 i Danmark er 5,7 år under antagelsen, 
+        at de aldersspecifikke mortalitetsrater fra 2009 ikke ændrer sig i fremtiden.
