@@ -399,7 +399,7 @@ fødsels- og dødsraterne er som observeret i perioden.
 * Header :noexport:
 
 #+TITLE: Kapitel 4: Fertilitet
-#+AUTHOR: Anna-Vera Jørring Pallesen, Johan Sebastian Ohlendorff, Laust Hvas Mortensen and Thomas Alexander Gerds
+#+AUTHOR: Anna-Vera Jørring Pallesen, Johan Sebastian Ohlendorff, Laust Hvas Mortensen og Thomas Alexander Gerds
 #+DATE: 
 #+LaTeX_CLASS: danish-article
 #+OPTIONS: toc:nil
