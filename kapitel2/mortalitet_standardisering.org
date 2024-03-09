@@ -87,6 +87,7 @@ dod <- intervAlder(dod,breaks=c(-Inf,seq(5,85,5),Inf),right=FALSE,var="D",alder=
 N=hent_data(register = "befolk2",language = "da",køn = c("1","2"),tid = 1974:2022,alder = "all_no_total") %>% rename(R = "INDHOLD")
 N <- rename(N,aldersinterval = alder)
 N$ALDER <- NULL
+N <- mutate(N,aldersinterval = factor(aldersinterval,levels = levels(dod$aldersinterval)))
 dat <- left_join(N,dod,by = c("KØN","TID","aldersinterval"))
 dat <- mutate(dat,M = 1000*D/R)
 dat <- mutate(dat,KØN = factor(KØN))
@@ -107,7 +108,6 @@ g
 #+ATTR_LATEX: :width 1.0\textwidth
 #+CAPTION: Udvikling i de køns- og aldersspecifikke mortalitetsrater i perioden 1974-2022 i Danmark. Kilde: statistikbankens register DOD, BEFOLK2.
 [[file:./k2-aldersspecifik-mortalitet.pdf]]
-
 
 Aldersspecifikke mortalitetsrater kan også angives for et enkelt år,
 hvilket giver et indtryk af forskelle i dødeligheden på tværs af
