@@ -437,8 +437,8 @@ dødshyppigheden:
 #+end_export
 Det er vigtig at skelne mellem antal døde \(\Dxk\) i den ægte
 befolkning og antal døde \(\d{k}\) i tabelbefolkningen. Med formel
-eqref:antaltabeldod er det en let sag at beregne, hvor mange
-tabelpersoner er i live i starten af det næste aldersinterval:
+eqref:antaltabeldod er det en enkel sag at finde antallet af
+tabelpersoner der er i live i starten af det næste aldersinterval:
 #+begin_export latex
 \begin{equation*}
 \ell_{x+k}=\ell_{x} - \d{k}.
@@ -448,7 +448,7 @@ Alternativt kan vi starte med at beregne dekrementfunktionen baseret
 på dødshyppigheden
 #+begin_export latex
 \begin{equation*}
-\ell_{x+k}=\ell_{x}\cdot (1-q_x).
+\ell_{x+k}=\ell_{x}\cdot (1-{}_kq_x).
 \end{equation*}
 #+end_export
 Bagefter er det simpelt at beregne antal dødsfald som
