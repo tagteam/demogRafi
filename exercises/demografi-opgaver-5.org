@@ -129,11 +129,7 @@ x1
 :end:
 
 #+BEGIN_SRC R  :results output raw drawer :exports (exercise-with-solutions) :session *R* :cache yes :eval (never-plain-export)
-<<<<<<< HEAD
-x1 <- mutate(x1,a = c(0.1,rep(0.5,99)),k = rep(1,100)) ## burde det ikke være 0.5 i stedet for 1?
-=======
 x1 <- mutate(x1,a = c(0.1,rep(0.5,99)),k = rep(1,100))
->>>>>>> e406d02 (fixed typo)
 tavle_mænd_1 <- overlevelsestavle(x1,
                                      mortalitet = "M",
                                      alder = "aldersinterval")

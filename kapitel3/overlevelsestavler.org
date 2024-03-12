@@ -728,6 +728,35 @@ den periode, som personer på samme alderstrin følges.
 [fn:3] https://www.dst.dk/da/Statistik/emner/borgere/befolkning/middellevetid.
 [fn:4] https://www.dst.dk/ext/36380110073/0/befolkning/Hvordan-beregner-vi-middellevetid?--pdf
 
+
+*** COMMENT Den søgte dødshyppighed skal afspejle sandsynligheden for at dø mellem to fødselsdage 
+#+ATTR_LATEX: :width 0.7\textwidth
+[[~/metropolis/Teaching/Demography/worg/lecturenotes/lexis-c-grupper.png]]
+
+*** COMMENT Beregning af dødshyppighed med eksakte fødsels- og dødsdatoer[fn:17] 
+:PROPERTIES:
+:CUSTOM_ID: dst-hyp
+:END:
+0. I kalenderperioden \([t_1,t_2]\) bestemmes alle personer som enten
+   fejrer deres \(x\)-te fødselsdag eller indvandrer som \(x\)-årig.\bigskip
+1. Bland disse personer tælles antal døde \({}_1D_x\).\bigskip
+2. For hver person tælles antal levedage på alderstrin x med hensyn til eventuelle indvandrings, udvandrings- og dødsdatoer.\bigskip
+2. For hver person som dør på alderstrin \(x\), beregnes også antal ``dødedage'' 
+   som antal dage mellem dødsdato og den næste fødselsdag. \bigskip
+4. Dødshyppighed beregnes som \vspace{-.5em}
+  #+begin_export latex
+  \begin{equation*}
+  {}_1q_x=\frac{{}_1D_x\cdot 365}{\text{antal levedage} + \text{antal dødedage}}.
+    \end{equation*}
+  #+end_export
+#   Det gennemsnitlige antal ``dødeår'' er antal ``dødeår'' divideret med antal døde.
+
+[fn:17] Danmark statistiks har disse datoer
+*** COMMENT Beregning af dødeår og dødshyppighed med eksakte fødsels- og dødsdatoer  
+
+  [[~/metropolis/Teaching/Demography/worg/lecturenotes/dhyp2008.png]]
+
+
 ** Header :noexport:
 
 #+TITLE: Overlevelsestavler
