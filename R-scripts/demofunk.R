@@ -342,7 +342,7 @@ beregn_middellevetid <- function(tid,område,køn){
     M <- mutate(M,M = Dod/R)
     by <- c("KØN","TID","OMRÅDE")
     M <- group_by_at(M,by) %>% mutate(M,a = c(0.1,rep(0.5,99)),k = rep(1,100))
-    M %>% do(overlevelsestavle(.)) %>% filter(Alder == "0") %>% select(e)
+    M %>% group_modify(~overlevelsestavle(.)) %>% filter(Alder == "0") %>% select(e)
 }
 
 hent_fertilitetsrate_data <- function(tid = "2023",
