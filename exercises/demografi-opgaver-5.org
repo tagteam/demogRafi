@@ -103,7 +103,7 @@ metoden. Tilpas koderne sådan at de besvarer opgaven.
 x1 <- hent_mortalitetsrate_data(tid = 2009,
                                breaks = c(0:99,Inf),
                                køn = "mænd",
-                               right = FALSE, ## bemærk: dette splitter 0 og 1-årige ad
+                               right = FALSE, 
                                alder = "all_no_total")
 x1 <- mutate(x1,M = Dod/R)
 x1

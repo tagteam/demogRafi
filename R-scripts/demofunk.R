@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Mar  4 2024 (18:23) 
+## Last-Updated: Mar 13 2024 (07:57) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 135
+##     Update #: 143
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -314,6 +314,56 @@ hent_mortalitetsrate_data <- function(breaks,
     # join
     dat <- left_join(af,dd, by = c("aldersinterval",by))
     if (tolower(køn)[1] == "i alt") dat$KØN = NULL
+    if (tolower(område)[1] == "hele landet") dat$OMRÅDE = NULL
+    dat
+}
+
+beregn_middelfolketal <- function(tid,område,køn){
+    M <- hent_mortalitetsrate_data(tid = tid,
+                                   breaks = c(0:99,Inf),
+                                   køn = køn,
+                                   område = område,
+                                   right = FALSE,
+                                   alder = "all_no_total")
+    M <- mutate(M,M = Dod/R)
+    by <- c("KØN","OMRÅDE","TID")
+    M <- group_by_at(M,by) %>% mutate(M,a = c(0.1,rep(0.5,99)),k = rep(1,100))
+    browser()
+    # Johan: hvorfor virker den næste linje ikke?
+    tavle <- group_by_at(M,by) %>% overlevelsestavle(mortalitet = "M",alder = "aldersinterval")
+    filter(select(tavle,aldersinterval == "0"),"e")
+}
+
+hent_fertilitetsrate_data <- function(tid = "2023",
+                                      område = "Hele landet",...){
+    breaks = c(-Inf,seq(15,50,5),Inf)
+    # risikotid metode 1
+    af <- hent_data("FOLK1a",
+                    "alder"=0:125,
+                    køn = c("kvinder"),
+                    tid=paste0(tid,"K3"),
+                    Område = område,
+                    language = "da")
+    af = mutate(af,TID = as.numeric(sub("K3","",TID)))
+    # Fordeling af risikotid i aldersintervaller
+    af <- rename(af,R = INDHOLD)
+    by = c("OMRÅDE","TID")
+    af <- intervAlder(af,breaks=breaks, right = FALSE,by=by,vars="R",...)
+    # Antal fødsler i aldersintervaller
+    fodie <- hent_data("FODIE",
+                       "modersalder"="all_no_total",
+                       tid=tid,
+                       Område = område)
+    fodie <- rename(fodie,Fødsler = INDHOLD)
+    fodie <- intervAlder(fodie,
+                         breaks=breaks,
+                         right = FALSE,
+                         by=c("OMRÅDE","TID"),
+                         vars="Fødsler",...)
+    # join
+    dat <- left_join(af,fodie, by = c("aldersinterval",by))
+    # fjern data hvor moren var yngre end 15 eller ældre end 50
+    dat <- dat %>% filter(!(aldersinterval %in% c("<15","50+")))
     if (tolower(område)[1] == "hele landet") dat$OMRÅDE = NULL
     dat
 }
