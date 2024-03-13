@@ -450,8 +450,8 @@ overlevelsestavle <- function(data,
         k <- rep(1,xmax)
     else
         k = data[["k"]]
-    a[xmax] <- 1/M[xmax]
-    q=k*M/(1+(k-a)*M)
+    a[xmax] <- 1/M[xmax] ## Fixme (Thomas): what if M[xmax] == 0? (D[xmax] == 0) or NAN (R[xmax] == 0)? T
+    q=k*M/(1+(k-a)*M) ## Fixme (Thomas): what if M is NAN (any(R==0))?
     q[xmax] <- 1
     l0 <- radix
     l <- d <- L <- numeric(xmax)
