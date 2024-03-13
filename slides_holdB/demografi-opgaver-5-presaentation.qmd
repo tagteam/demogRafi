@@ -1,0 +1,139 @@
+---
+title: 'Demografi: opgaver 5'
+author: 'Johan Sebastian Ohlendorff'
+format: 
+  revealjs:
+    embed-resources: true
+editor: visual
+---
+
+```{r setup}
+knitr::opts_knit$set(root.dir = "..")
+source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
+```
+
+# Opgave 1
+1. Angiv mindst en årsag til, at de aldersspecifikke
+   mortalitetsrater ikke var konstante de sidste 100 år i Danmark.
+2. Angiv mindst en grund til, at de aldersspecifikke 
+   mortalitetsrater ikke er konstante de næste 100 år i Danmark.
+3. Hvad angiver Kapitel 3 som middelrestlevetiden for en
+   7-årige pige under forudsætningen, at mortalitetsraterne
+   fra 2019 holder sig på samme niveau i al fremtid for alle alderstrin? 
+   
+# Opgave 1 fortsat
+4. Under antagelsen at mortalitetsraterne ville følge samme kalendertidstrends 
+   som de sidste 40 år (se Kapitel 2 Figur 2) i de næste 
+   100 år, ville den forventede restlevetid for en 7-årige pige i 2019
+   være mindre eller højere end 76,9 år?
+5. Hvorfor er det forkert at fortolke 21,2 år (se Kapitel 3 afsnit 2.4) som den 
+   restlevetid, som en 65-årig kvinde i 2019 kan forvente at leve?  
+
+# Løsning
+
+1. Penicillin; bedre behandlinger generelt. 
+2. Pandemi; multiresistente bakterier, der gør at vi ikke kan behandle infektioner med penicillin. 
+3. 76,9 år. Middelrestlevetiden for en 7-årige pige bliver vist i afsnit 2.4 af Kapitel 3.
+4. Middelrestlevetiden ville være højere, hvis mortalitetsraterne fortsætter med at falde.
+5. Fordi mortalitetsraterne kommer til at ændre sig!
+
+# Opgave 2
+
+Se på formlerne for overlevelsestavler i kompendiets Kapitel 3 og besvar følgende spørgsmål:
+
+1. Hvad er forskellen mellem ${}_1d_8$ og ${}_1D_8$?
+
+2. Hvilke enheder har henholdsvis $l_x$ og $L_x$?
+
+3. Hvis $l_x$ er 273 og ${}_1d_x$ er 17, hvad er så $l_{x+1}$?
+
+4. Hvorfor sætter vi Chiang's a til 0,1 i det første aldersinterval og til 0,5 (for 1-års overlevelsestavlen) i de andre intervaller?
+
+5. Indsæt formlen for Chiang's a i det sidste aldersinterval (Kapitel 3, Formel K3.2) i 
+        den centrale approksimationsformel (Kapitel 3, Formel K3.1).
+
+# Løsning
+
+1. ${}_1D_8$ er antal døde blandt 8-årige i den rigtige befolkning i den givne kalenderperiode, $_{}1d_8$ er antal døde blandt 8-årige i den hypotetiske tabelbefolkning.
+
+2. Begge størrelser hører til den hypotetiske tabelbefolkning: $l_x$ er antal personer (enhed: personer) i starten af alderstrin $x$, og $L_x$ er samlet antal gennemlevet tid (enhed: personår) i intervallet fra alderstrin $x$ til næste alderstrin.
+
+3. I starten af alderstrinnet er der 273 personer. Der dør 17 personer i intervallet. Dermed er der 256 tilbage i starten af det næste aldersinterval.
+
+# Løsning fortsat
+
+4. Det gør vi fordi dødeligheden i det første leveår ikke er ligefordelt i intervallet.
+
+5. 
+$$
+\begin{aligned}
+{}_{k^{max}}  q_{x^{max}} &= \frac{k^{max}\cdot {}_{k^{max}} M_{x^{max}}}{1+(k^{max}-{}_{k^{max}}  a_{x^{max}})\cdot {}_{k^{max}} M_{x^{max}}} \\
+&= \frac{k^{max}\cdot {}_{k^{max}} M_{x^{max}}}{1+(k^{max}-1/({}_{k^{max}}  M_{x^{max}}))\cdot _{k^{max}} M_{x^{max}}} \\
+&= \frac{k^{max}\cdot {}_{k^{max}} M_{x^{max}}}{1+k^{max} \cdot _{k^{max}} M_{x^{max}} - 1} \\
+&= 1
+\end{aligned}
+$$
+
+## LaTeX
+
+``` TeX
+$$
+\begin{aligned}
+{}_{k^{max}}  q_{x^{max}} &= \frac{k^{max}\cdot {}_{k^{max}} M_{x^{max}}}{1+(k^{max}-{}_{k^{max}}  a_{x^{max}})\cdot {}_{k^{max}} M_{x^{max}}} \\
+&= \frac{k^{max}\cdot {}_{k^{max}} M_{x^{max}}}{1+(k^{max}-1/({}_{k^{max}}  M_{x^{max}}))\cdot _{k^{max}} M_{x^{max}}} \\
+&= \frac{k^{max}\cdot {}_{k^{max}} M_{x^{max}}}{1+k^{max} \cdot _{k^{max}} M_{x^{max}} - 1} \\
+&= 1
+\end{aligned}
+$$
+```
+
+
+Det betyder, at den resterende del af tabelbefolkningen dør i det sidste aldersinterval.
+
+# Opgave 3
+
+1. Find aldersspecifikke mortalitetsrater for mænd i 2009 i Danmark i 1-års aldersintervaller.
+2. Rapporter mortalitetsraten for 0-årige og 5-årige drenge.
+3. Beregn overlevelsestavlen baseret på de aldersspecifikke mortalitetsrater fra 2009 i Danmark for en radix af 100.000
+   personer med Chiang's a fra Kapitel 3 (Tabel 2).
+4. Rapporterer tabellens værdi i kolonne =e= for alderstrinnene 0 og 84 år.
+
+# Løsning
+
+``` R
+x1 <- hent_mortalitetsrate_data(tid = 2009,
+                               breaks = c(0:99,Inf),
+                               køn = "mænd",
+                               right = FALSE, ## bemærk: dette splitter 0 og 1-årige ad
+                               alder = "all_no_total")
+x1 <- mutate(x1,M = Dod/R)
+x1
+x1 <- mutate(x1,a = c(0.1,rep(0.5,99)),k = rep(1,100))
+tavle_mænd_1 <- overlevelsestavle(x1,
+                                     mortalitet = "M",
+                                     alder = "aldersinterval")
+print(tavle_mænd_1,digits = 2,n = 100)
+``` 
+
+# Output
+
+```{r}
+library(gt)
+x1 <- hent_mortalitetsrate_data(tid = 2009,
+                               breaks = c(0:99,Inf),
+                               køn = "mænd",
+                               right = FALSE, ## bemærk: dette splitter 0 og 1-årige ad
+                               alder = "all_no_total")
+x1 <- mutate(x1,M = Dod/R)
+gt(x1 %>% mutate(M=1000*M)) %>% fmt_number(columns = c("R", "M"),locale="da")
+```
+
+## Del 2
+```{R}
+x1 <- mutate(x1,a = c(0.1,rep(0.5,99)),k = rep(1,100))
+tavle_mænd_1 <- overlevelsestavle(x1,
+                                     mortalitet = "M",
+                                     alder = "aldersinterval")
+gt(tavle_mænd_1) %>% fmt_number(columns = c("p","q", "o", "T", "e"),decimals = 1,locale="da") %>% fmt_number(columns = c("l","d","L"),decimals = 0,locale="da")
+```
+

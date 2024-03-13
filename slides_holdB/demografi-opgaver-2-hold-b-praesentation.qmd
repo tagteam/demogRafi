@@ -1,0 +1,200 @@
+---
+title: 'Demografi: opgaver 2'
+author: 'Johan Sebastian Ohlendorff'
+format: 
+  revealjs:
+    embed-resources: true
+editor: visual
+---
+
+```{r setup}
+knitr::opts_knit$set(root.dir = "..")
+options(digits=2)
+source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R") 
+```
+
+# Opgave 1
+
+## Delspørgsmål 1
+
+Hvilke enheder har hhv., folketal, middelfolketal, risikotid og mortalitetsrate?
+
+::: incremental
+-   Vi antager at tidsenheden er i år.
+-   **folketal:** *antal personer*: antal til et bestemt tidspunkt.
+-   **middelfolketal:** *antal personår / år = antal personer*: det gennemsnittetlige antal personer i en periode.
+-   **risikotid:**: *antal personår* i en periode.
+-   **rate:**: *antal døde/personår* i en periode.
+:::
+
+## Delspørgsmål 2
+
+Angiv en formel som beregner middelfolketal i en situation, hvor man kender risikotid
+    for en periode der starter i tidspunkt $t_1$ og slutter i
+    tidspunkt $t_2$.
+
+::: incremental
+- $\tilde N[t_1,t_2]= R[t_1,t_2]/(t_2-t_1)$.
+:::
+
+## Delspørgsmål 3
+I perioden fra 1. januar 2008 til 31. december 2009 bidrog Bornholms befolkning samlet med 85380 personår (risikotid). Hvor stor var middelfolketallet i perioden?
+
+::: incremental
+- Middelfolketallet var $85380 / 2 = 42690$ personer på Bornholm i perioden fra 1. januar 2008
+    til 31. december 2009.
+:::
+## Delspørgsmål 4 og 5
+
+I 2008 og 2009 døde hhv. 544 og 543 personer på Bornholm. Brug disse tal og tal fra det forrige spørgsmål til at beregne mortalitetsraten for Bornholm i perioden fra 1. januar 2008 til 31. december 2009. Rapporter resultatet (i en sætning) hvor du angiver mortalitetsraten som antal døde per 1000 personår.
+
+::: incremental
+-   Mortalitetsraten er givet som $D[t_1,t_2]/R[t_1,t_2] = (544+543 )/(85380)= 0,0127$ døde per personår, dvs. mortalitetsraten var $0,0127 \cdot 1000 = 12,7$ døde per 1000 personår i perioden fra 1. januar 2008 til 31. december 2009.
+:::
+
+#  Opgave 2
+
+Figuren nedenfor viser en hypotetisk befolkningsgruppe bestående af
+kun 5 personer. Svar på følgende spørgsmål:
+
+1.   Hvor lang er perioden?
+2.   Hvor stort er folketallet ved starten og slutningen af perioden?
+3.   Beregn risikotiden eksakt for hele perioden. Angiv enheden. 
+4.   Beregn middelfolketallet eksakt og med metode 1 og 2 for hele perioden.
+5.   Beregn mortalitetsrate for hele perioden. Angiv enheden.
+
+## Figur 
+
+```{r   }
+par(mar=c(6,6,4,4))
+dates <- seq(as.Date("2013-04-01"),as.Date("2013-04-01")+7*6,7)
+plot(0,0,xlim=range(dates),ylim=c(.5,5.5),axes=FALSE,type="n",ylab="",xlab="Kalendertid") 
+for (i in 1:length(dates)) segments(x0=dates[i],x1=dates[i],y0=0,y1=5,col="gray55")
+axis(1,at=dates,labels=dates)
+axis(2,at=1:5,labels=paste("Person",1:5),las=2)
+segments(x0=dates[1],x1=dates[6],y0=1,y1=1,lwd=3)
+text(x=dates[6],y=1,"Udvandring",cex=1.4,pos=3) 
+segments(x0=dates[1],x1=dates[2],y0=2,y1=2,lwd=3)
+text(x=dates[2],y=2,"Død",cex=1.4,pos=3)
+segments(x0=dates[1],x1=dates[7],y0=3,y1=3,lwd=3)
+segments(x0=dates[3],x1=dates[7],y0=4,y1=4,lwd=3)
+text(x=dates[3],y=4,"Fødsel",cex=1.4,pos=3)
+segments(x0=dates[2],x1=dates[4],y0=5,y1=5,lwd=3)
+text(x=dates[2],y=5,"Invandring",cex=1.4,pos=3) 
+text(x=dates[4],y=5,"Død",cex=1.4,pos=3) 
+```
+
+## Løsning
+
+::: incremental
+1.   6 uger.
+2.   N(1 apr 2013)= 3 personer, N(13 maj 2013) = 2 personer.
+3.   R[1 apr 2013, 13 maj 2013] = (2+4+6+1+5) = 18 personuger
+:::
+
+## Løsning (fortsat)
+::: incremental
+4.   
+  -   Eksakt: $\tilde N$[1 apr 2013, 13 maj 2013] = R[1 apr 2013, 13 maj 2013]/6 = 3 personer. 
+  -   Metode 1: $\tilde N$[22 apr 2013] = 4 (eller 3) personer. 
+  -   Metode 2: ($\tilde N$[1 apr 2013]+ N[13 maj 2013])/2 = 2,5 personer.
+5.   Rate[1 apr 2013, 13 maj 2013] = 2/(2+4+6+1+5) = 0,11 døde per personuge.
+:::
+
+# Opgave 3
+
+Sammenlign de 5 danske regioner med hensyn til mortalitetsrater i
+årene 2010 og 2020 ved at finde tal i statistikbanken.  Rapporter
+resultaterne som antal døde per 1000 personår. Diskuter forskelle
+mellem regionerne i 2020, og forskelle i regionerne mellem 2010
+og 2020.
+
+## R kode
+
+```R
+N <- hent_data(register = "folk1a",
+               tid = c("2010K3","2020K3"),
+               område =c("Region Hovedstaden",
+                         "Region Midtjylland",
+                         "Region Nordjylland",
+                         "Region Sjælland",
+                         "Region Syddanmark"
+                         )) ## OBS: Metode 1 til risikotid.
+N <- mutate(N,TID = as.numeric(sub("K3","",TID)))
+N <- rename(N,"N" = "INDHOLD")
+D = hent_data(register = "fod207",
+              tid = c("2010","2020"),
+              område =c("Region Hovedstaden",
+                        "Region Midtjylland",
+                        "Region Nordjylland",
+                        "Region Sjælland",
+                        "Region Syddanmark"))
+D <- rename(D,"D" = "INDHOLD")
+M <- left_join(D,N,by = c("OMRÅDE","TID"))
+M <- mutate(M,mortrate = 1000*D/N)
+M <- M %>% rename("Tid" = TID,
+                  "Område" = OMRÅDE,
+                  "Folketal" = N,
+                  "Antal døde" = D,
+                  "Mortalitetsrate (døde per 1000 personår)" = mortrate)
+M %>% filter(TID == 2020) ## første del af spørgsmålet
+M %>% arrange(OMRÅDE, TID) ## gør det lettere at sammenligne
+```
+
+## Output og kommentarer
+
+```{r   }
+library(gt)
+N <- hent_data(register = "folk1a",
+               tid = c("2010K3","2020K3"),
+               område =c("Region Hovedstaden",
+                         "Region Midtjylland",
+                         "Region Nordjylland",
+                         "Region Sjælland",
+                         "Region Syddanmark")) ## OBS: Metode 1 til risikotid.
+N <- mutate(N,TID = as.numeric(sub("K3","",TID)))
+N <- rename(N,"N" = "INDHOLD")
+D = hent_data(register = "fod207",
+              tid = c("2010","2020"),
+              område =c("Region Hovedstaden",
+                        "Region Midtjylland",
+                        "Region Nordjylland",
+                        "Region Sjælland",
+                        "Region Syddanmark"))
+D <- rename(D,"D" = "INDHOLD")
+M <- left_join(D,N,by = c("OMRÅDE","TID"))
+M <- mutate(M,mortrate = 1000*D/N)
+M <- M %>% rename("Tid" = TID,
+                  "Område" = OMRÅDE,
+                  "Folketal" = N,
+                  "Antal døde" = D,
+                   "Mortalitetsrate (døde per 1000 personår)" = mortrate)
+
+#names(M) <- 
+gt(M %>% filter(Tid == 2020)) %>% 
+  fmt_number(columns = "Mortalitetsrate (døde per 1000 personår)", decimals = 1, locale = "da") %>%
+  fmt_number(columns = c("Antal døde", "Folketal"), decimals = 0, locale = "da")
+```
+- Generelt lavest dødelighed i Region Hovedstaden og Region Midtjylland. **Forklaringer:** Behandling er bedre i by end land/Aldersfordeling (f.eks. flere unge i byerne)/socioøkonomisk tilstand.
+
+## Output (Del 2)
+
+```{r}
+gt(M %>% arrange(Område, Tid)) %>% 
+  fmt_number(columns = "Mortalitetsrate (døde per 1000 personår)", decimals = 1, locale = "da") %>%
+  fmt_number(columns = c("Antal døde", "Folketal"), decimals = 0, locale = "da")
+```
+
+## Kommentarer (Del 2)
+- Generelt reduceret dødelighed fra 2010 til 2020 bortset fra Region Sjælland og Region Syddanmark. 
+- **Forklaringer:** Behandlinger er blevet bedre/ændringer i befolkningssammensætning (f.eks. bliver flere ældre).
+
+## Eksempelbrug af **gt**-pakken (ej pensum)
+
+```R
+library(gt) ## installer med install.packages("gt")
+gt(M %>% arrange(Område, Tid)) %>% 
+  fmt_number(columns = "Mortalitetsrate (døde per 1000 personår)", decimals = 1, locale = "da") %>%
+  fmt_number(columns = c("Antal døde", "Folketal"), decimals = 0, locale = "da")
+```
+

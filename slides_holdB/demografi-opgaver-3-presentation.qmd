@@ -1,0 +1,174 @@
+---
+title: 'Demografi: opgaver 3'
+author: 'Johan Sebastian Ohlendorff'
+format: 
+  revealjs:
+    embed-resources: true
+editor: visual
+---
+```{r setup}
+knitr::opts_knit$set(root.dir = "..")
+source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
+```
+
+
+# Opgave 1
+
+Diskuter den demografiske transition og dens faser ved at sammenligne
+aldersfordelinger (ældrekvote (Engelsk: dependency ratio),
+medianalder (Engelsk: median age)) i Danmark, USA,
+Indonesien og Nigeria på siden <https://www.census.gov/data-tools/demo/idb/>.
+
+##     Løsning
+
+::: incremental
+- Alderspyramide: <https://www.census.gov/data-tools/demo/idb/#/pop?COUNTRY_YEAR=2024&menu=popViz&COUNTRY_YR_ANIM=2024&CCODE=DK,ID,NG,US&popPages=PYRAMID&ageGroup=1Y&POP_YEARS=2023&CCODE_SINGLE=**&measures=DEPND65_&TREND_RANGE=1950,2024&TREND_STEP=10&TREND_ADD_YRS=>
+- Medianalder: <https://www.census.gov/data-tools/demo/idb/#/trends?COUNTRY_YEAR=2024&menu=trendsViz&COUNTRY_YR_ANIM=2024&CCODE=DK,ID,NG,US&popPages=BYAGE&ageGroup=1Y&POP_YEARS=2008&CCODE_SINGLE=**&measures=MEDAGE&TREND_RANGE=1950,2024&TREND_STEP=10&TREND_ADD_YRS=>
+- Ældrekvote: <https://www.census.gov/data-tools/demo/idb/#/trends?COUNTRY_YEAR=2024&menu=trendsViz&COUNTRY_YR_ANIM=2024&CCODE=DK,ID,NG,US&popPages=BYAGE&ageGroup=1Y&POP_YEARS=2008&CCODE_SINGLE=**&measures=DEPND65_&TREND_RANGE=1950,2024&TREND_STEP=10&TREND_ADD_YRS=>
+:::
+
+## Løsning (del 2)
+- Den demografiske transition beskriver en overgang fra et stadie med højt
+fertilitet og høj dødelighed til et stadie med lav dødelighed og lav
+fertilitet.
+- Generelt ligner det at befolkningerne bliver ældre over tid, i de udviklede lande og Indonesien ift. ældrekvoten. 
+- Den samme tendens ses for medianalderen.
+- Ift. alderspyramider i 2023: I Nigeria er befolkningen stadig meget ung. Danmark og USA ligner hinanden meget og har en ældre befolkning. Indonesien ligger et sted midt imellem.
+
+# Opgave 2
+
+Se på tidsudvikling af køns- og aldersfordelingen af folketal i Region
+Hovedstaden og Region Sjælland ved at sammenligne tal fra 2010 med tal
+fra 2020. Hvordan har befolkningspyramiden ændret sig og hvilke
+årsager kunne det have? Sammenlign bagefter køns- og aldersfordelingen
+af folketal mellem Region Hovedstaden og Region Sjælland i 2020. Hvad
+er mulige årsager for forskelle mellem regionerne?
+
+## Løsning
+
+``` R
+# R-koder der genererer alderspyramiden for 2 Regioner den 1. juli 2010 og 1. juli 2020
+folk <- hent_data("FOLK1a","alder"=0:125,"køn"=1:2,tid=c("2010K3","2020K3"),Område = c("Region Hovedstaden","Region Sjælland"))
+# Fjern tomme aldre
+folk <- subset(folk,alder<106)
+# Mænd skal vises på venstre siden, derfor bliver INDHOLD negativt 
+folk_m <- subset(folk,KØN=="Mænd") %>% mutate(INDHOLD=-INDHOLD)
+# For kvinder på højre siden er INDHOLD  positivt
+folk_k <- subset(folk,KØN=="Kvinder")
+# Grafik
+g <- ggplot(folk, aes(x = alder, y = INDHOLD, fill = KØN)) +
+  geom_bar(data=folk_m, stat = "identity") +
+  geom_bar(data=folk_k, stat = "identity") +
+  coord_flip() + theme_economist() +
+  ylab("Folketal N(t)")+xlab("Alder (år)") +
+  theme(legend.title=element_blank())
+g <- g+ggtitle("Alderspyramide Region Hovedstaden 1 juli 2020")
+g <- g+theme(axis.title.y=element_text(margin=margin(t=0,r=20,b=0,l=0)))
+g <- g+theme(axis.title.x=element_text(margin=margin(t=20,r=0,b=0,l=0)))
+g + facet_grid(OMRÅDE~TID) 
+```
+
+## Output
+```{r, cache = TRUE}
+# R-koder der genererer alderspyramiden for 2 Regioner den 1. juli 2010 og 1. juli 2020
+folk <- hent_data("FOLK1a","alder"=0:125,"køn"=1:2,tid=c("2010K3","2020K3"),Område = c("Region Hovedstaden","Region Sjælland"))
+# Fjern tomme aldre
+folk <- subset(folk,alder<106)
+# Mænd skal vises på venstre siden, derfor bliver INDHOLD negativt 
+folk_m <- subset(folk,KØN=="Mænd") %>% mutate(INDHOLD=-INDHOLD)
+# For kvinder på højre siden er INDHOLD  positivt
+folk_k <- subset(folk,KØN=="Kvinder")
+# Grafik
+g <- ggplot(folk, aes(x = alder, y = INDHOLD, fill = KØN)) +
+  geom_bar(data=folk_m, stat = "identity") +
+  geom_bar(data=folk_k, stat = "identity") +
+  coord_flip() + theme_economist() +
+  ylab("Folketal N(t)")+xlab("Alder (år)") +
+  theme(legend.title=element_blank())
+g <- g+ggtitle("Alderspyramide Region Hovedstaden 1. juli 2020")
+g <- g+theme(axis.title.y=element_text(margin=margin(t=0,r=20,b=0,l=0)))
+g <- g+theme(axis.title.x=element_text(margin=margin(t=20,r=0,b=0,l=0)))
+g + facet_grid(OMRÅDE~TID) 
+```
+
+## Kommentarer
+
+- I tid: I begge er der kommet en større andel af unge (25-50). Befolkningen er også blevet ældre.
+- I sted: Region H har højere andel unge end Region Sjælland (relativt).
+- Årsager til flere unge: Flytning fra land til by (urbanisering). 
+
+# Opgave 3
+
+Beregn køns- og alderstandardiserede mortalitetsrater for Region
+Hovedstaden og Region Sjælland i henholdsvis 2010 og 2020 med hele den
+danske befolkning i 2020 som standardbefolkning. Brug direkte
+standardisering og 10 års aldersintervaller. Beregn og diskuter
+resultaterne med og uden alderstandardisering.
+
+## Løsning
+
+``` R
+dat <- hent_mortalitetsrate_data(breaks = c(seq(0,99,10),125),
+                                 køn = c("Kvinder","Mænd"),
+                                 område = c("Region Hovedstaden","Region Sjælland","Hele landet"),
+                                 tid = c(2010,2020))
+# aldersspecifikke mortalitetsrate
+dat <- mutate(dat,M = 1000*Dod/R)
+# summariske mortalitetsrate
+sum_mrate <- dat %>% group_by(KØN,TID,OMRÅDE) %>% summarise(sum_mrate = 1000*sum(Dod)/sum(R),.groups = "keep")
+# aldersfordeling standard befolkning
+std <- hent_aldersfordeling(breaks = c(seq(0,99,10),125),
+                            køn = c("Kvinder","Mænd"),
+                            område = "Hele landet",
+                            tid = c(2020))
+# fjern risikotid R, OMRÅDE og TID
+std <- mutate(std,R = NULL,OMRÅDE = NULL,TID = NULL)
+# standardiserede mortalitetsrate
+dat <- left_join(dat,std,by = c("aldersinterval","KØN"))
+std_mrate <- dat %>% group_by(KØN,TID,OMRÅDE) %>% summarise(std_mrate = sum(M*V),.groups = "keep")
+# join summariske og standardiserede rater
+left_join(sum_mrate,std_mrate) 
+```
+
+
+## Output
+```{r, cache=TRUE}
+dat <- hent_mortalitetsrate_data(breaks = c(seq(0,99,10),125),
+                                 køn = c("Kvinder","Mænd"),
+                                 område = c("Region Hovedstaden","Region Sjælland","Hele landet"),
+                                 tid = c(2010,2020))
+# aldersspecifikke mortalitetsrate
+dat <- mutate(dat,M = 1000*Dod/R)
+# summariske mortalitetsrate
+sum_mrate <- dat %>% group_by(KØN,TID,OMRÅDE) %>% summarise(sum_mrate = 1000*sum(Dod)/sum(R),.groups = "keep")
+# aldersfordeling standard befolkning
+std <- hent_aldersfordeling(breaks = c(seq(0,99,10),125),
+                            køn = c("Kvinder","Mænd"),
+                            område = "Hele landet",
+                            tid = c(2020))
+# fjern risikotid R, OMRÅDE og TID
+std <- mutate(std,R = NULL,OMRÅDE = NULL,TID = NULL)
+# standardiserede mortalitetsrate
+dat <- left_join(dat,std,by = c("aldersinterval","KØN"))
+std_mrate <- dat %>% group_by(KØN,TID,OMRÅDE) %>% summarise(std_mrate = sum(M*V),.groups = "keep")
+# join summariske og standardiserede rater
+library(gt)
+d<-left_join(sum_mrate,std_mrate) 
+d <- d %>% rename("Tid" = TID,
+                 "Område" = OMRÅDE,
+                 "Køn" = KØN,
+                 "Summarisk mortalitetsrate (døde per 1000 personår)" = sum_mrate,
+                 "Standardiseret mortalitetsrate (døde per 1000 personår)" = std_mrate)
+gt(as.data.frame(d %>% arrange(Område, Tid))) %>% 
+  fmt_number(columns = c("Summarisk mortalitetsrate (døde per 1000 personår)", "Standardiseret mortalitetsrate (døde per 1000 personår)"), decimals = 1, locale = "da") 
+```
+
+## Kommentarer
+
+- **Bemærk**: Den summariske og standardiserede mortalitetsrate er ens for mænd og kvinder i hele landet i 2020.
+- Den standardiserede mortalitetsrate tager højde for forskellig aldersfordeling. Her har mænd altid højere mortalitetsrate end kvinder.  
+
+## Kommentarer (Del 2)
+- Højere mortalitetsrater for standisering? Ældre befolkning i 2020.
+- Tegn på lavere dødelighed i 2020 end i 2010 (når man kigger på den standardiserede rate).
+- Standardiseret viser mindre forskelle for regionerne i 2010 end summarisk. Kan skyldes forskellig aldersfordeling - f.eks. flere unge i byerne.
