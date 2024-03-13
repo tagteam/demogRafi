@@ -318,20 +318,18 @@ hent_mortalitetsrate_data <- function(breaks,
     dat
 }
 
-beregn_middelfolketal <- function(tid,område,køn){
+beregn_middellevetid <- function(tid,område,køn){
     M <- hent_mortalitetsrate_data(tid = tid,
                                    breaks = c(0:99,Inf),
                                    køn = køn,
                                    område = område,
                                    right = FALSE,
                                    alder = "all_no_total")
+    M <- M %>% mutate_if(is.character, as.factor) %>% mutate(TID = as.factor(TID))
     M <- mutate(M,M = Dod/R)
-    by <- c("KØN","OMRÅDE","TID")
+    by <- c("KØN","TID","OMRÅDE")
     M <- group_by_at(M,by) %>% mutate(M,a = c(0.1,rep(0.5,99)),k = rep(1,100))
-    #browser()
-    # Johan: hvorfor virker den næste linje ikke?
-    tavle <- group_by_at(M,by) %>% overlevelsestavle(mortalitet = "M",alder = "aldersinterval")
-    filter(select(tavle,aldersinterval == "0"),"e")
+    M %>% do(overlevelsestavle(.)) %>% filter(Alder == "0") %>% select(e)
 }
 
 hent_fertilitetsrate_data <- function(tid = "2023",
@@ -414,9 +412,8 @@ hent_IDB_data_USA_NIGERIA_INDONESIA_2022 <- function(){
 
 overlevelsestavle <- function(data,
                               mortalitet = "M",
-                              alder,
-                              radix=100000,
-                              snak=FALSE){
+                              alder = "aldersinterval",
+                              radix=100000){
     if (!(mortalitet %in% names(data))){
         stop("Du skal angive kolonnenavn for mortalitet")
     }
