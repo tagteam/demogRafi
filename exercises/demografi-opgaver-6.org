@@ -1,0 +1,133 @@
+#+TITLE: Demografi: opgaver 6
+#+AUTHOR: Folkesundhedsvidenskab 2. semester
+#+DATE:
+#+LaTeX_HEADER:\usepackage{listings}
+#+LaTeX_HEADER:\usepackage{color}
+#+LaTeX_HEADER:\usepackage[usenames,dvipsnames]{xcolor}
+#+LaTeX_HEADER:\usepackage[utf8]{inputenc}
+#+LaTeX_HEADER:\usepackage{graphicx}
+#+LaTeX_HEADER:\usepackage{hyperref}
+#+LaTeX_HEADER:\usepackage{amssymb}
+#+LaTeX_HEADER:\usepackage{latexsym}
+#+LaTeX_HEADER:\renewcommand\theequation{K1.\arabic{equation}}
+#+LaTeX_HEADER: \renewcommand{\figurename}{Figur}
+#+LaTeX_HEADER:\usepackage{tcolorbox}
+#+LaTeX_HEADER:\pagestyle{fancy}
+#+LaTeX_HEADER:\definecolor{lightGray}{gray}{0.98}
+#+LaTeX_HEADER:\definecolor{medioGray}{gray}{0.83}
+#+LATEX_HEADER:\definecolor{mygray}{rgb}{.95, 0.95, 0.95}
+#+LATEX_HEADER:\newcommand{\mybox}[1]{\vspace{.5em}\begin{tcolorbox}[boxrule=0pt,colback=mygray] #1 \end{tcolorbox}}
+#+setupfile:~/emacs-genome/snps/org-templates/setup-demografi.org
+#+superman-export-target: opgave
+#+OPTIONS: :rmd_yaml:nil
+#+LaTeX_CLASS: danish-article
+
+#+begin_export html
+---
+title: 'Demografi: opgaver 6'
+output: word_document
+---
+```{r setup}
+knitr::opts_knit$set(root.dir = "..")
+source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
+```
+#+end_export
+
+Forstil dig følgende situation. Der skal bygges nye boliger for
+flygtningefamilier. Flygtninge er mest forældre mellem 25 og 60 år med
+deres børn. Spørgsmålet er placering af boligerne enten på Bornholm
+eller i Hillerød kommune. Din opgave er at belyse fordele og ulemper
+ved de to beliggenheder med demografiske data:
+
+** Opgave 1
+
+Se på aldersfordelingerne i kommunerne Bornholm og Hillerød i 2010 og 2023.
+
+** Instruks :rmd:ignore:
+
+Genbrug R-koder fra opgaverne fra uge 3 hvor du indsætter "Bornholm"
+og "Hillerød" i stedet for "Region Hovedstaden" og "Region Sjælland".
+
+** Løsningen :solution:ignore:
+
+#+BEGIN_SRC R  :results output :exports (exercise-with-solutions) :cache yes :eval (never-plain-export)
+# R-koder der genererer alderspyramiden for 2 regioner den 1. juli 2010 og 1. juli 2023
+folk <- hent_data("FOLK1a","alder"=0:125,"køn"=1:2,tid=c("2010K3","2017K3","2023K3"),Område = c("Bornholm","Hillerød"))
+# Fjern aldere, der har folketal 0
+folk <- subset(folk,alder<106)
+# Mænd skal vises på venstresiden, derfor bliver INDHOLD negativt 
+folk_m <- subset(folk,KØN=="Mænd") %>% mutate(INDHOLD=-INDHOLD)
+# For kvinder på højresiden er INDHOLD positivt
+folk_k <- subset(folk,KØN=="Kvinder")
+# Grafik
+g <- ggplot(folk, aes(x = alder, y = INDHOLD, fill = KØN)) +
+  geom_bar(data=folk_m, stat = "identity") +
+  geom_bar(data=folk_k, stat = "identity") +
+  coord_flip() + theme_economist() +
+  ylab("Folketal N(t)")+xlab("Alder (år)") +
+  theme(legend.title=element_blank())
+g <- g+ggtitle("Alderspyramide 1. juli")
+g <- g+theme(axis.title.y=element_text(margin=margin(t=0,r=20,b=0,l=0)))
+g <- g+theme(axis.title.x=element_text(margin=margin(t=20,r=0,b=0,l=0)))
+g + facet_grid(OMRÅDE~TID)
+#+END_SRC
+** Opgave 2 
+
+Beregn middelfolketal i kommunerne Bornholm og Hillerød i 2010 og 2023.
+
+** Instruks                                                 :rmd:ignore:
+
+#+BEGIN_SRC R  :results output raw drawer :exports (exercise-with-code) :session *R* :cache yes :eval (never-plain-export)
+mf = beregn_middelfolketal(tid = c(2010,2020),
+                           område = c("Bornholm","Hillerød"),
+                           køn = c("kvinder","mænd"))
+mf
+#+END_SRC
+
+** Løsningen :solution:ignore:
+
+#+BEGIN_SRC R  :results output raw drawer :exports (exercise-with-solutions) :session *R* :cache yes :eval (never-plain-export)
+mf = beregn_middelfolketal(tid = c(2010,2020),
+                           område = c("Bornholm","Hillerød"),
+                           køn = c("kvinder","mænd"))
+mf
+#+END_SRC
+** Opgave 3
+
+Beregn fødselsrater i kommunerne Bornholm og Hillerød i 2010 og 2023.
+
+** Instruks                                                 :rmd:ignore:
+#+BEGIN_SRC R  :results output raw drawer :exports (exercise-with-code) :session *R* :cache yes :eval (never-plain-export)
+F <- hent_data("FODIE",område = c("Bornholm","Hillerød"),
+               tid = c(2010,2023))
+F <- rename(F,Fødsler = INDHOLD)
+R <- hent_data("FOLK1a",område = c("Bornholm","Hillerød"),
+               tid = c("2010K3","2023K3"))
+R <- mutate(R,TID = as.numeric(sub("K3","",TID)),Risikotid = INDHOLD)
+x <- left_join(F,R,by = c("OMRÅDE","TID"))
+# dine koder som beregner fødselsrater her
+#+END_SRC
+
+** Løsningen                                                   :solution:ignore:
+
+#+BEGIN_SRC R  :results output raw drawer :exports (exercise-with-solutions) :session *R* :cache yes :eval (never-plain-export)
+# 2023
+F <- hent_data("FODIE",område = c("Bornholm","Hillerød"),
+               tid = c(2010,2023))
+F <- rename(F,Fødsler = INDHOLD)
+R <- hent_data("FOLK1a",område = c("Bornholm","Hillerød"),
+               tid = c("2010K3","2023K3"))
+R <- mutate(R,TID = as.numeric(sub("K3","",TID)),Risikotid = INDHOLD)
+x <- left_join(F,R,by = c("OMRÅDE","TID"))
+x <- mutate(x,Frate = 1000* Fødsler/Risikotid)
+x
+#+END_SRC
+
+** Opgave 4
+Skriv en sammenhængenden tekst hvor du rapporter forskele og udvikling
+i aldersfordelingerne (beskriv alderspyramiderne), mortalitet
+(rapporter middelfolketal) og fertilitet (rapporter fødselsrater) i de
+to kommuner. Med udgangspunkt i disse tal, diskuter fordele og ulemper
+med de to beliggenheder for placering af flygtningefamilier med hensyn
+til at finde arbejde til de voksne og plads i vuggestuer og skoler.
+
