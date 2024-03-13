@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Mar 13 2024 (07:57) 
+## Last-Updated: Mar 13 2024 (08:01) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 143
+##     Update #: 144
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -328,7 +328,7 @@ beregn_middelfolketal <- function(tid,område,køn){
     M <- mutate(M,M = Dod/R)
     by <- c("KØN","OMRÅDE","TID")
     M <- group_by_at(M,by) %>% mutate(M,a = c(0.1,rep(0.5,99)),k = rep(1,100))
-    browser()
+    #browser()
     # Johan: hvorfor virker den næste linje ikke?
     tavle <- group_by_at(M,by) %>% overlevelsestavle(mortalitet = "M",alder = "aldersinterval")
     filter(select(tavle,aldersinterval == "0"),"e")
