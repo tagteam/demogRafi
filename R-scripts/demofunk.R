@@ -325,24 +325,28 @@ beregn_middellevetid <- function(tid,område,køn){
                                    område = område,
                                    right = FALSE,
                                    alder = "all_no_total")
-    M <- M %>% mutate_if(is.character, as.factor) %>% mutate(TID = as.factor(TID))
-    ## If any R in M is zero, then we cannot calculate the summary mortality rate
-    ## give a warning, indicating for which combination of KØN, TID, OMRÅDE, aldersinterval the problem occurs
     if (any(M$R == 0)){
-      cat(paste0("Risikotiden er 0 for følgende rækker:\n"))
+      cat(paste0("Advarsel: Risikotiden er 0 for følgende rækker:\n"))
       print(M %>% 
               filter(R == 0) %>% 
-              select(KØN,
-                     TID,
-                     OMRÅDE,
-                     aldersinterval) %>%
+              select(KØN, TID, OMRÅDE, aldersinterval) %>%
               unique())
-      cat("Middellevetiden kan derfor ikke udregnes i disse rækker.\n")
+      cat("Middellevetiden kan derfor ikke udregnes for disse områder/køn/tid\n")
     }
-    M <- mutate(M,M = Dod/R)
-    by <- c("KØN","TID","OMRÅDE")
-    M <- group_by_at(M,by) %>% mutate(M,a = c(0.1,rep(0.5,99)),k = rep(1,100))
-    M %>% group_modify(~overlevelsestavle(.)) %>% filter(Alder == "0") %>% select(e)
+    last_alder_level <- levels(M$aldersinterval)[length(levels(M$aldersinterval))]
+    temp <- M %>% filter(aldersinterval == last_alder_level, R != 0, Dod == 0)
+    if (temp %>% nrow()){
+      cat("Advarsel: Mortalitetsraterne er 0 i det sidste aldersinterval for disse områder/køn/tid \n")
+      print(temp %>% select(KØN,TID,OMRÅDE,aldersinterval))
+      cat("Middellevetiden kan derfor ikke udregnes for disse områder/køn/tid\n")
+    }
+    M %>% 
+      mutate(M = Dod/R) %>% 
+      group_by(KØN, TID, OMRÅDE) %>% 
+      mutate(a = c(0.1, rep(0.5,99)), k = rep(1,100)) %>%
+      group_modify(~overlevelsestavle(.)) %>%
+      filter(Alder == "0") %>% 
+      select(e)
 }
 
 hent_fertilitetsrate_data <- function(tid = "2023",
