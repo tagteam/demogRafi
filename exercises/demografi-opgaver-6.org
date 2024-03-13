@@ -33,26 +33,26 @@ source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demof
 ```
 #+end_export
 
-Forstil dig følgende situation. Der skal bygges nye boliger for
-flygtningefamilier. Flygtninge er mest forældre mellem 25 og 60 år med
-deres børn. Spørgsmålet er placering af boligerne enten på Bornholm
-eller i Hillerød kommune. Din opgave er at belyse fordele og ulemper
-ved de to beliggenheder med demografiske data:
+Forestil dig følgende situation: Der skal bygges nye boliger for
+flygtningefamilier. Flygtninge er for det meste forældre mellem 25 og 60 år med børn.
+Spørgsmålet er, om placeringen af boligerne enten skal placeres i Bornholm
+eller Hillerød kommune. Din opgave er at belyse fordele og ulemper
+ved de to beliggenheder med demografiske data.
 
 ** Opgave 1
 
-Se på aldersfordelingerne i kommunerne Bornholm og Hillerød i 2010 og 2023.
+Se på aldersfordelingerne i Bornholm og Hillerød kommune i 2010 og 2023.
 
 ** Instruks :rmd:ignore:
 
-Genbrug R-koder fra opgaverne fra uge 3 hvor du indsætter "Bornholm"
+Genbrug R-koder fra opgaverne fra uge 3, hvor du indsætter "Bornholm"
 og "Hillerød" i stedet for "Region Hovedstaden" og "Region Sjælland".
 
 ** Løsningen :solution:ignore:
 
 #+BEGIN_SRC R  :results output :exports (exercise-with-solutions) :cache yes :eval (never-plain-export)
 # R-koder der genererer alderspyramiden for 2 regioner den 1. juli 2010 og 1. juli 2023
-folk <- hent_data("FOLK1a","alder"=0:125,"køn"=1:2,tid=c("2010K3","2017K3","2023K3"),Område = c("Bornholm","Hillerød"))
+folk <- hent_data("FOLK1a","alder"=0:125,"køn"=1:2,tid=c("2010K3","2023K3"),Område = c("Bornholm","Hillerød"))
 # Fjern aldere, der har folketal 0
 folk <- subset(folk,alder<106)
 # Mænd skal vises på venstresiden, derfor bliver INDHOLD negativt 
@@ -73,12 +73,12 @@ g + facet_grid(OMRÅDE~TID)
 #+END_SRC
 ** Opgave 2 
 
-Beregn middelfolketal i kommunerne Bornholm og Hillerød i 2010 og 2023.
+Beregn middellevetid i Bornholm og Hillerød kommune i 2010 og 2023.
 
 ** Instruks                                                 :rmd:ignore:
 
 #+BEGIN_SRC R  :results output raw drawer :exports (exercise-with-code) :session *R* :cache yes :eval (never-plain-export)
-mf = beregn_middelfolketal(tid = c(2010,2020),
+mf = beregn_middellevetid(tid = c(2010,2020),
                            område = c("Bornholm","Hillerød"),
                            køn = c("kvinder","mænd"))
 mf
@@ -87,7 +87,7 @@ mf
 ** Løsningen :solution:ignore:
 
 #+BEGIN_SRC R  :results output raw drawer :exports (exercise-with-solutions) :session *R* :cache yes :eval (never-plain-export)
-mf = beregn_middelfolketal(tid = c(2010,2020),
+mf = beregn_middellevetid(tid = c(2010,2020),
                            område = c("Bornholm","Hillerød"),
                            køn = c("kvinder","mænd"))
 mf
@@ -124,10 +124,10 @@ x
 #+END_SRC
 
 ** Opgave 4
-Skriv en sammenhængenden tekst hvor du rapporter forskele og udvikling
+Skriv en sammenhængende tekst hvor du rapporter forskelle og udvikling
 i aldersfordelingerne (beskriv alderspyramiderne), mortalitet
 (rapporter middelfolketal) og fertilitet (rapporter fødselsrater) i de
 to kommuner. Med udgangspunkt i disse tal, diskuter fordele og ulemper
-med de to beliggenheder for placering af flygtningefamilier med hensyn
-til at finde arbejde til de voksne og plads i vuggestuer og skoler.
+med de to beliggenheder for placeringen af flygtningefamilier med hensyn
+til at finde arbejde til de voksne og plads i vuggestuer og skoler til børnene.
 
