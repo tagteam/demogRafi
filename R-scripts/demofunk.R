@@ -326,6 +326,19 @@ beregn_middellevetid <- function(tid,område,køn){
                                    right = FALSE,
                                    alder = "all_no_total")
     M <- M %>% mutate_if(is.character, as.factor) %>% mutate(TID = as.factor(TID))
+    ## If any R in M is zero, then we cannot calculate the summary mortality rate
+    ## give a warning, indicating for which combination of KØN, TID, OMRÅDE, aldersinterval the problem occurs
+    if (any(M$R == 0)){
+      cat(paste0("Risikotiden er 0 for følgende rækker:\n"))
+      print(M %>% 
+              filter(R == 0) %>% 
+              select(KØN,
+                     TID,
+                     OMRÅDE,
+                     aldersinterval) %>%
+              unique())
+      cat("Middellevetiden kan derfor ikke udregnes i disse rækker.\n")
+    }
     M <- mutate(M,M = Dod/R)
     by <- c("KØN","TID","OMRÅDE")
     M <- group_by_at(M,by) %>% mutate(M,a = c(0.1,rep(0.5,99)),k = rep(1,100))
