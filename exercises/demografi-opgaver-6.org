@@ -79,8 +79,9 @@ Beregn middellevetid i Bornholm og Hillerød kommune i 2010 og 2023.
 
 #+BEGIN_SRC R  :results output raw drawer :exports (exercise-with-code) :session *R* :cache yes :eval (never-plain-export)
 mf = beregn_middellevetid(tid = c(2010,2020),
-                           område = c("Bornholm","Hillerød"),
-                           køn = c("kvinder","mænd"))
+                          breaks = c(0:95,Inf),
+                          område = c("Bornholm","Hillerød"),
+                          køn = c("kvinder","mænd"))
 mf
 #+END_SRC
 
@@ -88,8 +89,9 @@ mf
 
 #+BEGIN_SRC R  :results output raw drawer :exports (exercise-with-solutions) :session *R* :cache yes :eval (never-plain-export)
 mf = beregn_middellevetid(tid = c(2010,2020),
-                           område = c("Bornholm","Hillerød"),
-                           køn = c("kvinder","mænd"))
+                          breaks = c(0:95,Inf),
+                          område = c("Bornholm","Hillerød"),
+                          køn = c("kvinder","mænd"))
 mf
 #+END_SRC
 ** Opgave 3
