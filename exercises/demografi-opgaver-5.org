@@ -243,9 +243,14 @@ print(tavle_mænd_1,digits = 2,n = 100)
 100 99+      785   785 0     1         0.00785  1893    1893.  2.41
 :end:
 
-2. [@2] Rapporter mortalitetsraten for 0-årige og 5-årige drenge. Mortalitetsraten for 0-årige drenge var 3,1 døde/1000 personår og for 5-årige drenge 0,03 døde/1000 personår i 2009.
+2. [@2] Rapporter mortalitetsraten for 0-årige og 5-årige drenge.
+
+Mortalitetsraten for 0-årige drenge var 3,1 døde/1000 personår og for 5-årige drenge 0,03 døde/1000 personår i 2009.
+
 4. [@4] Rapporterer tabellens værdi i kolonne =e= for alderstrinnene 0 og 84 år:
-        Middellevetiden for mænd i 2009 i Danmark er 76,8 år under antagelsen, 
-        at de aldersspecifikke mortalitetsrater fra 2009 ikke ændrer sig i fremtiden.
-        Den forventede middelrestlevetid af 84-årige mænd i 2009 i Danmark er 5,9 år under antagelsen, 
-        at de aldersspecifikke mortalitetsrater fra 2009 ikke ændrer sig i fremtiden.
+   
+Middellevetiden for mænd i 2009 i Danmark er 76,8 år under antagelsen,
+at de aldersspecifikke mortalitetsrater fra 2009 ikke ændrer sig i
+fremtiden.  Den forventede middelrestlevetid af 84-årige mænd i 2009 i
+Danmark er 5,9 år under antagelsen, at de aldersspecifikke
+mortalitetsrater fra 2009 ikke ændrer sig i fremtiden.

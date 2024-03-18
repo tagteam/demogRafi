@@ -78,7 +78,7 @@ m <- mutate(m,kalender = as.numeric(sapply(strsplit(TID,":"),"[",1)))
 g <- ggplot(m,aes(kalender,INDHOLD,colour = KØN,group = KØN))+geom_line()
 g <- g+theme_economist()+ scale_colour_wsj("colors6") + theme(axis.text.x = element_text(angle = -45))
 g <- g+theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))
-g <- g + theme(axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)))
+g <- g+theme(axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)))
 g <- g+scale_x_continuous(breaks = seq(1840,2023,10))
 g + ylab("Middelrestlevetid for 43 årige (år)")+xlab("")
 #+END_SRC
@@ -103,9 +103,7 @@ har længde 10 år og det sidste aldersinterval er fra 90 til 125 år.
 #+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
 x <- hent_mortalitetsrate_data(tid = 2019,
                                breaks = c(0,1,10,seq(20,90,10),Inf),
-                               køn = "kvinder",
-                               right = FALSE,
-                               alder = "all_no_total")
+                               køn = "kvinder")
 x <- mutate(x,M = Dod/R)
 x
 #+END_SRC
@@ -229,10 +227,10 @@ hvorfor senere.
 ** Dødshyppigheder
 
 Dødshyppigheden \(\qxk\) beskriver for en person med eksakt alder
-\(x\) sandsynligheden for at dø inden alderen
-\(x+k\). Dødshyppigheder forbinder den ægte, åbne befolkning, som man
-interesserer sig for, med den tænkte, lukkede tabelbefolkning, der
-definerer overlevelsestavlen. Man beregner dødshyppigheder baseret på
+\(x\) sandsynligheden for at dø inden alderen \(x+k\). Dødshyppigheder
+forbinder den ægte, åbne befolkning, som man interesserer sig for, med
+den tænkte, lukkede tabelbefolkning, der definerer
+overlevelsestavlen. Man beregner dødshyppigheder baseret på
 aldersspecifikke mortalitetsrater, og den underliggende idé er, at
 mortalitetsraterne er ens i den ægte befolkning og i tabelbefolkningen
 for begge køn og alle alderstrin.
@@ -260,7 +258,7 @@ mortalitetsrater. I Kapitel 2 har vi brugt \(M_x\) for mortalitetsraten
 i det \(x\)-te aldersinterval.
 Fra nu af bruger vi den mere præcise betegnelse
 \(\Mxk\) for mortalitetsraten i det aldersinterval, som starter i alderen \(x\)
-og slutter i alderen \(x+k\).
+og slutter i alderen \(x+k-1\).
 }
 #+end_export
 
@@ -295,17 +293,17 @@ overlevelsestavlen:
 Formlen afhænger aldersspecifikke mortalitetsrater \Mxk, længden af
 aldersintervallet \(k\) og også en konstant \(\a{k}\), som kaldes
 Chiang's a. Konstanten \(\a{k}\) beskriver den gennemsnitlige levetid
-i aldersintervallet for personer, der døde mellem alderen \(x\) og aldeen
-\(x+k\). Dermed beskriver \((k-\a{k})\) den gennemsnitlige tid som en
-person der døde i aldersintervallet var død.  Hvis vi for eksempel ser
-på et aldersinterval mellem 70 og 79 år og en person døde i alder 74,
-så har den person været i live i 4 år (70, 71, 72, 73) og død i 6
-år (74, 75, 76, 77, 78, 79). En person som døde i alder 78 har været i
-live i 8 år og død i 2 år, og så videre. Værdien af \({}_{10}a_{70}\)
-skal afspejle det gennemsnitlige antal år, som personer der døde i
-denne aldersgruppe, var i live. For de fleste intervaller vil man
-antage at gennemsnittet ligger i midten, altså i eksemplet vil man
-vælge \({}_{10}a_{70} = 5\).
+i aldersintervallet for personer, der døde mellem alderen \(x\) og
+alderen \(x+k-1\). Dermed beskriver \((k-\a{k})\) den gennemsnitlige
+tid som en person der døde i aldersintervallet var død.  Hvis vi for
+eksempel ser på et aldersinterval mellem 70 og 79 år og en person døde
+i alder 74, så har den person været i live i 4 år (70, 71, 72, 73) og
+død i 6 år (74, 75, 76, 77, 78, 79). En person som døde i alder 78 har
+været i live i 8 år og død i 2 år, og så videre. Værdien af
+\({}_{10}a_{70}\) skal afspejle det gennemsnitlige antal år, som
+personer der døde i denne aldersgruppe, var i live. For de fleste
+intervaller vil man antage at gennemsnittet ligger i midten, altså i
+eksemplet vil man vælge \({}_{10}a_{70} = 5\).
 
 *** Chiang's a
 :PROPERTIES:
@@ -324,7 +322,7 @@ personer der døde i aldersintervallet har været døde:
  k &= \text{Antal år i aldersintervallet}\\
  \Dxk &= \text{Antal døde i aldersintervallet}\\
  \a{k} &= \text{Gennemsnitlige antal dødsår i intervallet}\\
- \{x,x+1,\dots,x+k\} &= \text{År i intervallet}.
+ \{x,x+1,\dots,x+k-1\} &= \text{Aldre i intervallet}.
 \end{split}
 \end{equation*}
 #+end_export
@@ -420,12 +418,12 @@ Vi fortsætter nu konstruktionen af overlevelsestavlen. Vi starter med
 en radix af \(\ell_0\) tabelpersoner. For at beregne antal
 tabelpersoner som overlever indtil det første alderstrin, \(x=1\),
 skal vi beregne hvor mange tabelpersoner dør mellem alder \(x=0\) og
-alder \(x=1\). For at beregne hvor mange tabelpersoner der overlever alder
-\(x+k\) skal vi beregne hvor mange af de resterende \(\ell_x\)
-tabelpersoner der dør i aldersintervallet. Vi betegner med \(\d{k}\) antal
-tabelpersoner som dør mellem alder \(x\) og alder \(x+k\). Dermed er
-\(\d{1}\) antal tabelpersoner som dør mellem alder \(x\) og alder
-\(x+1\). Sandsynligheden for at dø mellem to alderstrin
+alder \(x=1\). For at beregne hvor mange tabelpersoner der overlever
+indtil alder \(x+k\) skal vi beregne hvor mange af de resterende
+\(\ell_x\) tabelpersoner der dør i aldersintervallet. Vi betegner med
+\(\d{k}\) antallet af tabelpersoner, som dør mellem alder \(x\) og
+alder \(x+k-1\). Dermed er \(\d{1}\) antallet af tabelpersoner, som
+dør ved alder \(x\). Sandsynligheden for at dø mellem to alderstrin
 (dødshyppighederne) er det centrale element ved konstruktionen af
 overlevelsestavlen. Vi beregner antal dødsfald i aldersintervallet ved
 at gange antal tabelpersoner i starten af intervallet med
@@ -464,7 +462,7 @@ dødelighedsmål som overlevelsestavlen viser.
 *** Beregning af middelrestlevetid og middellevetid 
 
 Vi betegner med \(\L{k}\) den samlede gennemlevede tid i
-tabelbefolkningen i alderen mellem \(x\) og \(x+k\). Da dødsfald er
+tabelbefolkningen i alderen mellem \(x\) og \(x+k-1\). Da dødsfald er
 eneste afgangsårsag i tabelbefolkningen har vi
 #+begin_export latex
 \begin{align*}
@@ -525,9 +523,7 @@ aktuelle periode}.}
 #+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
 x5 <- hent_mortalitetsrate_data(tid = 2019,
                                 breaks = c(0,1,seq(5,95,5),Inf),
-                                køn = "kvinder",
-                                right = FALSE,
-                                alder = "all_no_total")
+                                køn = "kvinder")
 x5 <- mutate(x5,M = Dod/R)
 x5 <- mutate(x5,a = c(0.1,2,rep(2.5,19)),k = c(1,4,rep(5,19)))
 tavle_kvinder_5 <- overlevelsestavle(x5,
@@ -572,8 +568,7 @@ print(tavle_kvinder_5,digits = 2,n = 100)
 x1 <- hent_mortalitetsrate_data(tid = 2019,
                                breaks = c(0:99,Inf),
                                køn = "kvinder",
-                               right = FALSE,
-                               alder = "all_no_total")
+                               right = FALSE)
 x1 <- mutate(x1,M = Dod/R)
 x1 <- mutate(x1,a = c(0.1,rep(0.5,99)),k = rep(1,100))
 tavle_kvinder_1 <- overlevelsestavle(x1,
@@ -581,6 +576,7 @@ tavle_kvinder_1 <- overlevelsestavle(x1,
                                      alder = "aldersinterval")
 print(tavle_kvinder_1,digits = 2,n = 100)
 #+END_SRC
+\footnotesize
 
 #+RESULTS[(2024-03-06 11:46:33) 444c66e4cfb03e2957bdcf49ab735107a359eb46]:
 #+begin_example
@@ -689,7 +685,7 @@ print(tavle_kvinder_1,digits = 2,n = 100)
  99 98-98   5444  1690 0.690 0.310     0.0544  4599   12683.  2.33
 100 99+     3754  3754 0     1         0.0375  8084    8084.  2.15
 #+end_example
-
+\normalsize
 
 ** Danmark statistik
 
@@ -756,6 +752,340 @@ den periode, som personer på samme alderstrin følges.
 
   [[~/metropolis/Teaching/Demography/worg/lecturenotes/dhyp2008.png]]
 
+* Dødsårsager
+
+Døden har forskellige årsager, som fortæller hvad der er sket lige
+inden, for eksempel et trafikulykke, eller samenfatter et korter eller
+længere sygdomsforløb forgående døden. I Danmark har man siden 1875
+samlet data om dødsårsager og ejer i dag verdens største
+digitaliserede dødsårsagsregister [fn:88]. Dødsårsagsregisteret bygger
+på dødsattester fra personer med folkeregisteradresse i Danmark, der
+døde i Danmark. Den demografiske analyse af dødsårsager er med hensyn
+til formål og metode relateret til de andre fag i dette semester
+(sygdomslære, epidemiologi og biostatistik). Vi bruger data fra
+dødsårsagsregister til konstruktionen af årsagsspecifikke
+dødelighedstavler (Afsnit ref:K3:aarsag) og beregningen af
+restlivstidsrisiko for at dø af en bestemt årsag.
+
+** Gruppering af dødsårsager
+
+Dødsårsager i dødsårsagsregisteret er opdelt i 2 grupperinger, A og B
+grupperinger, hvor B er en undergruppering af A
+grupper. Statistikbankens register =DODA1= har antal døde fordelt på
+26 A-grupper:
+#+ATTR_LATEX: :options otherkeywords={str_detect,hent_data,hent_mortalitetsrate_data,filter,mutate,overlevelsestavle}, deletekeywords={c,rep,print,seq,R}
+#+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
+da <- hent_data("doda1",årsag = "all_no_total",tid = 2022)
+print(da,n = 26)
+#+END_SRC
+\small
+#+RESULTS[(2024-03-16 09:42:04) 6104dfe5af6b79360338ac3fcd79b4606347ebec]:
+#+begin_example
+# A tibble: 26 × 3
+   ÅRSAG                                                   TID INDHOLD
+   <chr>                                                 <dbl>   <dbl>
+ 1 A-01 Infektiøse inkl. parasitære sygdomme              2022    1824
+ 2 A-02 Kræft                                             2022   15777
+ 3 A-03 Andre svulster (anden neoplasi)                   2022     359
+ 4 A-04 Sygdomme i blod (-dannende) organer, sygdomme,    2022     231
+ 5 A-05 Endokrine og ernæringsbetingede sygdomme samt s   2022    2003
+ 6 A-06 Psykiske lidelser og adfærdsmæssige forstyrrels   2022    3954
+ 7 A-07 Sygdomme i nervesystemet og sanseorganerne        2022    3207
+ 8 A-08 Hjertesygdomme                                    2022    8019
+ 9 A-09 Andre kredsløbssygdomme                           2022    4117
+10 A-10 Sygdomme i åndedrætsorganer                       2022    6297
+11 A-11 Sygdomme i fordøjelsesorganer                     2022    2379
+12 A-12 Sygdomme i hud og underhud                        2022      72
+13 A-13 Sygdomme i knogler, muskler og bindevæv           2022     354
+14 A-14 Sygdomme i urin- og kønsorganer                   2022     948
+15 A-15 Komplikationer ved svangerskab, fødsel og barsel  2022       1
+16 A-16 Visse sygdomme, der opstår i perinatalperioden    2022     100
+17 A-17 Medfødte misdannelser og kromosomanomalier        2022     141
+18 A-18 Symptomer og abnorme fund, dårligt definerede å   2022    2337
+19 A-19 Ulykker                                           2022    1692
+20 A-20 Selvmord og selvmordsforsøg                       2022     572
+21 A-21 Drab, overfald                                    2022      39
+22 A-22 Hændelser med uvis omstændighed                   2022      45
+23 A-23 Legale interventioner inkl. krigshandlinger       2022       1
+24 A-23x Covid-19 - Corona                                2022    1590
+25 A-24 Dødsfald uden medicinske oplysninger              2022    3062
+26 Årsag ikke oplyst                                      2022     314
+#+end_example
+\normalsize
+Vi ser at dødsfald på grund af kræft har med stor afstand været den
+største A-gruppe i 2022. Der er i alt 109 B-grupper, hvor hver
+B-gruppe hører under en A-gruppe.  Kræft er den dødsårsag med flest
+B-undergrupper. Hvor A-grupper er mere overordnede er B-grupper mere
+specifikke. For eksempel er der tre B-grupper som opdeler gruppen A-08
+HJERTESYGDOMME I ALT:
+#+ATTR_LATEX: :options otherkeywords={str_detect,hent_data,filter,mutate,overlevelsestavle}, deletekeywords={c,rep,print,seq,R}
+#+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
+db <- hent_data("dodb1",årsag = "all_no_total",tid = 2022)
+print(filter(db,str_detect(ÅRSAG,"A-08|B-057|B-058|B-059")))
+#+END_SRC
+
+#+RESULTS[(2024-03-16 10:06:18) 397f6237d8c092f5a934def7a415822f15671016]:
+: # A tibble: 4 × 3
+:   ÅRSAG                            TID INDHOLD
+:   <chr>                          <dbl>   <dbl>
+: 1 A-08 HJERTESYGDOMME I ALT       2022    8019
+: 2 B-057 Iskæmiske hjertesygdomme  2022    3275
+: 3 B-058 Blodtryksforhøjelse       2022    1462
+: 4 B-059 Andre hjertesygdomme      2022    3282
+
+** Årsagsspecifikke mortalitetsrater
+
+For en given dødsårsag beregner vi de summariske årsagsspecifikke
+mortalitetsrater på samme måde som de summariske mortalitetsrater, som
+antal begivenheder per personår. For en kalenderperiode \([t_1,t_2]\)
+og risikotid \(R[t_1,t_2]\) er formlen for den årsagsspecifikke
+mortalitetsrate:
+#+begin_export latex
+\begin{equation*}
+\frac{D^Q[t_1,t_2]}{R[t_1,t_2]} = \frac{\text{Antal døde med årsag \(Q\) i perioden } [t_1,t_2]}{\text{Risikotid i perioden } [t_1,t_2]}.
+\end{equation*}
+#+end_export
+Vi kan også beregne årsagsspecifikke mortalitetsrater i
+aldersgrupper. Vi betegner med \({}_kD_x^Q\) antal dødsfald hvor
+dødsårsagen var \(Q\) i aldersgruppen af personer, der var mellem
+\(x\)-år og \((x+k-1)\)-år gammel i perioden. Det giver følgende notation
+for de aldersspecifikke rater:
+#+begin_export latex
+\begin{equation*}
+\frac{{}_kD_x^Q[t_1,t_2]}{{}_kR_x[t_1,t_2]}.
+\end{equation*}
+#+end_export
+
+For eksempel kan vi beregne rater af dødsulykker per 10.000 personår
+blandt unge mennesker (15-29 år) og se hvordan de har udviklet sig
+siden 2007. Figur ref:fig:k3-ulykker viser at disse rater er faldet
+fra omkring 1,5 dødsulykker per 10.000 personår i 2007 til omkring
+0,75 dødsulykker per 10.000 personår i 2022.
+
+#+ATTR_LATEX: :options otherkeywords={str_detect,hent_data,filter,mutate,overlevelsestavle}, deletekeywords={c,rep,print,seq,R}
+#+BEGIN_SRC R :results file graphics :file ./kapitel3/K3-udvikling-ulykker.pdf :exports none :session *R* :cache yes
+dax <- hent_data("doda1",årsag =c("A-19 Ulykker"),tid = 2007:2022,alder = c("15-19","20-24","25-29"))
+N <- hent_data("befolk2",tid = 2007:2022,alder = c("15-19","20-24","25-29"))
+N <- rename(N,R = INDHOLD)
+dax <- left_join(dax,N,by = c("alder","TID"))
+dax <- mutate(dax,alder = factor(alder,levels = unique(alder)),
+              urate = 10000*INDHOLD/R)
+dax <- rename(dax,Alder = alder)
+g <- ggplot(dax,aes(TID,urate,color = Alder))+geom_line(linewidth = 1.3)+ylab("Dødsulykker per 10.000 personår")+xlab("Kalenderår")
+g <- g+theme_economist()+ scale_colour_wsj("colors6") + theme(axis.text.x = element_text(angle = -45))
+g <- g+theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))
+g <- g+theme(axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)))
+g+ylim(c(0,2.5))
+#+END_SRC
+
+#+RESULTS[(2024-03-18 07:03:36) c2e82622a375a95d6ee82cc8d1e54ce0495204be]:
+[[file:./kapitel3/K3-udvikling-ulykker.pdf]]
+
+#+name: fig:k3-ulykker
+#+ATTR_LATEX: :width 0.9\textwidth
+#+CAPTION: Udviklingen i raten af dødsulykker blandt dansker i alderen mellem 15 og 29. Kilde: statistikbankens =DOD1A= og =FOLK1A=.
+[[file:./K3-udvikling-ulykker.pdf]]
+
+** Årsagsspecifikke dødelighedstavler
+:PROPERTIES:
+:CUSTOM_ID: K3:aarsag
+:END:
+
+Vi konstruerer nu forskellige mål for hvordan de specifikke
+dødsårsager bidrager til den samlede dødelighed. Disse mål er
+periodemål lige som middellevetid, og beregnes med udgangspunkt i en
+tænkt lukket tabelbefolkning. Vi beregner restlivstidsrisiko for at dø af
+en given årsag under antagelsen, at de årsagsspecifikke
+mortalitetsrater er som observeret i en given kalenderperiode.
+
+*** Årsagsspecifikke dødshyppigheder
+
+I den ægte befolkning finder vi andelen af dødsfald, som blev
+tilskrevet årsag \(Q\) i et givent aldersinterval i en given periode
+og betegner den med:
+#+begin_export latex
+\begin{align}
+{{}_kh^{Q}_x}&=\frac{{}_kD_x^Q}{_kD_x}.\intertext{Andelen af dødsfald af alle andre årsager end Q i aldersintervallet
+bliver dermed}
+{_kh^{\bar Q}_x} = 1-{_kh^Q_x} & = \frac{_kD_x-{}_kD_x^Q}{_kD_x}.
+\end{align}
+#+end_export
+I en tænkt lukket tabelbefolkning kan vi nu beregne hyppigheden for at
+dø af årsag \(Q\) i alderen mellem \(x\) og \(x+k-1\):
+#+begin_export latex
+\begin{align}
+{_kq_x^Q}& = {_kq_x}\cdot {_kh^Q_x}
+\intertext{og tilsvarende er hyppigheden for at dø af en anden årsag:}
+{_kq_x^{\bar Q}}&= {_kq_x}\cdot(1- {_kh^Q_x}).
+\end{align}
+#+end_export
+
+*** Dobbel-dekrementfunktion
+
+Dekrementfunktionen som genererer en årsagsspecifik dødelighedstavle
+tager udgangspunkt i en radix af 100.000 tabelpersoner. I hvert
+alderstrin beregnes antal dødsfald lige som i en almindelig
+overlevelsestavle. Dødsårsagerne bliver opdelt i to grupper sådan at
+det samlede antal dødsfald er summen af dødsfald på grund af årsag
+\(Q\) og dødsfald på grund af andre årsager. Det samlede antal døde i
+tabelbefolkningen mellem alder \(x\) og alder \(x+k-1\) er
+#+begin_export latex
+\begin{align}
+{_kd_x}&=\ell_x\cdot {_kq_x}.
+\intertext{Det kan nu opdeles i dødsfald med årsag \(Q\)}
+{_kd_x^Q}&={_kd_x}\cdot {_kh^Q_x}
+\intertext{og dødsfald med andre årsager}
+{_kd_x^{\bar Q}}&={_kd_x}\cdot (1-{_kh^Q_x}).
+\end{align}
+#+end_export
+Derfor gælder i tabelbefolkningen:
+#+begin_export latex
+\begin{equation}
+\ell_x =\underbrace{\ell_{x+k}}_{\text{i live}}+\underbrace{\ell_x\cdot {_kq_x}\cdot {_kh^Q_x}}_{\text{årsag Q}}+
+\underbrace{\ell_x\cdot{_kq_x}\cdot (1-{_kh^Q_x})}_{\text{andre årsager}}.
+\end{equation} 
+#+end_export
+Fordi der er nu er to muligheder for at forlade tabelbefolkningen
+hedder funktionen \(\ell_x\), der generer en årsagsspecifik
+dødelighedstavle, dobbel-dekrementfunktion.
+
+*** Det årsagsspecifikke restlivstidsrisiko 
+
+Det samlede antal dødfald med årsag \(Q\) i tabelbefolkningen hvor
+tabelpersonen er ældre end \(x\)-år er (for 1-års intervaller):
+
+#+begin_export latex
+\begin{align}
+_{\infty}d^Q_x = &{}_1d_x^Q +{}_1d_{x+1}^Q + \cdots +{}_\infty d_{x^{max}}^Q 
+\intertext{og restlivstidsrisikoen blandt $x$-årige for at dø af kræft beregnes som}
+&\operatorname{LTR}_x^Q=\frac{({}_1d_x^Q +{}_1d_{x+1}^Q + \cdots +{}_\infty d_{x^{max}}^Q)}{\ell_x}.
+\end{align}
+#+end_export
+
+
+*** Risiko for at dø af en bestemt årsag 
+
+I tabelbefolkningen er det samlede antal dødsfald hvor årsagen var
+\(Q\) mellem alder 0 til alder $x$ given ved (for 1-års intervaller):
+#+begin_export latex
+\begin{align}
+ {{}_xd_0^Q}&={}_1d_0^Q+\cdots+{}_1d_{x-1}^Q.
+\intertext{Risikoen
+ for, at en nyfødt dør af årsag Q inden alder $x$, bliver}
+{_xq_0^Q}&={_xd_0^Q}/\ell_0.
+\intertext{Tilsvarende er risiko for dødsfald med andre årsager inden alder \(x\):}
+{_xq_0^{\bar Q}}&={_xd_0^{\bar Q}}/\ell_0.
+\intertext{Vi kan også beregne sandsynligheden for at overleve alle årsager inden alder \(x\):}
+o_x = {{}_xq_0}&=1-{}_xq_0^Q-{}_xq_0^{\bar Q}
+\end{align}
+#+end_export
+
+** Eksempel
+
+Vi beregner dødelighedstavlen for kræftdød bland mænd i 2020 i
+Danmark. Vi henter folketal fra statistikbankens register =FOLK1a= og
+antal døde på grund af kræft fra register =doda1=. Vi inddeler i 19
+aldersintervaller, hvor det første interval har længde 1 år, det andet
+interval har længde 4 år, resten af intervallerne har længde 5 år og
+det sidste aldersinterval er fra 85 til 125 år. Vi beregner
+aldersspecifikke mortalitetsrater for mænd i Danmark i 2020 og andel
+kræftdødsfald.
+
+#+ATTR_LATEX: :options otherkeywords={hent_dodsaarsag_data,filter,mutate,overlevelsestavle}, deletekeywords={c,rep,print,seq,R}
+#+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes
+x <- hent_dodsaarsag_data(tid = 2020, årsag =c("A02"), køn = "Mænd")
+# mortalitetsrater
+x <- mutate(x,M = Dod/R)
+# andel kræftdødsfald
+x <- mutate(x,hQ = QDod/Dod)
+x
+#+END_SRC
+\footnotesize
+#+RESULTS[(2024-03-18 10:18:39) 85aa1798ba8a0579844152e8f9bacdf64abef5f0]:
+#+begin_example
+# A tibble: 19 × 9
+   ÅRSAG      aldersinterval KØN     TID      R   Dod  QDod         M     hQ
+   <chr>      <chr>          <chr> <dbl>  <dbl> <dbl> <dbl>     <dbl>  <dbl>
+ 1 A-02 Kræft 0              Mænd   2020  31512   109     0 0.00346   0     
+ 2 A-02 Kræft 1-4            Mænd   2020 127529    18     5 0.000141  0.278 
+ 3 A-02 Kræft 5-9            Mænd   2020 154685    15     3 0.0000970 0.2   
+ 4 A-02 Kræft 10-14          Mænd   2020 173860    18     2 0.000104  0.111 
+ 5 A-02 Kræft 15-19          Mænd   2020 174529    35     2 0.000201  0.0571
+ 6 A-02 Kræft 20-24          Mænd   2020 192608    82    11 0.000426  0.134 
+ 7 A-02 Kræft 25-29          Mænd   2020 204302   112     7 0.000548  0.0625
+ 8 A-02 Kræft 30-34          Mænd   2020 185281    88    10 0.000475  0.114 
+ 9 A-02 Kræft 35-39          Mænd   2020 165161   157    25 0.000951  0.159 
+10 A-02 Kræft 40-44          Mænd   2020 179809   219    38 0.00122   0.174 
+11 A-02 Kræft 45-49          Mænd   2020 196936   380    81 0.00193   0.213 
+12 A-02 Kræft 50-54          Mænd   2020 204696   690   193 0.00337   0.280 
+13 A-02 Kræft 55-59          Mænd   2020 197362  1132   385 0.00574   0.340 
+14 A-02 Kræft 60-64          Mænd   2020 171437  1663   630 0.00970   0.379 
+15 A-02 Kræft 65-69          Mænd   2020 155595  2556  1029 0.0164    0.403 
+16 A-02 Kræft 70-74          Mænd   2020 155082  3779  1548 0.0244    0.410 
+17 A-02 Kræft 75-79          Mænd   2020 115932  4584  1616 0.0395    0.353 
+18 A-02 Kræft 80-84          Mænd   2020  66656  4613  1338 0.0692    0.290 
+19 A-02 Kræft 85             Mænd   2020  44684  7745  1552 0.173     0.200
+#+end_example
+
+\normalsize
+Med disse data beregner vi dødelighedstavlen.
+\footnotesize
+#+ATTR_LATEX: :options otherkeywords={dodaarsagstavle,filter,mutate,overlevelsestavle}, deletekeywords={c,rep,print,seq,R}
+#+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes
+# Chiang's a
+x <- mutate(x,a = c(0.1,2,rep(2.5,17)),k = c(1,4,rep(5,17)))
+kraeftdodtavle_maend <- dodsaarsagtavle(data = x,
+                                        mortalitet = "M",
+                                        hQ = "hQ",
+                                        alder = "aldersinterval",
+                                        radix = 100000)
+# fravælge kolonner som ikke er vigtig lige her og nu
+kraeftdodtavle_maend <- select(kraeftdodtavle_maend,-c(p,q,o,T))
+print(kraeftdodtavle_maend,digits = 2)
+#+END_SRC
+
+#+RESULTS[(2024-03-18 10:36:22) 2e9e5ee88bb934dda0a7eb927f7c93e3387b4354]:
+#+begin_example
+# A tibble: 19 × 10
+   Alder      l     d      dQ     hQ        qQ      L     e LTR_Q risiko_Q
+   <chr>  <dbl> <dbl>   <dbl>  <dbl>     <dbl>  <dbl> <dbl> <dbl>    <dbl>
+ 1 0     100000   345    0    0      0          99690 79.6  0.280 0       
+ 2 1-4    99655    56   15.6  0.278  0.000157  398508 78.9  0.281 0.000156
+ 3 5-9    99599    48    9.66 0.2    0.0000969 497874 75.0  0.281 0.000253
+ 4 10-14  99551    52    5.72 0.111  0.0000575 497624 70.0  0.281 0.000310
+ 5 15-19  99499   100    5.70 0.0571 0.0000573 497246 65.0  0.281 0.000367
+ 6 20-24  99399   211   28.4  0.134  0.000285  496469 60.1  0.281 0.000651
+ 7 25-29  99188   272   17.0  0.0625 0.000171  495261 55.2  0.282 0.000820
+ 8 30-34  98917   235   26.7  0.114  0.000270  493996 50.4  0.282 0.00109 
+ 9 35-39  98682   468   74.5  0.159  0.000755  492240 45.5  0.283 0.00183 
+10 40-44  98214   596  103.   0.174  0.00105   489579 40.7  0.283 0.00287 
+11 45-49  97618   937  200.   0.213  0.00205   485745 35.9  0.284 0.00486 
+12 50-54  96680  1616  452.   0.280  0.00467   479363 31.2  0.285 0.00938 
+13 55-59  95065  2688  914.   0.340  0.00962   468603 26.7  0.285 0.0185  
+14 60-64  92377  4374 1657.   0.379  0.0179    450948 22.4  0.283 0.0351  
+15 65-69  88002  6943 2795.   0.403  0.0318    422655 18.4  0.278 0.0630  
+16 70-74  81059  9309 3813.   0.410  0.0470    382024 14.8  0.268 0.101   
+17 75-79  71750 12909 4551.   0.353  0.0634    326479 11.4  0.249 0.147   
+18 80-84  58841 17358 5035.   0.290  0.0856    250812  8.33 0.227 0.197   
+19 85     41484 41484 8313.   0.200  0.200     239335  5.77 0.200 0.280
+#+end_example
+
+\normalsize
+
+Kolonnen \(\operatorname{LTR_Q}\) i aldersinterval fra \(x\) til
+\(x+k-1\) angiver restlivstidsrisiko for kræftdød for en tabelperson
+med alder \(x\) og \(\operatorname{risiko_Q}\) angiver risiko for at
+en tabelperson dør på grund af kræft inden alder \(x+k\). Fra
+dødelighedstavlen aflæser vi dermed, for eksempel, at sandsynligheden
+for at en nyfødt dreng i 2020 dør på grund af kræft inden alder 74 er
+10,1%, under antagelsen at de årsagsspecifikke mortalitetsrater for
+mænd forbliver i al fremtid som de var i 2020. Vi ser også at
+restlivstidsrisikoen for kræftdød er 27,8% for en 65-årig mænd, under
+antagelsen, at de årsagsspecifikke mortalitetsrater for mænd forbliver
+i al fremtid som de var i 2020.
+
+
+[fn:88] https://www.rigsarkivet.dk/udforsk/doedsaarsagsregister-1943-2019/
 
 ** Header :noexport:
 
@@ -787,6 +1117,7 @@ den periode, som personer på samme alderstrin følges.
 #+LATEX_HEADER: \hyphenation{be-folk-ning}
 #+LATEX_HEADER: \hyphenation{ta-bel-be-folk-ning}
 #+LATEX_HEADER: \hyphenation{re-gist-re-ret}
+#+LATEX_HEADER: \usepackage{svg}
 # #+LaTeX_HEADER:\usepackage[table,usenames,dvipsnames]{xcolor}
 #+LaTeX_HEADER:\definecolor{lightGray}{gray}{0.98}
 #+LaTeX_HEADER:\definecolor{medioGray}{gray}{0.83}

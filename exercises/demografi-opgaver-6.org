@@ -133,3 +133,48 @@ to kommuner. Med udgangspunkt i disse tal, diskuter fordele og ulemper
 med de to beliggenheder for placeringen af flygtningefamilier med hensyn
 til at finde arbejde til de voksne og plads i vuggestuer og skoler til børnene.
 
+** Løsningen                                                   :solution:ignore:
+
+Befolkningspyramiden for Bornholm viser, at antallet af personer i den
+erhvervsaktive alder er faldet fra 2010 til 2023. Andelen af ældre er
+blev større og andelen af unge er blevet mindre. Der er relativt få
+unge i 20'erne, hvilket kan forklares ved, at de flytter for at tage
+en uddannelse. For Hillerød ses en markant stigning i antallet af unge
+i 20'erne, hvilket sandsynligvis kan forklares med flytning efter
+uddannelse og/eller udflytning fra København.
+
+Når vi kigger på udviklingen i middellevetiden på Bornholm, er denne
+steget for både mænd (3,5 år) og kvinder (1,8 år). I Hillerød ses også
+en stigning for både mænd (2,1) og kvinder (4,2) fra 2010
+til 2020. Den største stigning ses altså blandt kvinder i Hillerød og
+dernæst blandt mænd på Bornholm.
+
+Fødselsraterne viser et fald både på Bornholm og i Hillerød. På
+Bornholm faldt fertilitetsraten fra 7,27 fødsler på 1000 personår i
+2010 til 6,46 fødsler per 1000 personår i 2023. Det er altså et fald
+på 0,81 fødsler per 1000 personår. I Hillerød faldt fødselsraten fra
+9,98 fødsler per 1000 personår til 9,09 fødsler per 1000 personår
+i 2023. Det vil sige et fald på 0,89 fødsler per 1000 personår. De to
+kommuner oplever altså lignende fald i fertilitetsraten fra 2010
+til 2023. Fertilitetsraten er dog fortsat højest i Hillerød.
+
+Med udgangspunkt i ovenstående, vil nye boliger til en
+flygtningebefolkning bestående primært af personer på 25-60 år med
+børn kunne placeres på Bornholm ud fra følgende betragtninger:
+
+- Ved at få flere erhvervsaktive til Bornholm, vil ældrebyrden lokalt reduceres. En byrde som ellers kan forventes at stige med stigende middellevetid.
+- Faldet i andelen af børn og unge vil betyde flere ledige pladser på skolerne. 
+- Faldende fertilitetsrater kan enten betyde flere ledige vuggestue- og børnehavepladser, hvilket er til fordel for flygtninge med børn i disse aldersgrupper, eller en fremtidig nedjustering i antallet af pladser. 
+- på Bornholm er der færre jobs til kvalificeret arbejde end i Storkøbenhavn
+- på Bornholm er der en del sommerjobs
+
+For Hillerød gør følgende sig gældende:
+
+- I Hillerød er der kommet flere i den erhvervsaktive alder, så
+  området har ikke den samme potentielle udfordring som Bornholm.
+- Hillerød har en højere fertilitetsrate en Bornholm, hvilket betyder
+  flere pladser i vuggestuer og i børnehaver. Faldet i fertilitetsrate
+  kan betyde, at der er kapacitet, som vil gøre det lettere at
+  servicere nye borgere.
+- Hillerød har en s-tog forbindelse til Storkøbenhavn hvor der er mange
+  jobs  

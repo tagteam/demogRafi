@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Mar 14 2024 (11:09) 
+## Last-Updated: Mar 18 2024 (10:38) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 149
+##     Update #: 158
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -274,12 +274,6 @@ hent_mortalitetsrate_data <- function(breaks,
                                       køn = c("Kvinder","Mænd"),
                                       tid = "2023",
                                       område = "Hele landet",...){
-    if (FALSE){
-        breaks = c(0,25,50,75,125)
-        køn = c("Kvinder","Mænd")
-        tid = "2023"
-        område = "Hele landet"
-    }
     # risikotid metode 1
     af <- hent_data("FOLK1a",
                     "alder"=0:125,
@@ -315,6 +309,66 @@ hent_mortalitetsrate_data <- function(breaks,
     dat <- left_join(af,dd, by = c("aldersinterval",by))
     if (tolower(køn)[1] == "i alt") dat$KØN = NULL
     if (tolower(område)[1] == "hele landet") dat$OMRÅDE = NULL
+    dat
+}
+
+hent_dodsaarsag_data <- function(køn = c("Kvinder","Mænd"),
+                                 tid,
+                                 årsag,...){
+    breaks = c(0,1,seq(5,85,5),Inf)
+    if (missing(årsag)){
+        stop("Skal angive dødsårsag")
+    }
+    # risikotid metode 1
+    af <- hent_data("FOLK1a",
+                    "alder"=0:125,
+                    køn = køn,
+                    tid=paste0(tid,"K3"),
+                    language = "da")
+    af = mutate(af,TID = as.numeric(sub("K3","",TID)))
+    # Fordeling af risikotid i aldersintervaller
+    af <- rename(af,R = INDHOLD)
+    by = c("KØN","TID")
+    af <- intervAlder(af,breaks=breaks, by=by,vars="R",label_last = "85",right = FALSE)
+    # Antal døde i aldersintervaller
+    if (tolower(køn)[1] == "i alt"){
+        dd <- hent_data("dod",
+                        "alder"="all_no_total",
+                        tid=tid)
+        dd = mutate(dd,KØN = "I alt")
+    } else{
+        dd <- hent_data("dod",
+                        køn = køn,
+                        "alder"="all_no_total",
+                        tid=tid)
+    }
+    dd <- rename(dd,Dod = INDHOLD)
+    dd <- intervAlder(dd,
+                      breaks=breaks,
+                      by=c("KØN","TID"),
+                      vars="Dod",right = FALSE,label_last = "85")
+    # Antal døde i aldersintervaller
+    if (tolower(køn)[1] == "i alt"){
+        daars <- hent_data("doda1",
+                           årsag = årsag,
+                           "alder"="all_no_total",
+                           tid=tid)
+        daars = mutate(daars,KØN = "I alt")
+    } else{
+        daars <- hent_data("doda1",
+                           årsag = årsag,
+                           køn = køn,
+                           "alder"="all_no_total",
+                           tid=tid)
+    }
+    daars <- rename(daars,QDod = INDHOLD,
+                    aldersinterval = alder)
+    # join
+    dat <- left_join(af,dd, by = c("aldersinterval",by))
+    dat <- left_join(dat,daars, by = c("aldersinterval",by))
+    if (tolower(køn)[1] == "i alt") dat$KØN = NULL
+    dat$ALDER = NULL
+    dat = relocate(dat,"ÅRSAG")
     dat
 }
 
@@ -444,18 +498,21 @@ overlevelsestavle <- function(data,
         alder = data[[alder]]
     }
     xmax <- length(M)
+    if (M[xmax] == 0) stop("Mortalitet M i sidste interval er 0. Du skal sætte startalder af det sidste aldersinterval sådan at mortalitet er større end 0.")
+    if (any(is.na(M))) stop("Mortalitet M har manglende værdier.")
     if (!("a" %in% names(data))){
         a <- rep(0.5,xmax)
         a[1] <- 0.1
     }else{
         a = data[["a"]]
     }
+    a[xmax] <- 1/M[xmax] 
     if  (!("k" %in% names(data)))
         k <- rep(1,xmax)
     else
         k = data[["k"]]
-    a[xmax] <- 1/M[xmax] ## Fixme (Thomas): what if M[xmax] == 0? (D[xmax] == 0) or NAN (R[xmax] == 0)? T
-    q=k*M/(1+(k-a)*M) ## Fixme (Thomas): what if M is NAN (any(R==0))?
+    # init
+    q=k*M/(1+(k-a)*M)
     q[xmax] <- 1
     l0 <- radix
     l <- d <- L <- numeric(xmax)
@@ -483,6 +540,106 @@ overlevelsestavle <- function(data,
     dt
 }
 
+dodsaarsagtavle <- function(data,
+                            mortalitet = "M",
+                            alder = "aldersinterval",
+                            hQ = "hQ",
+                            radix=100000){
+    if (!(mortalitet %in% names(data))){
+        stop("Du skal angive kolonnenavn for mortalitet")
+    }
+    else{
+        M = data[[mortalitet]]
+    }
+    if (!(hQ %in% names(data))){
+        stop("Du skal angive kolonnenavn for hQ = andel af døde med årsag Q")
+    }
+    else{
+        hQ = data[[hQ]]
+    }
+    if (!(alder %in% names(data))){
+        stop("Du skal angive kolonnenavn for alder")
+    }
+    else{
+        alder = data[[alder]]
+    }
+    xmax <- length(M)
+    if (M[xmax] == 0) stop("Mortalitet M i sidste interval er 0. Du skal sætte startalder af det sidste aldersinterval sådan at mortalitet er større end 0.")
+    if (any(is.na(M))) stop("Mortalitet M har manglende værdier.")
+    if (!("a" %in% names(data))){
+        a <- rep(0.5,xmax)
+        a[1] <- 0.1
+    }else{
+        a = data[["a"]]
+    }
+    a[xmax] <- 1/M[xmax]
+    if  (!("k" %in% names(data)))
+        k <- rep(1,xmax)
+    else
+        k = data[["k"]]
+    # init
+    q=k*M/(1+(k-a)*M)
+    qQ=q*hQ
+    qbarQ=q*(1-hQ)
+    l0 <- radix
+    l <- d  <- dQ <- dbarQ <- L <- numeric(xmax)
+    l[1] <- l0
+    for (x in 1:xmax){
+        if (x<xmax){
+            l[x+1] <- l[x]*(1-q[x])
+            d[x] <- l[x]-l[x+1]
+            dQ[x] <- d[x]*hQ[x]
+            dbarQ[x] <- d[x]*(1-hQ[x])
+        }else{
+            d[x] <- l[x]
+            dQ[x] <- d[x]*hQ[x]
+            dbarQ[x] <- d[x]*(1-hQ[x])
+        }
+        L[x] <- k[x]*l[x]-d[x]*(k[x]-a[x])
+    }
+    LTR_Q <- rev(cumsum(rev(dQ)))/l
+    risiko_Q <- cumsum(dQ)/l[1]
+    OverLev <- (l[1]-cumsum(d))/l[1]
+    T <- rev(cumsum(rev(L)))
+    e <- T/l
+    dt <- tibble(Alder=alder,
+                 l=round(l),
+                 d=round(d),
+                 dQ=dQ,
+                 hQ=hQ,
+                 p=1-q,
+                 q = q,
+                 qQ = qQ,
+                 L=round(L),
+                 T = T,
+                 e = e,
+                 o = OverLev,
+                 LTR_Q = LTR_Q,
+                 risiko_Q = risiko_Q)
+    dt
+}
+
+
+ftavle <- function(kalender){
+    ## skal brug 50 som "sidste" aldersinterval. det slettes bagefter
+    M <- mortalitet(kalender,koen="K",alder=0:50)
+    dt <- dtavle(M$M,a=c(0.1,rep(0.5,NROW(M)-1)))
+    ftavle <- dt[-c(1:15,.N),.(Alder,L)]
+    ftavle <- intervAlder(ftavle,breaks=seq(15,50,5),right=FALSE,var="L",alder="Alder")
+    FF <- fertfod(kalender,interval=5)
+    ftavle <- merge(ftavle,FF,by="Aldersinterval")
+    PP <- fert(kalender)
+    PP <- intervAlder(PP,breaks=seq(15,50,5),right=FALSE,var="ANTAL",alder="MODERSALDER",by="BARNKON")
+    PP <- dcast(PP,Aldersinterval~BARNKON,value.var="ANTAL")
+    PP[,andel.piger:=Piger/(Drenge+Piger)]
+    ftavle <- merge(ftavle,PP[,.(Aldersinterval,andel.piger)],by="Aldersinterval")
+    ftavle[,f.piger:=f*andel.piger]
+    ftavle[,bidrag.NRT:=f.piger*L/100000]
+    cat("Samlet fertilitet=",sum(ftavle$f*5),"\n")
+    cat("BRT=",sum(ftavle$f.piger*5),"\n")
+    cat("NRT=",sum(ftavle$bidrag.NRT),"\n")
+    ftavle[]
+}
 
 ######################################################################
 ### demografi_funktioner.R ends here
