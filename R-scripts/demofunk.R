@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Mar 13 2024 (08:01) 
+## Last-Updated: Mar 14 2024 (11:09) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 144
+##     Update #: 149
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -318,9 +318,9 @@ hent_mortalitetsrate_data <- function(breaks,
     dat
 }
 
-beregn_middellevetid <- function(tid,område,køn){
+beregn_middellevetid <- function(tid,område,køn,breaks = c(0:99,Inf)){
     M <- hent_mortalitetsrate_data(tid = tid,
-                                   breaks = c(0:99,Inf),
+                                   breaks = breaks,
                                    køn = køn,
                                    område = område,
                                    right = FALSE,
@@ -343,7 +343,7 @@ beregn_middellevetid <- function(tid,område,køn){
     M %>% 
       mutate(M = Dod/R) %>% 
       group_by(KØN, TID, OMRÅDE) %>% 
-      mutate(a = c(0.1, rep(0.5,99)), k = rep(1,100)) %>%
+      mutate(a = c(0.1, rep(0.5,length(breaks)-2)), k = rep(1,length(breaks)-1)) %>%
       group_modify(~overlevelsestavle(.)) %>%
       filter(Alder == "0") %>% 
       select(e)
