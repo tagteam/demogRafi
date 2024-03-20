@@ -754,24 +754,26 @@ den periode, som personer på samme alderstrin følges.
 
 * Dødsårsager
 
-Menneskers død har forskellige årsager, som fortæller hvad der er sket lige
-inden, for eksempel en trafikulykke, eller samenfatter et kortere eller
-længere sygdomsforløb før døden indtræffer. I Danmark har man siden 1875
-samlet data om dødsårsager, som nu er verdens største
+Menneskers død har forskellige årsager, som fortæller hvad der er sket
+lige inden, for eksempel en trafikulykke, eller samenfatter et kortere
+eller længere sygdomsforløb før døden indtræffer. I Danmark har man
+siden 1875 samlet data om dødsårsager, som nu er verdens største
 digitaliserede dødsårsagsregister [fn:88]. Dødsårsagsregisteret bygger
 på dødsattester fra personer med folkeregisteradresse i Danmark, der
-døde i Danmark. Den demografiske analyse af dødsårsager er
-formåls- og metodemæssigt relateret til de andre fag i dette semester
+døde i Danmark. Den demografiske analyse af dødsårsager er formåls- og
+metodemæssigt relateret til de andre fag i dette semester
 (sygdomslære, epidemiologi og biostatistik). Vi bruger data fra
 dødsårsagsregisteret til at konstruere årsagsspecifikke
 dødelighedstavler (Afsnit ref:K3:aarsag) og til at beregne
-restlivstidsrisikoen (sandsynligheden for at en \(x\)-årig dør af en bestemt årsag).
+restlivstidsrisikoen (sandsynligheden for at en \(x\)-årig dør af en
+bestemt årsag).
 
 ** Gruppering af dødsårsager
 
-Dødsårsager i dødsårsagsregisteret er opdelt i A og B-grupperinger, hvor B er en undergruppering af A
-grupperingerne. Statistikbankens register =DODA1= har antal døde fordelt på
-26 A-grupperinger:
+Dødsårsager i dødsårsagsregisteret er opdelt i 26 A grupper og hver A
+gruppe har en eller flere B undergrupper. Der er 109
+B-grupper. Statistikbankens register =DODA1= har antal døde fordelt på
+26 A-grupper:
 #+ATTR_LATEX: :options otherkeywords={str_detect,hent_data,hent_mortalitetsrate_data,filter,mutate,overlevelsestavle}, deletekeywords={c,rep,print,seq,R}
 #+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
 da <- hent_data("doda1",årsag = "all_no_total",tid = 2022)
@@ -812,10 +814,10 @@ print(da,n = 26)
 #+end_example
 \normalsize
 Vi ser at dødsfald på grund af kræft har med været den
-største A-gruppering i 2022. Der er i alt 109 B-grupperinger, hvor hver
-B-gruppering hører under en A-gruppering.  Kræft er den dødsårsag med flest
-B-undergrupper. A-grupperingerne er mere overordnede, mens B-grupperingeringerne er mere
-specifikke. For eksempel er der tre B-grupperinger som opdeler gruppen A-08
+største A-gruppe i 2022. Der er i alt 109 B-grupper, hvor hver
+B-gruppe hører under en A-gruppe.  Kræft er den dødsårsag med flest
+B-undergrupper. A-grupper er mere overordnede, mens B-grupper er mere
+specifikke. For eksempel er der tre B-grupper som opdeler gruppen A-08
 HJERTESYGDOMME I ALT:
 #+ATTR_LATEX: :options otherkeywords={str_detect,hent_data,filter,mutate,overlevelsestavle}, deletekeywords={c,rep,print,seq,R}
 #+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
@@ -919,7 +921,7 @@ dø af årsag \(Q\) i alderen mellem \(x\) og \(x+k-1\):
 \end{align}
 #+end_export
 
-*** Dobbelt-dekrementfunktionem
+*** Konstruktion af en årsagsspecifik dødelighedstavle
 
 Dekrementfunktionen som genererer en årsagsspecifik dødelighedstavle
 tager udgangspunkt i en radix af 100.000 tabelpersoner. I hvert
@@ -944,14 +946,16 @@ Derfor gælder i tabelbefolkningen:
 \underbrace{\ell_x\cdot{_kq_x}\cdot (1-{_kh^Q_x})}_{\text{andre årsager}}.
 \end{equation} 
 #+end_export
-Fordi der er nu er to muligheder for at forlade tabelbefolkningen
-hedder funktionen \(\ell_x\), der generer en årsagsspecifik
-dødelighedstavle, dobbelt-dekrementfunktionen.
+Fordi der er nu er to muligheder (1: dødsårsag Q, 2: alle andre
+dødsårsager) for at forlade tabelbefolkningen hedder funktionen
+\(\ell_x\), der generer en årsagsspecifik dødelighedstavle, double
+decrement function.
 
 *** Den årsagsspecifikke restlivstidsrisiko 
 
-Det samlede antal dødfald med årsag \(Q\) i tabelbefolkningen, hvor
-tabelpersonen er ældre end \(x\)-år er (for 1-års intervaller), er givet som:
+Det samlede antal dødsfald med årsag \(Q\) i tabelbefolkningen, hvor
+tabelpersonen er ældre end \(x\)-år er (for 1-års intervaller), er
+givet som:
 
 #+begin_export latex
 \begin{align}
@@ -972,7 +976,7 @@ I tabelbefolkningen er det samlede antal dødsfald, hvor årsagen var
 \intertext{Risikoen
  for, at en nyfødt dør af årsag Q inden alder $x$, bliver}
 {_xq_0^Q}&={_xd_0^Q}/\ell_0.
-\intertext{Tilsvarende er risikoen for at dø med andre årsager inden alder \(x\):}
+\intertext{Tilsvarende er risikoen for at dø på grund af andre årsager inden alder \(x\):}
 {_xq_0^{\bar Q}}&={_xd_0^{\bar Q}}/\ell_0.
 \intertext{Vi kan også beregne sandsynligheden for at overleve alle årsager inden alder \(x\):}
 o_x = {{}_xq_0}&=1-{}_xq_0^Q-{}_xq_0^{\bar Q}
@@ -981,7 +985,7 @@ o_x = {{}_xq_0}&=1-{}_xq_0^Q-{}_xq_0^{\bar Q}
 
 ** Eksempel
 
-Vi beregner dødelighedstavlen for at dø med kræft blandt mænd i 2020 i
+Vi beregner dødelighedstavlen for at dø af kræft blandt mænd i 2020 i
 Danmark. Vi henter folketal fra statistikbankens register =FOLK1a= og
 antal døde med kræft fra register =doda1=. Vi inddeler i 19
 aldersintervaller, hvor det første interval har længde 1 år, det andet
@@ -1072,16 +1076,16 @@ print(kraeftdodtavle_maend,digits = 2)
 \normalsize
 
 Kolonnen \(\operatorname{LTR_Q}\) i aldersintervallet fra \(x\) til
-\(x+k-1\) angiver restlivstidsrisikoen for at dø med kræft for en tabelperson
-med alder \(x\), og \(\operatorname{risiko_Q}\) angiver risiko for at
-en tabelperson dør af kræft inden alder \(x+k\). Fra
-dødelighedstavlen kan vi f.eks. aflæse, at sandsynligheden
-for at en nyfødt dreng i 2020 dør på af kræft inden alder 74 er
-10,1%, hvis de årsagsspecifikke mortalitetsrater for
-mænd i fremtiden forbliver som de var i 2020. Vi ser også, at
-restlivstidsrisikoen for kræftdød er 27,8% for en 65-årig mænd under
-antagelsen, at de årsagsspecifikke mortalitetsrater for mænd forbliver
-i fremtiden som de var i 2020.
+\(x+k-1\) angiver restlivstidsrisikoen for at dø af kræft for en
+tabelperson med alder \(x\), og \(\operatorname{risiko_Q}\) angiver
+risiko for at en tabelperson dør af kræft inden alder \(x+k\). Fra
+dødelighedstavlen kan vi for eksempel aflæse, at sandsynligheden for
+at en nyfødt dreng i 2020 dør på af kræft inden alder 74 er 10,1%,
+hvis de årsagsspecifikke mortalitetsrater for mænd i fremtiden
+forbliver som de var i 2020. Vi ser også, at restlivstidsrisikoen for
+kræftdød er 27,8% for en 65-årig mænd under antagelsen, at de
+årsagsspecifikke mortalitetsrater for mænd forbliver i fremtiden som
+de var i 2020.
 
 
 [fn:88] https://www.rigsarkivet.dk/udforsk/doedsaarsagsregister-1943-2019/

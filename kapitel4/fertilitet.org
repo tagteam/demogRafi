@@ -5,9 +5,9 @@ med mortalitet den naturlige vækst i befolkningen.  Ændringer i
 fertiliteten har stor betydning for befolkningens størrelse, og det
 fylder derfor meget i den offentlige debat, når fertiliteten
 falder. Hvilket netop er den tendens, der ses i de fleste vestlige
-lande. Fertilitet i demografien handler dog ikke om den biologiske evne
-til at få børn hos enkeltpersoner (frugtbarheden), men om hvor mange
-børn en befolkning samlet set får.
+lande. Fertilitet i demografien handler dog ikke om den biologiske
+evne til at få børn hos enkeltpersoner (frugtbarheden), men om hvor
+mange børn en befolkning samlet set får.
 
 Over det sidste århundrede har fertiliteten gennemgået store
 forandringer i Danmark. Det skyldes blandt andet økonomiske kriser,
@@ -16,27 +16,58 @@ p-pillen, retten til abort, ændrede familiemønstre og holdninger til
 familieplanlægning. Da der i starten af 1900-tallet forekom en
 stigende urbanisering i Danmark, hvormed befolkningen rykkede ind til
 byerne, skete et markant fald i fertiliteten. Den /samlede fertilitet/
-faldt hurtigt i 1930'erne og nåede i 1933 under 2,1 børn per
-kvinde. Under Anden Verdenskrig steg fertiliteten derimod. Den
+er et fertilitetsmål, som bygger på fertilitetsrater fra en kort
+periode, typisk 1 år. Den samlede fertilitet angiver hvor mange børn
+en (hypotetisk) kvinde i gennemsnit får hvis hun gennemlever
+aldersperioden mellem 15 og 49 år hvor de aldersspecifikke
+fertilitetsraterne fra perioden gælder. Den samlede fertilitet var
+over 4 børn per kvinde i 1901 og faldt derefter hurtigt. I 1933 nåede
+den samlede fertilitet under 2,1 børn per kvinde (Figur
+ref:fig:k4-samlet-historie).
+
+#+ATTR_LATEX: :options otherkeywords={hent_data,scale_y_log10,mutate,summarise,pull,ggplot}, deletekeywords={c,&,title,legend,de,scale,by,axis,plot,margin,t,text,rect,list,factor}
+#+BEGIN_SRC R :results file graphics :file ./kapitel4/k4-samlet-historie.pdf :exports none :session *R* :cache yes :width 10  :height 6.25
+fod3 <- hent_data("fod3",tid = 1901:1972)
+colors <- viridis::viridis(n=2, begin = 0, end = 0.8)
+g <- ggplot(fod3, aes(x = as.factor(TID), y = INDHOLD,group = 1))
+g <- g+geom_line(linewidth = 2) + theme_economist()+ theme(axis.title = element_text(size = 20),axis.text.x = element_text(angle = 90))
+g <- g+theme(text = element_text(size=15))
+g <- g+scale_x_discrete(breaks = seq(1901,1972,5))
+g <- g+theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))
+g <- g+theme(axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)))
+g <- g+labs(x = 'Årstal', y = "Samlet fertilitet per 1000 kvinder")
+g
+#+END_SRC
+
+#+RESULTS[(2024-03-20 06:21:01) 31b2ba9e1227d3979b5346e0a79b5583e0da7115]:
+[[file:./kapitel4/k4-samlet-historie.pdf]]
+
+#+name: fig:k4-samlet-historie
+#+ATTR_LATEX: :width 0.9\textwidth
+#+CAPTION: Udviklingen i den samlede fertilitet mellem 1901 og 1972 i Danmark. Kilde: statistikbankens arkiverede register FOD3.
+[[file:./k4-samlet-historie.pdf]]
+
+Under Anden Verdenskrig steg fertiliteten derimod. Den
 stigende fertilitet skete i alle aldersgrupper, og det medførte derfor
 også meget store fødselsårgange. På trods af udsving, fortsatte en
 lille stigning i fertiliteten frem til slut 1960'erne. Denne periode
 omtales ofte som babyboomperioden. Der skete også en stigning i
 antallet af ægteskaber i samme periode. I 1967 blev p-pillen
-introduceret og i 1973 blev fri abort indført. Det gav kvinder – og
-familier - mulighed for i højere grad at planlægge, hvornår de ønskede
-at få børn. Det betød, at alderen for førstegangsfødende kvinder steg
-(se Figur ref:fig:k4-foerstegang). Samtidig opstod nye familieformer,
-og det blev mere normalt for kvinder og par at få børn uden for
-ægteskabet. Endeligt fik kvinder en større rolle på
-arbejdsmarkedet. Alle disse ændringer betød, at fertiliteten faldt i
-denne periode og frem til midten af 1980’erne. Dette fald skete i alle
-aldersgrupper. Og den samlede fertilitet nåede igen ned under 2,1 børn
-per kvinde. Siden har fertiliteten været let stigende særligt blandt
-de 30+ årige kvinder. Førstegangsforældre bliver stadigt ældre, som
-det ses af Figur ref:fig:k4-foerstegang, og der sker dermed en udsættelse af første
-fødsel. I 2022 var kvinder i gennemsnit 29,9 år og mænd 31,6 år gammel, da de
-fik deres første barn:
+introduceret og i 1973 blev fri abort indført. Det gav kvinder -- og
+familier -- mulighed for i højere grad at planlægge, hvornår de
+ønskede at få børn. Det betød, at alderen for førstegangsfødende
+kvinder steg (se Figur ref:fig:k4-foerstegang). Samtidig opstod nye
+familieformer, og det blev mere normalt for kvinder og par at få børn
+uden for ægteskabet. Endeligt fik kvinder en større rolle på
+arbejdsmarkedet. Alle disse ændringer skete sammentidlig med, at
+fertiliteten faldt i denne periode og frem til starten af
+1980'erne (Figur ref:fig:k4-samlet-fertilitet). Dette fald skete i alle aldersgrupper. Og den samlede
+fertilitet nåede igen ned under 2,1 børn per kvinde. Siden har
+fertiliteten været let stigende særligt blandt de 30+ årige
+kvinder. Førstegangsforældre bliver stadigt ældre, som det ses af
+Figur ref:fig:k4-foerstegang. I 2022 var kvinder i gennemsnit 29,9 år
+og mænd 31,6 år gammel, da de fik deres første barn. Vi finder disse
+tal i statistikbankens register =FOD11=:
 
 #+ATTR_LATEX: :options otherkeywords={hent_data}, deletekeywords={c,paste}
 #+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes  
@@ -104,7 +135,8 @@ vil være i samfundet. Alt dette har betydning for politiske
 beslutninger og planlægning. Det absolutte antal levendefødte har dog
 også dets begrænser i og med, det ikke kan bruges til at sammenligne
 fertiliteten over tid eller på tværs af
-befolkningsgrupper/lande. Hertil er der brug for relative mål og rater.
+befolkningsgrupper/lande. Hertil er der brug for aldersspecifikke
+fertilitetsrater.
 
 #+ATTR_LATEX: :options otherkeywords={hent_data,scale_y_log10,mutate,summarise,pull,ggplot}, deletekeywords={c,&,title,legend,de,scale,by,axis,plot,margin,t,text,rect,list,factor}
 #+BEGIN_SRC R :results file graphics :file ./kapitel4/k4-levendefoedte.pdf :exports none :session *R* :cache yes :width 10  :height 6.25
@@ -159,7 +191,7 @@ f_{sum} = \frac{_{35}F_{15}[t_1,t_2]}{R[t_1,t_2]}=\frac{\text{Antal fødsler: Kv
 #+end_export
 Den summariske fødselsrate \(f_{sum}\) angiver dermed fertilitetsraten
 i tidsintervallet fra kalenderdato \(t_1\) til kalenderdato \(t_2\).
-Det er vigtigt at notere sig, at der i risikotid for den givne
+Det er vigtigt at notere sig, at der i risikotiden for den givne
 periode, \(R[t_1,t_2]\) indgår personer, som ikke kan føde børn --
 herunder mænd, børn og ældre kvinder. Den /generelle fertilitetsrate/
 erstatter risikotid af alle personer med risikotid af kvinder i den
@@ -168,20 +200,20 @@ således som antal levendefødte børn per 1.000 kvinder i den fertile
 alder:
 #+begin_export latex
 \begin{equation}\label{eq:K4-gen_f}
-f_{gen} = \frac{_{35}F_{15}}{_{35}R^{\text{Kvinder}}_{15}[t_1,t_2]}=\frac{\text{Antal fødsler: Kvinder mellem 15 og 49 år}}{\text{Risikotid: kvinder mellem 15 og 49 år}}
+f_{gen} = \frac{_{35}F_{15}[t_1,t_2]}{_{35}R^{\text{Kvinder}}_{15}[t_1,t_2]}=\frac{\text{Antal fødsler: kvinder mellem 15 og 49 år}}{\text{Risikotid: kvinder mellem 15 og 49 år}}
 \end{equation}
 #+end_export
 Her står notationen \(_{35}R^{\text{Kvinder}}_{15}\) for risikotid fra
-alle kvinder, som var mellem 15 og 49 år i perioden. Sammenlignet med
-den summariske fertilitetsrate har generelle fertilitetsrate højere
-værdier, da risikotiden på den kvindelige befolkning mellem 15 og 49
-er mindre end risikotiden fra hele befolkningen. Udviklingen i både
-den generelle og summariske fertilitetsrate siden 1973 fremgår af
-Figur ref:fig:k4-gensumfrate. Hvor den summariske fertilitetsrate har
-ligget mere stabilt over årene, er den generelle fertilitetsrate udsat
-for flere udsving. Disse udsving er netop tydelige, fordi den
-generelle fertilitetsrate tager højde for størrelsen på den kvindelige
-befolkning.
+alle kvinder, som var mellem 15 og 49 år gamle i
+perioden. Sammenlignet med summariske fertilitetsrater har generelle
+fertilitetsrater højere værdier, da risikotiden på den kvindelige
+befolkning mellem 15 og 49 er mindre end risikotiden fra hele
+befolkningen. Udviklingen i både den generelle og summariske
+fertilitetsrate siden 1973 fremgår af Figur
+ref:fig:k4-gensumfrate. Figuren viser, at den summariske
+fertilitetsrate har ligget ret stabilt over årene, og at den generelle
+fertilitetsrate var udsat for udsving, som reflekterer udsving i
+størrelsen på den kvindelige befolkning i aldersgruppen 15 til 49 år.
 
 #+ATTR_LATEX: :options otherkeywords={hent_data,scale_y_log10,mutate,summarise,pull,ggplot}, deletekeywords={c,&,title,legend,de,scale,by,axis,plot,margin,t,text,rect,list,factor}
 #+BEGIN_SRC R :results file graphics :file ./kapitel4/k4-gensum-frate.pdf :exports none :session *R* :cache yes :width 10  :height 6.25
@@ -219,24 +251,22 @@ g
 [[file:./k4-gensum-frate.pdf]]
 
 /Aldersspecifikke fertilitetsrater/ udregnes på samme vis som
-aldersspecifikke mortalitetsrater. For en given periode og en given
+aldersspecifikke mortalitetsrater (Kapitel 2). For en given periode og en given
 aldersgruppe, for eksempel 30-34 årige, beregnes aldersspecifikke
-fertilitetsrater at dividere antallet af levendefødte børn, der fødes
+fertilitetsrater ved at dividere antallet af levendefødte børn, der fødes
 af kvinder, der er mellem 30 og 34 år gammel ved barnets fødsel, med
-det totale antal af 30-34 årige kvinder. Raten definerer således hvor
-mange børn tusind 30-34 årige kvinder føder i den givne
-periode:
+risikotiden af 30-34 årige kvinder i perioden:
 #+begin_export latex
 \begin{equation*}
-_{5}f_{30} = \frac{_{5}F_{30}}{_{5}R^{\text{Kvinder}}_{30}[t_1,t_2]}=\frac{\text{Antal fødsler: Kvinder mellem 30 og 34 år}}{\text{Risikotid: Kvinder mellem 30 og 34 år}}.
+_{5}f_{30} = \frac{_{5}F_{30}}{_{5}R^{\text{Kvinder}}_{30}}=\frac{\text{Antal fødsler: Kvinder mellem 30 og 34 år}}{\text{Risikotid: Kvinder mellem 30 og 34 år}}.
 \end{equation*}
 #+end_export
 Mere generalt ser formlen for den aldersspecifikke fertilitetsrate fra
 alder \(x\) til og med alder \(x+k-1\) således ud:
 #+begin_export latex
-\begin{equation*}
-_{k}f_{x} = \frac{_{k}F_{x}}{_{k}R^{\text{Kvinder}}_{x}[t_1,t_2]}=\frac{\text{Antal fødsler: Kvinder mellem \(x\) og \(x+k-1\) år}}{\text{Risikotid: Kvinder mellem  \(x\) og \(x+k-1\) år}}.
-\end{equation*}
+\begin{equation}
+_{k}f_{x} = \frac{_{k}F_{x}}{_{k}R^{\text{Kvinder}}_{x}}=\frac{\text{Antal fødsler: Kvinder mellem \(x\) og \(x+k-1\) år}}{\text{Risikotid: Kvinder mellem  \(x\) og \(x+k-1\) år}}.
+\end{equation}
 #+end_export
 
 #+ATTR_LATEX: :options otherkeywords={hent_data,scale_y_log10,mutate,summarise,pull,ggplot}, deletekeywords={c,&,title,legend,de,scale,by,axis,plot,margin,t,text,rect,list,factor}
@@ -303,19 +333,21 @@ formel:
 \quad f_{samlet}=5\cdot _5f_{15}+5\cdot _5f_{20}+...+5\cdot_5f_{45}. 
 \end{equation}
 #+end_export
-Fortolkning: \(f_{samlet}\) er det /forventede antal børn/, en kvinde
-vil få i løbet af de fødedygtige aldre i en (hypotetisk) befolkning,
-hvor ingen dør, og hvor de aldersspecifikke fødselsrater er som
-observeret i perioden. Formel eqref:eq:f_samlet viser at den samlede
-fertilitet beregnes som summen af de aldersspecifikke fertilitetsrater
-multipliceret med aldersintervallets længde. Der multipliceres med
-aldersintervallets længde, da kvinderne kan føde børn i alle årene i
-et givent aldersinterval. Tal for den samlede fertilitet nævnes ofte i
-den offentlige debat om fertilitet i Danmark. Det er nemlig tal for
-den samlede fertilitet, der angiver, at kvinder skal føde 2,1 børn i
-gennemsnit for, at den danske befolkning kan reproducere sig
-selv. Udviklingen i den samlede fertiliteten siden 1973 kan ses i
-Figur ref:fig:k4-samlet-fertilitet.
+Formel eqref:eq:f_samlet viser at den samlede fertilitet beregnes som
+summen af de aldersspecifikke fertilitetsrater multipliceret med
+aldersintervallets længde. Der multipliceres med aldersintervallets
+længde, da kvinderne kan føde børn i alle årene i et givent
+aldersinterval. Udviklingen i den samlede fertiliteten siden 1973 kan
+ses i Figur ref:fig:k4-samlet-fertilitet.  Tal for den samlede
+fertilitet nævnes ofte i den offentlige debat om fertilitet i
+Danmark. Det er nemlig tal for den samlede fertilitet, der angiver, at
+kvinder skal føde 2,1 børn i gennemsnit for, at den danske befolkning
+kan reproducere sig selv. Tanke bag tærsklen 2,1 børn per kvinde er
+enkelt. Hvis hver kvinde føder mindst en pige, som senere i livet
+føder mindst en pige, og så videre, kan befolkningen reproducere sig
+selv. To børn i gennemsnit per kvinde er dog ikke helt nok, fordi
+sandsynligheden for at få en pige er en smule mindre end for at få en
+dreng (Figur ref:fig:k4-andel-piger).
 
 #+ATTR_LATEX: :options otherkeywords={hent_data,scale_y_log10,mutate,summarise,pull,ggplot}, deletekeywords={c,&,title,legend,de,scale,by,axis,plot,margin,t,text,rect,list,factor}
 #+BEGIN_SRC R :results file graphics :file ./kapitel4/k4-samlet-fertilitet.pdf :exports none :session *R* :cache yes :width 10  :height 6.25
@@ -354,34 +386,76 @@ g
 
 ** Produktionstal
 
-Fertilitet kan også undersøges med hjælp af
+Om fertiliteten er tilstrækkelig til at befolkningen kan reproducere
+sig selv, kan undersøges nærmere med hjælp af
 /bruttoreproduktionstal/[fn:1] og
 /nettoreproduktionstal/[fn:6]. Bruttoreproduktionstallet beregnes på
-samme vis som den samlede fertilitet, men kun med nyfødte piger i
+samme vis, som den samlede fertilitet, men kun med nyfødte piger i
 tælleren. Definitionen er derfor antallet af levendefødte piger, som
 vil blive født af 1.000 kvinder i løbet af deres fertile alder (15-49
-år) givet at ingen af kvinderne dør før de fylder 50 år og at de i
+år), givet at ingen af kvinderne dør før de fylder 50 år og at de i
 hvert aldersinterval føder børn per periodens aldersspecifikke
-fertilitetsrater. For 5-års aldersintervaller er
-bruttoreproduktionstallet (BRT) given ved
+fertilitetsrater. For 5-års aldersintervaller beregnes
+bruttoreproduktionstallet (BRT) med følgende formel:
 #+begin_export latex
 \begin{equation}\label{eq:BRT}
-\quad \operatorname{BRT}=5\cdot _5\negthickspace{f}_{15}^{\text{piger}}+5\cdot
-_5\negthickspace{f}_{20}^{\text{piger}}+...+5\cdot _5\negthickspace{f}_{45}^{\text{piger}}=c\cdot
-f_{\operatorname{total}}.  
+\quad \operatorname{BRT}=5\cdot {}_5{f}_{15}^{\text{piger}}+5\cdot
+{}_5{f}_{20}^{\text{piger}}+...+5\cdot {}_5{f}_{45}^{\text{piger}}.  
 \end{equation} 
 #+end_export
+Her betegner symbolet \({}_5f^{\text{piger}}_x\) raten af pigefødsler
+hvor moren var mellem \(x\) og \(x+4\) år gamle. Kender man ikke antal
+pigefødsler, men kun det samlede antal fødsler, altså
+#+begin_export latex
+\begin{align}\label{eq:pige_drenge}\
+{}_5f_x &= {}_5f^{\text{piger}}_x+{}_5f^{\text{piger}}_x, \intertext{kan man bruge følgende approksimationsformel for forholdet mellem antal pigefødsler og
+antal drengefødsler:}\label{eq:andel_piger}
+c &= \frac{{}_{35}f^{\text{piger}}_{15}}{{}_{35}f^{\text{drenge}}_{15}}\approx 0,485.
+\end{align}
+#+end_export
+Figur ref:fig:k4-andel-piger viser at 48,5% er den gennemsnitlige
+andel pigerfødsler bland alle fødsler.
+
+#+BEGIN_SRC R :results file graphics :file ./kapitel4/k4-andel-piger.pdf :exports none :session *R* :cache yes
+d <- hent_fertilitetsrate_data(tid = 1973:2019,barnkon = c("piger","drenge"))
+total_F <- d %>% group_by(BARNKON,TID) %>% summarize(F=sum(Fødsler))
+total_F <- pivot_wider(total_F,names_from = BARNKON,values_from = F)
+total_F <- mutate(total_F,andel_piger = 100*Piger/(Drenge+Piger))
+g <- ggplot(total_F,aes(TID,andel_piger))+geom_line(linewidth = 1.3)+ylim(c(47,50))+ylab("Andel pigefødsler (%)")+xlab("Kalenderår")
+g <- g+theme_economist()+theme(text = element_text(size=15))
+g <- g+theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))
+g <- g+theme(axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)))
+g
+#abline(h=0.485,col=2)
+#+END_SRC
+
+#+RESULTS[(2024-03-20 07:20:12) df4b28ec5d0834bb9d086a2168c4e4fabdb90d2e]:
+[[file:./kapitel4/k4-andel-piger.pdf]]
+
+#+name: fig:k4-andel-piger
+#+ATTR_LATEX: :width 0.9\textwidth
+#+CAPTION: Udviklingen i andelen af pigefødsler siden 1973 i Danmark. Kilde: statistikbankens register FOD, BEFOLK2.
+[[file:./k4-andel-piger.pdf]]
+
+Bruger man formel eqref:eq:andel_piger ses følgende relation mellem
+den samlede fertilitet og bruttoreproduktionstallet:
+#+begin_export latex
+\begin{equation*}
+\operatorname{BRT}=c\cdot f_{\operatorname{samlet}}.
+\end{equation*}
+#+end_export
+
+
 Nettoreproduktionstallet er et mere komplekst mål. Her tages der højde
-for at kvinderne godt kan dø inden de fylder 50 år ligesom det er
+for at kvinderne godt kan dø inden de fylder 50 år, ligesom det er
 tilfældet i den virkelige verden. Nettoreproduktionstallet defineres
 således som antallet af levendefødte piger, som vil blive født af
 1.000 kvinder i løbet af deres fertile alder (15-49 år) givet af at
 kvinderne dør fra alder 0 i overensstemmelse med overlevelsestavlen
 (for kvinder) for den givne periode, og at kvinderne i hvert
-aldersinterval føder det antal børn per periodens aldersspecifikke
-fertilitetsrater. Der tages derfor højde for, at kvinderne kan dø.
-For 5-års aldersintervaller er nettoreproduktionstallet (NRT) given
-ved
+aldersinterval føder børn per periodens aldersspecifikke
+fertilitetsrater. For 5-års aldersintervaller er
+nettoreproduktionstallet (NRT) given ved følgende formel:
 #+begin_export latex
 \begin{equation}\label{eq:NRT}
 \quad \operatorname{NRT}=_5\negthickspace{f}_{15}^{\text{piger}}\frac{_5L_{15}}{\ell_0}+
@@ -389,13 +463,146 @@ _5\negthickspace{f}_{20}^{\text{piger}}\frac{_5 L_{20}}{\ell_0}+...+
 _5\negthickspace{f}_{45}^{\text{piger}}\frac{_5L_{45}}{\ell_0}. 
 \end{equation}
 #+end_export
-Her er \(\ell_0\) radix og \(\L{k}\) den samlede gennemlevede af
-overlevelsestavlens tabelbefolkning (Kapitel 3). Fortolkningen er
-antal piger, en kvinde vil føde i løbet af de fødedygtige aldre, hvis
-fødsels- og dødsraterne er som observeret i perioden.
+Her er \(\ell_0\) overlevelsestavlens radix af \(\L{k}\) den samlede
+gennemlevede tid beregnet i overlevelsestavlens tabelbefolkning
+(Kapitel 3). Fortolkningen af NRT er antal piger, en kvinde i
+gennemsnit vil føde i løbet af de fødedygtige aldre, hvis fødsels- og
+dødsraterne er som observeret i perioden.
 
 [fn:1] Engelsk: Gross Reproduction Rate
-[fn:6] Engelsk: Net Reproduction Rate 
+[fn:6] Engelsk: Net Reproduction Rate
+
+** Eksempel
+
+Vi henter antal fødsler fra statistikbankens register =FODIE= og
+risikotid fra mødrene mellem 15 og 49 år fra =FOLK1A= fra 2020 og
+grupperer dem i 5-års intervaller for modersalder:
+#+ATTR_LATEX: :options otherkeywords={hent_fertilitetsrate_data}, deletekeywords={}
+#+BEGIN_SRC R :results output :exports both  :session *R* :cache yes  
+f2020 <- hent_fertilitetsrate_data(2020)
+f2020
+#+END_SRC
+
+#+RESULTS[(2024-03-19 17:44:55) e1db98b5ff9ea7da46f204ddb7deea1e73863fb6]:
+#+begin_example
+# A tibble: 7 × 4
+  aldersinterval   TID      R Fødsler
+  <fct>          <dbl>  <dbl>   <dbl>
+1 15-19           2020 166521     274
+2 20-24           2020 184282    4694
+3 25-29           2020 196845   20771
+4 30-34           2020 177779   22773
+5 35-39           2020 161606    9987
+6 40-44           2020 179062    2268
+7 45-49           2020 196756     157
+#+end_example
+
+\noindent Med disse data, beregner vi de aldersspecifikke fertilitetsrater:
+#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
+#+BEGIN_SRC R :results output :exports both  :session *R* :cache yes
+options(pillar.sigfig = 5)
+f2020 <- mutate(f2020,frate = 1000*Fødsler/R)
+f2020
+#+END_SRC
+
+#+RESULTS[(2024-03-19 17:48:24) 033fa390156bf035809af30fb4e78cff4c246ead]:
+#+begin_example
+# A tibble: 7 × 5
+  aldersinterval   TID      R Fødsler     frate
+  <fct>          <dbl>  <dbl>   <dbl>     <dbl>
+1 15-19           2020 166521     274   1.6454 
+2 20-24           2020 184282    4694  25.472  
+3 25-29           2020 196845   20771 105.52   
+4 30-34           2020 177779   22773 128.10   
+5 35-39           2020 161606    9987  61.798  
+6 40-44           2020 179062    2268  12.666  
+7 45-49           2020 196756     157   0.79794
+#+end_example
+
+Vi ser for eksempel at fertilitetsraten i Danmark i 2020 var 106
+fødsler per 1000 personår bland kvinder mellem 25 og 29 år. Vi bruger
+formel eqref:eq:f_samlet og beregner den samlede fertilitet:
+
+#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
+#+BEGIN_SRC R :results output :exports both  :session *R* :cache yes  
+summarize(f2020,samlet_fertilitet = sum(frate*5))
+#+END_SRC
+
+#+RESULTS[(2024-03-19 18:01:00) 73ff7ce20af411c240a4bbd38fa034476d7a0cff]:
+: # A tibble: 1 × 1
+:   samlet_fertilitet
+:               <dbl>
+: 1            1680.0
+
+Den samlede fertilitet var altså 1680,0 fødsler per 1000 kvinder i
+Danmark i 2020. Det betyder at i en hypotetisk befolkning, hvor
+fødselsraterne er, som de var bland danske kvinder mellem 15 og 49 år
+i 2020 i Danmark, hvor ingen dør, får hver kvinde i gennemsnit cirka
+1,68 børn i løbet af hendes fødedygtige aldre.
+
+For at beregne bruttoreproduktionstallet, gennemfører vi de samme
+R-koder, men bruger aldersspecifikke pigefødselsrater i stedet for
+aldersspecifikke fødselsrater:
+#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
+#+BEGIN_SRC R :results output :exports both  :session *R* :cache yes  
+pige2020 <- hent_fertilitetsrate_data(2020,barnkon = "Piger")
+pige2020 <- mutate(pige2020,frate_piger = 1000*Fødsler/R)
+summarize(pige2020,BRT = sum(frate_piger*5))
+#+END_SRC
+
+#+RESULTS[(2024-03-20 08:00:38) b51b88aa32744db9c1430df87a286f95a88fc15b]:
+: # A tibble: 1 × 1
+:     BRT
+:   <dbl>
+: 1  821.
+
+Vi ser at bruttoreproduktionstallet var 0,82 pigefødsler per kvinde
+i 2020. I en hypotetisk befolkning hvor pigefødselsrater var lige som
+i 2020, og ingen kvinde dør i aldersperioden fra 15 år til 49 år, vil
+en kvinde i gennemsnit føde 0,82 piger. Dette ligger allerede tydeligt
+under 1 og hvis man tager højde for at kvinder kan dø, bliver tallet
+endnu mindre. For at beregne nettoreproduktionstallet henter vi også
+data fra statistikbankens register =DOD=, beregner overlevelsestavlen
+(Kapitel 3), og samler de aldersspecifikke risikotider (kolonne =L=)
+og pigefødselsrater (kolonne =frate_piger=):
+#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
+#+BEGIN_SRC R :results output :exports both  :session *R* :cache yes  
+fx <- fertilitets_tavle(2020)
+select(fx,aldersinterval,L,frate_piger)
+#+END_SRC
+
+#+RESULTS[(2024-03-20 08:05:47) 0319f0c7e2c39ebf688ab76c0cd8b2f206ed564f]:
+#+begin_example
+# A tibble: 7 × 3
+  aldersinterval      L frate_piger
+  <fct>           <dbl>       <dbl>
+1 15-19          498117    0.000805
+2 20-24          497681    0.0127  
+3 25-29          497203    0.0512  
+4 30-34          496478    0.0627  
+5 35-39          495585    0.0303  
+6 40-44          494071    0.00613 
+7 45-49          491847    0.000381
+#+end_example
+
+Nu er det enkelt at beregne nettoreproduktionstallet med formel eqref:eq:NRT
+#+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
+#+BEGIN_SRC R :results output :exports both  :session *R* :cache yes  
+fx <- mutate(fx,bidrag_NRT=frate_piger*L/100000)
+summarize(fx,NRT = sum(bidrag_NRT))
+#+END_SRC
+
+#+RESULTS[(2024-03-20 08:11:19) ecd8b93b32920d2280ef819824a72c035a006be5]:
+: # A tibble: 1 × 1
+:     NRT
+:   <dbl>
+: 1 0.815
+
+Nettoreproduktionstallet var dermed 0,82 pigefødsler per kvinde
+i 2020. I en hypotetisk befolkning hvor pigefødselsrater og
+mortalitetsrater var lige som i 2020, vil en kvinde i gennemsnit føde
+0,815 piger. 
+
 * Header :noexport:
 
 #+TITLE: Kapitel 4: Fertilitet

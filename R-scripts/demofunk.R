@@ -1,11 +1,11 @@
 ### demografi_funktioner.R --- 
 #----------------------------------------------------------------------
-## Author: Thomas Alexander Gerds
+## Author: Thomas Alexander Gerds and Johan Sebastian Ohlendorff
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Mar 18 2024 (10:38) 
+## Last-Updated: Mar 20 2024 (08:16) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 158
+##     Update #: 171
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -16,6 +16,7 @@
 ### Code:
 # load libraries
 # ---------------------------------------------------------------------
+## source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
 options("lifecycle_verbosity"="warning")
 
 for (a in c("danstat","tidyverse","stringi","ggplot2","ggthemes")){
@@ -147,12 +148,16 @@ hent_data <- function(register,...,language = "da"){
             suppressWarnings(num_alder <- as.numeric(gsub(" year[s]?| years and over| år| år og derover","",d$ALDER)))
             if (mean(!is.na(num_alder))>0.5) d <- mutate(d,alder = num_alder)
             else d = mutate(d,alder = gsub(" year[s]?| years and over| år| år og derover","",d$ALDER))
+            d = relocate(d,"alder")
         }
         if ("MODERSALDER" %in% names(d)){
             suppressWarnings(num_alder <- as.numeric(gsub(" year[s]?| years and over| år| år og derover","",d$MODERSALDER)))
             if (mean(!is.na(num_alder))>0.5) d <- mutate(d,alder = num_alder)
             else d = mutate(d,alder = gsub(" year[s]?| years and over| år| år og derover","",d$MODERSALDER))
+            d = relocate(d,"alder")
         }
+        d
+        if ("TID"%in% names(d)) d = relocate(d,"TID")
         d
     }
 }
@@ -214,6 +219,9 @@ intervAlder <- function(data,
             if (is.infinite(breaks[[1]]) || breaks[1]<0){
                 ll[1] <- paste0("<",breaks[2])
             } else{
+                # Fixme: this is wrong when alder is discrete
+                #        and right = FALSE because then breaks[2] is
+                #        not included
                 ll[1] <- paste0(breaks[1],"-",breaks[2])
             }
         }
@@ -273,10 +281,18 @@ hent_aldersfordeling <- function(breaks,
 hent_mortalitetsrate_data <- function(breaks,
                                       køn = c("Kvinder","Mænd"),
                                       tid = "2023",
-                                      område = "Hele landet",...){
+                                      område = "Hele landet",
+                                      alder = NULL,
+                                      ...){
+    if (length(alder) == 0) {
+        alder = 0:125
+        alder_fod <- "all_no_total"
+    }else{
+        alder_fod <- alder
+    }
     # risikotid metode 1
     af <- hent_data("FOLK1a",
-                    "alder"=0:125,
+                    "alder"=alder,
                     køn = køn,
                     tid=paste0(tid,"K3"),
                     Område = område,
@@ -289,13 +305,13 @@ hent_mortalitetsrate_data <- function(breaks,
     # Antal døde i aldersintervaller
     if (tolower(køn)[1] == "i alt"){
         dd <- hent_data("FOD207",
-                        "alder"="all_no_total",
+                        "alder"=alder_fod,
                         tid=tid,
                         Område = område)
         dd = mutate(dd,KØN = "I alt")
     } else{
         dd <- hent_data("FOD207",
-                        "alder"="all_no_total",
+                        "alder"=alder_fod,
                         tid=tid,
                         køn=køn,
                         Område = område)
@@ -404,36 +420,44 @@ beregn_middellevetid <- function(tid,område,køn,breaks = c(0:99,Inf)){
 }
 
 hent_fertilitetsrate_data <- function(tid = "2023",
-                                      område = "Hele landet",...){
+                                      område = "Hele landet",
+                                      barnkon = NULL,
+                                      ...){
     breaks = c(-Inf,seq(15,50,5),Inf)
-    # risikotid metode 1
-    af <- hent_data("FOLK1a",
-                    "alder"=0:125,
-                    køn = c("kvinder"),
-                    tid=paste0(tid,"K3"),
-                    Område = område,
-                    language = "da")
+    if (min(as.numeric(tid))<2008){
+        # FIXME:
+        # risikotid metode 1 men bruger 1 januar burde tilbyde metode 2
+        if (område != "Hele landet") stop("Har ikke adgang til folketal i andre områder end 'Hele landet' for årstal før 2008.")
+        af <- hent_data("BEFOLK1","alder"="all_no_total",køn = c("kvinder"),tid=tid,language = "da")
+        by = c("TID")
+    } else{
+        # risikotid metode 1
+        af <- hent_data("FOLK1a","alder"=0:125,køn = c("kvinder"),tid=paste0(tid,"K3"),Område = område,language = "da")
+        by = c("OMRÅDE","TID")
+    }
+    if (length(barnkon)>1) by = c(by,"BARNKON")
     af = mutate(af,TID = as.numeric(sub("K3","",TID)))
     # Fordeling af risikotid i aldersintervaller
     af <- rename(af,R = INDHOLD)
-    by = c("OMRÅDE","TID")
     af <- intervAlder(af,breaks=breaks, right = FALSE,by=by,vars="R",...)
     # Antal fødsler i aldersintervaller
-    fodie <- hent_data("FODIE",
-                       "modersalder"="all_no_total",
-                       tid=tid,
-                       Område = område)
+    if (min(as.numeric(tid))<2008){
+        fodie <- hent_data("FOD","modersalder"="all_no_total",tid=tid,barnkon = barnkon)
+    }else{
+        fodie <- hent_data("FODIE","modersalder"="all_no_total",tid=tid,Område = område,barnkon = barnkon)
+    }
     fodie <- rename(fodie,Fødsler = INDHOLD)
-    fodie <- intervAlder(fodie,
-                         breaks=breaks,
-                         right = FALSE,
-                         by=c("OMRÅDE","TID"),
-                         vars="Fødsler",...)
+    fodie <- intervAlder(fodie,breaks=breaks,right = FALSE,by=by,vars="Fødsler",...)
     # join
-    dat <- left_join(af,fodie, by = c("aldersinterval",by))
+    if (length(barnkon)>1) {
+        afb <- rbind(mutate(af,BARNKON = "Piger"),mutate(af,BARNKON = "Drenge"))
+        dat <- left_join(fodie,afb, by = c("aldersinterval",by))
+    }else{
+        dat <- left_join(af,fodie, by = c("aldersinterval",by))
+    }
     # fjern data hvor moren var yngre end 15 eller ældre end 50
     dat <- dat %>% filter(!(aldersinterval %in% c("<15","50+")))
-    if (tolower(område)[1] == "hele landet") dat$OMRÅDE = NULL
+    if ("OMRÅDE"%in%names(dat) && tolower(område)[1] == "hele landet") dat$OMRÅDE = NULL
     dat
 }
 
@@ -619,26 +643,30 @@ dodsaarsagtavle <- function(data,
     dt
 }
 
-
-ftavle <- function(kalender){
+fertilitets_tavle <- function(tid){
     ## skal brug 50 som "sidste" aldersinterval. det slettes bagefter
-    M <- mortalitet(kalender,koen="K",alder=0:50)
-    dt <- dtavle(M$M,a=c(0.1,rep(0.5,NROW(M)-1)))
-    ftavle <- dt[-c(1:15,.N),.(Alder,L)]
-    ftavle <- intervAlder(ftavle,breaks=seq(15,50,5),right=FALSE,var="L",alder="Alder")
-    FF <- fertfod(kalender,interval=5)
-    ftavle <- merge(ftavle,FF,by="Aldersinterval")
-    PP <- fert(kalender)
-    PP <- intervAlder(PP,breaks=seq(15,50,5),right=FALSE,var="ANTAL",alder="MODERSALDER",by="BARNKON")
-    PP <- dcast(PP,Aldersinterval~BARNKON,value.var="ANTAL")
-    PP[,andel.piger:=Piger/(Drenge+Piger)]
-    ftavle <- merge(ftavle,PP[,.(Aldersinterval,andel.piger)],by="Aldersinterval")
-    ftavle[,f.piger:=f*andel.piger]
-    ftavle[,bidrag.NRT:=f.piger*L/100000]
-    cat("Samlet fertilitet=",sum(ftavle$f*5),"\n")
-    cat("BRT=",sum(ftavle$f.piger*5),"\n")
-    cat("NRT=",sum(ftavle$bidrag.NRT),"\n")
-    ftavle[]
+    x <- hent_mortalitetsrate_data(tid = tid,køn="Kvinder",breaks=c(0:50,Inf),right = FALSE,alder = 0:50,label_last = "50")
+    x = x%>%mutate(M = Dod/R)
+    otavle <- overlevelsestavle(x,mortalitet = "M",
+                                alder = "aldersinterval")
+    ftavle <- filter(otavle,Alder%in%Alder[-c(1:15,length(Alder))]) %>% select(Alder,L)
+    ftavle = mutate(ftavle,alder = as.numeric(substr(Alder,0,2)))
+    ftavle5 <- intervAlder(ftavle,breaks=seq(15,50,5),right=FALSE,var="L",label_one = "15-19",alder="Alder")
+    FF <- hent_fertilitetsrate_data(tid = tid)
+    FF = mutate(FF,frate = Fødsler/R)
+    ## F_piger <- hent_fertilitetsrate_data(tid = tid,barnkon = "Piger")
+    ## F_piger = mutate(F_piger,frate_piger = Fødsler/R)
+    ftavle5 <- left_join(ftavle5,FF,by="aldersinterval")
+    ## ftavle5 <- left_join(ftavle5,select(F_piger,aldersinterval,frate_piger),by="aldersinterval")
+    PP <- hent_data("fod",modersalder = 15:49,tid = tid,barnkon = c("D","P"))
+    PP <- intervAlder(PP,breaks=seq(15,50,5),right=FALSE,var="INDHOLD",alder="MODERSALDER",by="BARNKON",label_one = "15-19")
+    PP <- pivot_wider(PP,names_from = BARNKON,values_from = INDHOLD)
+    PP <- mutate(PP,Andel_piger=Piger/(Drenge+Piger))
+    ftavle5 <- left_join(ftavle5,select(PP,aldersinterval,Andel_piger),by="aldersinterval")
+    ftavle5 <- mutate(ftavle5,frate_piger=frate*Andel_piger)
+    ## ftavle5 <- mutate(ftavle5,bidrag_NRT=frate_piger*L/100000)
+    ftavle5 <- relocate(ftavle5,TID)
+    ftavle5[]
 }
 
 ######################################################################
