@@ -1,11 +1,11 @@
 * Introduktion
 
-Fertilitet er en vigtig komponent i demografien og beskriver sammen
+Fertilitet er en vigtig komponent i demografi og beskriver sammen
 med mortalitet den naturlige vækst i befolkningen.  Ændringer i
 fertiliteten har stor betydning for befolkningens størrelse, og det
 fylder derfor meget i den offentlige debat, når fertiliteten
 falder. Hvilket netop er den tendens, der ses i de fleste vestlige
-lande. Fertilitet i demografien handler dog ikke om den biologiske
+lande. Fertilitet i demografi handler dog ikke om den biologiske
 evne til at få børn hos enkeltpersoner (frugtbarheden), men om hvor
 mange børn en befolkning samlet set får.
 
@@ -59,14 +59,14 @@ familier -- mulighed for i højere grad at planlægge, hvornår de
 kvinder steg (se Figur ref:fig:k4-foerstegang). Samtidig opstod nye
 familieformer, og det blev mere normalt for kvinder og par at få børn
 uden for ægteskabet. Endeligt fik kvinder en større rolle på
-arbejdsmarkedet. Alle disse ændringer skete sammentidlig med, at
+arbejdsmarkedet. Alle disse ændringer skete samtidig med, at
 fertiliteten faldt i denne periode og frem til starten af
 1980'erne (Figur ref:fig:k4-samlet-fertilitet). Dette fald skete i alle aldersgrupper. Og den samlede
 fertilitet nåede igen ned under 2,1 børn per kvinde. Siden har
-fertiliteten været let stigende særligt blandt de 30+ årige
+fertiliteten været let stigende -- særligt blandt de 30+ årige
 kvinder. Førstegangsforældre bliver stadigt ældre, som det ses af
 Figur ref:fig:k4-foerstegang. I 2022 var kvinder i gennemsnit 29,9 år
-og mænd 31,6 år gammel, da de fik deres første barn. Vi finder disse
+og mænd 31,6 år gamle, da de fik deres første barn. Vi finder disse
 tal i statistikbankens register =FOD11=:
 
 #+ATTR_LATEX: :options otherkeywords={hent_data}, deletekeywords={c,paste}
@@ -165,7 +165,7 @@ g
 ** Fertilitetsrater
 
 /Den summariske fertilitetsrate/ defineres som antal levendefødte
-per 1.000 indbyggere hvor moren er mellem 15 og 49 år gamle og beregnes
+per 1.000 indbyggere hvor moren er mellem 15 og 49 år gammel og beregnes
 ved at dividere antallet af levendefødte børn i en given periode med
 middelfolketallet for samme periode. Fremgangsmåden er altså den samme
 som for den summariske mortalitetsrate (Kapitler 1 og 2). Vi bruger følgende notation,
@@ -178,11 +178,11 @@ gammel ved fødslen:
 \end{equation}
 #+end_export
 Her er indeks til højre startalderen og indeks til venstre er antal år
-som tælles med inklusive startalderen. Dermed tæller formel
+som tælles med inklusiv startalderen. Dermed tæller formel
 eqref:eq:f35 alle levendefødte børn hvor moren var \(x\)-år gammel for
 alle \(x\in \{15, 16, \dots, 48, 49\}\) og der er \(35\) tal i denne
-mængde. Det er lidt uklar hvorfor man ikke tæller alle levendefødte
-børn, altså også dem hvor moren var yngre end 15 eller ældre end 49 år
+mængde. Det er lidt uklart, hvorfor man ikke tæller alle levendefødte
+børn, altså også dem, hvor moren var yngre end 15 eller ældre end 49 år
 gammel. Formlen for den summariske fødselsrate ser således ud:
 #+begin_export latex
 \begin{equation}\label{eq:K4-sum_f}
@@ -310,7 +310,7 @@ fertilitetsraten falder i yngre aldersgrupper og ligeledes stiger i
 ældre aldersgrupper.  Figur ref:fig:k4-aldersfoedelsrate viser
 udviklingen af de aldersspecifikke fertilitetsrater i Danmark for 5-års
 aldersgrupper mellem 1973 og 2023. Her fremgår det, at fertiliteten
-blandt kvinder i de yngre alders grupper (15-19 år og 20-24 år) er
+blandt kvinder i de yngre aldersgrupper (15-19 år og 20-24 år) er
 faldet markant. Samtidig er fertiliteten blandt de ældre aldersgrupper
 (30-44 årige) steget betydeligt. Dette afspejler tendensen, at kvinder
 og par udsætter tidspunktet for familiestiftelse.
@@ -342,8 +342,8 @@ ses i Figur ref:fig:k4-samlet-fertilitet.  Tal for den samlede
 fertilitet nævnes ofte i den offentlige debat om fertilitet i
 Danmark. Det er nemlig tal for den samlede fertilitet, der angiver, at
 kvinder skal føde 2,1 børn i gennemsnit for, at den danske befolkning
-kan reproducere sig selv. Tanke bag tærsklen 2,1 børn per kvinde er
-enkelt. Hvis hver kvinde føder mindst en pige, som senere i livet
+kan reproducere sig selv. Tanken bag tærsklen 2,1 børn per kvinde er
+enkel: Hvis hver kvinde føder mindst en pige, som senere i livet
 føder mindst en pige, og så videre, kan befolkningen reproducere sig
 selv. To børn i gennemsnit per kvinde er dog ikke helt nok, fordi
 sandsynligheden for at få en pige er en smule mindre end for at få en
@@ -408,13 +408,13 @@ hvor moren var mellem \(x\) og \(x+4\) år gamle. Kender man ikke antal
 pigefødsler, men kun det samlede antal fødsler, altså
 #+begin_export latex
 \begin{align}\label{eq:pige_drenge}\
-{}_5f_x &= {}_5f^{\text{piger}}_x+{}_5f^{\text{piger}}_x, \intertext{kan man bruge følgende approksimationsformel for forholdet mellem antal pigefødsler og
+{}_5f_x &= {}_5f^{\text{piger}}_x+{}_5f^{\text{drenge}}_x, \intertext{kan man bruge følgende approksimationsformel for forholdet mellem antal pigefødsler og
 antal drengefødsler:}\label{eq:andel_piger}
-c &= \frac{{}_{35}f^{\text{piger}}_{15}}{{}_{35}f^{\text{drenge}}_{15}}\approx 0,485.
+c &= \frac{{}_{5}f^{\text{piger}}_{x}}{{}_{5}f^{\text{drenge}}_{x}}\approx 0,485.
 \end{align}
 #+end_export
 Figur ref:fig:k4-andel-piger viser at 48,5% er den gennemsnitlige
-andel pigerfødsler bland alle fødsler.
+andel pigerfødsler blandt alle fødsler.
 
 #+BEGIN_SRC R :results file graphics :file ./kapitel4/k4-andel-piger.pdf :exports none :session *R* :cache yes
 d <- hent_fertilitetsrate_data(tid = 1973:2019,barnkon = c("piger","drenge"))
@@ -441,7 +441,7 @@ Bruger man formel eqref:eq:andel_piger ses følgende relation mellem
 den samlede fertilitet og bruttoreproduktionstallet:
 #+begin_export latex
 \begin{equation*}
-\operatorname{BRT}=c\cdot f_{\operatorname{samlet}}.
+\operatorname{BRT}=\frac{c}{c+1}\cdot f_{\operatorname{samlet}}.
 \end{equation*}
 #+end_export
 
@@ -450,12 +450,12 @@ Nettoreproduktionstallet er et mere komplekst mål. Her tages der højde
 for at kvinderne godt kan dø inden de fylder 50 år, ligesom det er
 tilfældet i den virkelige verden. Nettoreproduktionstallet defineres
 således som antallet af levendefødte piger, som vil blive født af
-1.000 kvinder i løbet af deres fertile alder (15-49 år) givet af at
+1.000 kvinder i løbet af deres fertile alder (15-49 år) givet at
 kvinderne dør fra alder 0 i overensstemmelse med overlevelsestavlen
 (for kvinder) for den givne periode, og at kvinderne i hvert
 aldersinterval føder børn per periodens aldersspecifikke
 fertilitetsrater. For 5-års aldersintervaller er
-nettoreproduktionstallet (NRT) given ved følgende formel:
+nettoreproduktionstallet (NRT) givet ved følgende formel:
 #+begin_export latex
 \begin{equation}\label{eq:NRT}
 \quad \operatorname{NRT}=_5\negthickspace{f}_{15}^{\text{piger}}\frac{_5L_{15}}{\ell_0}+
@@ -476,7 +476,7 @@ dødsraterne er som observeret i perioden.
 
 Vi henter antal fødsler fra statistikbankens register =FODIE= og
 risikotid fra mødrene mellem 15 og 49 år fra =FOLK1A= fra 2020 og
-grupperer dem i 5-års intervaller for modersalder:
+grupperer dem i 5-års intervaller efter moderens alder:
 #+ATTR_LATEX: :options otherkeywords={hent_fertilitetsrate_data}, deletekeywords={}
 #+BEGIN_SRC R :results output :exports both  :session *R* :cache yes  
 f2020 <- hent_fertilitetsrate_data(2020)
@@ -520,7 +520,7 @@ f2020
 #+end_example
 
 Vi ser for eksempel at fertilitetsraten i Danmark i 2020 var 106
-fødsler per 1000 personår bland kvinder mellem 25 og 29 år. Vi bruger
+fødsler per 1000 personår blandt kvinder mellem 25 og 29 år. Vi bruger
 formel eqref:eq:f_samlet og beregner den samlede fertilitet:
 
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
@@ -536,7 +536,7 @@ summarize(f2020,samlet_fertilitet = sum(frate*5))
 
 Den samlede fertilitet var altså 1680,0 fødsler per 1000 kvinder i
 Danmark i 2020. Det betyder at i en hypotetisk befolkning, hvor
-fødselsraterne er, som de var bland danske kvinder mellem 15 og 49 år
+fødselsraterne er, som de var blandt danske kvinder mellem 15 og 49 år
 i 2020 i Danmark, hvor ingen dør, får hver kvinde i gennemsnit cirka
 1,68 børn i løbet af hendes fødedygtige aldre.
 
@@ -557,7 +557,7 @@ summarize(pige2020,BRT = sum(frate_piger*5))
 : 1  821.
 
 Vi ser at bruttoreproduktionstallet var 0,82 pigefødsler per kvinde
-i 2020. I en hypotetisk befolkning hvor pigefødselsrater var lige som
+i 2020. I en hypotetisk befolkning hvor pigefødselsrater var ligesom
 i 2020, og ingen kvinde dør i aldersperioden fra 15 år til 49 år, vil
 en kvinde i gennemsnit føde 0,82 piger. Dette ligger allerede tydeligt
 under 1 og hvis man tager højde for at kvinder kan dø, bliver tallet
