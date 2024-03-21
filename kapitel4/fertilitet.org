@@ -409,8 +409,8 @@ pigefødsler, men kun det samlede antal fødsler, altså
 #+begin_export latex
 \begin{align}\label{eq:pige_drenge}\
 {}_5f_x &= {}_5f^{\text{piger}}_x+{}_5f^{\text{drenge}}_x, \intertext{kan man bruge følgende approksimationsformel for forholdet mellem antal pigefødsler og
-antal drengefødsler:}\label{eq:andel_piger}
-c &= \frac{{}_{5}f^{\text{piger}}_{x}}{{}_{5}f^{\text{drenge}}_{x}}\approx 0,485.
+samlet antal fødsler:}\label{eq:andel_piger}
+c &= \frac{{}_{5}f^{\text{piger}}_{x}}{{}_{5}f_{x}}\approx 0,485.
 \end{align}
 #+end_export
 Figur ref:fig:k4-andel-piger viser at 48,5% er den gennemsnitlige
@@ -441,7 +441,7 @@ Bruger man formel eqref:eq:andel_piger ses følgende relation mellem
 den samlede fertilitet og bruttoreproduktionstallet:
 #+begin_export latex
 \begin{equation*}
-\operatorname{BRT}=\frac{c}{c+1}\cdot f_{\operatorname{samlet}}.
+\operatorname{BRT}=c\cdot f_{\operatorname{samlet}}.
 \end{equation*}
 #+end_export
 
