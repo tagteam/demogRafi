@@ -24,7 +24,7 @@
 
 #+begin_export html
 ---
-title: 'Demografi: opgaver 5'
+title: 'Demografi: opgaver kursusuge5'
 output: word_document
 ---
 ```{r setup}

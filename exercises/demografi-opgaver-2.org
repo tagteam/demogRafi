@@ -22,7 +22,7 @@
 #+LaTeX_CLASS: danish-article
 #+begin_export html
 ---
-title: 'Demografi: opgaver 2'
+title: 'Demografi: opgaver kursusuge2'
 output: word_document
 ---
 ```{r setup}
