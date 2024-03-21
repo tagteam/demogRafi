@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds and Johan Sebastian Ohlendorff
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Mar 20 2024 (08:16) 
+## Last-Updated: Mar 21 2024 (18:42) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 171
+##     Update #: 173
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -233,7 +233,7 @@ intervAlder <- function(data,
     # user label last element
     if (length(label_last) == 1){
         ll[length(ll)] = label_last
-    } 
+    }
     levels(data$aldersinterval) <- ll
     by <- intersect(names(data),by)
     if (length(by)>0)
@@ -381,6 +381,7 @@ hent_dodsaarsag_data <- function(køn = c("Kvinder","Mænd"),
                     aldersinterval = alder)
     # join
     dat <- left_join(af,dd, by = c("aldersinterval",by))
+    daars = mutate(daars,aldersinterval = factor(aldersinterval,levels = levels(dat$aldersinterval)))
     dat <- left_join(dat,daars, by = c("aldersinterval",by))
     if (tolower(køn)[1] == "i alt") dat$KØN = NULL
     dat$ALDER = NULL

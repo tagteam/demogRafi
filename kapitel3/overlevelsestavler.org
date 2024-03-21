@@ -1035,7 +1035,7 @@ Med disse data beregner vi dødelighedstavlen.
 \footnotesize
 #+ATTR_LATEX: :options otherkeywords={dodaarsagstavle,filter,mutate,overlevelsestavle}, deletekeywords={c,rep,print,seq,R}
 #+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes
-# Chiang's a
+# Chiang's a 
 x <- mutate(x,a = c(0.1,2,rep(2.5,17)),k = c(1,4,rep(5,17)))
 kraeftdodtavle_maend <- dodsaarsagtavle(data = x,
                                         mortalitet = "M",
