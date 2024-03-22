@@ -1,0 +1,272 @@
+#+TITLE: Demografi: opgaver 7
+#+AUTHOR: Folkesundhedsvidenskab 2. semester
+#+DATE:
+#+LaTeX_HEADER:\usepackage{listings}
+#+LaTeX_HEADER:\usepackage{color}
+#+LaTeX_HEADER:\usepackage[usenames,dvipsnames]{xcolor}
+#+LaTeX_HEADER:\usepackage[utf8]{inputenc}
+#+LaTeX_HEADER:\usepackage{graphicx}
+#+LaTeX_HEADER:\usepackage{hyperref}
+#+LaTeX_HEADER:\usepackage{amssymb}
+#+LaTeX_HEADER:\usepackage{latexsym}
+#+LaTeX_HEADER:\renewcommand\theequation{K1.\arabic{equation}}
+#+LaTeX_HEADER: \renewcommand{\figurename}{Figur}
+#+LaTeX_HEADER:\usepackage{tcolorbox}
+#+LaTeX_HEADER:\pagestyle{fancy}
+#+LaTeX_HEADER:\definecolor{lightGray}{gray}{0.98}
+#+LaTeX_HEADER:\definecolor{medioGray}{gray}{0.83}
+#+LATEX_HEADER:\definecolor{mygray}{rgb}{.95, 0.95, 0.95}
+#+LATEX_HEADER:\newcommand{\mybox}[1]{\vspace{.5em}\begin{tcolorbox}[boxrule=0pt,colback=mygray] #1 \end{tcolorbox}}
+#+setupfile:~/emacs-genome/snps/org-templates/setup-demografi.org
+#+superman-export-target: opgave
+#+OPTIONS: :rmd_yaml:nil
+#+LaTeX_CLASS: danish-article
+
+#+begin_export html
+---
+title: 'Demografi: opgaver kursusuge 7'
+output: word_document
+---
+```{r setup}
+knitr::opts_knit$set(root.dir = "..")
+source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
+```
+#+end_export
+
+* Opgave 1
+
+1. Find register =DODA1= i browseren: https://www.statistikbanken.dk/.
+   Hvorfor angiver man alderstrin 0-1 separeret fra alderstrin 1-4?
+2. [@2] Find antal mænd og kvinder, som døde på grund af
+   psykiske lidelser i 2018. Beregn de summariske årsagsspecifikke 
+   mortalitetsrater separat for mænd og kvinder (årsag = psykiske lidelser). 
+3. [@3] Hvorfor er det ikke helt fair at sammenligne mænd og kvinder
+   med hensyn til de summariske rater af død på grund af psykiske
+   lidelse?
+4. [@4] Brug tal fra statistikbanken til at beregne
+   aldersstandardiserede rater af død på grund af psykiske lidelser,
+   via direkte standardisering, separat for kvinder og
+   mænd. Standardiser begge rater med hensyn til aldersfordelingen af
+   alle dansker i 2018. Rapporter resultaterne og diskuter forskellene
+   mellem de summariske og de standardiserede rater.
+
+** Instruks :ignore:rmd:
+
+2. [@2] Beregningen kræver 4 tal fra statistikbanken (2 for mænd og 2 for kvinder).
+   Det er nemt at skrive de 4 tal ind i en R-chunk, alternativt kan I bruge funktionen =hent_data=.
+4. [@4] Først henter I de aldersspecifikke antal døde pga psykiske
+   lidelser separat for hver køn fra statistikbankens DODA1. Bagefter
+   henter I aldersfordeling af risikotid (via middelfolketal og
+   metode 1) for alle dansker i 2018 fra FOLK1a:
+
+#+BEGIN_SRC R  :results output raw drawer :exports  (exercise-with-code) :session *R* :cache yes :eval (never-plain-export)  
+# antal dod pga psykiske lidelser
+dpl <- hent_data("doda1",årsag = "A06",tid = 2018,køn = 1:2,alder = "all_no_total")
+# rename
+dpl <- rename(dpl,antal_dod_psyk = INDHOLD,aldersinterval = alder)
+# begræns til variable som skal bruges
+dpl <- select(dpl,aldersinterval,antal_dod_psyk,KØN)
+# middelfolketal begge køn og også total
+N <- hent_data("folk1a",tid = "2018K3",køn = c(1:2,"TOT"),alder = "all_no_total")
+# metode 1 giver riskotid
+N <- rename(N,R = INDHOLD)
+# kategorisere i samme intervaller som data dpl
+R <- intervAlder(N,breaks = c(0,1,seq(5,85,5),Inf),right = FALSE,by = "KØN",vars = "R",label_last = "85")
+# beregn aldersfordeling af risikotid bland alle dansker
+V <- filter(R,KØN == "I alt") %>% mutate(V=R/sum(R)) %>% select(aldersinterval,V)
+# join vægte med køn-specifik risikotid
+dat <- left_join(filter(R,KØN != "I alt"),V,by = "aldersinterval")
+# 
+dat <- left_join(dpl,dat,by = c("aldersinterval","KØN"))
+# 
+# Direkte standardisering
+#
+# 1. beregn aldersspecifikke rater
+dat <- mutate(dat,rate_dod_psyk =  # dine koder her
+# 2. beregn alderstandardiserede rater
+dat <- dat %>% group_by(KØN) %>% summarise( # dine koder her
+#+END_SRC
+
+** Løsning                                                  :solution:ignore:
+*** Besvarelse
+
+1. Fordi det forventede antal år levet i intervallet af en, som dør i intervallet er meget lavt på grund af perinatal, neonatal, post-neonatal og spædbarnsdødelig. 
+2. [@2] Risikotid i 2018 for kvinder og mænd var hhv., 2908 og 2882 tusind
+   personår. De summariske mortalitetsrater for død på grund af
+   psykiske lidelser er:
+ - Kvinder: 2313/2908337 = 0,80 per 1000 personår
+ - Mænd: 1555/2881620 =0,54 per 1000 personår
+3. [@3] Fordi kvinder bliver ældre end mænd, og død på grund af en psykiske lidelse,
+   forkommer hyppigt bland ældre mennesker. 
+4. [@4] De aldersstandardiserede rater af død på grund af psykiske
+   lidelser i 2018 med hele den danske befolkning som
+   standardbefolkning var 0,659 per 1000 personår for mænd og 0,651
+   per 1000 personår for kvinder. Her er koderne:
+
+#+BEGIN_SRC R  :results output raw drawer :exports   (exercise-with-solutions) :session *R* :cache yes :eval (never-plain-export)  
+# antal dod pga psykiske lidelser
+dpl <- hent_data("doda1",årsag = "A06",tid = 2018,køn = 1:2,alder = "all_no_total")
+# rename
+dpl <- rename(dpl,antal_dod_psyk = INDHOLD,aldersinterval = alder)
+# begræns til variable som skal bruges
+dpl <- select(dpl,aldersinterval,antal_dod_psyk,KØN)
+# middelfolketal begge køn og også total
+N <- hent_data("folk1a",tid = "2018K3",køn = c(1:2,"TOT"),alder = "all_no_total")
+# metode 1 giver riskotid
+N <- rename(N,R = INDHOLD)
+# kategorisere i samme intervaller som data dpl
+R <- intervAlder(N,breaks = c(0,1,seq(5,85,5),Inf),right = FALSE,by = "KØN",vars = "R",label_last = "85")
+# beregn aldersfordeling af risikotid bland alle dansker
+V <- filter(R,KØN == "I alt") %>% mutate(V=R/sum(R)) %>% select(aldersinterval,V)
+# join vægte med køn-specifik risikotid
+dat <- left_join(filter(R,KØN != "I alt"),V,by = "aldersinterval")
+# 
+dat <- left_join(dpl,dat,by = c("aldersinterval","KØN"))
+# 
+# Direkte standardisering
+#
+# 1. beregn aldersspecifikke rater
+dat <- mutate(dat,rate_dod_psyk =  1000*antal_dod_psyk/R)
+# 2. beregn alderstandardiserede rater
+dat %>% group_by(KØN) %>% summarise(sum(rate_dod_psyk*V))
+#+END_SRC
+
+#+RESULTS[(2024-03-21 17:38:45) e11f53489c4f440c34364f7a826b807bd1dca240]:
+:results:
+# A tibble: 2 × 2
+  KØN     `sum(rate_dod_psyk * V)`
+  <chr>                      <dbl>
+1 Kvinder                    0.651
+2 Mænd                       0.659
+:end:
+
+* Opgave 2
+
+** rdm version uden figur/tabel :ignore:rmd:
+
+1. Hvordan giver følgende udsagn mening?
+ 
+ /Tabelbefolkningen bliver født og liver helt deres liv i et år/. 
+
+2. [@2] I figuren nedenfor, er antal personer som dør af kræft højere
+   i aldersintervallet 5-9 end i aldersintervallet 45-49?
+
+3. [@3] Fortolk alle tal i rækken for aldersintervallet 70-74 år i den
+   årsagsspecifikke dødelighedstavle hvor mænd i Danmark i 2018 nedenfor
+   (årsagen er død på grund af kræft, se forelæsningsnoterne).
+
+** Instruks :ignore:opgave:
+
+1. Hvordan giver følgende udsagn mening?
+ 
+ /Tabelbefolkningen bliver født og liver helt deres liv i et år/. 
+
+2. [@2] I figuren nedenfor, er antal personer som dør af kræft højere
+   i aldersintervallet 5-9 end i aldersintervallet 45-49?
+
+[[file:./kraeftdoedshyppighed.pdf]]
+
+3. [@3] Fortolk alle tal i rækken for aldersintervallet 70-74 år i den
+   årsagsspecifikke dødelighedstavle hvor mænd i Danmark i 2018 nedenfor
+   (årsagen er død på grund af kræft, se forelæsningsnoterne).
+   
+| Alder | \(\ell_x\) | \({}_kd_x\) | \({}_kd_x^{\text{Kraeft}}\) | \(\operatorname{LTR}_x^{\text{Kraeft}}\) | \(_xq^{\text{Kraeft}}_0\)  | \(o_x\)   |
+|-------+------------+-------------+-----------------------------+------------------------------------------+----------------------------+-----------|
+|     0 |     100000 |         406 |                           0 | 26,77                                    | 0,00                       | 99,59     |
+|   1-4 |      99594 |          55 |                           0 | 26,88                                    | 0,00                       | 99,54     |
+|   5-9 |      99539 |          37 |                          12 | 26,89                                    | 0,01                       | 99,50     |
+| 10-14 |      99503 |          37 |                           9 | 26,89                                    | 0,02                       | 99,47     |
+| 15-19 |      99465 |         161 |                          11 | 26,89                                    | 0,03                       | 99,30     |
+| 20-24 |      99304 |         150 |                          15 | 26,92                                    | 0,05                       | 99,15     |
+| 25-29 |      99154 |         238 |                          15 | 26,95                                    | 0,06                       | 98,92     |
+| 30-34 |      98916 |         321 |                          45 | 27,00                                    | 0,11                       | 98,59     |
+| 35-39 |      98594 |         396 |                          52 | 27,04                                    | 0,16                       | 98,20     |
+| 40-44 |      98199 |         630 |                         120 | 27,10                                    | 0,28                       | 97,57     |
+| 45-49 |      97569 |        1001 |                         200 | 27,15                                    | 0,48                       | 96,57     |
+| 50-54 |      96568 |        1766 |                         534 | 27,22                                    | 1,01                       | 94,80     |
+| 55-59 |      94802 |        3059 |                         928 | 27,17                                    | 1,94                       | 91,74     |
+| 60-64 |      91743 |        4738 |                        1766 | 27,06                                    | 3,71                       | 87,01     |
+| 65-69 |      87005 |        6933 |                        2777 | 26,50                                    | 6,48                       | 80,07     |
+| 70-74 |      80072 |        9391 |                        3734 | 25,33                                    | 10,22                      | 70,68     |
+| 75-79 |      70681 |       13345 |                        4524 | 23,41                                    | 14,74                      | 57,34     |
+| 80-84 |      57336 |       18271 |                        5281 | 20,97                                    | 20,02                      | 39,06     |
+|   85+ |      39065 |       39065 |                        6743 | 17,26                                    | 26,77                      | 0,00      |
+
+** Løsning                                                  :solution:ignore:
+*** Besvarelse
+
+1. [@1] Det giver mening, hvis man har beregnet dødelighedstavlen
+   baseret på aldersspecifikke mortalitetsrater som gælder i dag.  En
+   'person' fra tabelbefolkningen bliver 'udsæt' for alle
+   dødshyppigheder på tværs af alle aldersintervaller.
+2. [@2] Det kan man ikke se i figuren, da figuren kun viser det relative antal kræftdødsfald bland dem som døde. 
+   Statistikbanken DODA1 viser at der er flere i aldersintervallet 45-49 som døde af kræft i 2008 end i aldersintervallet 5-9.
+3. [@3] Fortolkning af hele tabellen er for en tabelbefolkning som
+   bliver født i 2018 og lever helt deres liv i 2018.  I starten af
+   aldersintervallet 70-74, er 80072 'personer' (70.68%) fra
+   tabelbefolkningen i live. I intervallet dør 9391, hvoraf 3734 dør
+   af kræft. For at en 'tabelperson' som er blevet 70 år, er risikoen
+   for at dø af kræft i resten af livet 25.33% (livstidsrisiko for en
+   70 årige tabelperson). Risiko for kræftdød op til 70-års alderen er 10.22% og
+   sandsynligheden for at blive 70-år gamle er 70.68%.
+
+* Opgave 3
+
+1. [@1] Beregn aldersspecifikke mortalitetsrater på grund af kræft i
+   2010 og 2020 baseret på data fra statistikbanken for mænd og plot resultatet.
+2. [@2] Beregn andel kræftdødsfald bland døde og bagefter årsagsspecifikke dødelighedstavler for mænd 
+   i 2010 og 2020 i Danmark.
+3. [@3] Rapporter livstidsrisiko for død af kræft i 2010 og i 2020 (danske mænd).
+4. [@4] Sammenlign 2010 og 2020 med hensyn til de aldersspecifikke rater af kræftdødsfald og risiko for at dø af kræft (danske mænd). 
+   
+** Instruks :ignore:rmd:
+
+1. [@1]
+#+BEGIN_SRC R  :results output raw drawer :exports both :session *R* :cache yes :eval (never-plain-export)
+x <- hent_dodsaarsag_data(tid = c(2010,2020), årsag =c("A02"), køn = "Mænd")
+# mortalitetsrater
+x <- mutate(x,M = Dod/R)
+# kræftdødsrate
+x <- mutate(x,Q_rate = 1000*QDod/R)
+# andel kræftdødsfald
+x <- mutate(x,hQ = QDod/Dod)
+# TID skal væer factor
+x = mutate(x,TID = factor(TID))
+# plot 
+g = ggplot(x,aes(x = aldersinterval,y = Q_rate,group = TID,color = TID))+geom_line(linewidth = 1.3)
+g <- g + theme_gray()+scale_colour_wsj("colors6")
+g <- g+theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))
+g <- g+theme(axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)))
+g <- g+theme(text = element_text(size=15))
+g+ylab("Kræftdødsfaldsrate per 1000 personår")+xlab("Alder")
+#+END_SRC
+
+2. [@2]
+
+#+BEGIN_SRC R  :results output raw drawer :exports both :session *R* :cache yes :eval (never-plain-export)
+# Chiang's a 
+x <- x %>% group_by(TID) %>% mutate(a = c(0.1,2,rep(2.5,17)),k = c(1,4,rep(5,17)))
+# andel kræftdødsfald
+x <- mutate(x,hQ = QDod/Dod)
+#+END_SRC
+
+#+BEGIN_SRC R  :results output raw drawer :exports both :session *R* :cache yes :eval (never-plain-export)
+tavle_2010 = filter(x,TID == 2010) %>% dodsaarsagtavle(mortalitet = "M", hQ = "hQ", alder = "aldersinterval", radix = 100000)
+tavle_2010
+#+END_SRC
+
+
+#+BEGIN_SRC R  :results output raw drawer :exports both :session *R* :cache yes :eval (never-plain-export)
+tavle_2020 = filter(x,TID == 2020) %>% dodsaarsagtavle(mortalitet = "M", hQ = "hQ", alder = "aldersinterval", radix = 100000)
+tavle_2020
+#+END_SRC
+
+
+** Løsning                                                  :solution:ignore:
+*** Besvarelse
+
+ 
+Livstidsrisiko for at dø af kræft er 28,0% baseret på de
+årsagsspecifikke mortalitetsrater for mænd i Danmark fra 2010 og også
+28,0% baseret på årsagsspecifikke mortalitetsrater for mænd i Danmark
+fra 2020. 
