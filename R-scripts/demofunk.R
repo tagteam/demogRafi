@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds and Johan Sebastian Ohlendorff
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Mar 23 2024 (16:27) 
+## Last-Updated: Mar 23 2024 (16:57) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 174
+##     Update #: 175
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -428,7 +428,7 @@ hent_fertilitetsrate_data <- function(tid = "2023",
     if (min(as.numeric(tid))<2008){
         # FIXME:
         # risikotid metode 1 men bruger 1 januar burde tilbyde metode 2
-        if (område != "Hele landet") stop("Har ikke adgang til folketal i andre områder end 'Hele landet' for årstal før 2008.")
+        if (område != "Hele landet") stop("Har ikke adgang til folketal i andre områder end 'Hele landet' for årstal før 2007.")
         af <- hent_data("BEFOLK1","alder"="all_no_total",køn = c("kvinder"),tid=tid,language = "da")
         by = c("TID")
     } else{
@@ -442,7 +442,7 @@ hent_fertilitetsrate_data <- function(tid = "2023",
     af <- rename(af,R = INDHOLD)
     af <- intervAlder(af,breaks=breaks, right = FALSE,by=by,vars="R",...)
     # Antal fødsler i aldersintervaller
-    if (min(as.numeric(tid))<2008){
+    if (min(as.numeric(tid))<2007){
         fodie <- hent_data("FOD","modersalder"="all_no_total",tid=tid,barnkon = barnkon)
     }else{
         fodie <- hent_data("FODIE","modersalder"="all_no_total",tid=tid,Område = område,barnkon = barnkon)
@@ -646,6 +646,8 @@ dodsaarsagtavle <- function(data,
 
 fertilitets_tavle <- function(tid,område = "Hele landet"){
     if (length(område)>1) stop("Kan kun 1 område af gangen.")
+    if (område != "Hele landet" && as.numeric(tid) <2007)
+        stop("Område skal være 'Hele landet' for tid før 2007")
     ## skal brug 50 som "sidste" aldersinterval. det slettes bagefter
     x <- hent_mortalitetsrate_data(tid = tid,område = område,køn="Kvinder",breaks=c(0:50,Inf),right = FALSE,alder = 0:50,label_last = "50")
     x = x%>%mutate(M = Dod/R)
@@ -660,7 +662,11 @@ fertilitets_tavle <- function(tid,område = "Hele landet"){
     ## F_piger = mutate(F_piger,frate_piger = Fødsler/R)
     ftavle5 <- left_join(ftavle5,FF,by="aldersinterval")
     ## ftavle5 <- left_join(ftavle5,select(F_piger,aldersinterval,frate_piger),by="aldersinterval")
-    PP <- hent_data("fod",modersalder = 15:49,tid = tid,barnkon = c("D","P"))
+    if (område != "Hele landet"){
+        PP <- hent_data("fodie",område = område,modersalder = 15:49,tid = tid,barnkon = c("D","P"))
+    } else{
+        PP <- hent_data("fod",område = område,modersalder = 15:49,tid = tid,barnkon = c("D","P"))
+    }
     PP <- intervAlder(PP,breaks=seq(15,50,5),right=FALSE,var="INDHOLD",alder="MODERSALDER",by="BARNKON",label_one = "15-19")
     PP <- pivot_wider(PP,names_from = BARNKON,values_from = INDHOLD)
     PP <- mutate(PP,Andel_piger=Piger/(Drenge+Piger))
