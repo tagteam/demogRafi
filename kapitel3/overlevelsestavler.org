@@ -1033,7 +1033,7 @@ x
 \normalsize
 Med disse data beregner vi dødelighedstavlen.
 \footnotesize
-#+ATTR_LATEX: :options otherkeywords={dodaarsagstavle,filter,mutate,overlevelsestavle}, deletekeywords={c,rep,print,seq,R}
+#+ATTR_LATEX: :options otherkeywords={dodsaarsagtavle,print,select,filter,mutate,overlevelsestavle}, deletekeywords={c,rep,print,seq,R,q,data}
 #+BEGIN_SRC R  :results output :exports both  :session *R* :cache yes
 # Chiang's a 
 x <- mutate(x,a = c(0.1,2,rep(2.5,17)),k = c(1,4,rep(5,17)))
@@ -1080,12 +1080,11 @@ Kolonnen \(\operatorname{LTR_Q}\) i aldersintervallet fra \(x\) til
 tabelperson med alder \(x\), og \(\operatorname{risiko_Q}\) angiver
 risiko for at en tabelperson dør af kræft inden alder \(x+k\). Fra
 dødelighedstavlen kan vi for eksempel aflæse, at sandsynligheden for
-at en nyfødt dreng i 2020 dør på af kræft inden alder 74 er 10,1%,
-hvis de årsagsspecifikke mortalitetsrater for mænd i fremtiden
-forbliver som de var i 2020. Vi ser også, at restlivstidsrisikoen for
-kræftdød er 27,8% for en 65-årig mænd under antagelsen, at de
-årsagsspecifikke mortalitetsrater for mænd forbliver i fremtiden som
-de var i 2020.
+at en nyfødt dreng i 2020 dør af kræft inden alder 74 er 10,1%, hvis
+de årsagsspecifikke mortalitetsrater for mænd i fremtiden forbliver
+som de var i 2020. Vi ser også, at restlivstidsrisikoen for kræftdød
+er 27,8% for en 65-årig mænd under antagelsen, at de årsagsspecifikke
+mortalitetsrater for mænd forbliver i fremtiden som de var i 2020.
 
 
 [fn:88] https://www.rigsarkivet.dk/udforsk/doedsaarsagsregister-1943-2019/

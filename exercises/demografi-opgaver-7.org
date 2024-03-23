@@ -36,28 +36,28 @@ source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demof
 * Opgave 1
 
 1. Find register =DODA1= i browseren: https://www.statistikbanken.dk/.
-   Hvorfor angiver man alderstrin 0-1 separeret fra alderstrin 1-4?
+   Hvorfor angiver man alderstrin 0-1 separat fra alderstrin 1-4?
 2. [@2] Find antal mænd og kvinder, som døde på grund af
    psykiske lidelser i 2018. Beregn de summariske årsagsspecifikke 
    mortalitetsrater separat for mænd og kvinder (årsag = psykiske lidelser). 
 3. [@3] Hvorfor er det ikke helt fair at sammenligne mænd og kvinder
-   med hensyn til de summariske rater af død på grund af psykiske
+   med hensyn til de summariske rater af dødsfald på grund af psykiske
    lidelse?
 4. [@4] Brug tal fra statistikbanken til at beregne
-   aldersstandardiserede rater af død på grund af psykiske lidelser,
+   aldersstandardiserede rater af dødsfald på grund af psykiske lidelser,
    via direkte standardisering, separat for kvinder og
    mænd. Standardiser begge rater med hensyn til aldersfordelingen af
-   alle dansker i 2018. Rapporter resultaterne og diskuter forskellene
+   alle danskere i 2018. Rapporter resultaterne og diskuter forskellene
    mellem de summariske og de standardiserede rater.
 
 ** Instruks :ignore:rmd:
 
 2. [@2] Beregningen kræver 4 tal fra statistikbanken (2 for mænd og 2 for kvinder).
-   Det er nemt at skrive de 4 tal ind i en R-chunk, alternativt kan I bruge funktionen =hent_data=.
-4. [@4] Først henter I de aldersspecifikke antal døde pga psykiske
+   Det er nemt at skrive de 4 tal ind i en R-chunk. Alternativt kan I bruge funktionen =hent_data=.
+4. [@4] Først henter I de aldersspecifikke antal døde på grund af psykiske
    lidelser separat for hver køn fra statistikbankens DODA1. Bagefter
-   henter I aldersfordeling af risikotid (via middelfolketal og
-   metode 1) for alle dansker i 2018 fra FOLK1a:
+   henter I aldersfordelingen af risikotiden (via middelfolketal og
+   metode 1) for alle danskere i 2018 fra FOLK1a:
 
 #+BEGIN_SRC R  :results output raw drawer :exports  (exercise-with-code) :session *R* :cache yes :eval (never-plain-export)  
 # antal dod pga psykiske lidelser
@@ -72,7 +72,7 @@ N <- hent_data("folk1a",tid = "2018K3",køn = c(1:2,"TOT"),alder = "all_no_total
 N <- rename(N,R = INDHOLD)
 # kategorisere i samme intervaller som data dpl
 R <- intervAlder(N,breaks = c(0,1,seq(5,85,5),Inf),right = FALSE,by = "KØN",vars = "R",label_last = "85")
-# beregn aldersfordeling af risikotid bland alle dansker
+# beregn aldersfordeling af risikotid blandt alle dansker
 V <- filter(R,KØN == "I alt") %>% mutate(V=R/sum(R)) %>% select(aldersinterval,V)
 # join vægte med køn-specifik risikotid
 dat <- left_join(filter(R,KØN != "I alt"),V,by = "aldersinterval")
@@ -90,23 +90,23 @@ dat <- dat %>% group_by(KØN) %>% summarise( # dine koder her
 ** Løsning                                                  :solution:ignore:
 *** Besvarelse
 
-1. Fordi det forventede antal år levet i intervallet af en, som dør i intervallet er meget lavt på grund af perinatal, neonatal, post-neonatal og spædbarnsdødelig. 
+1. Fordi det forventede antal år levet i intervallet af en, som dør i intervallet, er meget lavt på grund af perinatal, neonatal, post-neonatal og spædbarnsdødelighed. 
 2. [@2] Risikotid i 2018 for kvinder og mænd var hhv., 2908 og 2882 tusind
-   personår. De summariske mortalitetsrater for død på grund af
+   personår. De summariske mortalitetsrater for dødsfald på grund af
    psykiske lidelser er:
  - Kvinder: 2313/2908337 = 0,80 per 1000 personår
- - Mænd: 1555/2881620 =0,54 per 1000 personår
-3. [@3] Fordi kvinder bliver ældre end mænd, og død på grund af en psykiske lidelse,
-   forkommer hyppigt bland ældre mennesker. 
-4. [@4] De aldersstandardiserede rater af død på grund af psykiske
+ - Mænd: 1556/2881620 =0,54 per 1000 personår
+3. [@3] Fordi kvinder bliver ældre end mænd, og dødsfald på grund af en psykiske lidelse,
+   forekommer hyppigt blandt ældre mennesker. 
+4. [@4] De aldersstandardiserede rater af dødsfald på grund af psykiske
    lidelser i 2018 med hele den danske befolkning som
    standardbefolkning var 0,659 per 1000 personår for mænd og 0,651
    per 1000 personår for kvinder. Her er koderne:
 
 #+BEGIN_SRC R  :results output raw drawer :exports   (exercise-with-solutions) :session *R* :cache yes :eval (never-plain-export)  
-# antal dod pga psykiske lidelser
+# antal døde pga psykiske lidelser
 dpl <- hent_data("doda1",årsag = "A06",tid = 2018,køn = 1:2,alder = "all_no_total")
-# rename
+# omdoeb INDHOLD og alder til antal_dod_psyk og aldersinterval
 dpl <- rename(dpl,antal_dod_psyk = INDHOLD,aldersinterval = alder)
 # begræns til variable som skal bruges
 dpl <- select(dpl,aldersinterval,antal_dod_psyk,KØN)
@@ -116,10 +116,10 @@ N <- hent_data("folk1a",tid = "2018K3",køn = c(1:2,"TOT"),alder = "all_no_total
 N <- rename(N,R = INDHOLD)
 # kategorisere i samme intervaller som data dpl
 R <- intervAlder(N,breaks = c(0,1,seq(5,85,5),Inf),right = FALSE,by = "KØN",vars = "R",label_last = "85")
-# beregn aldersfordeling af risikotid bland alle dansker
+# beregn aldersfordeling af risikotid blandt alle dansker
 V <- filter(R,KØN == "I alt") %>% mutate(V=R/sum(R)) %>% select(aldersinterval,V)
 # join vægte med køn-specifik risikotid
-dat <- left_join(filter(R,KØN != "I alt"),V,by = "aldersinterval")
+dat <- filter(R,KØN != "I alt") %>% left_join(V,by = "aldersinterval")
 # 
 dat <- left_join(dpl,dat,by = c("aldersinterval","KØN"))
 # 
@@ -146,14 +146,14 @@ dat %>% group_by(KØN) %>% summarise(sum(rate_dod_psyk*V))
 
 1. Hvordan giver følgende udsagn mening?
  
- /Tabelbefolkningen bliver født og liver helt deres liv i et år/. 
+ /Tabelbefolkningen bliver født og lever hele deres liv i et år/. 
 
 2. [@2] I figuren nedenfor, er antal personer som dør af kræft højere
    i aldersintervallet 5-9 end i aldersintervallet 45-49?
 
 3. [@3] Fortolk alle tal i rækken for aldersintervallet 70-74 år i den
-   årsagsspecifikke dødelighedstavle hvor mænd i Danmark i 2018 nedenfor
-   (årsagen er død på grund af kræft, se forelæsningsnoterne).
+   årsagsspecifikke dødelighedstavle, hvor mænd i Danmark i 2018 nedenfor
+   (dødsårsagen er kræft, se forelæsningsnoterne).
 
 ** Instruks :ignore:opgave:
 
@@ -197,9 +197,9 @@ dat %>% group_by(KØN) %>% summarise(sum(rate_dod_psyk*V))
 
 1. [@1] Det giver mening, hvis man har beregnet dødelighedstavlen
    baseret på aldersspecifikke mortalitetsrater som gælder i dag.  En
-   'person' fra tabelbefolkningen bliver 'udsæt' for alle
+   'person' fra tabelbefolkningen bliver 'udsat' for alle
    dødshyppigheder på tværs af alle aldersintervaller.
-2. [@2] Det kan man ikke se i figuren, da figuren kun viser det relative antal kræftdødsfald bland dem som døde. 
+2. [@2] Det kan man ikke se i figuren, da figuren kun viser det relative antal kræftdødsfald blandt dem som døde. 
    Statistikbanken DODA1 viser at der er flere i aldersintervallet 45-49 som døde af kræft i 2008 end i aldersintervallet 5-9.
 3. [@3] Fortolkning af hele tabellen er for en tabelbefolkning som
    bliver født i 2018 og lever helt deres liv i 2018.  I starten af
@@ -207,16 +207,16 @@ dat %>% group_by(KØN) %>% summarise(sum(rate_dod_psyk*V))
    tabelbefolkningen i live. I intervallet dør 9391, hvoraf 3734 dør
    af kræft. For at en 'tabelperson' som er blevet 70 år, er risikoen
    for at dø af kræft i resten af livet 25.33% (livstidsrisiko for en
-   70 årige tabelperson). Risiko for kræftdød op til 70-års alderen er 10.22% og
-   sandsynligheden for at blive 70-år gamle er 70.68%.
+   70 årige tabelperson). Risiko for kræftdød inden 70-års alderen er 10,22% og
+   sandsynligheden for at blive 70-år gammel er 70,68%.
 
 * Opgave 3
 
 1. [@1] Beregn aldersspecifikke mortalitetsrater på grund af kræft i
    2010 og 2020 baseret på data fra statistikbanken for mænd og plot resultatet.
-2. [@2] Beregn andel kræftdødsfald bland døde og bagefter årsagsspecifikke dødelighedstavler for mænd 
+2. [@2] Beregn andel kræftdødsfald blandt døde og bagefter årsagsspecifikke dødelighedstavler for mænd 
    i 2010 og 2020 i Danmark.
-3. [@3] Rapporter livstidsrisiko for død af kræft i 2010 og i 2020 (danske mænd).
+3. [@3] Rapporter livstidsrisiko for dødsfald med kræft som dødsårsag i 2010 og i 2020 (danske mænd).
 4. [@4] Sammenlign 2010 og 2020 med hensyn til de aldersspecifikke rater af kræftdødsfald og risiko for at dø af kræft (danske mænd). 
    
 ** Instruks :ignore:rmd:

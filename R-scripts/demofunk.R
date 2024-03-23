@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds and Johan Sebastian Ohlendorff
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Mar 21 2024 (18:42) 
+## Last-Updated: Mar 23 2024 (16:27) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 173
+##     Update #: 174
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -644,16 +644,17 @@ dodsaarsagtavle <- function(data,
     dt
 }
 
-fertilitets_tavle <- function(tid){
+fertilitets_tavle <- function(tid,område = "Hele landet"){
+    if (length(område)>1) stop("Kan kun 1 område af gangen.")
     ## skal brug 50 som "sidste" aldersinterval. det slettes bagefter
-    x <- hent_mortalitetsrate_data(tid = tid,køn="Kvinder",breaks=c(0:50,Inf),right = FALSE,alder = 0:50,label_last = "50")
+    x <- hent_mortalitetsrate_data(tid = tid,område = område,køn="Kvinder",breaks=c(0:50,Inf),right = FALSE,alder = 0:50,label_last = "50")
     x = x%>%mutate(M = Dod/R)
     otavle <- overlevelsestavle(x,mortalitet = "M",
                                 alder = "aldersinterval")
     ftavle <- filter(otavle,Alder%in%Alder[-c(1:15,length(Alder))]) %>% select(Alder,L)
     ftavle = mutate(ftavle,alder = as.numeric(substr(Alder,0,2)))
     ftavle5 <- intervAlder(ftavle,breaks=seq(15,50,5),right=FALSE,var="L",label_one = "15-19",alder="Alder")
-    FF <- hent_fertilitetsrate_data(tid = tid)
+    FF <- hent_fertilitetsrate_data(tid = tid,område = område)
     FF = mutate(FF,frate = Fødsler/R)
     ## F_piger <- hent_fertilitetsrate_data(tid = tid,barnkon = "Piger")
     ## F_piger = mutate(F_piger,frate_piger = Fødsler/R)
