@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds and Johan Sebastian Ohlendorff
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Mar 23 2024 (16:57) 
+## Last-Updated: Apr  4 2024 (07:55) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 175
+##     Update #: 176
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -646,7 +646,7 @@ dodsaarsagtavle <- function(data,
 
 fertilitets_tavle <- function(tid,område = "Hele landet"){
     if (length(område)>1) stop("Kan kun 1 område af gangen.")
-    if (område != "Hele landet" && as.numeric(tid) <2007)
+    if (område != "Hele landet" && min(as.numeric(tid)) <2007)
         stop("Område skal være 'Hele landet' for tid før 2007")
     ## skal brug 50 som "sidste" aldersinterval. det slettes bagefter
     x <- hent_mortalitetsrate_data(tid = tid,område = område,køn="Kvinder",breaks=c(0:50,Inf),right = FALSE,alder = 0:50,label_last = "50")
@@ -665,7 +665,7 @@ fertilitets_tavle <- function(tid,område = "Hele landet"){
     if (område != "Hele landet"){
         PP <- hent_data("fodie",område = område,modersalder = 15:49,tid = tid,barnkon = c("D","P"))
     } else{
-        PP <- hent_data("fod",område = område,modersalder = 15:49,tid = tid,barnkon = c("D","P"))
+        PP <- hent_data("fod",modersalder = 15:49,tid = tid,barnkon = c("D","P"))
     }
     PP <- intervAlder(PP,breaks=seq(15,50,5),right=FALSE,var="INDHOLD",alder="MODERSALDER",by="BARNKON",label_one = "15-19")
     PP <- pivot_wider(PP,names_from = BARNKON,values_from = INDHOLD)

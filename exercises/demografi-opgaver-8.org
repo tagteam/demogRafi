@@ -1,0 +1,207 @@
+#+TITLE: Demografi: opgaver 8
+#+AUTHOR: Folkesundhedsvidenskab 2. semester
+#+DATE:
+#+LaTeX_HEADER:\usepackage{listings}
+#+LaTeX_HEADER:\usepackage{color}
+#+LaTeX_HEADER:\usepackage[usenames,dvipsnames]{xcolor}
+#+LaTeX_HEADER:\usepackage[utf8]{inputenc}
+#+LaTeX_HEADER:\usepackage{graphicx}
+#+LaTeX_HEADER:\usepackage{hyperref}
+#+LaTeX_HEADER:\usepackage{amssymb}
+#+LaTeX_HEADER:\usepackage{latexsym}
+#+LaTeX_HEADER:\renewcommand\theequation{K1.\arabic{equation}}
+#+LaTeX_HEADER: \renewcommand{\figurename}{Figur}
+#+LaTeX_HEADER:\usepackage{tcolorbox}
+#+LaTeX_HEADER:\pagestyle{fancy}
+#+LaTeX_HEADER:\definecolor{lightGray}{gray}{0.98}
+#+LaTeX_HEADER:\definecolor{medioGray}{gray}{0.83}
+#+LATEX_HEADER:\definecolor{mygray}{rgb}{.95, 0.95, 0.95}
+#+LATEX_HEADER:\newcommand{\mybox}[1]{\vspace{.5em}\begin{tcolorbox}[boxrule=0pt,colback=mygray] #1 \end{tcolorbox}}
+#+setupfile:~/emacs-genome/snps/org-templates/setup-demografi.org
+#+superman-export-target: opgave
+#+OPTIONS: :rmd_yaml:nil
+#+LaTeX_CLASS: danish-article
+
+#+begin_export html
+---
+title: 'Demografi: opgaver kursusuge 8'
+output: word_document
+---
+```{r setup}
+knitr::opts_knit$set(root.dir = "..")
+source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
+```
+#+end_export
+
+* Opgave 1
+
+1. [@1] Fra statistikbankens =FOD= og =FOLK1a= finder vi antal fødsler
+   og risikotid fra kvinder som er mellem 15 og 49 år i 2019:
+
+#+BEGIN_SRC R  :results output raw drawer :exports both :session *R* :cache yes :eval (never-plain-export)
+f19 <- hent_fertilitetsrate_data(tid = 2019)
+f19
+#+END_SRC
+   + Beregn aldersspecifikke fertilitetsrater per 1000 personår og den samlede fertilitet per 1000 kvinder.
+   + Baseret på disse tal, hvor mange børn vil 120 kvinder forventes at få mellem deres 25. og 40. fødselsdag? Angiv resultatet i en sætning med den rigtige fortolkning, som tager højde for at alle tal er fra 2019.
+2. [@2] Find tal i statistikbanken og beregn andelen af piger blandt nyfødte i 2019.
+3. [@3] Find året 2019 i statistikbankens FOD407. Denne tabel viser
+   aldersspecifikke fertilitetsrater (de kalder dem fertilitetskvotienter) og også den
+   samlede fertilitet. Hvad kunne være en plausibel forklaring hvorfor
+   deres tal afviger fra vores beregninger 
+    baseret på FOD og FOLK1a?
+4. [@4] Hvilke enheder har hhv., brutto- og nettoreproduktionstal?
+5. [@5] Hvor højt skal værdien af nettoreproduktionstallet være, hvis 
+        befolkningen skal kunne reproducere sige selv? Begrund dit svar.
+6. [@6] Hvilke fertilitetsmål afhænger kvinders aldersfordeling af og hvilke gør ikke?
+
+** Instruks                                                 :instruks:ignore:
+*** Instruks
+
+4. [@4] I begge formler bliver fødselsraterne ganget med antal (person)år i
+        aldersintervallerne. 
+5. [@5] Svar står f.eks., i kompendiet. 
+6. [@6] Overvej om værdien af de forskelige fertilitetsmål ville ændre
+   sig, afhængig af om andelen af kvinder mellem 25 og 30 år i
+   befolkningen var 30% eller 5%.
+
+** Løsning                                                  :solution:ignore:
+*** Besvarelse
+1. [@1] Fødselsraten
+
+#+BEGIN_SRC R  :results output raw drawer :exports both :session *R* :cache yes :eval (never-plain-export)
+f2019 <- tibble(Aldersinterval=c("15-20","20-24","25-29","30-34","35-39","40-44","45-49"),
+                Risikotid = c(167128,188337,195241,172958,163456,184048,194866),
+                Foedsler=c(339,5454,20864,22097,9940,2303,163))
+f2019 <- f2019 %>% mutate(fertilitetsrate=Foedsler/Risikotid)
+# samlede fertilitet
+f2019 %>% summarise(samlede_fertilitet=sum(5*1000*fertilitetsrate))
+f2019
+#+END_SRC
+
+Mellemregning: I den 5 år lange periode mellem 25 og 30 forventes at de 120 kvinder få cirka 64,1 
+(=106,86*5*120/1000=) børn, mellem 30 og 35 cirka 76,7 
+(=127,76*5*120/1000=) børn og mellem 35 og 40 cirka 36,5 (=60,81*5*120/1000=)
+børn. Tæller man sammen bliver det 177.3 børn og vi kan konkludere det følgende:
+
+I en hypotetisk befolkning hvor ingen dør og hvor de aldersspecifikke
+fertilitetsrater er lige som i 2019 i Danmark, ville 120 kvinder
+forventes at få cirka 177 børn mellem deres 25. og 40. fødselsdag.
+
+2. [@2]
+#+BEGIN_SRC R  :results output raw drawer  :exports none  :session *R* :cache yes  
+setwd("~/metropolis/Teaching/Demography/worg/lecturenotes/")
+source("~/metropolis/Teaching/Demography/worg/R-scripts/demofunk.R") 
+d <- fert(2019)
+x <- d[,.(F=sum(ANTAL)),by=BARNKON]
+x
+x$F[2]/(x$F[1]+x$F[2])
+#+END_SRC
+
+I 2019 var 48,5% af alle fødsler piger.  
+
+3. [@3]
+
+En plausibel forklaring er at der bliver brugt en anden approksimation
+af middelfolketallet. Se beskrivelsen af det ændrede beregningsmetode vedrørende fertilitet
+her: https://www.dst.dk/da/Statistik/emner/befolkning-og-valg/foedsler/fertilitet
+
+4. [@4]  Antal. Fordi vi ganger fødselsrater som har enhed antal per
+   (1000) personår med (5) personår.
+5. [@5] Det skal være mindst 1, fordi så ville hver kvinde få mindst en pige, som selv få mindst en pige, osv.
+6. [@6]
+
+Afhænger af kvinders aldersfordeling:
++ summariske fertilitetsrate
++ generelle fertilitetsrate
+
+Afhænger ikke af kvinders aldersfordeling:
++ aldersspecifikke fødselsrater
++ samlet fertilitet
++ brutto- og nettoreproduktionstal
+
+* Opgave 2
+
+1. [@1] For at sammenligne fertilitet mellem kommunerne Albertslund og
+   Skanderborg i perioden 2010-2019, beregn og fortolk for begge kommuner separat 
+   alle fertilitetsmål:
+ + summariske og generelle fertilitetsrater
+ + alderspecifikke fertilitetsrater
+ + den samlede fertilitet
+ + brutto- og nettoreproduktionstal 
+2. [@2] Tegn kvindernes aldersfordeling for begge kommuner bland 15-49 årige i en
+   graf. Beskriv hvad grafen viser. 
+3. [@3] Tegn alderspecifikke fertilitetsrater for begge kommuner i en graf. Beskriv hvad grafen viser.
+4. [@4] Diskuter forskelle mellem Albertslund og Skanderborg og
+   spekuler over årsagerne.
+
+** Instruks                                                 :instruks:ignore:
+*** Instruks
+
+#+BEGIN_SRC R  :results output raw drawer :exports both :session *R* :cache yes :eval (never-plain-export)  
+fx <- fertilitets_tavle(2020)
+#+END_SRC
+
+
+** Løsning                                                  :solution:ignore:
+*** Besvarelse
+
+1. [@1]
+
+#+BEGIN_SRC R  :results output raw drawer :exports both :session *R* :cache yes :eval (never-plain-export)  
+R_alb <- 10*(27685+27543)/2
+R_skan <- 10*(57537+63070)/2
+#+END_SRC
+
+I perioden 2010-2019, var den summariske fødselsrate 10,3 fødsler per
+1000 personår i Albertslund og 10,5 fødsler per 1000 personår i
+Skanderborg. I Albertslund var den generelle fertilitet 44,6 fødsler
+og i Skanderborg 49,4 fødsler per 1000 personår. Den samlede
+fertilitet var 1,65 i Albertslund og 2,05 i Skanderborg. Det beskriver
+det forventede antal børn en kvinde vil få i løbet af de fødedygtige
+aldre i en hypotetisk befolkning hvor ingen dør og hvor de
+aldersspecifikke fødselsrater er lige som de var i perioden 2010-2019.
+
+I Albertslund var bruttoreproduktionstal 0,81 og nettoreproduktionstal
+0,80.  I Skanderborg var bruttoreproduktionstal 0,99 og
+nettoreproduktionstal 0,98.  Bruttoproduktionstal og
+nettoreproduktionstal var meget tæt på hinanden i begge kommuner. Det
+skyldes den lave mortalitet. Tallene for Albertslund ligger en del
+under og tallene i Skanderborg ligger en smule under
+reproduktionsgrænsen.
+
+2. [@2] Aldersfordeling
+
+#+BEGIN_SRC R  :results output raw drawer :exports both :session *R* :cache yes :eval (never-plain-export)  
+N <- mutate(N,Aldersfordeling=R/sum(R))
+g <- ggplot(N,aes(Aldersinterval,Aldersfordeling,group=Kommune,color=Kommune))+geom_line(size=1.5)
+g <- g+theme_bw()+theme(text = element_text(size=13))+ylab("Aldersfordeling kvinder 15-49 (%)")+theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"))
+g
+#+END_SRC
+
+Grafen viser aldersfordeling af gennemlevede tid fra kvinder i
+kommuner Albertslund og Skanderborg i perioden 2010-2019. I Skanderborg er der
+betydelig færre kvinder i aldersgrupperne 20-24 og 25-29 end i Albertslund.
+
+2. [@2] Fødselsrate
+
+#+BEGIN_SRC R  :results output raw drawer :exports both :session *R* :cache yes :eval (never-plain-export)  
+g1 <- ggplot(FOD,aes(Aldersinterval,Frate,color=Kommune,group=Kommune))+geom_line(size=1.3)
+g1 <- g1+ylab("Fødselsrate per 1000 personår")+xlab("Moders alder (år)")+theme_bw()+theme(text = element_text(size=13))+theme(plot.margin=unit(c(1,1,1.5,1.2),"cm"))
+g1
+#+END_SRC
+
+3. [@3]
+
+Grafen viser alderspecifikke fødselsraterne som antal fødsler per 1000
+personår i kommuner Albertslund og Skanderborg i perioden 2010-2019. I
+Albertslund var der betydelig færre fødsler i aldersgrupperne mellem
+20 og 39 end i Skanderborg.
+
+4. [@4] Alle fertilitetsmål er højere i Skanderborg end i
+   Albertslund. En mulig forklaring er at kvinder i tyverne, som
+   vælger at blive i Skanderborg, planlægger familie og måske
+   fravælger højere uddannelse. Det er motiveret af grafen som viser
+   aldersfordeling. Her kan man se at der kvinder mellem 20 og 30 er
+   stærkt underrepræsenteret i Skanderborg. Men det er også de aldre
+   hvor fertiliteten er højst. 
