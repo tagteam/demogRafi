@@ -231,7 +231,7 @@ x <- mutate(x,Q_rate = 1000*QDod/R)
 # andel kræftdødsfald
 x <- mutate(x,hQ = QDod/Dod)
 # TID skal væer factor
-x = mutate(x,TID = factor(TID))
+x <- mutate(x,TID = factor(TID))
 # plot 
 g = ggplot(x,aes(x = aldersinterval,y = Q_rate,group = TID,color = TID))+geom_line(linewidth = 1.3)
 g <- g + theme_gray()+scale_colour_wsj("colors6")

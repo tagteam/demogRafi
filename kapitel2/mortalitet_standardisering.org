@@ -1084,8 +1084,8 @@ standardisering give det samme resultat:
 #+LaTeX_HEADER:\usepackage{latexsym}
 #+LaTeX_HEADER:\usepackage{fancyhdr}
 #+LaTeX_HEADER:\pagestyle{fancy}
-#+LaTeX_HEADER:\lhead{Folkesundhedsvidenskab 2. semester, K{\o}benhavns Universitet}
-#+LaTeX_HEADER:\rhead{Demografi}
+#+LaTeX_HEADER:\lhead{\tiny Folkesundhedsvidenskab 2. semester, K{\o}benhavns Universitet}
+#+LaTeX_HEADER:\rhead{\tiny Demografi kompendium Kapitel 2}
 # #+LaTeX_HEADER:\usepackage[danish]{babel}
 #+LaTeX_HEADER:\hyphenation{studie-be-folk-ning}
 #+LaTeX_HEADER:\renewcommand\theequation{K2.\arabic{equation}}

@@ -955,7 +955,8 @@ ikke, og der er en fejlrate:
 #+LaTeX_HEADER:\usepackage{latexsym}
 #+LaTeX_HEADER:\usepackage{fancyhdr}
 #+LaTeX_HEADER:\pagestyle{fancy}
-#+LaTeX_HEADER:\lhead{Folkesundhedsvidenskab 2. semester, K{\o}benhavns Universitet}
+#+LaTeX_HEADER:\lhead{\tiny Folkesundhedsvidenskab 2. semester, K{\o}benhavns Universitet}
+#+LaTeX_HEADER:\rhead{\tiny Demografi kompendium Kapitel 1}
 #+LaTeX_HEADER:\rhead{Demografi}
 #+LaTeX_HEADER:\renewcommand\theequation{K1.\arabic{equation}}
 #+LaTeX_HEADER: \renewcommand{\figurename}{Figur}
