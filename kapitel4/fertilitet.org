@@ -569,7 +569,7 @@ data fra statistikbankens register =DOD=, beregner overlevelsestavlen
 og pigefødselsrater (kolonne =frate_piger=):
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
 #+BEGIN_SRC R :results output :exports both  :session *R* :cache yes  
-fx <- fertilitets_tavle(2020)
+fx <- fertilitets_tavle(tid = 2020)
 select(fx,aldersinterval,L,frate_piger)
 #+END_SRC
 

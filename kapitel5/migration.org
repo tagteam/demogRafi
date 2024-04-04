@@ -156,7 +156,7 @@ Vi kan også vælge at udregne rater specifik for køn eller for fødselskohorte
 
 Kilde: Danmarks Statistik
 
-#+TITLE: Migration
+#+TITLE: Kapitel 5: Migration
 #+AUTHOR: Anna-Vera Jørring Pallesen, Johan Sebastian Ohlendorff, Laust Hvas Mortensen og Thomas Alexander Gerds
 #+DATE: 
 #+LaTeX_CLASS: danish-article
@@ -170,7 +170,11 @@ Kilde: Danmarks Statistik
 #+LaTeX_HEADER:\usepackage{hyperref}
 #+LaTeX_HEADER:\usepackage{amssymb}
 #+LaTeX_HEADER:\usepackage{latexsym}
+#+LaTeX_HEADER:\usepackage{fancyhdr}
 #+LaTeX_HEADER:\usepackage[english,danish]{babel}
+#+LaTeX_HEADER:\pagestyle{fancy}
+#+LaTeX_HEADER:\lhead{\tiny Folkesundhedsvidenskab 2. semester, K{\o}benhavns Universitet}
+#+LaTeX_HEADER:\rhead{\tiny Demografi kompendium Kapitel 5}
 #+LaTeX_HEADER:\renewcommand\theequation{K5.\arabic{equation}}
 #+OPTIONS:   H:3  num:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
 #+OPTIONS:   TeX:t LaTeX:t skip:nil d:t todo:t pri:nil tags:not-in-toc author:t

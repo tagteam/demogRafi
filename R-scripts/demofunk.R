@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds and Johan Sebastian Ohlendorff
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Apr  4 2024 (07:55) 
+## Last-Updated: Apr  4 2024 (13:54) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 176
+##     Update #: 179
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -649,14 +649,35 @@ fertilitets_tavle <- function(tid,område = "Hele landet"){
     if (område != "Hele landet" && min(as.numeric(tid)) <2007)
         stop("Område skal være 'Hele landet' for tid før 2007")
     ## skal brug 50 som "sidste" aldersinterval. det slettes bagefter
-    x <- hent_mortalitetsrate_data(tid = tid,område = område,køn="Kvinder",breaks=c(0:50,Inf),right = FALSE,alder = 0:50,label_last = "50")
+    x <- hent_mortalitetsrate_data(tid = tid,
+                                   område = område,
+                                   køn="Kvinder",
+                                   breaks=c(0:50,Inf),
+                                   right = FALSE,
+                                   alder = 0:50,
+                                   label_last = "50")
+    if (length(tid)>1){
+        x = x%>%
+            group_by(KØN,OMRÅDE,aldersinterval)%>%
+            summarize(TID = paste0(min(tid)," - ",max(tid)),
+                      R = sum(R),
+                      Dod = sum(Dod),.groups = "drop")
+    }
     x = x%>%mutate(M = Dod/R)
-    otavle <- overlevelsestavle(x,mortalitet = "M",
+    otavle <- overlevelsestavle(x,
+                                mortalitet = "M",
                                 alder = "aldersinterval")
     ftavle <- filter(otavle,Alder%in%Alder[-c(1:15,length(Alder))]) %>% select(Alder,L)
     ftavle = mutate(ftavle,alder = as.numeric(substr(Alder,0,2)))
     ftavle5 <- intervAlder(ftavle,breaks=seq(15,50,5),right=FALSE,var="L",label_one = "15-19",alder="Alder")
     FF <- hent_fertilitetsrate_data(tid = tid,område = område)
+    if (length(tid)>1){
+        FF = FF%>%
+            group_by(OMRÅDE,aldersinterval)%>%
+            summarize(TID = paste0(min(tid)," - ",max(tid)),
+                      R = sum(R),
+                      Fødsler = sum(Fødsler),.groups = "drop")
+    }
     FF = mutate(FF,frate = Fødsler/R)
     ## F_piger <- hent_fertilitetsrate_data(tid = tid,barnkon = "Piger")
     ## F_piger = mutate(F_piger,frate_piger = Fødsler/R)
