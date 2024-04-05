@@ -208,7 +208,9 @@ gt() %>%
 
 2. For dødshyppighed blandt døde (aldersspecifik) kig under hQ.
 3. Livstidsrisiko for at dø af kræft er 28,0% baseret på de årsagsspecifikke mortalitetsrater for mænd i Danmark fra 2010 og også 28,0% baseret på årsagsspecifikke mortalitetsrater for mænd i Danmark fra 2020.
-4. Se plot(s). Aldersspecifikke mortalitetsrater pga. kræft er højere i 2010 end i 2020 for midaldrende og ældre. Svært at se forskel ellers. Sammenligner man restlivstidsrisikoen for kræft fås samme konklusion som med de aldersspecifikke mortalitetsrater.
+4. Se plot(s). 
+  - Aldersspecifikke mortalitetsrater pga. kræft er højere i 2010 end i 2020 for midaldrende og ældre. Det samme er gældende for sandsynligheden for at en nyfødt dør af kræft inden alder x.
+  - Alligevel er restlivstidsrisikoen for kræft generelt lavere i 2010 end i 2020.
 
 ## Ekstra plot
 ```{r, echo = TRUE, cache = TRUE}
@@ -219,3 +221,9 @@ tavle_til_plot$Tid <- as.factor(tavle_til_plot$Tid)
 gg <- ggplot(tavle_til_plot,aes(x = Alder,y = LTR_Q,group = Tid,color = Tid))+geom_line(linewidth = 1.3)+ylab("Restlivstidsrisikoen for død af kræft")+xlab("Alder") + theme_gray()+scale_colour_wsj("colors6")+theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))+theme(axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)))+theme(text = element_text(size=15))
 gg
 ```
+
+## Ekstra plot 2
+```{r, echo = TRUE, cache = TRUE}
+ggplot(tavle_til_plot,aes(x = Alder,y = qQ,group = Tid,color = Tid))+geom_line(linewidth = 1.3)+ylab("Risikoen for at en nyfødt dør af årsag af kræft inden alder x")+xlab("x") + theme_gray()+scale_colour_wsj("colors6")+theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))+theme(axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)))+theme(text = element_text(size=15))
+```
+
