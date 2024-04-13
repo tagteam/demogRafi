@@ -1,4 +1,4 @@
-#+TITLE: Demografi: opgaver 1
+#+TITLE: Demografi: opgaver kursusuge 1
 #+AUTHOR: Folkesundhedsvidenskab 2. semester
 #+DATE: 
 #+setupfile:~/emacs-genome/snps/org-templates/setup-demografi.org

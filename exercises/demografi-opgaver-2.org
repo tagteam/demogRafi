@@ -1,4 +1,4 @@
-#+TITLE: Demografi: opgaver 2
+#+TITLE: Demografi: opgaver kursusuge 2
 #+AUTHOR: Folkesundhedsvidenskab 2. semester
 #+DATE:
 #+LaTeX_HEADER:\usepackage{listings}

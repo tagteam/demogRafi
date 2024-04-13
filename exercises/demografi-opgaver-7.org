@@ -1,4 +1,4 @@
-#+TITLE: Demografi: opgaver 7
+#+TITLE: Demografi: opgaver kursusuge 7
 #+AUTHOR: Folkesundhedsvidenskab 2. semester
 #+DATE:
 #+LaTeX_HEADER:\usepackage{listings}
@@ -241,6 +241,7 @@ g <- g+theme(text = element_text(size=15))
 g+ylab("Kræftdødsfaldsrate per 1000 personår")+xlab("Alder")
 #+END_SRC
 
+
 2. [@2]
 
 #+BEGIN_SRC R  :results output raw drawer :exports both :session *R* :cache yes :eval (never-plain-export)
@@ -269,4 +270,26 @@ tavle_2020
 Livstidsrisiko for at dø af kræft er 28,0% baseret på de
 årsagsspecifikke mortalitetsrater for mænd i Danmark fra 2010 og også
 28,0% baseret på årsagsspecifikke mortalitetsrater for mænd i Danmark
-fra 2020. 
+fra 2020. Det er lidt interessant at risikoen ikke er højre i 2010
+selv om næsten alle aldersspecifikke mortalitetsrater på grund af
+kræft er højre i 2010. Det skyldes at mortalitetsraterne for at dø på
+grund af andet end kræft også er mindre i 2020:
+
+#+BEGIN_SRC R  :results output raw drawer :exports (exercise-with-solutions) :session *R* :cache yes :eval (never-plain-export)
+x <- hent_dodsaarsag_data(tid = c(2010,2020), årsag =c("A02"), køn = "Mænd")
+# mortalitetsrater
+x <- mutate(x,M = Dod/R)
+# dødsrate pga kræft og alt andet end kræft
+x <- x%>%mutate(Q_rate = 1000*QDod/R,
+                barQDod = Dod-QDod,
+                barQ_rate = 1000*barQDod/R)
+# TID skal væer factor
+x <- mutate(x,TID = factor(TID))
+# plot 
+g = ggplot(x,aes(x = aldersinterval,y = barQ_rate,group = TID,color = TID))+geom_line(linewidth = 1.3)
+g <- g + theme_gray()+scale_colour_wsj("colors6")
+g <- g+theme(axis.title.y = element_text(margin = margin(t = 0, r = 20, b = 0, l = 0)))
+g <- g+theme(axis.title.x = element_text(margin = margin(t = 20, r = 0, b = 0, l = 0)))
+g <- g+theme(text = element_text(size=15))
+g+ylab("Dødsfaldsrate pga andet end kræft per 1000 personår")+xlab("Alder")
+#+END_SRC

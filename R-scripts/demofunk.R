@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds and Johan Sebastian Ohlendorff
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Apr  4 2024 (13:54) 
+## Last-Updated: Apr 10 2024 (18:12) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 179
+##     Update #: 184
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -194,6 +194,7 @@ intervAlder <- function(data,
                         label_one = NULL,
                         label_last = NULL){
     stopifnot(all(vars %in% names(data)))
+    data[["alder"]] = data[[alder]]
     data = mutate(data,
                   aldersinterval=cut(alder,
                                      breaks=breaks,
@@ -562,6 +563,57 @@ overlevelsestavle <- function(data,
                  L=round(L),
                  T,
                  e)
+    dt
+}
+
+tavle_sandsynlighed_barn1 <- function(data,
+                                frate = "F1",
+                                alder = "aldersinterval",
+                                radix=100000){
+    M = data[[frate]]
+    if (!(alder %in% names(data))){
+        stop("Du skal angive kolonnenavn for alder")
+    }
+    else{
+        alder = data[[alder]]
+    }
+    xmax <- length(M)
+    if (any(is.na(M))) stop("Mortalitet M har manglende værdier.")
+    if (!("a" %in% names(data))){
+        a <- rep(0.5,xmax)
+        a[1] <- 0.1
+    }else{
+        a = data[["a"]]
+    }
+    ## a[xmax] <- 1/M[xmax] 
+    if  (!("k" %in% names(data)))
+        k <- rep(1,xmax)
+    else
+        k = data[["k"]]
+    # init
+    q=k*M/(1+(k-a)*M)
+    q[xmax] <- 1
+    l0 <- radix
+    l <- d <- L <- numeric(xmax)
+    l[1] <- l0
+    for (x in 1:xmax){
+        if (x<xmax){
+            l[x+1] <- l[x]*(1-q[x])
+            d[x] <- l[x]-l[x+1]
+        }else{
+            d[x] <- l[x]
+        }
+        L[x] <- k[x]*l[x]-d[x]*(k[x]-a[x])
+    }
+    ## T <- rev(cumsum(rev(L)))
+    ## e <- T/l
+    dt <- tibble(Alder=alder,
+                 l=round(l),
+                 d=round(d),
+                 p=1-q,
+                 q,
+                 s1 = 1-(l/l[1]),
+                 L)
     dt
 }
 
