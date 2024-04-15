@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds and Johan Sebastian Ohlendorff
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Apr 10 2024 (18:12) 
+## Last-Updated: Apr 15 2024 (09:49) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 184
+##     Update #: 188
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -195,7 +195,7 @@ intervAlder <- function(data,
                         label_last = NULL){
     stopifnot(all(vars %in% names(data)))
     data[["alder"]] = data[[alder]]
-    data = mutate(data,
+    data <- mutate(data,
                   aldersinterval=cut(alder,
                                      breaks=breaks,
                                      right=right,
@@ -721,7 +721,7 @@ fertilitets_tavle <- function(tid,område = "Hele landet"){
                                 alder = "aldersinterval")
     ftavle <- filter(otavle,Alder%in%Alder[-c(1:15,length(Alder))]) %>% select(Alder,L)
     ftavle = mutate(ftavle,alder = as.numeric(substr(Alder,0,2)))
-    ftavle5 <- intervAlder(ftavle,breaks=seq(15,50,5),right=FALSE,var="L",label_one = "15-19",alder="Alder")
+    ftavle5 <- intervAlder(ftavle,breaks=seq(15,50,5),right=FALSE,var="L",label_one = "15-19",alder="alder")
     FF <- hent_fertilitetsrate_data(tid = tid,område = område)
     if (length(tid)>1){
         FF = FF%>%
@@ -740,7 +740,7 @@ fertilitets_tavle <- function(tid,område = "Hele landet"){
     } else{
         PP <- hent_data("fod",modersalder = 15:49,tid = tid,barnkon = c("D","P"))
     }
-    PP <- intervAlder(PP,breaks=seq(15,50,5),right=FALSE,var="INDHOLD",alder="MODERSALDER",by="BARNKON",label_one = "15-19")
+    PP <- intervAlder(PP,breaks=seq(15,50,5),right=FALSE,var="INDHOLD",alder="alder",by="BARNKON",label_one = "15-19")
     PP <- pivot_wider(PP,names_from = BARNKON,values_from = INDHOLD)
     PP <- mutate(PP,Andel_piger=Piger/(Drenge+Piger))
     ftavle5 <- left_join(ftavle5,select(PP,aldersinterval,Andel_piger),by="aldersinterval")
