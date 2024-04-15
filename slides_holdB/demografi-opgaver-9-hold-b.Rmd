@@ -80,6 +80,16 @@ res_table_opg_1
 
 ![](klip2.png)
 
+## Hvis ikke kopieringen giver jer en tabel i Word
+
+- Brug koden
+
+```{r,eval=FALSE}
+res_table_opg_1 %>% gtsave("min_tabel.docx")
+```
+
+- Åbn filen **min_tabel.docx** i Word.
+
 ## Trin 3: Udvælg rækker til opgavens tabel
 
 -   Da I ikke må indsætte jeres egen tabel skal I udvælge de rækker og
@@ -104,7 +114,7 @@ res_table_opg_1
 ## Alternativer
 
 -   Brug **writexl**-pakken, åbn filen **table_opg_1.xlsx** i Excel, 
-    udvælg de relevante rækker og søjler og kopier.
+    udvælg de relevante rækker og søjler og kopier. 
 
 ```{r, eval = FALSE}
 ## I skal køre nedenstående linje uden hashtags, hvis I får fejlen 'Error in library("writexl") : there is no package called ‘writexl’'
