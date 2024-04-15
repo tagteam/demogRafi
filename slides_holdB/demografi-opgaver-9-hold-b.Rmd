@@ -36,13 +36,13 @@ erhvervsfaglige skoler’.
 
 ```{r}
 ## hent data
-arb_dat <- hent_data("RAS300", branche07=c(85002,"TOT"),alder = "all", tid = c("2009","2019"), køn = "mænd")
-
-table_opg_1 <- arb_dat %>%
+arb_dat <- hent_data("RAS300", branche07=c(85002,"TOT"),alder = "all", tid = c("2009","2019"), køn = "mænd") %>% 
   mutate(BRANCHE07 = fct_recode(BRANCHE07,
                                 "Branche" = "85002 Gymnasier og erhvervsfaglige skoler", 
                                 "Beskæftigede" = "TOT Erhverv i alt"),
-         "Alder" = ALDER) %>%
+         "Alder" = ALDER)
+
+table_opg_1 <- arb_dat %>%
   pivot_wider(names_from = c(BRANCHE07, TID), values_from = "INDHOLD") %>%
   mutate(Andel_2009 = Branche_2009/Beskæftigede_2009, Andel_2019 = Branche_2019/Beskæftigede_2019) %>%
   select(Alder, Beskæftigede_2009, Beskæftigede_2019, Branche_2009, Branche_2019, Andel_2009, Andel_2019) 
@@ -50,7 +50,7 @@ table_opg_1 <- arb_dat %>%
 
 ## Eksempelbrug med eksport fra **R** til **Word**
 
-## Brug af **gt**-pakken {style="font-size: 50%;"}
+## Brug af **gt**-pakken
 
 ```{r}
 ## I skal køre nedenstående linje uden hashtags, hvis I får fejlen 'Error in library("gt") : there is no package called ‘gt’'
@@ -59,9 +59,15 @@ library(gt)
 res_table_opg_1 <- table_opg_1 %>%
   gt() %>%
   fmt_number(columns = c("Beskæftigede_2009", "Beskæftigede_2019", "Branche_2009", "Branche_2019"), decimals = 0, locale = "da") %>% ## Antal personer skal være angivet i HELE tal; bruug dansk formatering
-  fmt_number(columns = c("Andel_2009", "Andel_2019"), decimals = 2, locale = "da") ## Andel angivet som kommatal med to decimaler; brug dansk formatering
+  fmt_number(columns = c("Andel_2009", "Andel_2019"), decimals = 3, locale = "da") ## Andel angivet som kommatal med to decimaler; brug dansk formatering
+```
+
+## Tabel
+
+```{r, echo = FALSE}
 res_table_opg_1
 ```
+
 
 ## Trin 1: Marker tabel
 
@@ -120,7 +126,7 @@ res_table_opg_1 %>% gtsave("min_tabel.docx")
 ## I skal køre nedenstående linje uden hashtags, hvis I får fejlen 'Error in library("writexl") : there is no package called ‘writexl’'
 ## install.packages("writexl") 
 library(writexl) 
-write_xlsx(res_table_opg_1, "table_opg_1.xlsx") ## filen gemmes i samme mappe som .Rmd-filen
+write_xlsx(as.data.frame(res_table_opg_1), "table_opg_1.xlsx") ## filen gemmes i samme mappe som .Rmd-filen
 ```
 
 -   Kan også **knitte** jeres dokumentet og så kopiere den relevante del af tabellen ind. Dette kræver dog, at alt jeres kode kan køres uden fejl.
@@ -170,9 +176,7 @@ summariske og den aldersstandardiserede beskæftigelsesrate.
 
 ```{r}
 beskaeft <- arb_dat %>%
-  filter(BRANCHE07 == "TOT Erhverv i alt", TID == "2009") %>%
-  mutate(BRANCHE07 = fct_recode(BRANCHE07,
-                                "Beskæftige" = "TOT Erhverv i alt")) %>%
+  filter(BRANCHE07 == "Beskæftigede", TID == "2009") %>%
   pivot_wider(names_from = c(BRANCHE07, TID), values_from = "INDHOLD") %>% 
   select(-c("KØN", "alder")) 
 
@@ -180,21 +184,20 @@ R <- hent_aldersfordeling(breaks = c(0,15,seq(19,64,5),66,Inf), tid = c("2009","
   rename(Risikotid = R, Aldersfordeling = V)  %>% 
   pivot_wider(names_from = TID, values_from = c("Risikotid", "Aldersfordeling")) %>% 
   select(-c("KØN", "OMRÅDE", "aldersinterval")) 
-table_opg_2 <- cbind(beskaeft, R) %>%  mutate(Beskæftigelsesrate = Beskæftige_2009/Risikotid_2009)
+table_opg_2 <- cbind(beskaeft, R) %>%  mutate(Beskæftigelsesrate = Beskæftigede_2009/Risikotid_2009)
 ```
 
 ## Tabel {style="font-size: 70%;"}
 
 ```{r}
 table_opg_2 %>% 
-  rename("Alder" = ALDER) %>%
   gt() %>%
-  fmt_number(columns = c("Beskæftige_2009", "Risikotid_2009", "Risikotid_2019"), decimals = 0, locale = "da") %>%
+  fmt_number(columns = c("Beskæftigede_2009", "Risikotid_2009", "Risikotid_2019"), decimals = 0, locale = "da") %>%
   fmt_number(columns = c("Aldersfordeling_2009", "Aldersfordeling_2019", "Beskæftigelsesrate"), decimals = 2, locale = "da")
 ```
 
 ```{r}
-table_opg_2 %>% summarize("Summarisk beskaeftigelsesrate" = sum(Beskæftige_2009)/sum(Risikotid_2009)*1000, "Standardiseret beskaeftigelsesrate" = sum(Beskæftigelsesrate * Aldersfordeling_2019)*1000) %>%
+table_opg_2 %>% summarize("Summarisk beskaeftigelsesrate" = sum(Beskæftigede_2009)/sum(Risikotid_2009)*1000, "Standardiseret beskaeftigelsesrate" = sum(Beskæftigelsesrate * Aldersfordeling_2019)*1000) %>%
   gt() %>%
   fmt_number(columns = c("Summarisk beskaeftigelsesrate", "Standardiseret beskaeftigelsesrate"), decimals = 1, locale = "da")
 ```

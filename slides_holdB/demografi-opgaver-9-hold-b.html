@@ -1224,13 +1224,13 @@ margin-right: 0; }
 <h2>Aldersspecifikke beskæftigelsesrater</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href></a><span class="do">## hent data</span></span>
-<span id="cb1-2"><a href></a>arb_dat <span class="ot">&lt;-</span> <span class="fu">hent_data</span>(<span class="st">&quot;RAS300&quot;</span>, <span class="at">branche07=</span><span class="fu">c</span>(<span class="dv">85002</span>,<span class="st">&quot;TOT&quot;</span>),<span class="at">alder =</span> <span class="st">&quot;all&quot;</span>, <span class="at">tid =</span> <span class="fu">c</span>(<span class="st">&quot;2009&quot;</span>,<span class="st">&quot;2019&quot;</span>), køn <span class="ot">=</span> <span class="st">&quot;mænd&quot;</span>)</span>
-<span id="cb1-3"><a href></a></span>
-<span id="cb1-4"><a href></a>table_opg_1 <span class="ot">&lt;-</span> arb_dat <span class="sc">%&gt;%</span></span>
-<span id="cb1-5"><a href></a>  <span class="fu">mutate</span>(<span class="at">BRANCHE07 =</span> <span class="fu">fct_recode</span>(BRANCHE07,</span>
-<span id="cb1-6"><a href></a>                                <span class="st">&quot;Branche&quot;</span> <span class="ot">=</span> <span class="st">&quot;85002 Gymnasier og erhvervsfaglige skoler&quot;</span>, </span>
-<span id="cb1-7"><a href></a>                                <span class="st">&quot;Beskæftigede&quot;</span> <span class="ot">=</span> <span class="st">&quot;TOT Erhverv i alt&quot;</span>),</span>
-<span id="cb1-8"><a href></a>         <span class="st">&quot;Alder&quot;</span> <span class="ot">=</span> ALDER) <span class="sc">%&gt;%</span></span>
+<span id="cb1-2"><a href></a>arb_dat <span class="ot">&lt;-</span> <span class="fu">hent_data</span>(<span class="st">&quot;RAS300&quot;</span>, <span class="at">branche07=</span><span class="fu">c</span>(<span class="dv">85002</span>,<span class="st">&quot;TOT&quot;</span>),<span class="at">alder =</span> <span class="st">&quot;all&quot;</span>, <span class="at">tid =</span> <span class="fu">c</span>(<span class="st">&quot;2009&quot;</span>,<span class="st">&quot;2019&quot;</span>), køn <span class="ot">=</span> <span class="st">&quot;mænd&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-3"><a href></a>  <span class="fu">mutate</span>(<span class="at">BRANCHE07 =</span> <span class="fu">fct_recode</span>(BRANCHE07,</span>
+<span id="cb1-4"><a href></a>                                <span class="st">&quot;Branche&quot;</span> <span class="ot">=</span> <span class="st">&quot;85002 Gymnasier og erhvervsfaglige skoler&quot;</span>, </span>
+<span id="cb1-5"><a href></a>                                <span class="st">&quot;Beskæftigede&quot;</span> <span class="ot">=</span> <span class="st">&quot;TOT Erhverv i alt&quot;</span>),</span>
+<span id="cb1-6"><a href></a>         <span class="st">&quot;Alder&quot;</span> <span class="ot">=</span> ALDER)</span>
+<span id="cb1-7"><a href></a></span>
+<span id="cb1-8"><a href></a>table_opg_1 <span class="ot">&lt;-</span> arb_dat <span class="sc">%&gt;%</span></span>
 <span id="cb1-9"><a href></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="fu">c</span>(BRANCHE07, TID), <span class="at">values_from =</span> <span class="st">&quot;INDHOLD&quot;</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb1-10"><a href></a>  <span class="fu">mutate</span>(<span class="at">Andel_2009 =</span> Branche_2009<span class="sc">/</span>Beskæftigede_2009, <span class="at">Andel_2019 =</span> Branche_2019<span class="sc">/</span>Beskæftigede_2019) <span class="sc">%&gt;%</span></span>
 <span id="cb1-11"><a href></a>  <span class="fu">select</span>(Alder, Beskæftigede_2009, Beskæftigede_2019, Branche_2009, Branche_2019, Andel_2009, Andel_2019) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -1239,7 +1239,7 @@ margin-right: 0; }
 <section id="eksempelbrug-med-eksport-fra-r-til-word" class="slide level2">
 <h2>Eksempelbrug med eksport fra <strong>R</strong> til <strong>Word</strong></h2>
 </section>
-<section id="brug-af-gt-pakken" class="slide level2" style="font-size: 50%;">
+<section id="brug-af-gt-pakken" class="slide level2">
 <h2>Brug af <strong>gt</strong>-pakken</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href></a><span class="do">## I skal køre nedenstående linje uden hashtags, hvis I får fejlen &#39;Error in library(&quot;gt&quot;) : there is no package called ‘gt’&#39;</span></span>
@@ -1248,23 +1248,27 @@ margin-right: 0; }
 <span id="cb2-4"><a href></a>res_table_opg_1 <span class="ot">&lt;-</span> table_opg_1 <span class="sc">%&gt;%</span></span>
 <span id="cb2-5"><a href></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb2-6"><a href></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="fu">c</span>(<span class="st">&quot;Beskæftigede_2009&quot;</span>, <span class="st">&quot;Beskæftigede_2019&quot;</span>, <span class="st">&quot;Branche_2009&quot;</span>, <span class="st">&quot;Branche_2019&quot;</span>), <span class="at">decimals =</span> <span class="dv">0</span>, <span class="at">locale =</span> <span class="st">&quot;da&quot;</span>) <span class="sc">%&gt;%</span> <span class="do">## Antal personer skal være angivet i HELE tal; bruug dansk formatering</span></span>
-<span id="cb2-7"><a href></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="fu">c</span>(<span class="st">&quot;Andel_2009&quot;</span>, <span class="st">&quot;Andel_2019&quot;</span>), <span class="at">decimals =</span> <span class="dv">2</span>, <span class="at">locale =</span> <span class="st">&quot;da&quot;</span>) <span class="do">## Andel angivet som kommatal med to decimaler; brug dansk formatering</span></span>
-<span id="cb2-8"><a href></a>res_table_opg_1</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-7"><a href></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="fu">c</span>(<span class="st">&quot;Andel_2009&quot;</span>, <span class="st">&quot;Andel_2019&quot;</span>), <span class="at">decimals =</span> <span class="dv">3</span>, <span class="at">locale =</span> <span class="st">&quot;da&quot;</span>) <span class="do">## Andel angivet som kommatal med to decimaler; brug dansk formatering</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="tabel" class="slide level2">
+<h2>Tabel</h2>
+<div class="cell">
 <div class="cell-output-display">
-<div id="fzlqijytte" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#fzlqijytte table {
+<div id="juvwahubmd" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#juvwahubmd table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#fzlqijytte thead, #fzlqijytte tbody, #fzlqijytte tfoot, #fzlqijytte tr, #fzlqijytte td, #fzlqijytte th {
+#juvwahubmd thead, #juvwahubmd tbody, #juvwahubmd tfoot, #juvwahubmd tr, #juvwahubmd td, #juvwahubmd th {
 border-style: none;
 }
-#fzlqijytte p {
+#juvwahubmd p {
 margin: 0;
 padding: 0;
 }
-#fzlqijytte .gt_table {
+#juvwahubmd .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -1289,11 +1293,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#fzlqijytte .gt_caption {
+#juvwahubmd .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#fzlqijytte .gt_title {
+#juvwahubmd .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -1304,7 +1308,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#fzlqijytte .gt_subtitle {
+#juvwahubmd .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -1315,7 +1319,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#fzlqijytte .gt_heading {
+#juvwahubmd .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -1326,12 +1330,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#fzlqijytte .gt_bottom_border {
+#juvwahubmd .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#fzlqijytte .gt_col_headings {
+#juvwahubmd .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -1345,7 +1349,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#fzlqijytte .gt_col_heading {
+#juvwahubmd .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -1364,7 +1368,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#fzlqijytte .gt_column_spanner_outer {
+#juvwahubmd .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -1375,13 +1379,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#fzlqijytte .gt_column_spanner_outer:first-child {
+#juvwahubmd .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#fzlqijytte .gt_column_spanner_outer:last-child {
+#juvwahubmd .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#fzlqijytte .gt_column_spanner {
+#juvwahubmd .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -1392,10 +1396,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#fzlqijytte .gt_spanner_row {
+#juvwahubmd .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#fzlqijytte .gt_group_heading {
+#juvwahubmd .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -1420,7 +1424,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#fzlqijytte .gt_empty_group_heading {
+#juvwahubmd .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -1434,13 +1438,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#fzlqijytte .gt_from_md > :first-child {
+#juvwahubmd .gt_from_md > :first-child {
 margin-top: 0;
 }
-#fzlqijytte .gt_from_md > :last-child {
+#juvwahubmd .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#fzlqijytte .gt_row {
+#juvwahubmd .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -1458,7 +1462,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#fzlqijytte .gt_stub {
+#juvwahubmd .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -1470,7 +1474,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#fzlqijytte .gt_stub_row_group {
+#juvwahubmd .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -1483,13 +1487,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#fzlqijytte .gt_row_group_first td {
+#juvwahubmd .gt_row_group_first td {
 border-top-width: 2px;
 }
-#fzlqijytte .gt_row_group_first th {
+#juvwahubmd .gt_row_group_first th {
 border-top-width: 2px;
 }
-#fzlqijytte .gt_summary_row {
+#juvwahubmd .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -1498,14 +1502,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#fzlqijytte .gt_first_summary_row {
+#juvwahubmd .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#fzlqijytte .gt_first_summary_row.thick {
+#juvwahubmd .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#fzlqijytte .gt_last_summary_row {
+#juvwahubmd .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -1514,7 +1518,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#fzlqijytte .gt_grand_summary_row {
+#juvwahubmd .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -1523,7 +1527,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#fzlqijytte .gt_first_grand_summary_row {
+#juvwahubmd .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -1532,7 +1536,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#fzlqijytte .gt_last_grand_summary_row_top {
+#juvwahubmd .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -1541,10 +1545,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#fzlqijytte .gt_striped {
+#juvwahubmd .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#fzlqijytte .gt_table_body {
+#juvwahubmd .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -1552,7 +1556,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#fzlqijytte .gt_footnotes {
+#juvwahubmd .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -1565,7 +1569,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#fzlqijytte .gt_footnote {
+#juvwahubmd .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -1573,7 +1577,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#fzlqijytte .gt_sourcenotes {
+#juvwahubmd .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -1586,57 +1590,57 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#fzlqijytte .gt_sourcenote {
+#juvwahubmd .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#fzlqijytte .gt_left {
+#juvwahubmd .gt_left {
 text-align: left;
 }
-#fzlqijytte .gt_center {
+#juvwahubmd .gt_center {
 text-align: center;
 }
-#fzlqijytte .gt_right {
+#juvwahubmd .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#fzlqijytte .gt_font_normal {
+#juvwahubmd .gt_font_normal {
 font-weight: normal;
 }
-#fzlqijytte .gt_font_bold {
+#juvwahubmd .gt_font_bold {
 font-weight: bold;
 }
-#fzlqijytte .gt_font_italic {
+#juvwahubmd .gt_font_italic {
 font-style: italic;
 }
-#fzlqijytte .gt_super {
+#juvwahubmd .gt_super {
 font-size: 65%;
 }
-#fzlqijytte .gt_footnote_marks {
+#juvwahubmd .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#fzlqijytte .gt_asterisk {
+#juvwahubmd .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#fzlqijytte .gt_indent_1 {
+#juvwahubmd .gt_indent_1 {
 text-indent: 5px;
 }
-#fzlqijytte .gt_indent_2 {
+#juvwahubmd .gt_indent_2 {
 text-indent: 10px;
 }
-#fzlqijytte .gt_indent_3 {
+#juvwahubmd .gt_indent_3 {
 text-indent: 15px;
 }
-#fzlqijytte .gt_indent_4 {
+#juvwahubmd .gt_indent_4 {
 text-indent: 20px;
 }
-#fzlqijytte .gt_indent_5 {
+#juvwahubmd .gt_indent_5 {
 text-indent: 25px;
 }
 </style>
@@ -1660,8 +1664,8 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigede_2019">22.122</td>
 <td class="gt_row gt_right" headers="Branche_2009">68</td>
 <td class="gt_row gt_right" headers="Branche_2019">47</td>
-<td class="gt_row gt_right" headers="Andel_2009">0,00</td>
-<td class="gt_row gt_right" headers="Andel_2019">0,00</td>
+<td class="gt_row gt_right" headers="Andel_2009">0,003</td>
+<td class="gt_row gt_right" headers="Andel_2019">0,002</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="Alder">16-19 år</td>
@@ -1669,8 +1673,8 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigede_2019">71.314</td>
 <td class="gt_row gt_right" headers="Branche_2009">459</td>
 <td class="gt_row gt_right" headers="Branche_2019">410</td>
-<td class="gt_row gt_right" headers="Andel_2009">0,01</td>
-<td class="gt_row gt_right" headers="Andel_2019">0,01</td>
+<td class="gt_row gt_right" headers="Andel_2009">0,006</td>
+<td class="gt_row gt_right" headers="Andel_2019">0,006</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="Alder">20-24 år</td>
@@ -1678,8 +1682,8 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigede_2019">126.536</td>
 <td class="gt_row gt_right" headers="Branche_2009">762</td>
 <td class="gt_row gt_right" headers="Branche_2019">695</td>
-<td class="gt_row gt_right" headers="Andel_2009">0,01</td>
-<td class="gt_row gt_right" headers="Andel_2019">0,01</td>
+<td class="gt_row gt_right" headers="Andel_2009">0,007</td>
+<td class="gt_row gt_right" headers="Andel_2019">0,005</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="Alder">25-29 år</td>
@@ -1687,8 +1691,8 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigede_2019">151.198</td>
 <td class="gt_row gt_right" headers="Branche_2009">1.158</td>
 <td class="gt_row gt_right" headers="Branche_2019">1.346</td>
-<td class="gt_row gt_right" headers="Andel_2009">0,01</td>
-<td class="gt_row gt_right" headers="Andel_2019">0,01</td>
+<td class="gt_row gt_right" headers="Andel_2009">0,010</td>
+<td class="gt_row gt_right" headers="Andel_2019">0,009</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="Alder">30-34 år</td>
@@ -1696,8 +1700,8 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigede_2019">148.717</td>
 <td class="gt_row gt_right" headers="Branche_2009">2.269</td>
 <td class="gt_row gt_right" headers="Branche_2019">2.066</td>
-<td class="gt_row gt_right" headers="Andel_2009">0,02</td>
-<td class="gt_row gt_right" headers="Andel_2019">0,01</td>
+<td class="gt_row gt_right" headers="Andel_2009">0,016</td>
+<td class="gt_row gt_right" headers="Andel_2019">0,014</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="Alder">35-39 år</td>
@@ -1705,8 +1709,8 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigede_2019">140.548</td>
 <td class="gt_row gt_right" headers="Branche_2009">2.586</td>
 <td class="gt_row gt_right" headers="Branche_2019">2.464</td>
-<td class="gt_row gt_right" headers="Andel_2009">0,02</td>
-<td class="gt_row gt_right" headers="Andel_2019">0,02</td>
+<td class="gt_row gt_right" headers="Andel_2009">0,016</td>
+<td class="gt_row gt_right" headers="Andel_2019">0,018</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="Alder">40-44 år</td>
@@ -1714,8 +1718,8 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigede_2019">156.953</td>
 <td class="gt_row gt_right" headers="Branche_2009">2.674</td>
 <td class="gt_row gt_right" headers="Branche_2019">3.123</td>
-<td class="gt_row gt_right" headers="Andel_2009">0,02</td>
-<td class="gt_row gt_right" headers="Andel_2019">0,02</td>
+<td class="gt_row gt_right" headers="Andel_2009">0,015</td>
+<td class="gt_row gt_right" headers="Andel_2019">0,020</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="Alder">45-49 år</td>
@@ -1723,8 +1727,8 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigede_2019">168.108</td>
 <td class="gt_row gt_right" headers="Branche_2009">2.746</td>
 <td class="gt_row gt_right" headers="Branche_2019">3.188</td>
-<td class="gt_row gt_right" headers="Andel_2009">0,02</td>
-<td class="gt_row gt_right" headers="Andel_2019">0,02</td>
+<td class="gt_row gt_right" headers="Andel_2009">0,017</td>
+<td class="gt_row gt_right" headers="Andel_2019">0,019</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="Alder">50-54 år</td>
@@ -1732,8 +1736,8 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigede_2019">174.168</td>
 <td class="gt_row gt_right" headers="Branche_2009">3.231</td>
 <td class="gt_row gt_right" headers="Branche_2019">2.993</td>
-<td class="gt_row gt_right" headers="Andel_2009">0,02</td>
-<td class="gt_row gt_right" headers="Andel_2019">0,02</td>
+<td class="gt_row gt_right" headers="Andel_2009">0,022</td>
+<td class="gt_row gt_right" headers="Andel_2019">0,017</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="Alder">55-59 år</td>
@@ -1741,8 +1745,8 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigede_2019">157.324</td>
 <td class="gt_row gt_right" headers="Branche_2009">3.811</td>
 <td class="gt_row gt_right" headers="Branche_2019">2.826</td>
-<td class="gt_row gt_right" headers="Andel_2009">0,03</td>
-<td class="gt_row gt_right" headers="Andel_2019">0,02</td>
+<td class="gt_row gt_right" headers="Andel_2009">0,028</td>
+<td class="gt_row gt_right" headers="Andel_2019">0,018</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="Alder">60-64 år</td>
@@ -1750,8 +1754,8 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigede_2019">119.847</td>
 <td class="gt_row gt_right" headers="Branche_2009">2.993</td>
 <td class="gt_row gt_right" headers="Branche_2019">2.668</td>
-<td class="gt_row gt_right" headers="Andel_2009">0,03</td>
-<td class="gt_row gt_right" headers="Andel_2019">0,02</td>
+<td class="gt_row gt_right" headers="Andel_2009">0,030</td>
+<td class="gt_row gt_right" headers="Andel_2019">0,022</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="Alder">65-66 år</td>
@@ -1759,8 +1763,8 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigede_2019">26.461</td>
 <td class="gt_row gt_right" headers="Branche_2009">410</td>
 <td class="gt_row gt_right" headers="Branche_2019">574</td>
-<td class="gt_row gt_right" headers="Andel_2009">0,02</td>
-<td class="gt_row gt_right" headers="Andel_2019">0,02</td>
+<td class="gt_row gt_right" headers="Andel_2009">0,021</td>
+<td class="gt_row gt_right" headers="Andel_2019">0,022</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="Alder">67 år og derover</td>
@@ -1768,8 +1772,8 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigede_2019">73.550</td>
 <td class="gt_row gt_right" headers="Branche_2009">386</td>
 <td class="gt_row gt_right" headers="Branche_2019">912</td>
-<td class="gt_row gt_right" headers="Andel_2009">0,01</td>
-<td class="gt_row gt_right" headers="Andel_2019">0,01</td>
+<td class="gt_row gt_right" headers="Andel_2009">0,009</td>
+<td class="gt_row gt_right" headers="Andel_2019">0,012</td>
 </tr>
 </tbody>
 </table>
@@ -1838,7 +1842,7 @@ text-indent: 25px;
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href></a><span class="do">## I skal køre nedenstående linje uden hashtags, hvis I får fejlen &#39;Error in library(&quot;writexl&quot;) : there is no package called ‘writexl’&#39;</span></span>
 <span id="cb4-2"><a href></a><span class="do">## install.packages(&quot;writexl&quot;) </span></span>
 <span id="cb4-3"><a href></a><span class="fu">library</span>(writexl) </span>
-<span id="cb4-4"><a href></a><span class="fu">write_xlsx</span>(res_table_opg_1, <span class="st">&quot;table_opg_1.xlsx&quot;</span>) <span class="do">## filen gemmes i samme mappe som .Rmd-filen</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-4"><a href></a><span class="fu">write_xlsx</span>(<span class="fu">as.data.frame</span>(res_table_opg_1), <span class="st">&quot;table_opg_1.xlsx&quot;</span>) <span class="do">## filen gemmes i samme mappe som .Rmd-filen</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <ul>
 <li>Kan også <strong>knitte</strong> jeres dokumentet og så kopiere den relevante del af tabellen ind. Dette kræver dog, at alt jeres kode kan køres uden fejl.</li>
@@ -1853,20 +1857,20 @@ text-indent: 25px;
 <span id="cb5-3"><a href></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb5-4"><a href></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="fu">c</span>(<span class="st">&quot;Summ_beskaeft_2009&quot;</span>, <span class="st">&quot;Summ_beskaeft_2019&quot;</span>), <span class="at">decimals =</span> <span class="dv">1</span>, <span class="at">locale =</span> <span class="st">&quot;da&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="kpzbnfyzjb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#kpzbnfyzjb table {
+<div id="bpnxavlwos" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bpnxavlwos table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#kpzbnfyzjb thead, #kpzbnfyzjb tbody, #kpzbnfyzjb tfoot, #kpzbnfyzjb tr, #kpzbnfyzjb td, #kpzbnfyzjb th {
+#bpnxavlwos thead, #bpnxavlwos tbody, #bpnxavlwos tfoot, #bpnxavlwos tr, #bpnxavlwos td, #bpnxavlwos th {
 border-style: none;
 }
-#kpzbnfyzjb p {
+#bpnxavlwos p {
 margin: 0;
 padding: 0;
 }
-#kpzbnfyzjb .gt_table {
+#bpnxavlwos .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -1891,11 +1895,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#kpzbnfyzjb .gt_caption {
+#bpnxavlwos .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#kpzbnfyzjb .gt_title {
+#bpnxavlwos .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -1906,7 +1910,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#kpzbnfyzjb .gt_subtitle {
+#bpnxavlwos .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -1917,7 +1921,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#kpzbnfyzjb .gt_heading {
+#bpnxavlwos .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -1928,12 +1932,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#kpzbnfyzjb .gt_bottom_border {
+#bpnxavlwos .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#kpzbnfyzjb .gt_col_headings {
+#bpnxavlwos .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -1947,7 +1951,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#kpzbnfyzjb .gt_col_heading {
+#bpnxavlwos .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -1966,7 +1970,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#kpzbnfyzjb .gt_column_spanner_outer {
+#bpnxavlwos .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -1977,13 +1981,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#kpzbnfyzjb .gt_column_spanner_outer:first-child {
+#bpnxavlwos .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#kpzbnfyzjb .gt_column_spanner_outer:last-child {
+#bpnxavlwos .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#kpzbnfyzjb .gt_column_spanner {
+#bpnxavlwos .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -1994,10 +1998,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#kpzbnfyzjb .gt_spanner_row {
+#bpnxavlwos .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#kpzbnfyzjb .gt_group_heading {
+#bpnxavlwos .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2022,7 +2026,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#kpzbnfyzjb .gt_empty_group_heading {
+#bpnxavlwos .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -2036,13 +2040,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#kpzbnfyzjb .gt_from_md > :first-child {
+#bpnxavlwos .gt_from_md > :first-child {
 margin-top: 0;
 }
-#kpzbnfyzjb .gt_from_md > :last-child {
+#bpnxavlwos .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#kpzbnfyzjb .gt_row {
+#bpnxavlwos .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2060,7 +2064,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#kpzbnfyzjb .gt_stub {
+#bpnxavlwos .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -2072,7 +2076,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#kpzbnfyzjb .gt_stub_row_group {
+#bpnxavlwos .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -2085,13 +2089,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#kpzbnfyzjb .gt_row_group_first td {
+#bpnxavlwos .gt_row_group_first td {
 border-top-width: 2px;
 }
-#kpzbnfyzjb .gt_row_group_first th {
+#bpnxavlwos .gt_row_group_first th {
 border-top-width: 2px;
 }
-#kpzbnfyzjb .gt_summary_row {
+#bpnxavlwos .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -2100,14 +2104,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#kpzbnfyzjb .gt_first_summary_row {
+#bpnxavlwos .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#kpzbnfyzjb .gt_first_summary_row.thick {
+#bpnxavlwos .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#kpzbnfyzjb .gt_last_summary_row {
+#bpnxavlwos .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2116,7 +2120,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#kpzbnfyzjb .gt_grand_summary_row {
+#bpnxavlwos .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -2125,7 +2129,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#kpzbnfyzjb .gt_first_grand_summary_row {
+#bpnxavlwos .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2134,7 +2138,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#kpzbnfyzjb .gt_last_grand_summary_row_top {
+#bpnxavlwos .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2143,10 +2147,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#kpzbnfyzjb .gt_striped {
+#bpnxavlwos .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#kpzbnfyzjb .gt_table_body {
+#bpnxavlwos .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -2154,7 +2158,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#kpzbnfyzjb .gt_footnotes {
+#bpnxavlwos .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -2167,7 +2171,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#kpzbnfyzjb .gt_footnote {
+#bpnxavlwos .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -2175,7 +2179,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#kpzbnfyzjb .gt_sourcenotes {
+#bpnxavlwos .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -2188,57 +2192,57 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#kpzbnfyzjb .gt_sourcenote {
+#bpnxavlwos .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#kpzbnfyzjb .gt_left {
+#bpnxavlwos .gt_left {
 text-align: left;
 }
-#kpzbnfyzjb .gt_center {
+#bpnxavlwos .gt_center {
 text-align: center;
 }
-#kpzbnfyzjb .gt_right {
+#bpnxavlwos .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#kpzbnfyzjb .gt_font_normal {
+#bpnxavlwos .gt_font_normal {
 font-weight: normal;
 }
-#kpzbnfyzjb .gt_font_bold {
+#bpnxavlwos .gt_font_bold {
 font-weight: bold;
 }
-#kpzbnfyzjb .gt_font_italic {
+#bpnxavlwos .gt_font_italic {
 font-style: italic;
 }
-#kpzbnfyzjb .gt_super {
+#bpnxavlwos .gt_super {
 font-size: 65%;
 }
-#kpzbnfyzjb .gt_footnote_marks {
+#bpnxavlwos .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#kpzbnfyzjb .gt_asterisk {
+#bpnxavlwos .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#kpzbnfyzjb .gt_indent_1 {
+#bpnxavlwos .gt_indent_1 {
 text-indent: 5px;
 }
-#kpzbnfyzjb .gt_indent_2 {
+#bpnxavlwos .gt_indent_2 {
 text-indent: 10px;
 }
-#kpzbnfyzjb .gt_indent_3 {
+#bpnxavlwos .gt_indent_3 {
 text-indent: 15px;
 }
-#kpzbnfyzjb .gt_indent_4 {
+#bpnxavlwos .gt_indent_4 {
 text-indent: 20px;
 }
-#kpzbnfyzjb .gt_indent_5 {
+#bpnxavlwos .gt_indent_5 {
 text-indent: 25px;
 }
 </style>
@@ -2274,42 +2278,39 @@ text-indent: 25px;
 <h2>R-kode til tabel</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href></a>beskaeft <span class="ot">&lt;-</span> arb_dat <span class="sc">%&gt;%</span></span>
-<span id="cb6-2"><a href></a>  <span class="fu">filter</span>(BRANCHE07 <span class="sc">==</span> <span class="st">&quot;TOT Erhverv i alt&quot;</span>, TID <span class="sc">==</span> <span class="st">&quot;2009&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-3"><a href></a>  <span class="fu">mutate</span>(<span class="at">BRANCHE07 =</span> <span class="fu">fct_recode</span>(BRANCHE07,</span>
-<span id="cb6-4"><a href></a>                                <span class="st">&quot;Beskæftige&quot;</span> <span class="ot">=</span> <span class="st">&quot;TOT Erhverv i alt&quot;</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb6-5"><a href></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="fu">c</span>(BRANCHE07, TID), <span class="at">values_from =</span> <span class="st">&quot;INDHOLD&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-6"><a href></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="st">&quot;KØN&quot;</span>, <span class="st">&quot;alder&quot;</span>)) </span>
-<span id="cb6-7"><a href></a></span>
-<span id="cb6-8"><a href></a>R <span class="ot">&lt;-</span> <span class="fu">hent_aldersfordeling</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">15</span>,<span class="fu">seq</span>(<span class="dv">19</span>,<span class="dv">64</span>,<span class="dv">5</span>),<span class="dv">66</span>,<span class="cn">Inf</span>), <span class="at">tid =</span> <span class="fu">c</span>(<span class="st">&quot;2009&quot;</span>,<span class="st">&quot;2019&quot;</span>), køn <span class="ot">=</span> <span class="st">&quot;mænd&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb6-9"><a href></a>  <span class="fu">rename</span>(<span class="at">Risikotid =</span> R, <span class="at">Aldersfordeling =</span> V)  <span class="sc">%&gt;%</span> </span>
-<span id="cb6-10"><a href></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> TID, <span class="at">values_from =</span> <span class="fu">c</span>(<span class="st">&quot;Risikotid&quot;</span>, <span class="st">&quot;Aldersfordeling&quot;</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-11"><a href></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="st">&quot;KØN&quot;</span>, <span class="st">&quot;OMRÅDE&quot;</span>, <span class="st">&quot;aldersinterval&quot;</span>)) </span>
-<span id="cb6-12"><a href></a>table_opg_2 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(beskaeft, R) <span class="sc">%&gt;%</span>  <span class="fu">mutate</span>(Beskæftigelsesrate <span class="ot">=</span> Beskæftige_2009<span class="sc">/</span>Risikotid_2009)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-2"><a href></a>  <span class="fu">filter</span>(BRANCHE07 <span class="sc">==</span> <span class="st">&quot;Beskæftigede&quot;</span>, TID <span class="sc">==</span> <span class="st">&quot;2009&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-3"><a href></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> <span class="fu">c</span>(BRANCHE07, TID), <span class="at">values_from =</span> <span class="st">&quot;INDHOLD&quot;</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-4"><a href></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="st">&quot;KØN&quot;</span>, <span class="st">&quot;alder&quot;</span>)) </span>
+<span id="cb6-5"><a href></a></span>
+<span id="cb6-6"><a href></a>R <span class="ot">&lt;-</span> <span class="fu">hent_aldersfordeling</span>(<span class="at">breaks =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">15</span>,<span class="fu">seq</span>(<span class="dv">19</span>,<span class="dv">64</span>,<span class="dv">5</span>),<span class="dv">66</span>,<span class="cn">Inf</span>), <span class="at">tid =</span> <span class="fu">c</span>(<span class="st">&quot;2009&quot;</span>,<span class="st">&quot;2019&quot;</span>), køn <span class="ot">=</span> <span class="st">&quot;mænd&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb6-7"><a href></a>  <span class="fu">rename</span>(<span class="at">Risikotid =</span> R, <span class="at">Aldersfordeling =</span> V)  <span class="sc">%&gt;%</span> </span>
+<span id="cb6-8"><a href></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> TID, <span class="at">values_from =</span> <span class="fu">c</span>(<span class="st">&quot;Risikotid&quot;</span>, <span class="st">&quot;Aldersfordeling&quot;</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-9"><a href></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="fu">c</span>(<span class="st">&quot;KØN&quot;</span>, <span class="st">&quot;OMRÅDE&quot;</span>, <span class="st">&quot;aldersinterval&quot;</span>)) </span>
+<span id="cb6-10"><a href></a>table_opg_2 <span class="ot">&lt;-</span> <span class="fu">cbind</span>(beskaeft, R) <span class="sc">%&gt;%</span>  <span class="fu">mutate</span>(Beskæftigelsesrate <span class="ot">=</span> Beskæftigede_2009<span class="sc">/</span>Risikotid_2009)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="tabel" class="slide level2" style="font-size: 70%;">
+<section id="tabel-1" class="slide level2" style="font-size: 70%;">
 <h2>Tabel</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href></a>table_opg_2 <span class="sc">%&gt;%</span> </span>
-<span id="cb7-2"><a href></a>  <span class="fu">rename</span>(<span class="st">&quot;Alder&quot;</span> <span class="ot">=</span> ALDER) <span class="sc">%&gt;%</span></span>
-<span id="cb7-3"><a href></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb7-4"><a href></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="fu">c</span>(<span class="st">&quot;Beskæftige_2009&quot;</span>, <span class="st">&quot;Risikotid_2009&quot;</span>, <span class="st">&quot;Risikotid_2019&quot;</span>), <span class="at">decimals =</span> <span class="dv">0</span>, <span class="at">locale =</span> <span class="st">&quot;da&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-5"><a href></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="fu">c</span>(<span class="st">&quot;Aldersfordeling_2009&quot;</span>, <span class="st">&quot;Aldersfordeling_2019&quot;</span>, <span class="st">&quot;Beskæftigelsesrate&quot;</span>), <span class="at">decimals =</span> <span class="dv">2</span>, <span class="at">locale =</span> <span class="st">&quot;da&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-2"><a href></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb7-3"><a href></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="fu">c</span>(<span class="st">&quot;Beskæftigede_2009&quot;</span>, <span class="st">&quot;Risikotid_2009&quot;</span>, <span class="st">&quot;Risikotid_2019&quot;</span>), <span class="at">decimals =</span> <span class="dv">0</span>, <span class="at">locale =</span> <span class="st">&quot;da&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-4"><a href></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="fu">c</span>(<span class="st">&quot;Aldersfordeling_2009&quot;</span>, <span class="st">&quot;Aldersfordeling_2019&quot;</span>, <span class="st">&quot;Beskæftigelsesrate&quot;</span>), <span class="at">decimals =</span> <span class="dv">2</span>, <span class="at">locale =</span> <span class="st">&quot;da&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="lkmkhrtkfo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lkmkhrtkfo table {
+<div id="slqzbzklbm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#slqzbzklbm table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#lkmkhrtkfo thead, #lkmkhrtkfo tbody, #lkmkhrtkfo tfoot, #lkmkhrtkfo tr, #lkmkhrtkfo td, #lkmkhrtkfo th {
+#slqzbzklbm thead, #slqzbzklbm tbody, #slqzbzklbm tfoot, #slqzbzklbm tr, #slqzbzklbm td, #slqzbzklbm th {
 border-style: none;
 }
-#lkmkhrtkfo p {
+#slqzbzklbm p {
 margin: 0;
 padding: 0;
 }
-#lkmkhrtkfo .gt_table {
+#slqzbzklbm .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -2334,11 +2335,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#lkmkhrtkfo .gt_caption {
+#slqzbzklbm .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#lkmkhrtkfo .gt_title {
+#slqzbzklbm .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -2349,7 +2350,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#lkmkhrtkfo .gt_subtitle {
+#slqzbzklbm .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -2360,7 +2361,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#lkmkhrtkfo .gt_heading {
+#slqzbzklbm .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -2371,12 +2372,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#lkmkhrtkfo .gt_bottom_border {
+#slqzbzklbm .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#lkmkhrtkfo .gt_col_headings {
+#slqzbzklbm .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -2390,7 +2391,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#lkmkhrtkfo .gt_col_heading {
+#slqzbzklbm .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -2409,7 +2410,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#lkmkhrtkfo .gt_column_spanner_outer {
+#slqzbzklbm .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -2420,13 +2421,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#lkmkhrtkfo .gt_column_spanner_outer:first-child {
+#slqzbzklbm .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#lkmkhrtkfo .gt_column_spanner_outer:last-child {
+#slqzbzklbm .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#lkmkhrtkfo .gt_column_spanner {
+#slqzbzklbm .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -2437,10 +2438,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#lkmkhrtkfo .gt_spanner_row {
+#slqzbzklbm .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#lkmkhrtkfo .gt_group_heading {
+#slqzbzklbm .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2465,7 +2466,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#lkmkhrtkfo .gt_empty_group_heading {
+#slqzbzklbm .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -2479,13 +2480,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#lkmkhrtkfo .gt_from_md > :first-child {
+#slqzbzklbm .gt_from_md > :first-child {
 margin-top: 0;
 }
-#lkmkhrtkfo .gt_from_md > :last-child {
+#slqzbzklbm .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#lkmkhrtkfo .gt_row {
+#slqzbzklbm .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2503,7 +2504,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#lkmkhrtkfo .gt_stub {
+#slqzbzklbm .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -2515,7 +2516,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#lkmkhrtkfo .gt_stub_row_group {
+#slqzbzklbm .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -2528,13 +2529,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#lkmkhrtkfo .gt_row_group_first td {
+#slqzbzklbm .gt_row_group_first td {
 border-top-width: 2px;
 }
-#lkmkhrtkfo .gt_row_group_first th {
+#slqzbzklbm .gt_row_group_first th {
 border-top-width: 2px;
 }
-#lkmkhrtkfo .gt_summary_row {
+#slqzbzklbm .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -2543,14 +2544,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#lkmkhrtkfo .gt_first_summary_row {
+#slqzbzklbm .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#lkmkhrtkfo .gt_first_summary_row.thick {
+#slqzbzklbm .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#lkmkhrtkfo .gt_last_summary_row {
+#slqzbzklbm .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2559,7 +2560,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#lkmkhrtkfo .gt_grand_summary_row {
+#slqzbzklbm .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -2568,7 +2569,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#lkmkhrtkfo .gt_first_grand_summary_row {
+#slqzbzklbm .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2577,7 +2578,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#lkmkhrtkfo .gt_last_grand_summary_row_top {
+#slqzbzklbm .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2586,10 +2587,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#lkmkhrtkfo .gt_striped {
+#slqzbzklbm .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#lkmkhrtkfo .gt_table_body {
+#slqzbzklbm .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -2597,7 +2598,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#lkmkhrtkfo .gt_footnotes {
+#slqzbzklbm .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -2610,7 +2611,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#lkmkhrtkfo .gt_footnote {
+#slqzbzklbm .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -2618,7 +2619,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#lkmkhrtkfo .gt_sourcenotes {
+#slqzbzklbm .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -2631,57 +2632,57 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#lkmkhrtkfo .gt_sourcenote {
+#slqzbzklbm .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#lkmkhrtkfo .gt_left {
+#slqzbzklbm .gt_left {
 text-align: left;
 }
-#lkmkhrtkfo .gt_center {
+#slqzbzklbm .gt_center {
 text-align: center;
 }
-#lkmkhrtkfo .gt_right {
+#slqzbzklbm .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#lkmkhrtkfo .gt_font_normal {
+#slqzbzklbm .gt_font_normal {
 font-weight: normal;
 }
-#lkmkhrtkfo .gt_font_bold {
+#slqzbzklbm .gt_font_bold {
 font-weight: bold;
 }
-#lkmkhrtkfo .gt_font_italic {
+#slqzbzklbm .gt_font_italic {
 font-style: italic;
 }
-#lkmkhrtkfo .gt_super {
+#slqzbzklbm .gt_super {
 font-size: 65%;
 }
-#lkmkhrtkfo .gt_footnote_marks {
+#slqzbzklbm .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#lkmkhrtkfo .gt_asterisk {
+#slqzbzklbm .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#lkmkhrtkfo .gt_indent_1 {
+#slqzbzklbm .gt_indent_1 {
 text-indent: 5px;
 }
-#lkmkhrtkfo .gt_indent_2 {
+#slqzbzklbm .gt_indent_2 {
 text-indent: 10px;
 }
-#lkmkhrtkfo .gt_indent_3 {
+#slqzbzklbm .gt_indent_3 {
 text-indent: 15px;
 }
-#lkmkhrtkfo .gt_indent_4 {
+#slqzbzklbm .gt_indent_4 {
 text-indent: 20px;
 }
-#lkmkhrtkfo .gt_indent_5 {
+#slqzbzklbm .gt_indent_5 {
 text-indent: 25px;
 }
 </style>
@@ -2689,8 +2690,9 @@ text-indent: 25px;
 <table class="gt_table" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
 <tr class="header gt_col_headings">
+<th id="ALDER" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">ALDER</th>
 <th id="Alder" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Alder</th>
-<th id="Beskæftige_2009" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Beskæftige_2009</th>
+<th id="Beskæftigede_2009" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Beskæftigede_2009</th>
 <th id="Risikotid_2009" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Risikotid_2009</th>
 <th id="Risikotid_2019" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Risikotid_2019</th>
 <th id="Aldersfordeling_2009" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">Aldersfordeling_2009</th>
@@ -2700,8 +2702,9 @@ text-indent: 25px;
 </thead>
 <tbody class="gt_table_body">
 <tr class="odd">
+<td class="gt_row gt_left" headers="ALDER">Under 16 år</td>
 <td class="gt_row gt_left" headers="Alder">Under 16 år</td>
-<td class="gt_row gt_right" headers="Beskæftige_2009">24.740</td>
+<td class="gt_row gt_right" headers="Beskæftigede_2009">24.740</td>
 <td class="gt_row gt_right" headers="Risikotid_2009">550.911</td>
 <td class="gt_row gt_right" headers="Risikotid_2019">524.708</td>
 <td class="gt_row gt_right" headers="Aldersfordeling_2009">0,20</td>
@@ -2709,8 +2712,9 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigelsesrate">0,04</td>
 </tr>
 <tr class="even">
+<td class="gt_row gt_left" headers="ALDER">16-19 år</td>
 <td class="gt_row gt_left" headers="Alder">16-19 år</td>
-<td class="gt_row gt_right" headers="Beskæftige_2009">71.563</td>
+<td class="gt_row gt_right" headers="Beskæftigede_2009">71.563</td>
 <td class="gt_row gt_right" headers="Risikotid_2009">141.081</td>
 <td class="gt_row gt_right" headers="Risikotid_2019">140.427</td>
 <td class="gt_row gt_right" headers="Aldersfordeling_2009">0,05</td>
@@ -2718,8 +2722,9 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigelsesrate">0,51</td>
 </tr>
 <tr class="odd">
+<td class="gt_row gt_left" headers="ALDER">20-24 år</td>
 <td class="gt_row gt_left" headers="Alder">20-24 år</td>
-<td class="gt_row gt_right" headers="Beskæftige_2009">107.697</td>
+<td class="gt_row gt_right" headers="Beskæftigede_2009">107.697</td>
 <td class="gt_row gt_right" headers="Risikotid_2009">162.874</td>
 <td class="gt_row gt_right" headers="Risikotid_2019">196.767</td>
 <td class="gt_row gt_right" headers="Aldersfordeling_2009">0,06</td>
@@ -2727,8 +2732,9 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigelsesrate">0,66</td>
 </tr>
 <tr class="even">
+<td class="gt_row gt_left" headers="ALDER">25-29 år</td>
 <td class="gt_row gt_left" headers="Alder">25-29 år</td>
-<td class="gt_row gt_right" headers="Beskæftige_2009">116.111</td>
+<td class="gt_row gt_right" headers="Beskæftigede_2009">116.111</td>
 <td class="gt_row gt_right" headers="Risikotid_2009">156.529</td>
 <td class="gt_row gt_right" headers="Risikotid_2019">203.166</td>
 <td class="gt_row gt_right" headers="Aldersfordeling_2009">0,06</td>
@@ -2736,8 +2742,9 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigelsesrate">0,74</td>
 </tr>
 <tr class="odd">
+<td class="gt_row gt_left" headers="ALDER">30-34 år</td>
 <td class="gt_row gt_left" headers="Alder">30-34 år</td>
-<td class="gt_row gt_right" headers="Beskæftige_2009">145.179</td>
+<td class="gt_row gt_right" headers="Beskæftigede_2009">145.179</td>
 <td class="gt_row gt_right" headers="Risikotid_2009">179.434</td>
 <td class="gt_row gt_right" headers="Risikotid_2019">180.785</td>
 <td class="gt_row gt_right" headers="Aldersfordeling_2009">0,07</td>
@@ -2745,8 +2752,9 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigelsesrate">0,81</td>
 </tr>
 <tr class="even">
+<td class="gt_row gt_left" headers="ALDER">35-39 år</td>
 <td class="gt_row gt_left" headers="Alder">35-39 år</td>
-<td class="gt_row gt_right" headers="Beskæftige_2009">162.849</td>
+<td class="gt_row gt_right" headers="Beskæftigede_2009">162.849</td>
 <td class="gt_row gt_right" headers="Risikotid_2009">194.738</td>
 <td class="gt_row gt_right" headers="Risikotid_2019">167.049</td>
 <td class="gt_row gt_right" headers="Aldersfordeling_2009">0,07</td>
@@ -2754,8 +2762,9 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigelsesrate">0,84</td>
 </tr>
 <tr class="odd">
+<td class="gt_row gt_left" headers="ALDER">40-44 år</td>
 <td class="gt_row gt_left" headers="Alder">40-44 år</td>
-<td class="gt_row gt_right" headers="Beskæftige_2009">175.114</td>
+<td class="gt_row gt_right" headers="Beskæftigede_2009">175.114</td>
 <td class="gt_row gt_right" headers="Risikotid_2009">213.412</td>
 <td class="gt_row gt_right" headers="Risikotid_2019">184.893</td>
 <td class="gt_row gt_right" headers="Aldersfordeling_2009">0,08</td>
@@ -2763,8 +2772,9 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigelsesrate">0,82</td>
 </tr>
 <tr class="even">
+<td class="gt_row gt_left" headers="ALDER">45-49 år</td>
 <td class="gt_row gt_left" headers="Alder">45-49 år</td>
-<td class="gt_row gt_right" headers="Beskæftige_2009">165.113</td>
+<td class="gt_row gt_right" headers="Beskæftigede_2009">165.113</td>
 <td class="gt_row gt_right" headers="Risikotid_2009">199.511</td>
 <td class="gt_row gt_right" headers="Risikotid_2019">196.029</td>
 <td class="gt_row gt_right" headers="Aldersfordeling_2009">0,07</td>
@@ -2772,8 +2782,9 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigelsesrate">0,83</td>
 </tr>
 <tr class="odd">
+<td class="gt_row gt_left" headers="ALDER">50-54 år</td>
 <td class="gt_row gt_left" headers="Alder">50-54 år</td>
-<td class="gt_row gt_right" headers="Beskæftige_2009">146.582</td>
+<td class="gt_row gt_right" headers="Beskæftigede_2009">146.582</td>
 <td class="gt_row gt_right" headers="Risikotid_2009">182.917</td>
 <td class="gt_row gt_right" headers="Risikotid_2019">210.355</td>
 <td class="gt_row gt_right" headers="Aldersfordeling_2009">0,07</td>
@@ -2781,8 +2792,9 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigelsesrate">0,80</td>
 </tr>
 <tr class="even">
+<td class="gt_row gt_left" headers="ALDER">55-59 år</td>
 <td class="gt_row gt_left" headers="Alder">55-59 år</td>
-<td class="gt_row gt_right" headers="Beskæftige_2009">135.371</td>
+<td class="gt_row gt_right" headers="Beskæftigede_2009">135.371</td>
 <td class="gt_row gt_right" headers="Risikotid_2009">175.035</td>
 <td class="gt_row gt_right" headers="Risikotid_2019">191.709</td>
 <td class="gt_row gt_right" headers="Aldersfordeling_2009">0,06</td>
@@ -2790,8 +2802,9 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigelsesrate">0,77</td>
 </tr>
 <tr class="odd">
+<td class="gt_row gt_left" headers="ALDER">60-64 år</td>
 <td class="gt_row gt_left" headers="Alder">60-64 år</td>
-<td class="gt_row gt_right" headers="Beskæftige_2009">98.901</td>
+<td class="gt_row gt_right" headers="Beskæftigede_2009">98.901</td>
 <td class="gt_row gt_right" headers="Risikotid_2009">187.389</td>
 <td class="gt_row gt_right" headers="Risikotid_2019">170.076</td>
 <td class="gt_row gt_right" headers="Aldersfordeling_2009">0,07</td>
@@ -2799,8 +2812,9 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigelsesrate">0,53</td>
 </tr>
 <tr class="even">
+<td class="gt_row gt_left" headers="ALDER">65-66 år</td>
 <td class="gt_row gt_left" headers="Alder">65-66 år</td>
-<td class="gt_row gt_right" headers="Beskæftige_2009">19.892</td>
+<td class="gt_row gt_right" headers="Beskæftigede_2009">19.892</td>
 <td class="gt_row gt_right" headers="Risikotid_2009">64.591</td>
 <td class="gt_row gt_right" headers="Risikotid_2019">64.339</td>
 <td class="gt_row gt_right" headers="Aldersfordeling_2009">0,02</td>
@@ -2808,8 +2822,9 @@ text-indent: 25px;
 <td class="gt_row gt_right" headers="Beskæftigelsesrate">0,31</td>
 </tr>
 <tr class="odd">
+<td class="gt_row gt_left" headers="ALDER">67 år og derover</td>
 <td class="gt_row gt_left" headers="Alder">67 år og derover</td>
-<td class="gt_row gt_right" headers="Beskæftige_2009">41.673</td>
+<td class="gt_row gt_right" headers="Beskæftigede_2009">41.673</td>
 <td class="gt_row gt_right" headers="Risikotid_2009">327.561</td>
 <td class="gt_row gt_right" headers="Risikotid_2019">463.653</td>
 <td class="gt_row gt_right" headers="Aldersfordeling_2009">0,12</td>
@@ -2823,24 +2838,24 @@ text-indent: 25px;
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href></a>table_opg_2 <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="st">&quot;Summarisk beskaeftigelsesrate&quot;</span> <span class="ot">=</span> <span class="fu">sum</span>(Beskæftige_2009)<span class="sc">/</span><span class="fu">sum</span>(Risikotid_2009)<span class="sc">*</span><span class="dv">1000</span>, <span class="st">&quot;Standardiseret beskaeftigelsesrate&quot;</span> <span class="ot">=</span> <span class="fu">sum</span>(Beskæftigelsesrate <span class="sc">*</span> Aldersfordeling_2019)<span class="sc">*</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href></a>table_opg_2 <span class="sc">%&gt;%</span> <span class="fu">summarize</span>(<span class="st">&quot;Summarisk beskaeftigelsesrate&quot;</span> <span class="ot">=</span> <span class="fu">sum</span>(Beskæftigede_2009)<span class="sc">/</span><span class="fu">sum</span>(Risikotid_2009)<span class="sc">*</span><span class="dv">1000</span>, <span class="st">&quot;Standardiseret beskaeftigelsesrate&quot;</span> <span class="ot">=</span> <span class="fu">sum</span>(Beskæftigelsesrate <span class="sc">*</span> Aldersfordeling_2019)<span class="sc">*</span><span class="dv">1000</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb8-2"><a href></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
 <span id="cb8-3"><a href></a>  <span class="fu">fmt_number</span>(<span class="at">columns =</span> <span class="fu">c</span>(<span class="st">&quot;Summarisk beskaeftigelsesrate&quot;</span>, <span class="st">&quot;Standardiseret beskaeftigelsesrate&quot;</span>), <span class="at">decimals =</span> <span class="dv">1</span>, <span class="at">locale =</span> <span class="st">&quot;da&quot;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="roajgwojko" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#roajgwojko table {
+<div id="pfobrhnvhx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#pfobrhnvhx table {
 font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
 -webkit-font-smoothing: antialiased;
 -moz-osx-font-smoothing: grayscale;
 }
-#roajgwojko thead, #roajgwojko tbody, #roajgwojko tfoot, #roajgwojko tr, #roajgwojko td, #roajgwojko th {
+#pfobrhnvhx thead, #pfobrhnvhx tbody, #pfobrhnvhx tfoot, #pfobrhnvhx tr, #pfobrhnvhx td, #pfobrhnvhx th {
 border-style: none;
 }
-#roajgwojko p {
+#pfobrhnvhx p {
 margin: 0;
 padding: 0;
 }
-#roajgwojko .gt_table {
+#pfobrhnvhx .gt_table {
 display: table;
 border-collapse: collapse;
 line-height: normal;
@@ -2865,11 +2880,11 @@ border-left-style: none;
 border-left-width: 2px;
 border-left-color: #D3D3D3;
 }
-#roajgwojko .gt_caption {
+#pfobrhnvhx .gt_caption {
 padding-top: 4px;
 padding-bottom: 4px;
 }
-#roajgwojko .gt_title {
+#pfobrhnvhx .gt_title {
 color: #333333;
 font-size: 125%;
 font-weight: initial;
@@ -2880,7 +2895,7 @@ padding-right: 5px;
 border-bottom-color: #FFFFFF;
 border-bottom-width: 0;
 }
-#roajgwojko .gt_subtitle {
+#pfobrhnvhx .gt_subtitle {
 color: #333333;
 font-size: 85%;
 font-weight: initial;
@@ -2891,7 +2906,7 @@ padding-right: 5px;
 border-top-color: #FFFFFF;
 border-top-width: 0;
 }
-#roajgwojko .gt_heading {
+#pfobrhnvhx .gt_heading {
 background-color: #FFFFFF;
 text-align: center;
 border-bottom-color: #FFFFFF;
@@ -2902,12 +2917,12 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#roajgwojko .gt_bottom_border {
+#pfobrhnvhx .gt_bottom_border {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#roajgwojko .gt_col_headings {
+#pfobrhnvhx .gt_col_headings {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -2921,7 +2936,7 @@ border-right-style: none;
 border-right-width: 1px;
 border-right-color: #D3D3D3;
 }
-#roajgwojko .gt_col_heading {
+#pfobrhnvhx .gt_col_heading {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -2940,7 +2955,7 @@ padding-left: 5px;
 padding-right: 5px;
 overflow-x: hidden;
 }
-#roajgwojko .gt_column_spanner_outer {
+#pfobrhnvhx .gt_column_spanner_outer {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -2951,13 +2966,13 @@ padding-bottom: 0;
 padding-left: 4px;
 padding-right: 4px;
 }
-#roajgwojko .gt_column_spanner_outer:first-child {
+#pfobrhnvhx .gt_column_spanner_outer:first-child {
 padding-left: 0;
 }
-#roajgwojko .gt_column_spanner_outer:last-child {
+#pfobrhnvhx .gt_column_spanner_outer:last-child {
 padding-right: 0;
 }
-#roajgwojko .gt_column_spanner {
+#pfobrhnvhx .gt_column_spanner {
 border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
@@ -2968,10 +2983,10 @@ overflow-x: hidden;
 display: inline-block;
 width: 100%;
 }
-#roajgwojko .gt_spanner_row {
+#pfobrhnvhx .gt_spanner_row {
 border-bottom-style: hidden;
 }
-#roajgwojko .gt_group_heading {
+#pfobrhnvhx .gt_group_heading {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -2996,7 +3011,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 text-align: left;
 }
-#roajgwojko .gt_empty_group_heading {
+#pfobrhnvhx .gt_empty_group_heading {
 padding: 0.5px;
 color: #333333;
 background-color: #FFFFFF;
@@ -3010,13 +3025,13 @@ border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 vertical-align: middle;
 }
-#roajgwojko .gt_from_md > :first-child {
+#pfobrhnvhx .gt_from_md > :first-child {
 margin-top: 0;
 }
-#roajgwojko .gt_from_md > :last-child {
+#pfobrhnvhx .gt_from_md > :last-child {
 margin-bottom: 0;
 }
-#roajgwojko .gt_row {
+#pfobrhnvhx .gt_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3034,7 +3049,7 @@ border-right-color: #D3D3D3;
 vertical-align: middle;
 overflow-x: hidden;
 }
-#roajgwojko .gt_stub {
+#pfobrhnvhx .gt_stub {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3046,7 +3061,7 @@ border-right-color: #D3D3D3;
 padding-left: 5px;
 padding-right: 5px;
 }
-#roajgwojko .gt_stub_row_group {
+#pfobrhnvhx .gt_stub_row_group {
 color: #333333;
 background-color: #FFFFFF;
 font-size: 100%;
@@ -3059,13 +3074,13 @@ padding-left: 5px;
 padding-right: 5px;
 vertical-align: top;
 }
-#roajgwojko .gt_row_group_first td {
+#pfobrhnvhx .gt_row_group_first td {
 border-top-width: 2px;
 }
-#roajgwojko .gt_row_group_first th {
+#pfobrhnvhx .gt_row_group_first th {
 border-top-width: 2px;
 }
-#roajgwojko .gt_summary_row {
+#pfobrhnvhx .gt_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -3074,14 +3089,14 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#roajgwojko .gt_first_summary_row {
+#pfobrhnvhx .gt_first_summary_row {
 border-top-style: solid;
 border-top-color: #D3D3D3;
 }
-#roajgwojko .gt_first_summary_row.thick {
+#pfobrhnvhx .gt_first_summary_row.thick {
 border-top-width: 2px;
 }
-#roajgwojko .gt_last_summary_row {
+#pfobrhnvhx .gt_last_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3090,7 +3105,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#roajgwojko .gt_grand_summary_row {
+#pfobrhnvhx .gt_grand_summary_row {
 color: #333333;
 background-color: #FFFFFF;
 text-transform: inherit;
@@ -3099,7 +3114,7 @@ padding-bottom: 8px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#roajgwojko .gt_first_grand_summary_row {
+#pfobrhnvhx .gt_first_grand_summary_row {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3108,7 +3123,7 @@ border-top-style: double;
 border-top-width: 6px;
 border-top-color: #D3D3D3;
 }
-#roajgwojko .gt_last_grand_summary_row_top {
+#pfobrhnvhx .gt_last_grand_summary_row_top {
 padding-top: 8px;
 padding-bottom: 8px;
 padding-left: 5px;
@@ -3117,10 +3132,10 @@ border-bottom-style: double;
 border-bottom-width: 6px;
 border-bottom-color: #D3D3D3;
 }
-#roajgwojko .gt_striped {
+#pfobrhnvhx .gt_striped {
 background-color: rgba(128, 128, 128, 0.05);
 }
-#roajgwojko .gt_table_body {
+#pfobrhnvhx .gt_table_body {
 border-top-style: solid;
 border-top-width: 2px;
 border-top-color: #D3D3D3;
@@ -3128,7 +3143,7 @@ border-bottom-style: solid;
 border-bottom-width: 2px;
 border-bottom-color: #D3D3D3;
 }
-#roajgwojko .gt_footnotes {
+#pfobrhnvhx .gt_footnotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -3141,7 +3156,7 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#roajgwojko .gt_footnote {
+#pfobrhnvhx .gt_footnote {
 margin: 0px;
 font-size: 90%;
 padding-top: 4px;
@@ -3149,7 +3164,7 @@ padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#roajgwojko .gt_sourcenotes {
+#pfobrhnvhx .gt_sourcenotes {
 color: #333333;
 background-color: #FFFFFF;
 border-bottom-style: none;
@@ -3162,57 +3177,57 @@ border-right-style: none;
 border-right-width: 2px;
 border-right-color: #D3D3D3;
 }
-#roajgwojko .gt_sourcenote {
+#pfobrhnvhx .gt_sourcenote {
 font-size: 90%;
 padding-top: 4px;
 padding-bottom: 4px;
 padding-left: 5px;
 padding-right: 5px;
 }
-#roajgwojko .gt_left {
+#pfobrhnvhx .gt_left {
 text-align: left;
 }
-#roajgwojko .gt_center {
+#pfobrhnvhx .gt_center {
 text-align: center;
 }
-#roajgwojko .gt_right {
+#pfobrhnvhx .gt_right {
 text-align: right;
 font-variant-numeric: tabular-nums;
 }
-#roajgwojko .gt_font_normal {
+#pfobrhnvhx .gt_font_normal {
 font-weight: normal;
 }
-#roajgwojko .gt_font_bold {
+#pfobrhnvhx .gt_font_bold {
 font-weight: bold;
 }
-#roajgwojko .gt_font_italic {
+#pfobrhnvhx .gt_font_italic {
 font-style: italic;
 }
-#roajgwojko .gt_super {
+#pfobrhnvhx .gt_super {
 font-size: 65%;
 }
-#roajgwojko .gt_footnote_marks {
+#pfobrhnvhx .gt_footnote_marks {
 font-size: 75%;
 vertical-align: 0.4em;
 position: initial;
 }
-#roajgwojko .gt_asterisk {
+#pfobrhnvhx .gt_asterisk {
 font-size: 100%;
 vertical-align: 0;
 }
-#roajgwojko .gt_indent_1 {
+#pfobrhnvhx .gt_indent_1 {
 text-indent: 5px;
 }
-#roajgwojko .gt_indent_2 {
+#pfobrhnvhx .gt_indent_2 {
 text-indent: 10px;
 }
-#roajgwojko .gt_indent_3 {
+#pfobrhnvhx .gt_indent_3 {
 text-indent: 15px;
 }
-#roajgwojko .gt_indent_4 {
+#pfobrhnvhx .gt_indent_4 {
 text-indent: 20px;
 }
-#roajgwojko .gt_indent_5 {
+#pfobrhnvhx .gt_indent_5 {
 text-indent: 25px;
 }
 </style>

@@ -76,7 +76,7 @@ Beregn middellevetid i Bornholm og Hillerød kommune i 2010 og 2023.
 
 # Kode
 
-``` R
+``` r
 beregn_middellevetid(tid = c(2010,2020),
                      breaks = c(0:95,Inf),
                      område = c("Bornholm","Hillerød"),
@@ -140,4 +140,5 @@ Skriv en sammenhængende tekst hvor du rapporter forskelle og udvikling i alders
 
 # Diskussion
 
--   At fødselsraten er lav kan betyde, at der er flere ledige pladser i vuggestuer og børnehaver, hvilket er til fordel for flygtninge med børn i disse aldersgrupper. Færre børn =\> flere ledige pladser på skolerne. Omvendt er der nok ikke så mange arbejdsmuligheder som i Storkøbenhavn.
+-   At fødselsraten er lav kan betyde, at der er flere ledige pladser i vuggestuer og børnehaver, hvilket er til fordel for flygtninge med børn i disse aldersgrupper. Færre børn $\Rightarrow$ flere ledige pladser på skolerne. Omvendt er der nok ikke så mange arbejdsmuligheder som i Storkøbenhavn.
+-   Se skabelonbesvarelse på Absalon. 
