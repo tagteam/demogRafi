@@ -170,7 +170,7 @@ oplysninger om befolkningstal fra K12009, K12010, K12019 og
 K12020. Aldersfordelingen er angivet i procent. Beskæftigelsesraten
 måles som antallet af beskæftigede mænd pr. 1000 mænd i Danmark.
 
-I 2009 blev den samlede beskæftigelsesrate for mænd beregnet til 515,3
+I 2009 blev den samlede beskæftigelsesrate for mænd beregnet til 515,6
 beskæftigede mænd pr. 1000 mænd i Danmark. Den aldersstandardiserede
 beskæftigelsesrate for mænd i 2009 blev beregnet til 504,3
 beskæftigede mænd pr. 1000 mænd i Danmark. Den aldersstandardiserede
