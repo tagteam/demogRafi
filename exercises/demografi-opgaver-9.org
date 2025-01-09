@@ -28,10 +28,10 @@
 title: 'Demografi: opgaver kursusuge 9'
 output: word_document
 ---
-`{r setup}
+```{r setup}
 knitr::opts_knit$set(root.dir = "..")
 source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
-`
+```
 #+end_export
 
 * Opgave 1
@@ -51,6 +51,7 @@ Diskuter tidsudviklingen i branchen '85002 Gymnasier og erhvervsfaglige skoler'.
 
 #+ATTR_LATEX: :options otherkeywords={hent_fertilitetsrate_data}, deletekeywords={}
 #+BEGIN_SRC R  :results output raw drawer :exports (exercise-with-code) :session *R* :cache yes :eval (never-plain-export)
+options(OutDec = ",")
 ras <- hent_data("RAS300",
                  alder = "all",
                  Branche07 = c(85002,"TOT"),
@@ -69,7 +70,8 @@ table_opg_1
 *** Besvarelse
 
 #+ATTR_LATEX: :options otherkeywords={hent_fertilitetsrate_data}, deletekeywords={}
-#+BEGIN_SRC R  :results output raw drawer :exports (exercise-with-code) :session *R* :cache yes :eval (never-plain-export)
+#+BEGIN_SRC R  :results output raw drawer :exports (exercise-with-solutions) :session *R* :cache yes :eval (never-plain-export)
+options(OutDec = ",")
 ras <- hent_data("RAS300",
                  alder = "all",
                  Branche07 = c(85002,"TOT"),
@@ -77,14 +79,41 @@ ras <- hent_data("RAS300",
                  tid = c(2009,2019))
 table_opg_1 <- ras %>%
   mutate(BRANCHE07 = fct_recode(BRANCHE07,
-                                "Branche" = "1 Landbrug, skovbrug og fiskeri", 
+                                "Branche" = "85002 Gymnasier og erhvervsfaglige skoler", 
                                 "Beskæftigede" = "TOT Erhverv i alt")) %>%
   pivot_wider(names_from = c(BRANCHE07, TID), values_from = "INDHOLD") %>%
   mutate(Andel_2009 = Branche_2009/Beskæftigede_2009, Andel_2019 = Branche_2019/Beskæftigede_2019) %>%
-  select(ALDER, Beskæftigede_2009, Beskæftigede_2019, Branche_2009, Branche_2019, Andel_2009, Andel_2019) 
-table_opg_1
+  select(ALDER, Beskæftigede_2009, Beskæftigede_2019, Branche_2009, Branche_2019, Andel_2009, Andel_2019)
+# runde af
+table_opg_1 <- table_opg_1 %>% mutate(Andel_2009 = round(100*Andel_2009,2),Andel_2019 = round(100*Andel_2019,2))
+# bruger data.frame for danske decimaler (tibble spiller ikke med OutDec option)
+print(as.data.frame(table_opg_1))
 #+END_SRC
 
+#+RESULTS[(2024-04-22 12:43:45) 35c3933dafd858133bde85686c66a86dd153a9b9]:
+:results:
+ALDER Beskæftigede_2009 Beskæftigede_2019 Branche_2009 Branche_2019 Andel_2009 Andel_2019
+1       Under 16 år             24740             22122           68           47        0,3        0,2
+2          16-19 år             71563             71314          459          410        0,6        0,6
+3          20-24 år            107697            126536          762          695        0,7        0,6
+4          25-29 år            116111            151198         1158         1346        1,0        0,9
+5          30-34 år            145179            148717         2269         2066        1,6        1,4
+6          35-39 år            162849            140548         2586         2464        1,6        1,8
+7          40-44 år            175114            156953         2674         3123        1,5        2,0
+8          45-49 år            165113            168108         2746         3188        1,7        1,9
+9          50-54 år            146582            174168         3231         2993        2,2        1,7
+10         55-59 år            135371            157324         3811         2826        2,8        1,8
+11         60-64 år             98901            119847         2993         2668        3,0        2,2
+12         65-66 år             19892             26461          410          574        2,1        2,2
+13 67 år og derover             41673             73550          386          912        0,9        1,2
+:end:
+
+#+ATTR_LATEX: :options otherkeywords={hent_fertilitetsrate_data}, deletekeywords={}
+#+BEGIN_SRC R  :results output raw drawer :exports (exercise-with-solutions) :session *R* :cache yes :eval (never-plain-export)
+# andel 2009 og 2019
+table_opg_1 %>% summarize(Branche_andel_2009 = 1000*sum(Branche_2009)/sum(Beskæftigede_2009),
+                          Branche_andel_2019 = 1000*sum(Branche_2019)/sum(Beskæftigede_2019))
+#+END_SRC
 De specifikke andele for forskellige aldersgrupper i tabellen viser
 antallet af mænd pr. 1000 beskæftigede mænd i branchen Gymnasier og
 erhvervsfaglige skoler. I 2009 arbejdede 16,7 mænd i denne branche ud
@@ -118,6 +147,7 @@ summariske og den aldersstandardiserede beskæftigelsesrate.
 
 #+ATTR_LATEX: :options otherkeywords={hent_fertilitetsrate_data}, deletekeywords={}
 #+BEGIN_SRC R  :results output raw drawer :exports (exercise-with-code) :session *R* :cache yes :eval (never-plain-export)
+options(OutDec = ",")
 ras <- hent_data("RAS300",
                  alder = "all",
                  Branche07 = c(85002,"TOT"),
@@ -128,7 +158,8 @@ beskaeft <- ras %>%
   mutate(BRANCHE07 = fct_recode(BRANCHE07,
                                 "Beskæftige" = "TOT Erhverv i alt")) %>%
   pivot_wider(names_from = c(BRANCHE07, TID), values_from = "INDHOLD") %>% 
-  select(-c("KØN", "alder")) 
+  select(-c("KØN", "alder"))
+# data fra folk1a
 R <- hent_aldersfordeling(breaks = c(0,15,seq(19,64,5),66,Inf), tid = c("2009","2019"), køn = "mænd") %>%
   rename(Risikotid = R, Aldersfordeling = V)  %>% 
   pivot_wider(names_from = TID, values_from = c("Risikotid", "Aldersfordeling")) %>% 
@@ -142,7 +173,8 @@ table_opg_2
 *** Besvarelse
 
 #+ATTR_LATEX: :options otherkeywords={hent_fertilitetsrate_data}, deletekeywords={}
-#+BEGIN_SRC R  :results output raw drawer :exports (exercise-with-code) :session *R* :cache yes :eval (never-plain-export)
+#+BEGIN_SRC R  :results output raw drawer :exports (exercise-with-solutions) :session *R* :cache yes :eval (never-plain-export)
+options(OutDec = ",")
 ras <- hent_data("RAS300",
                  alder = "all",
                  Branche07 = c(85002,"TOT"),
@@ -161,24 +193,52 @@ R <- hent_aldersfordeling(breaks = c(0,15,seq(19,64,5),66,Inf), tid = c("2009","
   select(-c("KØN", "OMRÅDE", "aldersinterval")) 
 # tabelform
 table_opg_2 <- cbind(beskaeft, R) %>%  mutate(Beskæftigelsesrate = Beskæftige_2009/Risikotid_2009)
-table_opg_2
-table_opg_2 %>% summarize("Summarisk beskaeftigelsesrate" = sum(Beskæftige_2009)/sum(Risikotid_2009), "Standardiseret beskaeftigelsesrate" = sum(Beskæftigelsesrate * Aldersfordeling_2019))
+# runde af
+table_opg_2 <- table_opg_2 %>% mutate(Aldersfordeling_2009 = round(Aldersfordeling_2009,2),
+                                      Aldersfordeling_2019 = round(Aldersfordeling_2019,2),
+                                      Beskæftigelsesrate = round(Beskæftigelsesrate,2))
+x <- table_opg_2 %>% summarize("Summarisk beskaeftigelsesrate" = 1000*sum(Beskæftige_2009)/sum(Risikotid_2009), "Standardiseret beskaeftigelsesrate" = 1000*sum(Beskæftigelsesrate * Aldersfordeling_2019))
+# bruger data.frame for danske decimaler (tibble spiller ikke med OutDec option)
+print(as.data.frame(table_opg_2))
+cat("\n\n")
+print(x)
 #+END_SRC
+
+#+RESULTS[(2024-04-22 12:48:23) bb036db24c2368dd4ae7fbf03b47e5f6b545316a]:
+:results:
+ALDER Beskæftige_2009 Risikotid_2009 Risikotid_2019 Aldersfordeling_2009 Aldersfordeling_2019 Beskæftigelsesrate
+1       Under 16 år           24740         550911         524708                 0,20                 0,18               0,04
+2          16-19 år           71563         141081         140427                 0,05                 0,05               0,51
+3          20-24 år          107697         162874         196767                 0,06                 0,07               0,66
+4          25-29 år          116111         156529         203166                 0,06                 0,07               0,74
+5          30-34 år          145179         179434         180785                 0,07                 0,06               0,81
+6          35-39 år          162849         194738         167049                 0,07                 0,06               0,84
+7          40-44 år          175114         213412         184893                 0,08                 0,06               0,82
+8          45-49 år          165113         199511         196029                 0,07                 0,07               0,83
+9          50-54 år          146582         182917         210355                 0,07                 0,07               0,80
+10         55-59 år          135371         175035         191709                 0,06                 0,07               0,77
+11         60-64 år           98901         187389         170076                 0,07                 0,06               0,53
+12         65-66 år           19892          64591          64339                 0,02                 0,02               0,31
+13 67 år og derover           41673         327561         463653                 0,12                 0,16               0,13
+
+Summarisk beskaeftigelsesrate Standardiseret beskaeftigelsesrate
+1                       515,641                              505,7
+:end:
 
 Risikotiden er beregnet ved hjælp af standardmetode 2 (trapez) og
 oplysninger om befolkningstal fra K12009, K12010, K12019 og
 K12020. Aldersfordelingen er angivet i procent. Beskæftigelsesraten
 måles som antallet af beskæftigede mænd pr. 1000 mænd i Danmark.
 
-I 2009 blev den samlede beskæftigelsesrate for mænd beregnet til 515,6
-beskæftigede mænd pr. 1000 mænd i Danmark. Den aldersstandardiserede
+I 2009 blev den summariske beskæftigelsesrate for mænd beregnet til 515,6
+beskæftigede mænd pr. 1000 mandlige personår i Danmark. Den aldersstandardiserede
 beskæftigelsesrate for mænd i 2009 blev beregnet til 504,3
-beskæftigede mænd pr. 1000 mænd i Danmark. Den aldersstandardiserede
-beskæftigelsesrate giver et udtryk for, hvordan den samlede
+beskæftigede mænd pr. 1000 mandlige personår i Danmark. Den aldersstandardiserede
+beskæftigelsesrate giver et udtryk for, hvordan den summariske
 beskæftigelsesrate i 2009 ville have været, hvis aldersfordelingen i
 befolkningen havde været som i 2019.
 
-Forskellen mellem den samlede og den aldersstandardiserede
+Forskellen mellem den summariske og den aldersstandardiserede
 beskæftigelsesrate skyldes sandsynligvis ændringer i befolkningens
 alderssammensætning mellem 2009 og 2019. Som det fremgår af tabellen,
 udgør ældre over 67 år en større del af befolkningen i 2019
