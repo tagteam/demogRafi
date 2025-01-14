@@ -7,7 +7,7 @@
 
 #+begin_export html
 ---
-title: 'Demografi: opgaver kursusuge1'
+title: 'Demografi: opgaver kursusuge 1'
 output: word_document
 ---
 ```{r setup}
@@ -30,8 +30,8 @@ gemt i projektmappen 'Demografi', eller i undermappen
 'R Markdown' sætter 'Evaluate chunks in directory:' til 'Project'.
 Bagefter kan du køre den R-kommando, som henter kursets R-funktioner (se
 kompendium kapitel 1 afnsit 3 og nedenfor). Hvis det fejler kan det være fordi du
-ikke har adgang til internettet? Eller fordi du ikke endnu har
-installeret alle R pakker som vi skal bruge i kurset?
+ikke har adgang til internettet eller fordi du ikke endnu har
+installeret alle R pakker som vi skal bruge i kurset.
 
 ** Hent R-funktioner  :rmd:ignore:
 
@@ -44,7 +44,7 @@ source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demof
 
 Svar på følgende spørgsmål ved at læse i kompendium kapitel 1:
 
-- Danner alle personer som spiser vegan i Danmark en kohorte? Begrund
+- Danner alle personer som spiser vegansk i Danmark en kohorte? Begrund
   dit svar.
 - Er Bornholms befolkning lukket eller åben? Begrund dit svar.
 - CPR er et administrativt register. Hvad kan det betyde for datakvaliteten af adresseoplysningerne?
@@ -56,11 +56,13 @@ Svar på følgende spørgsmål ved at læse i kompendium kapitel 1:
 
 ** Løsninger                                                :solution:ignore:
 
-- Nej, der mangler perioden (hvornår?). Begivenheden kan være at en
-  person beslutter at blive veganer (hvad) og det er personer i Danmark
-  (hvem). Det ville være en kohorte, hvis man fulgte alle veganer
-  i perioden 2000-2010.
-- Nej, fordi der sker ind- og udvandringer til Bornholms befolkning.
+- Det kan man godt argumentere for, men der mangler en afgivelse af 
+  perioden ("hvornår") for at kan kan definere kohorten. Begivenheden kan være, 
+  at en person beslutter at blive veganer ("hvad") og det er personer i Danmark
+  ("hvem"). Det ville være en kohorte, hvis man fulgte alle veganere
+  i perioden 2000-2010 fra det første tidspunkt i perioden, hvor er var veganere til 
+  de udtrådte af kohorten.
+- Nej, fordi fødsler,ind- og udvandringer påvirker Bornholms befolkning.
 - Hvis adresseoplysningernes rigtighed ikke er vigtigt for den
   administrative anvendelse, så er det ikke sikkert at oplysningerne er
   korrekte. Eksempler kan være hvis flytninger ikke bliver registeret af
@@ -68,15 +70,15 @@ Svar på følgende spørgsmål ved at læse i kompendium kapitel 1:
 - Den naturlige vækstrate er differencen mellem fødselsrate og
   mortalitetsrate, nettovandringsraten er differencen mellem ind- og
   udvandringsrater. Det er sværest at bestemme nettovandringsraten,
-  fordi man typisk ikke registrerer ind- og udvandringsdatoer præcise.
+  fordi man typisk ikke registrerer ind- og udvandringsdatoer præcist.
 - Forskellen skyldes forskellen i beregningen af middelfolketal. Med
   metode 1 bliver mortalitetsraten 14,3 per 1000 personår, med metode 2
   14,4 per 1000 personår.
 
 * Opgave 2
 
-Find svar til den følgende opgave i www.statistikbanken.dk under EMNET
-Borger. For hver komponent i den demografiske ligevægtsligning, angiv
+Find svar til den følgende opgave i www.statistikbanken.dk under emnet
+"Borgere". For hver komponent i den demografiske ligevægtsligning, angiv
 et register som viser tal efter område/kommune. Derudover, for hvert
 register angiv det første og sidste kalenderårstal.
 
@@ -93,7 +95,7 @@ register angiv det første og sidste kalenderårstal.
 
 Erstat alle steder hvor der står '0' i følgende R-kode (se filen
 demografi-opgaver-1.Rmd) med tal som du finder i
-www.statistikbanken.dk for 2019 under EMNE Borgere. Antal døde og
+www.statistikbanken.dk for 2019 under enmbet "Borgere". Antal døde og
 antal udvandringer angives som et negativt tal. Beregn bestand af mænd
 og kvinder i slutningen af 2019 som sum af antal fødsler, antal døde,
 antal indvandringer og antal udvandringer.
@@ -295,3 +297,30 @@ flytte hjemmefra. Der er flere 85 årige kvinder end 85 årige mænd i alle
 5 regioner. Det er nok fordi kvinder generelt lever længere end mænd.
 
  
+* Opgave 5
+
+I den første folketælling i 1787 boede der i Hovedstaden 92 701	personer, mens der i fjerde kvartal af
+2024 var 1 378 649 person bosat i Hovedstadsområdet. Find i www.statistikbanken.dk under emnet "Borgere" 
+tal på hvornår det samlede indbyggertal i Jylland oversteg 1 378 649. 
+
+Hvad er det for demografiske bevægelser, der er ansvarlige for udviklingen i København fra 1787 til i dag? Diskuter hvilke konsekvenser de 
+demografiske bevægelser kan have for bæredygtighed i Danmark i dag? Du kan tage udgangspunkt i "De danske målepunkter" for FNs bæredygtighedsmål  
+på Danmarks Statistisks hjemmeside. 
+
+** Løsninger                                                :solution:ignore:
+
+I tabellen BY1 findes befolkningstallet for Hovedstadsområdet i 2024. I tabellen FT kan indbyggertallet for Hovedstaden i 1987 
+Jylland findes. I 1916 er indbyggertallet for Jylland 1 253 809	og i 1921 er det 1 498 479, så det samlede 
+indbyggertal i Jylland overstiger antallet af indbygger i København i dag mellem år 2016 og 2021. 		
+
+Befolkningstallet stiger i København, som i Jylland, på grund af en generel befolkningsstigning. Stigningen skyldes et fødselsoverskud 
+frem til 1980'erne og derefter en stigende nettoindvandring. Fødselsoverskudet skyldes høje fertilitetsrater i meget af perioden, samt 
+stigende midellevetid, der øges fra 42,9 for mænd og 45,0 år for kvinder i 1840-1849 til 79,6 for mænd og 83,4 for kvinder i 2022-2023.
+København vokser kraftigt på grund af urbaniseringen.
+
+Den stigende befolkningsstørrelse og urbaniseringen kan have mange forskellige konsekvenser for bæredygtigheden i Danmark i dag. Mange af de
+mål for bæredygtighed som Danmark målet på er påvirket af befolkningsvækst og urbaniseringen. Fx kan man nævne, at urbaniseringen er drevet af 
+økonomiske muligheder, som historisk har været  tæt sammenhængende med målene om afskaffelse af fattigdom, sult of adgang i jobs (mål 1, 2 og 8), 
+samt af adgang  til uddannelse (mål 4). Befolkningens vækst øger alt andet lige belastningen af de naturlige ressourcer, særligt på grund af 
+den øgede velstand i Danmark hen over perioden. Man kunne også diskutere posivite (mindre miljøbelastning) og negative 
+(ulighed, stor boligbyrde) effekter af forsat urbanisering, ligesom de effekter aldring kan have på bæredygtighed også kan nævnes.     
