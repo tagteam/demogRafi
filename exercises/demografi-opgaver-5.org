@@ -52,11 +52,11 @@ source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demof
 ** Løsning                                                  :solution:ignore:
 *** Besvarelse
 
-1. Penicillin; bedre behandlinger generelt. 
-2. Pandemi; multiresistente bakterier, der gør at vi ikke kan behandle infektioner med penicillin. 
+1. Faldet i dødelige af smitsomme sygdomme pga. bedre hygiejne og antibiotika. Faldet i dødsfald fra ullykker på grund af bedre arbejdsmiljø. Fald i dødelighed fra kroniske sygdomme som fx hjertekarsygdomme som en konsekvens af ændrede levekår og bedre behandlingsmuligheder.        
+2. Pandemier af nye sygdomme som fx HIV, COVID-19 eller fugleinfluenza. Krig og naturkatastrofer. Øget forekomsten af fedme og andre "livsstilssygdomme".    
 3. 76,9 år. Middelrestlevetiden for en 7-årige pige bliver vist i afsnit 2.4 af Kapitel 3.
 4. Middelrestlevetiden ville være højere, hvis mortalitetsraterne fortsætter med at falde.
-5. Fordi mortalitetsraterne kommer til at ændre sig!
+5. Fordi mortalitetsraterne ikke kan antages at være konstante!
    # Den rigtige fortolkning er: 21,2 år er den forventede restlevetid for en 11-årig
    # dreng, hvis mortalitetsraterne fra 2008/2009 holder sig konstant i al fremtid. /Note:/ Det her giver ikke mening;
    # hvad har det med en 11-årig /dreng/ at gøre? 
@@ -70,6 +70,7 @@ Se på formlerne for overlevelsestavler i kompendiets Kapitel 3 og besvar følge
 5. [@5] Indsæt formlen for Chiang's a i det sidste aldersinterval (Kapitel 3, Formel K3.2) i 
         den centrale approksimationsformel (Kapitel 3, Formel K3.1) og simplificer 
         bagefter udtrykket for dødshyppigheden i tabellens sidste aldersinterval $q_{x^{max}}$.
+6. [@6] Det antages ofte, at stigningen i middellevetid over de sidste 200 år særligt skyldes faldet i spædbarnsdødeligheden. Hvorfor det en rimelig forklaring? Og hvornår kan faldet have konsekvenser for valget af værdien af Chiang's a i denne aldersgruppe?   
  
    
 ** Løsning                                                  :solution:ignore:
@@ -80,6 +81,7 @@ Se på formlerne for overlevelsestavler i kompendiets Kapitel 3 og besvar følge
 3. [@3] I starten af alderstrinnet er der 273 personer. Der dør 17 personer i intervallet. Dermed er der 256 tilbage i starten af det næste aldersinterval.
 4. [@6] Det gør vi fordi dødeligheden i det første leveår ikke er ligefordelt i intervallet, da de fleste dødsfæld sker indenfor den første måned efter fødslen. I de andre aldersintervaller er dødeligheden omtrent ligefordelt og dermed er ``midten af intervallet'' en god tilnærmelse af det gennemsnitlige antal år en person som døde i intervallet var død i intervallet.
 5. [@5] Resultatet er \(q_x^{max} = 1\) uanset værdien af \(M_x\). Dødshyppigheden i det sidste aldersinterval er 100\%. Det betyder, at den resterende del af tabelbefolkningen dør i det sidste aldersinterval.
+6. [@6] Middellevetiden er særligt påvirket af faldet i spødbarnsdødeligheden fordi dødsfald i denne aldergruppe medfører et større tab i leveår end fx et dødsfald ved alder 50. En del af forklaringen er også, at dødeligheden er lav efter første leveår og frem til midtlivet. Faldet i spædbarnsdødelighed har alene  konsekvenser for valget af værdien af Chiang's a hvis den gennemsnitlige levetid for dem, der dør i første leveår ændrer sig samtidig med, at spædbarnsdødeligheden falder.  
 
 * Opgave 3
 
