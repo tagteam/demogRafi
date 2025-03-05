@@ -230,3 +230,25 @@ Sjælland, hvilket giver god mening fordi der er flere unge i Region
 Hovedstaden (Opgave 2). Efter alderstandardisering er der næsten ingen
 forskel mellem regionerne dog er de standardiserede mortalitetsrater
 en smule højere i Region Sjælland for begge køn.
+
+
+* Opgave 4
+
+Hvilke bæredygtighedsudfordringer kan der være ved den skæve
+aldersfordeling i den danske befolkning som følge af den
+demografiske transition?
+
+** Besvarelse :solution:ignore:
+
+Der kan være flere udfordringer, man kan hive fat i. For eksempel kan
+der forventes et øget pres på sundhedsvæsenet, når en større andel af
+befolkningen består af ældre mennesker. Komorbiditet og kroniske
+sygdomme kræver langvarig og dyr behandling. Der skal bruges
+ressourcer og arbejdskraft til plejen af den ældre befolkning, hvilket
+bliver endnu sværere at imødekomme, da den lave fertilitet betyder at
+der vil være færre mennesker i den arbejdsdygtige alder i fremtiden.
+Derudover kan man argumentere for, at befolkningen bliver mere sårbar
+i krisesituationer, når ældre mennesker udgør så stor en del af
+befolkningen (fx ved pandemier, ekstreme vejrforhold, evakueringer
+mm.). Det medfører et øget behov for udvikling af passende
+infrastruktur og gode beredskabsplaner.

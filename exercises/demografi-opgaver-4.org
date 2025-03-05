@@ -21,6 +21,11 @@
 #+superman-export-target: opgave
 #+OPTIONS: :rmd_yaml:nil
 #+LaTeX_CLASS: danish-article
+
+#+begin_export latex
+\thispagestyle{empty}
+#+end_export
+
 #+begin_export html
 ---
 title: 'Demografi: opgaver kursusuge4'
@@ -34,90 +39,72 @@ source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demof
 
 * Opgave 1
 
-Til denne opgave bruger vi data fra den internationale database IDB. Find
+Beregn de summariske mortalitetsrater for Danmark, Indonesien,
+Nigeria, og USA i 2022. Rapporter resultaterne som antal døde per 1000
+personår. Hvad tænker du kunne være vigtige faktorer, som kan forklare
+forskellene i de summariske mortalitetsrater mellem de 4 lande?  Til
+denne opgave bruger vi data fra den internationale database IDB. Find
 tal her
 
 \bigskip
 https://www.census.gov/data-tools/demo/idb/
 \bigskip
 
-\noindent Under fanen =Tables= i menuen til venstre vælger du Danmark, USA,
-Indonesien og Nigeria (=Filter by Country/Area=), året 2022 (=Filter by
-Year=), og under =Custom Report Columns= vælger du alle andre kolonner
-fra og beholder kun
+
+** Instruks :rmd:ignore:
+
+Under fanen =Tables= i menuen til venstre vælger du Danmark,
+Indonesien, Nigeria og USA, (=Filter by Country/Area=), året 2022
+(=Filter by Year=), og under =Custom Report Columns= vælger du alle
+andre kolonner fra og beholder kun
 - =Deaths, both sexes=
 - =Population=
 
-Tast data ind i R (se R-markdown dokumentet) og beregn de summariske
-mortalitetsrater for alle 4 lande. Angiv hvilken formel fra kompendiet, 
-du har brugt. Tjek om du har tastet og regnet rigtigt ved at
-sammenligne med kolonnen =Crude Death rate=, som du nu tilføjer ved at
-bruge =Custom Report Columns=. Rapporter resultaterne som antal døde
-per 1000 personår. Hvad tænker du kunne være vigtige faktorer, som kan
-forklare forskellene i de summariske mortalitetsrater mellem de 4
-lande?
-
-** Instruks :rmd:ignore:
+Tast data ind i R og beregn de summariske mortalitetsrater for alle 4
+lande. Angiv hvilken formel fra kompendiet, du har brugt. Tjek om du
+har tastet og regnet rigtigt ved at sammenligne med kolonnen =Crude
+Death rate=, som du finder under =Custom Report Columns=.
 
 #+ATTR_LATEX: :options otherkeywords={}, deletekeywords={}
 #+BEGIN_SRC R  :results output raw drawer  :exports  (exercise-with-code)  :session *R* :cache yes    :eval (never-plain-export)
 dat <- tibble(land = c("Danmark", "USA", "Indonesia", "Nigeria"),
               Population = c(0,0,0,0),
               Deaths = c(0,0,0,0))
+#
+# Skriv her dine R-koder som beregner de summariske mortalitetsrater per 1000 personår 
+#  
 #+END_SRC
 
 ** Løsningen :solution:ignore:
 
 #+BEGIN_SRC R  :results output raw drawer  :exports  (exercise-with-solutions)  :session *R* :cache yes   :eval (never-plain-export)
-dat <- tibble(land = c("Danmark", "USA", "Indonesia", "Nigeria"),
-              Population = c(5920767,277329163,225082083,333287557),
-              Deaths = c(56373,1873021,1959083,3128620))
+dat <- tibble(land = c("Danmark", "Indonesia", "Nigeria", "USA"),
+              Population = c(5907258,277329163,225082083,333271411),
+              Deaths = c(59435,1873021,1959083,3279528))
 dat <- mutate(dat,M = 1000*Deaths/Population)
 dat
 #+END_SRC
 
-I 2022 var den summariske mortalitetsrate 9,5 døde per 1000 personår i
-Danmark, 6,8 døde per 1000 personår i USA, 8,7 døde per 1000 personår
-i Indonesien og 9,4 døde per 1000 personår i Nigeria. Formlen, der er brugt, er
-Formel K1.6 fra Kapitel 1, hvor X er antal døde og perioden er fra 1. januar
-2022 til 31. december 2022. Vigtige faktorer, som kan forklare
-forskellene, er forskelle i aldersfordeling, sundhedsystemerne og
-livsstil.
+I 2022 var den summariske mortalitetsrate 10,1 døde per 1000 personår
+i Danmark, 6,8 døde per 1000 personår i USA, 8,7 døde per 1000
+personår i Indonesien og 9,4 døde per 1000 personår i
+Nigeria. Formlen, der er brugt, er Formel K1.6 fra Kapitel 1, hvor X
+er antal døde og perioden er fra 1. januar 2022
+til 31. december 2022. Vigtige faktorer, som kan forklare forskellene
+mellem landene, er forskelle i aldersfordeling, sundhedsystemerne og
+livsstil. Desuden har covid-19 epidemien haft forskellige effekter på
+mortalitet i de 4 lande.
 
 * Opgave 2
 
-Find folketal og det samlede antal døde i Danmark i 2022 i statistikbanken 
-(Alder i alt) og beregn den summariske mortalitetsrate. Sammenlign
-data og resultatet med tal, som du har fundet i den internationale
-database (Opgave 1).  Hvad tænker du kunne være en forklaring på
-forskellen mellem tal fra statistikbanken og den internationale database?
-Find bagefter folketal og antal døde for alle aldre i statistikbanken
-og inddel dem i 3 aldersintervaller: 0-14, 15-64, 65+. Bestem
-risikotidens aldersfordeling og de aldersspecifikke
-mortalitetsrater. Angiv hvilke formler fra kompendiet du bruger.
+Find folketal og antal døde i Danmark i 2022 i statistikbanken for
+alle aldre i statistikbanken og inddel dem i 3 aldersintervaller:
+0-14, 15-64, 65+. Bestem risikotidens aldersfordeling og beregn de
+aldersspecifikke mortalitetsrater. Angiv hvilke formler fra kompendiet
+du har brugt. Rapporter de 3 aldersspecifikke mortalitetsrater i en
+sætning.
 
 ** Instruks :rmd:ignore:
-
-Alder i alt:
-
-#+BEGIN_SRC R  :results output raw drawer  :exports  (exercise-with-code)  :session *R* :cache yes    :eval (never-plain-export)
-# Alder i alt
-R <- hent_data("folk1a",alder = "Alder i alt",tid = "2022K3")
-D <- hent_data("dod",alder = "Alder i alt",tid = 2022)
-dat <- tibble(R = R$INDHOLD,Dod = D$INDHOLD)
-#
-# Skriv her dine R-koder som beregner den summariske mortalitetsrate per 1000 personår 
-# 
-#+END_SRC
-
-#+BEGIN_SRC R  :results output raw drawer  :exports  (exercise-with-solutions)  :session *R* :cache yes    :eval (never-plain-export)
-# Alder i alt
-R <- hent_data("folk1a",alder = "Alder i alt",tid = "2022K3")
-D <- hent_data("dod",alder = "Alder i alt",tid = 2022)
-dat <- tibble(R = R$INDHOLD,Dod = D$INDHOLD)
-dat <- mutate(dat, M = 1000*Dod/R)
-dat
-#+END_SRC
 
 Aldersspecifikke mortalitetsrater:
 
@@ -138,6 +125,8 @@ x <- hent_mortalitetsrate_data(breaks = c(-Inf, 14, 65, Inf),
 # 
 #+END_SRC
 
+** Solution :solution:ignore:
+
 #+BEGIN_SRC R  :results output raw drawer  :exports  (exercise-with-solutions)  :session *R* :cache yes    :eval (never-plain-export)
 # Aldersintervaller
 x <- hent_mortalitetsrate_data(breaks = c(-Inf, 14, 65, Inf),
@@ -152,40 +141,34 @@ x <- mutate(x, M = 1000*Dod/R)
 x
 #+END_SRC
 
-** Løsningen :solution:ignore:
+Der bruges formel K2.4 fra Kapitel 2 til beregningen af risikotidens
+aldersfordeling og formel K2.3 fra Kapitel 2 til beregningen af de
+aldersspecifikke mortalitetsrater. 
 
-Tallene fra statistikbanken stemmer ikke helt
-overens med tallene fra den internationale database. Ifølge data fra
-statistikbanken var den summariske mortalitetsrate 10,1 døde per 1000
-personår i Danmark i 2022. En forklaring for forskellene kunne være, at
-statistikbanken har opdateret data for nyligt.
-
-Der bruges formel K2.4 fra Kapitel 2 til beregningen af risikotidens aldersfordeling
-og formel K2.3 fra Kapitel 2 til beregningen af de
-aldersspecifikke mortalitetsrater.
+I 2022 i Danmark var mortalitetsraterne i aldersgrupperne 0-14, 15-65,
+og 65+ hhv. 0,3 per 1000 personår, 2,1 per 1000 personår og 44,9 per
+1000 personår.
 
 * Opgave 3
 
-Fortsæt med internetsiden for den internationale database med 
-år 2022 og de 4 lande fra Opgave 1. Find risikotidens aldersfordeling
-for Danmark, USA, Indonesien og Nigeria i 2022 i
-aldersintervallerne =0-14=, =15-65=, =65+=: I topmenuen vælger du
-=Population by Age= og i menuen til venstre vælger du =Age Tables=
-under =Show= og =Broad Age Groups= under =Age Groups=. Internetsiden
-skal se sådan her ud:
+Sammenlign aldersfordelingerne i 2022 mellem Danmark, Indonesien,
+Nigeria og USA. Brug indirekte standardisering til at beregne det
+forventede antal dødsfald i henholdsvis USA, Indonesien og Nigeria i
+2022, hvis mortalitetsraterne havde været lige som de var i Danmark
+i 2022. Rapporter resultaterne som standardized mortality ratio. Hvad
+kan man nu konkludere med hensyn til forskellene i mortalitet mellem
+de 4 lande? Beskriv også svaghederne i denne undersøgelse.
 
-[[./Screenshot_2024-02-28_InternationalDatabase.jpg]]
+** Instruks :rmd:ignore:
 
-Brug tallene fra Opgave 2 og nævneren i kompendiets formel K2.11 til at
-beregne det forventede antal dødsfald i henholdsvis USA, Indonesien og
-Nigeria, hvis mortalitetsraterne følger de aldersspecifikke danske
-mortalitetsrater fra 2022 (Resultat fra Opgave 2). Beregn også forholdet
-mellem antal dødsfald (`Deaths, both sexes`) fra Opgave 1 og det
-forventede antal dødsfald, som du nu har beregnet. Rapporter forholdene
-som procenttal, angiv hvilken befolkning, der er standardbefolkning, og
-angiv den demografiske betegnelse for denne metode. Hvad kan man nu
-konkludere med hensyn til forskellene i dødelighed mellem de 4 lande?
-Beskriv også svaghederne i denne undersøgelse.
+Find risikotidens aldersfordeling for Danmark, USA, Indonesien og
+Nigeria i 2022 i aldersintervallerne =0-14=, =15-65=, =65+=. I
+topmenuen vælger du =Population by Age= og i menuen til venstre vælger
+du =Age Tables= under =Show= og =Broad Age Groups= under =Age
+Groups=. 
+
+Til indirekte standardisering brug aldersspecifikke mortalitetsrater
+fra Opgave 2.
 
 #+BEGIN_SRC R  :results output raw drawer  :exports  (exercise-with-code)  :session *R* :cache yes    :eval (never-plain-export)
 # data fra statistikbanken
@@ -196,23 +179,40 @@ x <- hent_mortalitetsrate_data(breaks = c(-Inf, 14, 64, Inf),
                                label_last = "65+")
 # Aldersspecifikke mortalitetsrater i Danmark
 x <- mutate(x, M = 1000*Dod/R)
+#+END_SRC
+
+Læs data fra IDB ind i R:
+
+#+BEGIN_SRC R  :results output raw drawer  :exports  (exercise-with-code)  :session *R* :cache yes    :eval (never-plain-export)
 # Aldersfordeling i alle 4 lande
 idb <- hent_IDB_screenshot_data()
-# Beregning af nævneren fra kompendiets formel K2.11 for Indonesia
+idb
+#+END_SRC
+
+Find formel K2.11 i kompendiets kapitel 2 og beregn nævneren
+(forventede antal døde) hvis mortalitetsraterne havde været lige som i
+Danmark. De følgende R-koder gør det for Indonesien. Brug enten
+copy-and-paste for at gennemføre beregningerne også for Nigeria og USA
+eller brug tidyverses =group_by= til at gennemføre alle beregninger
+for alle 3 lande sammentidligt.
+
+#+BEGIN_SRC R  :results output raw drawer  :exports  (exercise-with-code)  :session *R* :cache yes    :eval (never-plain-export)
 indonesia <- filter(idb,Land == "Indonesia")
+# Join aldersspecifikke mortalitetsrater fra opgave 2 (R-objekt x)
+# og data fra Indonesia
 indonesia <- left_join(indonesia,select(x,aldersinterval,M),by = "aldersinterval")
-indonesia <- summarize(indonesia, expected = # skriv nævneren fra formel K2.11 her)
-# Antal dødsfald fra Opgave 1 
-indonesia <- mutate(indonesia,observed = # skriv antal dødsfald i Indonesia her)
-indonesia <- mutate(indonesia,SMR = observed/expected)
 indonesia
-# Beregning af kompendiets formel K2.11 for alle 4 lande
-idb <- left_join(idb,select(x,aldersinterval,M),by = "aldersinterval")
-y <- group_by(idb,Land) %>% summarize(expected = # skriv nævneren fra formel K2.11 her)
+# Beregning af nævneren fra kompendiets formel K2.11 for Indonesia
+sum_indonesia <- summarize(indonesia, expected = # skriv nævneren fra formel K2.11 her)
+#+END_SRC
+
+Til beregningen af SMR skal vi bruge de observerede antal døde.
+
+#+BEGIN_SRC R  :results output raw drawer  :exports  (exercise-with-code)  :session *R* :cache yes    :eval (never-plain-export)
 # Antal dødsfald fra Opgave 1 
-y <- mutate(y,observed = c(,,,))# skriv antal dødsfald her (4 tal)
-y <- mutate(y,SMR = observed/expected)
-y                                        
+sum_indonesia <- mutate(sum_indonesia,observed = # skriv det observede antal dødsfald i Indonesia her)
+sum_indonesia <- mutate(sum_indonesia,SMR = observed/expected)
+sum_indonesia
 #+END_SRC
 
 ** Løsningen :solution:ignore:
@@ -228,43 +228,31 @@ x <- hent_mortalitetsrate_data(breaks = c(-Inf, 14, 64, Inf),
 x <- mutate(x, M = 1000*Dod/R)
 # Aldersfordeling i alle 4 lande
 idb <- hent_IDB_screenshot_data()
-# Beregning af kompendiets formel K2.11 
+# Beregning af kompendiets formel K2.11 for alle 3 lande med group_by
 idb <- left_join(idb,select(x,aldersinterval,M),by = "aldersinterval")
 y <- group_by(idb,Land) %>% summarize(expected = sum(M/1000*Risikotid))
 # Antal dødsfald fra Opgave 1 
-y <- mutate(y,observed = c(56373,3128620,1959083,1873021))
+y <- mutate(y,observed = c(59435,1873021,1959083,3279528))
 y <- mutate(y,SMR = observed/expected)
 y
 #+END_SRC
 
-Antal dødsfald i Indonesien/Nigeria/USA i 2022 var 146% højere/230%
-højere/36% mindre end hvad man vil forvente, hvis mortalitetsraterne
-var de samme som i Danmark i 2022.  Svagheder: Man kan bruge
-resultaterne til at sammenligne Danmark med de andre 3 lande, men ikke
-direkte til at sammenligne de andre 3 lande indbyrdes, fordi SMR fra
-de 3 lande med Danmark som standardbefolkning afhænger af risikotidens
-aldersfordeling i landene. Data fra den internationale database er
-ikke præcise; det kan vi se for Danmark, hvor tal fra statistikbanken
-afviger. Beregningen er ikke særligt præcise på grund af de brede
-aldersintervaller. Hvis vi bruger 1-års aldersintervaller bliver
-resultaterne ændret ret meget:
+Aldersfordelingerne i 2022 var markant forskelligt mellem de 4 lande
+hvor Danmark har flest ældre mennesker (65+ år) og færrest unge (0-14
+år) og Nigeria har flest unge og færrest ældre mennesker. Kun i
+andelen af aldersgruppen 15-64 år er de 4 landene nogenlunde
+sammenlignelig.
 
-#+BEGIN_SRC R  :results output raw drawer  :exports  (exercise-with-solutions)  :session *R* :cache yes    :eval (never-plain-export)
-# data fra statistikbanken
-x <- hent_mortalitetsrate_data(breaks = c(seq(0,99,1),Inf),
-                               right = FALSE,
-                               køn = "i alt",
-                               tid = "2022")
-# Aldersspecifikke mortalitetsrater i Danmark
-x <- mutate(x, M = 1000*Dod/R)
-x <- mutate(x,aldersinterval = as.character(0:99))
-# Aldersfordeling i alle 4 lande
-idb <- hent_IDB_data_USA_NIGERIA_INDONESIA_2022()
-# Beregning af kompendiets formel K2.11 
-idb <- left_join(idb,select(x,aldersinterval,M),by = "aldersinterval")
-y <- group_by(idb,Land) %>% summarize(expected = sum(M/1000*Risikotid))
-# Antal dødsfald fra Opgave 1
-y <- mutate(y,observed = c(56373,3128620,1959083,1873021))
-y <- mutate(y,SMR = observed/expected)
-y
-#+END_SRC
+SMR for Indonesien var 147 og dermed var det observeret antal dødsfald
+i Indonesien i 2022 47% højere end hvad man ville forvente hvis
+mortalitetsraterne havde været som de var i Danmark i 2022. Antal
+dødsfald i Nigeria og USA i 2022 var henholdsvis 230% og 12% højere
+end hvad man ville forvente hvis mortalitetsraterne var lige som i
+Danmark i 2022. Man kan bruge SMR til at sammenligne mortalitet i
+Danmark med mortalitet i de 3 lande og resultaterne viser at
+mortalitet var højere i alle 3 lande end i Danmark. Men kan ikke
+direkte sammenligne de andre 3 lande indbyrdes med SMR, fordi SMR
+afhænger af risikotidens aldersfordeling i de 3 landene.  Desuden er
+beregningen ikke særlig præcise på grund af de brede
+aldersintervaller.
+

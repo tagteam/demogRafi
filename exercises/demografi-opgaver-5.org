@@ -36,7 +36,8 @@ source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demof
 * Opgave 1
 
 1. [@1] Angiv mindst en årsag til, at de aldersspecifikke
-   mortalitetsrater ikke var konstante de sidste 100 år i Danmark.
+   mortalitetsrater ikke var konstante de sidste 100 år i Danmark,
+   og hvordan kan bæredygtighed og miljøpåvirkninger spille en rolle heri?
 2. [@2] Angiv mindst en grund til, at de aldersspecifikke 
    mortalitetsrater ikke er konstante de næste 100 år i Danmark.
 3. [@3] Hvad angiver Kapitel 3 som middelrestlevetiden for en
@@ -45,21 +46,28 @@ source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demof
 4. [@4] Under antagelsen at mortalitetsraterne ville følge samme kalendertidstrends 
    som de sidste 40 år (se Kapitel 2 Figur 2) i de næste 
    100 år, ville den forventede restlevetid for en 7-årige pige i 2019
-   være mindre eller højere end 76,9 år?
-5. [@5] Hvorfor er det forkert at fortolke 21,2 år (se Kapitel 3 afsnit 2.4) som den 
+   være mindre eller højere end 76,7 år?
+5. [@5] Hvorfor er det forkert at fortolke 21,0 år (se Kapitel 3 afsnit 2.4) som den 
    restlevetid, som en 65-årig kvinde i 2019 kan forvente at leve?  
 
 ** Løsning                                                  :solution:ignore:
 *** Besvarelse
 
-1. Faldet i dødelige af smitsomme sygdomme pga. bedre hygiejne og antibiotika. Faldet i dødsfald fra ullykker på grund af bedre arbejdsmiljø. Fald i dødelighed fra kroniske sygdomme som fx hjertekarsygdomme som en konsekvens af ændrede levekår og bedre behandlingsmuligheder.        
+1. Faldet i dødelige af smitsomme sygdomme pga. bedre hygiejne og
+   antibiotika. Faldet i dødsfald fra ullykker på grund af bedre
+   arbejdsmiljø. Fald i dødelighed fra kroniske sygdomme som fx
+   hjertekarsygdomme som en konsekvens af ændrede levekår og bedre
+   behandlingsmuligheder.  Miljøpåvirkninger kan påvirke
+   mortalitetsraterne negativt gennem fx luft- og vandforurening,
+   klimaforandringer og ekstreme vejrforhold, der kan føre til øget
+   mortalitet. Samtidigt kan bæredygtighedsinitiativer påvirke
+   mortalitetsraterne positivt gennem fx en kost med flere planter og
+   mindre animalsk fedt, flere grønne områder der fremmer aktivitet og
+   mindre miljøbelastende transport
 2. Pandemier af nye sygdomme som fx HIV, COVID-19 eller fugleinfluenza. Krig og naturkatastrofer. Øget forekomsten af fedme og andre "livsstilssygdomme".    
-3. 76,9 år. Middelrestlevetiden for en 7-årige pige bliver vist i afsnit 2.4 af Kapitel 3.
+3. 76,7 år. Middelrestlevetiden for en 7-årige pige bliver vist i afsnit 2.4 af Kapitel 3.
 4. Middelrestlevetiden ville være højere, hvis mortalitetsraterne fortsætter med at falde.
 5. Fordi mortalitetsraterne ikke kan antages at være konstante!
-   # Den rigtige fortolkning er: 21,2 år er den forventede restlevetid for en 11-årig
-   # dreng, hvis mortalitetsraterne fra 2008/2009 holder sig konstant i al fremtid. /Note:/ Det her giver ikke mening;
-   # hvad har det med en 11-årig /dreng/ at gøre? 
 
 * Opgave 2
 Se på formlerne for overlevelsestavler i kompendiets Kapitel 3 og besvar følgende spørgsmål:

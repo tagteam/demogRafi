@@ -17,7 +17,7 @@
 #+LATEX_HEADER:\definecolor{mygray}{rgb}{.95, 0.95, 0.95}
 #+LATEX_HEADER:\newcommand{\mybox}[1]{\vspace{.5em}\begin{tcolorbox}[boxrule=0pt,colback=mygray] #1 \end{tcolorbox}}
 #+setupfile:~/emacs-genome/snps/org-templates/setup-demografi.org
-#+superman-export-target: opgave
+#+superman-org-export-target: opgave
 #+OPTIONS: :rmd_yaml:nil
 #+LaTeX_CLASS: danish-article
 #+begin_export html
@@ -145,11 +145,21 @@ text(x=dates[4],y=5,"Død",cex=1.4,pos=3)
 * Opgave 3
 
 Sammenlign de 5 danske regioner med hensyn til mortalitetsrater i
-årene 2010 og 2020 ved at finde tal i statistikbanken.  Rapporter
+årene 2010 og 2020 ved at finde tal i statistikbanken. Rapporter
 resultaterne som antal døde per 1000 personår. Diskuter forskelle
 mellem regionerne i 2020, og forskelle i regionerne mellem 2010
-og 2020.
+og 2020. Kan nogle af resultaterne diskuteres ud fra et perspektiv om
+bæredygtig udvikling (eller mangel derpå) i befolkningen? Begrund dit
+svar. Brug evt. disse indikatorer om bæredygtig udvikling:
+- Befolkningens sundhed
+- Ulighed i befolkningen
+- Forskelle mellem land og by
+- Urbanisering
+- Livsstil og forbrug
 
+** not shown :rmd:ignore:
+
+#+ATTR_LATEX: :options otherkeywords={hent_data, mutate, rename, left_join}, deletekeywords={c,de,sub,as,numeric,D,by}
 #+BEGIN_SRC R  :results output :exports code :cache yes :eval (never-plain-export)
 N <- hent_data(register = "folk1a",
                tid = c("2010K3","2020K3"),
@@ -174,7 +184,7 @@ M <- mutate(M,mortrate = 1000*D/N)
 M
 #+END_SRC
 
-#+RESULTS[(2024-02-26 06:57:52) ac3d873bfca1a3499f5f18224a12b0d7ac9b6474]:
+#+RESULTS[(2025-02-10 14:50:28) f573e47b864fdb99003a2f4a2b82872b6b8336c8]:
 #+begin_example
 # A tibble: 10 × 5
      TID OMRÅDE                 D       N mortrate
@@ -211,3 +221,20 @@ mennesker. Ændringer af mortalitetsraten mellem 2010 og 2020 er
 formentlig relateret til en blanding af generel fald af mortalitet,
 stigende aldring af befolkning og urbanisering/afvandring fra
 landdistrikterne.
+
+Mortalitetsraten for de fleste regioner falder mellem 2010 og
+2020. Det kan vidne om en generel forbedret levetid og sundhed for den
+danske befolkning, samt et sundhedsvæsenet, der udvikler og forbedrer
+sig kontinuerligt.
+
+Samtidig er der en betydelig forskel på mortalitetsraterne for de
+forskellige regioner. Mortalitetsraterne for hhv. Region Sjælland og
+Region Syddanmark er tilmed steget i perioden. I den forbindelse kan
+man kigge på ulighed - både mellem land og by, men også i
+socioøkonomisk status. Der er færre læger til antallet af patienter i
+udkantsdanmark og længere afstande til sundhedsydelser. Socioøkonomisk
+status hænger også tæt sammen med helbredsstatus og livsstil. Det kan
+derfor være med til at forklare ulighed i sundhed på tværs af
+regionerne. Urbanisering og migration fra land til by er også en
+forklaring på de forskellige mortalitetsrater, da der er en yngre
+befolkning i de større byer end andre steder i landet.
