@@ -1,0 +1,178 @@
+---
+title: 'Demografi: opgaver kursusuge 9'
+output: word_document
+---
+```{r setup}
+knitr::opts_knit$set(root.dir = "..")
+source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
+```
+
+
+# Opgave 1
+
+Hent data fra statistikbankens register RAS300 som ligger under 'Arbejde og
+indkomst'. For årene 2009 og 2019: find det totale antal beskæftigede mænd i
+Danmark og antal mænd, som arbejdede i branchen '85002 Gymnasier og erhvervsfaglige skoler' i aldersintervaller,
+hvor det første interval er 'Under 16 år' og det sidste '67 år og derover'.
+
+Beregn for begge årstal aldersspecifikke andele af mænd i branchen '85002 Gymnasier og erhvervsfaglige skoler' blandt beskæftigede mænd,
+og udfyld tabellen nedenfor.
+
+Beregn og rapporter hvor mange ud af 1000 beskæftigede mænd, der har
+arbejdet i branchen '85002 Gymnasier og erhvervsfaglige skoler' i årene 2009 og 2019.
+Diskuter tidsudviklingen i branchen '85002 Gymnasier og erhvervsfaglige skoler'.
+
+
+## Besvarelse
+
+```{r   }
+options(OutDec = ",")
+ras <- hent_data("RAS300",
+                 alder = "all",
+                 Branche07 = c(85002,"TOT"),
+                 køn = "mænd",
+                 tid = c(2009,2019))
+table_opg_1 <- ras %>%
+  mutate(BRANCHE07 = fct_recode(BRANCHE07,
+                                "Branche" = "85002 Gymnasier og erhvervsfaglige skoler", 
+                                "Beskæftigede" = "TOT Erhverv i alt")) %>%
+  pivot_wider(names_from = c(BRANCHE07, TID), values_from = "INDHOLD") %>%
+  mutate(Andel_2009 = Branche_2009/Beskæftigede_2009, Andel_2019 = Branche_2019/Beskæftigede_2019) %>%
+  select(ALDER, Beskæftigede_2009, Beskæftigede_2019, Branche_2009, Branche_2019, Andel_2009, Andel_2019)
+# runde af
+table_opg_1 <- table_opg_1 %>% mutate(Andel_2009 = round(100*Andel_2009,2),Andel_2019 = round(100*Andel_2019,2))
+# bruger data.frame for danske decimaler (tibble spiller ikke med OutDec option)
+print(as.data.frame(table_opg_1)) 
+```
+
+De specifikke andele for forskellige aldersgrupper i tabellen viser
+antallet af mænd pr. 1000 beskæftigede mænd i branchen Gymnasier og
+erhvervsfaglige skoler. I 2009 arbejdede 16,7 mænd i denne branche ud
+af hver 1000 beskæftigede mænd, mens tallet faldt til 15,2 i 2019. Der
+har således været en nedgang på 1,5 mænd pr. 1000 beskæftigede mænd i
+løbet af perioden fra 2009 til 2019. Det bemærkes i tabellen, at mænd
+i alderen 50-66 udgjorde en betydelig del af arbejdsstyrken
+i 2009. Det kan antages, at den faldende beskæftigelsesrate delvist
+skyldes, at nogle af disse mænd er gået på pension. Antallet af mænd i
+alderen 16-44 år har kun ændret sig minimalt fra 2009 til 2019,
+hvilket indikerer, at der ikke er kommet tilsvarende flere mænd til i
+2019 sammenlignet med 2009. Dette bidrager til nedgangen i andelen af
+mænd, der arbejder inden for branchen Gymnasier og erhvervsfaglige
+skoler.
+
+
+# Opgave 2
+
+Hent data fra statistikbankens register RAS300, som ligger under
+'Arbejde og indkomst' og fra register FOLK1a, som ligger under
+'Borgere'. For året 2009: find det totale antal beskæftigede mænd i
+Danmark i aldersintervaller, hvor det første interval er 'Under 16 år'
+og det sidste '67 år og derover'. For samme aldersintervaller find
+risikotid for alle mænd i Danmark i 2009 og 2019 og beregn
+aldersfordelingen af risikotid i begge år. Beregn aldersspecifikke
+beskæftigelsesrater for mænd i året 2009 og udfyld tabellen nedenfor.
+For mænd i året 2009: beregn og rapporter summariske og
+alderstandardiserede beskæftigelsesrater med aldersfordeling fra mænd
+i året 2019 som standardpopulation. Diskuter forskellen mellem den
+summariske og den aldersstandardiserede beskæftigelsesrate.
+
+
+## Besvarelse
+
+```{r   }
+options(OutDec = ",")
+ras <- hent_data("RAS300",
+                 alder = "all",
+                 Branche07 = c(85002,"TOT"),
+                 køn = "mænd",
+                 tid = c(2009,2019))
+beskaeft <- ras %>%
+  filter(BRANCHE07 == "TOT Erhverv i alt", TID == "2009") %>%
+  mutate(BRANCHE07 = fct_recode(BRANCHE07,
+                                "Beskæftige" = "TOT Erhverv i alt")) %>%
+  pivot_wider(names_from = c(BRANCHE07, TID), values_from = "INDHOLD") %>% 
+  select(-c("KØN", "alder")) 
+# risikotid
+R <- hent_aldersfordeling(breaks = c(0,15,seq(19,64,5),66,Inf), tid = c("2009","2019"), køn = "mænd") %>%
+  rename(Risikotid = R, Aldersfordeling = V)  %>% 
+  pivot_wider(names_from = TID, values_from = c("Risikotid", "Aldersfordeling")) %>% 
+  select(-c("KØN", "OMRÅDE", "aldersinterval")) 
+# tabelform
+table_opg_2 <- cbind(beskaeft, R) %>%  mutate(Beskæftigelsesrate = Beskæftige_2009/Risikotid_2009)
+# runde af
+table_opg_2 <- table_opg_2 %>% mutate(Aldersfordeling_2009 = round(Aldersfordeling_2009,2),
+                                      Aldersfordeling_2019 = round(Aldersfordeling_2019,2),
+                                      Beskæftigelsesrate = round(Beskæftigelsesrate,2))
+x <- table_opg_2 %>% summarize("Summarisk beskaeftigelsesrate" = 1000*sum(Beskæftige_2009)/sum(Risikotid_2009), "Standardiseret beskaeftigelsesrate" = 1000*sum(Beskæftigelsesrate * Aldersfordeling_2019))
+# bruger data.frame for danske decimaler (tibble spiller ikke med OutDec option)
+print(as.data.frame(table_opg_2))
+cat("\n\n")
+print(x) 
+```
+
+Risikotiden er beregnet ved hjælp af standardmetode 2 (trapez) og
+oplysninger om befolkningstal fra K12009, K12010, K12019 og
+K12020. Aldersfordelingen er angivet i procent. Beskæftigelsesraten
+måles som antallet af beskæftigede mænd pr. 1000 mænd i Danmark.
+
+I 2009 blev den summariske beskæftigelsesrate for mænd beregnet til 515,6
+beskæftigede mænd pr. 1000 mandlige personår i Danmark. Den aldersstandardiserede
+beskæftigelsesrate for mænd i 2009 blev beregnet til 504,3
+beskæftigede mænd pr. 1000 mandlige personår i Danmark. Den aldersstandardiserede
+beskæftigelsesrate giver et udtryk for, hvordan den summariske
+beskæftigelsesrate i 2009 ville have været, hvis aldersfordelingen i
+befolkningen havde været som i 2019.
+
+Forskellen mellem den summariske og den aldersstandardiserede
+beskæftigelsesrate skyldes sandsynligvis ændringer i befolkningens
+alderssammensætning mellem 2009 og 2019. Som det fremgår af tabellen,
+udgør ældre over 67 år en større del af befolkningen i 2019
+sammenlignet med 2009. Samtidig udgør mændene med de højeste
+beskæftigelsesrater, dvs. mænd mellem 30 og 54 år, en mindre del af
+befolkningen i 2019 sammenlignet med 2009. Forskellen afspejler derfor
+det aldrende samfund, hvor ældre udgør en relativt større del af
+befolkningen.
+
+
+# Opgave 3
+
+I arbejdsmarkedsdemografien beregner man forventet levetid på arbejdsmarkedet, som er
+en parallel til middellevetiden, hvor man tager højde for den aldersspecifikke afgang fra
+arbejdsmarkedet.
+
+a) Aldersfordelingen for kvinder og mænd i Danmark er forskellig, bl.a. på grund af
+   kønsforskelle i immigration og dødelighed. Kan forskelle i aldersfordelingen
+   mellem mænd og kvinder påvirke forskellen i forventet levetid på arbejdsmarkedet?
+
+b) Hvis man skulle beregne en forventet levetid på arbejdsmarkedet,
+   hvilke data og antagelser skulle man så bruge?
+
+
+## Besvarelse
+
+a) Forventet levetid på arbejdsmarkedet kan påvirkes af forskelle i
+aldersfordelingen mellem mænd og kvinder under visse
+omstændigheder: 1) Hvis man beregner den forventede levetid på
+arbejdsmarkedet uden hensyntagen til køn, og 2) hvis der er forskel i
+levetiden på arbejdsmarkedet mellem mænd og kvinder. Hvis man derimod
+beregner den forventede levetid på arbejdsmarkedet separat for hvert
+køn, burde forskelle i aldersfordelingen ikke have indflydelse på den
+forventede levetid på arbejdsmarkedet.
+
+b) Med udgangspunkt i beregningen af en dødelighedstabel kan man
+beregne den forventede restlevetid på arbejdsmarkedet svarende til den
+forventede restlevetid i en dødelighedstabel ved hjælp af følgende
+data og antagelser: I en fiktiv befolkning antages det først, at alle
+træder ind på arbejdsmarkedet samtidig, og at ingen forlader
+arbejdsmarkedet i kortere perioder før deres endelige exit. Man skal
+have data om, hvor mange der forlader arbejdsmarkedet i hvert
+alderstrin eller aldersinterval i en given periode i en faktisk
+befolkning. Kun personer, der definitivt har forladt arbejdsmarkedet,
+bør medtages. Der må derfor gøres antagelser om, hvornår en person kan
+siges at have forladt arbejdsmarkedet uden hensigt om at vende
+tilbage, eventuelt baseret på oplysninger om tilbagevenden til
+arbejdsmarkedet eller årsagen til exit. Endelig må man antage, hvornår
+i løbet af året eller i et aldersinterval en person forlader
+arbejdsmarkedet, det vil sige, man skal definere Chiangs a for hvert
+alderstrin eller aldersinterval.
+

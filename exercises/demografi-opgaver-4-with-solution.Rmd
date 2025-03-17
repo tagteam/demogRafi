@@ -1,0 +1,158 @@
+---
+title: 'Demografi: opgaver kursusuge4'
+output: word_document
+---
+```{r setup}
+knitr::opts_knit$set(root.dir = "..")
+source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
+```
+
+
+# Opgave 1
+
+Beregn de summariske mortalitetsrater for Danmark, Indonesien,
+Nigeria, og USA i 2022. Rapporter resultaterne som antal døde per 1000
+personår. Hvad tænker du kunne være vigtige faktorer, som kan forklare
+forskellene i de summariske mortalitetsrater mellem de 4 lande?  Til
+denne opgave bruger vi data fra den internationale database IDB. Find
+tal her
+
+\bigskip
+<https://www.census.gov/data-tools/demo/idb/>
+\bigskip
+
+Under fanen `Tables` i menuen til venstre vælger du Danmark,
+Indonesien, Nigeria og USA, (`Filter by Country/Area`), året 2022
+(`Filter by Year`), og under `Custom Report Columns` vælger du alle
+andre kolonner fra og beholder kun
+
+-   `Deaths, both sexes`
+-   `Population`
+
+Tast data ind i R og beregn de summariske mortalitetsrater for alle 4
+lande. Angiv hvilken formel fra kompendiet, du har brugt. Tjek om du
+har tastet og regnet rigtigt ved at sammenligne med kolonnen `Crude
+Death rate`, som du finder under `Custom Report Columns`.
+
+```{r   }
+dat <- tibble(land = c("Danmark", "Indonesia", "Nigeria", "USA"),
+              Population = c(5907258,277329163,225082083,333271411),
+              Deaths = c(59435,1873021,1959083,3279528))
+dat <- mutate(dat,M = 1000*Deaths/Population)
+dat 
+```
+
+I 2022 var den summariske mortalitetsrate 10,1 døde per 1000 personår
+i Danmark, 6,8 døde per 1000 personår i USA, 8,7 døde per 1000
+personår i Indonesien og 9,4 døde per 1000 personår i
+Nigeria. Formlen, der er brugt, er Formel K1.6 fra Kapitel 1, hvor X
+er antal døde og perioden er fra 1. januar 2022
+til 31. december 2022. Vigtige faktorer, som kan forklare forskellene
+mellem landene, er forskelle i aldersfordeling, sundhedsystemerne og
+livsstil. Desuden har covid-19 epidemien haft forskellige effekter på
+mortalitet i de 4 lande.
+
+
+# Opgave 2
+
+Find folketal og antal døde i Danmark i 2022 i statistikbanken for
+alle aldre i statistikbanken og inddel dem i 3 aldersintervaller:
+0-14, 15-64, 65+. Bestem risikotidens aldersfordeling og beregn de
+aldersspecifikke mortalitetsrater. Angiv hvilke formler fra kompendiet
+du har brugt. Rapporter de 3 aldersspecifikke mortalitetsrater i en
+sætning.
+
+Aldersspecifikke mortalitetsrater:
+
+```{r   }
+# Aldersintervaller
+x <- hent_mortalitetsrate_data(breaks = c(-Inf, 14, 65, Inf),
+                               køn = "i alt",
+                               tid = "2022",
+                               label_one = "0-14",
+                               label_last = "65+")
+# Aldersfordeling af risikotid
+x <- mutate(x, V = R/sum(R))
+# Aldersspecifikke mortalitetsrater
+x <- mutate(x, M = 1000*Dod/R)
+x 
+```
+
+Der bruges formel K2.4 fra Kapitel 2 til beregningen af risikotidens
+aldersfordeling og formel K2.3 fra Kapitel 2 til beregningen af de
+aldersspecifikke mortalitetsrater. 
+
+I 2022 i Danmark var mortalitetsraterne i aldersgrupperne 0-14, 15-65,
+og 65+ hhv. 0,3 per 1000 personår, 2,1 per 1000 personår og 44,9 per
+1000 personår.
+
+
+# Opgave 3
+
+Sammenlign aldersfordelingerne i 2022 mellem Danmark, Indonesien,
+Nigeria og USA. Brug indirekte standardisering til at beregne det
+forventede antal dødsfald i henholdsvis USA, Indonesien og Nigeria i
+2022, hvis mortalitetsraterne havde været lige som de var i Danmark
+i 2022. Rapporter resultaterne som standardized mortality ratio. Hvad
+kan man nu konkludere med hensyn til forskellene i mortalitet mellem
+de 4 lande? Beskriv også svaghederne i denne undersøgelse.
+
+Find risikotidens aldersfordeling for Danmark, USA, Indonesien og
+Nigeria i 2022 i aldersintervallerne `0-14`, `15-65`, `65+`. I
+topmenuen vælger du `Population by Age` og i menuen til venstre vælger
+du `Age Tables` under `Show` og `Broad Age Groups` under `Age
+Groups`. 
+
+Til indirekte standardisering brug aldersspecifikke mortalitetsrater
+fra Opgave 2.
+
+Læs data fra IDB ind i R:
+
+Find formel K2.11 i kompendiets kapitel 2 og beregn nævneren
+(forventede antal døde) hvis mortalitetsraterne havde været lige som i
+Danmark. De følgende R-koder gør det for Indonesien. Brug enten
+copy-and-paste for at gennemføre beregningerne også for Nigeria og USA
+eller brug tidyverses `group_by` til at gennemføre alle beregninger
+for alle 3 lande sammentidligt.
+
+Til beregningen af SMR skal vi bruge de observerede antal døde.
+
+```{r   }
+# data fra statistikbanken
+x <- hent_mortalitetsrate_data(breaks = c(-Inf, 14, 64, Inf),
+                               køn = "i alt",
+                               tid = "2022",
+                               label_one = "0-14",
+                               label_last = "65+")
+# Aldersspecifikke mortalitetsrater i Danmark
+x <- mutate(x, M = 1000*Dod/R)
+# Aldersfordeling i alle 4 lande
+idb <- hent_IDB_screenshot_data()
+# Beregning af kompendiets formel K2.11 for alle 3 lande med group_by
+idb <- left_join(idb,select(x,aldersinterval,M),by = "aldersinterval")
+y <- group_by(idb,Land) %>% summarize(expected = sum(M/1000*Risikotid))
+# Antal dødsfald fra Opgave 1 
+y <- mutate(y,observed = c(59435,1873021,1959083,3279528))
+y <- mutate(y,SMR = observed/expected)
+y 
+```
+
+Aldersfordelingerne i 2022 var markant forskelligt mellem de 4 lande
+hvor Danmark har flest ældre mennesker (65+ år) og færrest unge (0-14
+år) og Nigeria har flest unge og færrest ældre mennesker. Kun i
+andelen af aldersgruppen 15-64 år er de 4 landene nogenlunde
+sammenlignelig.
+
+SMR for Indonesien var 147 og dermed var det observeret antal dødsfald
+i Indonesien i 2022 47% højere end hvad man ville forvente hvis
+mortalitetsraterne havde været som de var i Danmark i 2022. Antal
+dødsfald i Nigeria og USA i 2022 var henholdsvis 230% og 12% højere
+end hvad man ville forvente hvis mortalitetsraterne var lige som i
+Danmark i 2022. Man kan bruge SMR til at sammenligne mortalitet i
+Danmark med mortalitet i de 3 lande og resultaterne viser at
+mortalitet var højere i alle 3 lande end i Danmark. Men kan ikke
+direkte sammenligne de andre 3 lande indbyrdes med SMR, fordi SMR
+afhænger af risikotidens aldersfordeling i de 3 landene.  Desuden er
+beregningen ikke særlig præcise på grund af de brede
+aldersintervaller.
+

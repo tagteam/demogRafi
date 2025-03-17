@@ -1,0 +1,139 @@
+---
+title: 'Demografi: opgaver kursusuge4'
+output: word_document
+---
+```{r setup}
+knitr::opts_knit$set(root.dir = "..")
+source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
+```
+
+
+# Opgave 1
+
+Beregn de summariske mortalitetsrater for Danmark, Indonesien,
+Nigeria, og USA i 2022. Rapporter resultaterne som antal døde per 1000
+personår. Hvad tænker du kunne være vigtige faktorer, som kan forklare
+forskellene i de summariske mortalitetsrater mellem de 4 lande?  Til
+denne opgave bruger vi data fra den internationale database IDB. Find
+tal her
+
+\bigskip
+<https://www.census.gov/data-tools/demo/idb/>
+\bigskip
+
+Under fanen `Tables` i menuen til venstre vælger du Danmark,
+Indonesien, Nigeria og USA, (`Filter by Country/Area`), året 2022
+(`Filter by Year`), og under `Custom Report Columns` vælger du alle
+andre kolonner fra og beholder kun
+
+-   `Deaths, both sexes`
+-   `Population`
+
+Tast data ind i R og beregn de summariske mortalitetsrater for alle 4
+lande. Angiv hvilken formel fra kompendiet, du har brugt. Tjek om du
+har tastet og regnet rigtigt ved at sammenligne med kolonnen `Crude
+Death rate`, som du finder under `Custom Report Columns`.
+
+```{r   }
+dat <- tibble(land = c("Danmark", "USA", "Indonesia", "Nigeria"),
+              Population = c(0,0,0,0),
+              Deaths = c(0,0,0,0))
+#
+# Skriv her dine R-koder som beregner de summariske mortalitetsrater per 1000 personår 
+#   
+```
+
+
+# Opgave 2
+
+Find folketal og antal døde i Danmark i 2022 i statistikbanken for
+alle aldre i statistikbanken og inddel dem i 3 aldersintervaller:
+0-14, 15-64, 65+. Bestem risikotidens aldersfordeling og beregn de
+aldersspecifikke mortalitetsrater. Angiv hvilke formler fra kompendiet
+du har brugt. Rapporter de 3 aldersspecifikke mortalitetsrater i en
+sætning.
+
+Aldersspecifikke mortalitetsrater:
+
+```{r   }
+# Aldersintervaller
+x <- hent_mortalitetsrate_data(breaks = c(-Inf, 14, 65, Inf),
+                               køn = "i alt",
+                               tid = "2022",
+                               label_one = "0-14",
+                               label_last = "65+")
+# Aldersfordeling af risikotid
+#
+# Dine R-koder her
+# 
+# Aldersspecifikke mortalitetsrater
+#
+# Dine R-koder her
+#  
+```
+
+
+# Opgave 3
+
+Sammenlign aldersfordelingerne i 2022 mellem Danmark, Indonesien,
+Nigeria og USA. Brug indirekte standardisering til at beregne det
+forventede antal dødsfald i henholdsvis USA, Indonesien og Nigeria i
+2022, hvis mortalitetsraterne havde været lige som de var i Danmark
+i 2022. Rapporter resultaterne som standardized mortality ratio. Hvad
+kan man nu konkludere med hensyn til forskellene i mortalitet mellem
+de 4 lande? Beskriv også svaghederne i denne undersøgelse.
+
+Find risikotidens aldersfordeling for Danmark, USA, Indonesien og
+Nigeria i 2022 i aldersintervallerne `0-14`, `15-65`, `65+`. I
+topmenuen vælger du `Population by Age` og i menuen til venstre vælger
+du `Age Tables` under `Show` og `Broad Age Groups` under `Age
+Groups`. 
+
+Til indirekte standardisering brug aldersspecifikke mortalitetsrater
+fra Opgave 2.
+
+```{r   }
+# data fra statistikbanken
+x <- hent_mortalitetsrate_data(breaks = c(-Inf, 14, 64, Inf),
+                               køn = "i alt",
+                               tid = "2022",
+                               label_one = "0-14",
+                               label_last = "65+")
+# Aldersspecifikke mortalitetsrater i Danmark
+x <- mutate(x, M = 1000*Dod/R) 
+```
+
+Læs data fra IDB ind i R:
+
+```{r   }
+# Aldersfordeling i alle 4 lande
+idb <- hent_IDB_screenshot_data()
+idb 
+```
+
+Find formel K2.11 i kompendiets kapitel 2 og beregn nævneren
+(forventede antal døde) hvis mortalitetsraterne havde været lige som i
+Danmark. De følgende R-koder gør det for Indonesien. Brug enten
+copy-and-paste for at gennemføre beregningerne også for Nigeria og USA
+eller brug tidyverses `group_by` til at gennemføre alle beregninger
+for alle 3 lande sammentidligt.
+
+```{r   }
+indonesia <- filter(idb,Land == "Indonesia")
+# Join aldersspecifikke mortalitetsrater fra opgave 2 (R-objekt x)
+# og data fra Indonesia
+indonesia <- left_join(indonesia,select(x,aldersinterval,M),by = "aldersinterval")
+indonesia
+# Beregning af nævneren fra kompendiets formel K2.11 for Indonesia
+sum_indonesia <- summarize(indonesia, expected = # skriv nævneren fra formel K2.11 her) 
+```
+
+Til beregningen af SMR skal vi bruge de observerede antal døde.
+
+```{r   }
+# Antal dødsfald fra Opgave 1 
+sum_indonesia <- mutate(sum_indonesia,observed = # skriv det observede antal dødsfald i Indonesia her)
+sum_indonesia <- mutate(sum_indonesia,SMR = observed/expected)
+sum_indonesia 
+```
+

@@ -1,0 +1,62 @@
+---
+title: 'Demografi: opgaver kursusuge6'
+output: word_document
+---
+```{r setup}
+knitr::opts_knit$set(root.dir = "..")
+source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
+```
+
+Forestil dig følgende situation: Der skal bygges nye boliger for
+flygtningefamilier. Flygtninge er for det meste forældre mellem 25 og 60 år med børn.
+Spørgsmålet er, om placeringen af boligerne enten skal placeres i Bornholm
+eller Hillerød kommune. Din opgave er at belyse fordele og ulemper
+ved de to beliggenheder med demografiske data.
+
+
+# Opgave 1
+
+Se på aldersfordelingerne i Bornholm og Hillerød kommune i 2010 og 2023.
+
+Genbrug R-koder fra opgaverne fra uge 3, hvor du indsætter "Bornholm"
+og "Hillerød" i stedet for "Region Hovedstaden" og "Region Sjælland".
+
+
+# Opgave 2
+
+Beregn middellevetid i Bornholm og Hillerød kommune i 2010 og 2023.
+
+```{r   }
+mf = beregn_middellevetid(tid = c(2010,2023),
+                          breaks = c(0:95,Inf),
+                          område = c("Bornholm","Hillerød"),
+                          køn = c("kvinder","mænd"))
+mf 
+```
+
+
+# Opgave 3
+
+Beregn fødselsrater i kommunerne Bornholm og Hillerød i 2010 og 2023.
+
+```{r   }
+F <- hent_data("FODIE",område = c("Bornholm","Hillerød"),
+               tid = c(2010,2023))
+F <- rename(F,Fødsler = INDHOLD)
+R <- hent_data("FOLK1a",område = c("Bornholm","Hillerød"),
+               tid = c("2010K3","2023K3"))
+R <- mutate(R,TID = as.numeric(sub("K3","",TID)),Risikotid = INDHOLD)
+x <- left_join(F,R,by = c("OMRÅDE","TID"))
+# dine koder som beregner fødselsrater her 
+```
+
+
+# Opgave 4
+
+Skriv en sammenhængende tekst hvor du rapporter forskelle og udvikling
+i aldersfordelingerne (beskriv alderspyramiderne), mortalitet
+(rapporter middelfolketal) og fertilitet (rapporter fødselsrater) i de
+to kommuner. Med udgangspunkt i disse tal, diskuter fordele og ulemper
+med de to beliggenheder for placeringen af flygtningefamilier med hensyn
+til at finde arbejde til de voksne og plads i vuggestuer og skoler til børnene.
+

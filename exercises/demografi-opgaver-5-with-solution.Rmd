@@ -1,0 +1,110 @@
+---
+title: 'Demografi: opgaver kursusuge5'
+output: word_document
+---
+```{r setup}
+knitr::opts_knit$set(root.dir = "..")
+source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
+```
+
+
+# Opgave 1
+
+1.  Angiv mindst en årsag til, at de aldersspecifikke
+    mortalitetsrater ikke var konstante de sidste 100 år i Danmark,
+    og hvordan kan bæredygtighed og miljøpåvirkninger spille en rolle heri?
+2.  Angiv mindst en grund til, at de aldersspecifikke 
+    mortalitetsrater ikke er konstante de næste 100 år i Danmark.
+3.  Hvad angiver Kapitel 3 som middelrestlevetiden for en
+    7-årige pige under forudsætningen, at mortalitetsraterne
+    fra 2019 holder sig på samme niveau i al fremtid for alle alderstrin?
+4.  Under antagelsen at mortalitetsraterne ville følge samme kalendertidstrends 
+    som de sidste 40 år (se Kapitel 2 Figur 2) i de næste 
+    100 år, ville den forventede restlevetid for en 7-årige pige i 2019
+    være mindre eller højere end 76,7 år?
+5.  Hvorfor er det forkert at fortolke 21,0 år (se Kapitel 3 afsnit 2.4) som den 
+    restlevetid, som en 65-årig kvinde i 2019 kan forvente at leve?
+
+
+## Besvarelse
+
+1.  Faldet i dødelige af smitsomme sygdomme pga. bedre hygiejne og
+    antibiotika. Faldet i dødsfald fra ullykker på grund af bedre
+    arbejdsmiljø. Fald i dødelighed fra kroniske sygdomme som fx
+    hjertekarsygdomme som en konsekvens af ændrede levekår og bedre
+    behandlingsmuligheder.  Miljøpåvirkninger kan påvirke
+    mortalitetsraterne negativt gennem fx luft- og vandforurening,
+    klimaforandringer og ekstreme vejrforhold, der kan føre til øget
+    mortalitet. Samtidigt kan bæredygtighedsinitiativer påvirke
+    mortalitetsraterne positivt gennem fx en kost med flere planter og
+    mindre animalsk fedt, flere grønne områder der fremmer aktivitet og
+    mindre miljøbelastende transport
+2.  Pandemier af nye sygdomme som fx HIV, COVID-19 eller fugleinfluenza. Krig og naturkatastrofer. Øget forekomsten af fedme og andre "livsstilssygdomme".
+3.  76,7 år. Middelrestlevetiden for en 7-årige pige bliver vist i afsnit 2.4 af Kapitel 3.
+4.  Middelrestlevetiden ville være højere, hvis mortalitetsraterne fortsætter med at falde.
+5.  Fordi mortalitetsraterne ikke kan antages at være konstante!
+
+
+# Opgave 2
+
+Se på formlerne for overlevelsestavler i kompendiets Kapitel 3 og besvar følgende spørgsmål:
+
+1.  Hvad er forskellen mellem ${}_1d_8$ og ${}_1D_8$?
+2.  Hvilke enheder har henholdsvis $l_x$ og $L_x$?
+3.  Hvis $l_x$ er 273 og ${}_1d_x$ er 17, hvad er så $l_{x+1}$?
+6.  Hvorfor sætter vi Chiang's a til 0,1 i det første aldersinterval og til 0,5 (for 1-års overlevelsestavlen) i de andre intervaller?
+5.  Indsæt formlen for Chiang's a i det sidste aldersinterval (Kapitel 3, Formel K3.2) i 
+    den centrale approksimationsformel (Kapitel 3, Formel K3.1) og simplificer 
+    bagefter udtrykket for dødshyppigheden i tabellens sidste aldersinterval $q_{x^{max}}$.
+6.  Det antages ofte, at stigningen i middellevetid over de sidste 200 år særligt skyldes faldet i spædbarnsdødeligheden. Hvorfor det en rimelig forklaring? Og hvornår kan faldet have konsekvenser for valget af værdien af Chiang's a i denne aldersgruppe?
+
+
+## Besvarelse
+
+1.  ${}_1D_8$ er antal døde blandt 8-årige i den rigtige befolkning i den givne kalenderperiode, $_{}1d_8$ er antal døde blandt 8-årige i den hypotetiske tabelbefolkning.
+2.  Begge størrelser hører til den hypotetiske tabelbefolkning: $l_x$ er antal personer (enhed: personer) i starten af alderstrin $x$, og $L_x$ er samlet antal gennemlevet tid (enhed: personår) i intervallet fra alderstrin $x$ til næste alderstrin.
+3.  I starten af alderstrinnet er der 273 personer. Der dør 17 personer i intervallet. Dermed er der 256 tilbage i starten af det næste aldersinterval.
+6.  Det gør vi fordi dødeligheden i det første leveår ikke er ligefordelt i intervallet, da de fleste dødsfæld sker indenfor den første måned efter fødslen. I de andre aldersintervaller er dødeligheden omtrent ligefordelt og dermed er \`\`midten af intervallet'' en god tilnærmelse af det gennemsnitlige antal år en person som døde i intervallet var død i intervallet.
+5.  Resultatet er $q_x^{max} = 1$ uanset værdien af $M_x$. Dødshyppigheden i det sidste aldersinterval er 100\\%. Det betyder, at den resterende del af tabelbefolkningen dør i det sidste aldersinterval.
+6.  Middellevetiden er særligt påvirket af faldet i spødbarnsdødeligheden fordi dødsfald i denne aldergruppe medfører et større tab i leveår end fx et dødsfald ved alder 50. En del af forklaringen er også, at dødeligheden er lav efter første leveår og frem til midtlivet. Faldet i spædbarnsdødelighed har alene  konsekvenser for valget af værdien af Chiang's a hvis den gennemsnitlige levetid for dem, der dør i første leveår ændrer sig samtidig med, at spædbarnsdødeligheden falder.
+
+
+# Opgave 3
+
+1.  Find aldersspecifikke mortalitetsrater for mænd i 2009 i Danmark i 1-års aldersintervaller.
+2.  Rapporter mortalitetsraten for 0-årige og 5-årige drenge.
+3.  Beregn overlevelsestavlen baseret på de aldersspecifikke mortalitetsrater fra 2009 i Danmark for en radix af 100.000
+    personer med Chiang's a fra Kapitel 3 (Tabel 2).
+4.  Rapporterer tabellens værdi i kolonne `e` for alderstrinnene 0 og 84 år.
+
+```{r   }
+## 
+x1 <- hent_mortalitetsrate_data(tid = 2009,
+                               breaks = c(0:99,Inf),
+                               køn = "mænd",
+                               right = FALSE, 
+                               alder = "all_no_total")
+x1 <- mutate(x1,M = Dod/R)
+x1 
+```
+
+```{r   }
+x1 <- mutate(x1,a = c(0.1,rep(0.5,99)),k = rep(1,100))
+tavle_mænd_1 <- overlevelsestavle(x1,
+                                     mortalitet = "M",
+                                     alder = "aldersinterval")
+print(tavle_mænd_1,digits = 2,n = 100) 
+```
+
+2.  Rapporter mortalitetsraten for 0-årige og 5-årige drenge.
+
+Mortalitetsraten for 0-årige drenge var 3,1 døde/1000 personår og for 5-årige drenge 0,03 døde/1000 personår i 2009.
+
+4.  Rapporterer tabellens værdi i kolonne `e` for alderstrinnene 0 og 84 år:
+
+Middellevetiden for mænd i 2009 i Danmark er 76,8 år under antagelsen,
+at de aldersspecifikke mortalitetsrater fra 2009 ikke ændrer sig i
+fremtiden.  Den forventede middelrestlevetid af 84-årige mænd i 2009 i
+Danmark er 5,9 år under antagelsen, at de aldersspecifikke
+mortalitetsrater fra 2009 ikke ændrer sig i fremtiden.
+

@@ -1,0 +1,57 @@
+---
+title: 'Demografi: opgaver kursusuge5'
+output: word_document
+---
+```{r setup}
+knitr::opts_knit$set(root.dir = "..")
+source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
+```
+
+
+# Opgave 1
+
+1.  Angiv mindst en årsag til, at de aldersspecifikke
+    mortalitetsrater ikke var konstante de sidste 100 år i Danmark,
+    og hvordan kan bæredygtighed og miljøpåvirkninger spille en rolle heri?
+2.  Angiv mindst en grund til, at de aldersspecifikke 
+    mortalitetsrater ikke er konstante de næste 100 år i Danmark.
+3.  Hvad angiver Kapitel 3 som middelrestlevetiden for en
+    7-årige pige under forudsætningen, at mortalitetsraterne
+    fra 2019 holder sig på samme niveau i al fremtid for alle alderstrin?
+4.  Under antagelsen at mortalitetsraterne ville følge samme kalendertidstrends 
+    som de sidste 40 år (se Kapitel 2 Figur 2) i de næste 
+    100 år, ville den forventede restlevetid for en 7-årige pige i 2019
+    være mindre eller højere end 76,7 år?
+5.  Hvorfor er det forkert at fortolke 21,0 år (se Kapitel 3 afsnit 2.4) som den 
+    restlevetid, som en 65-årig kvinde i 2019 kan forvente at leve?
+
+
+# Opgave 2
+
+Se på formlerne for overlevelsestavler i kompendiets Kapitel 3 og besvar følgende spørgsmål:
+
+1.  Hvad er forskellen mellem ${}_1d_8$ og ${}_1D_8$?
+2.  Hvilke enheder har henholdsvis $l_x$ og $L_x$?
+3.  Hvis $l_x$ er 273 og ${}_1d_x$ er 17, hvad er så $l_{x+1}$?
+6.  Hvorfor sætter vi Chiang's a til 0,1 i det første aldersinterval og til 0,5 (for 1-års overlevelsestavlen) i de andre intervaller?
+5.  Indsæt formlen for Chiang's a i det sidste aldersinterval (Kapitel 3, Formel K3.2) i 
+    den centrale approksimationsformel (Kapitel 3, Formel K3.1) og simplificer 
+    bagefter udtrykket for dødshyppigheden i tabellens sidste aldersinterval $q_{x^{max}}$.
+6.  Det antages ofte, at stigningen i middellevetid over de sidste 200 år særligt skyldes faldet i spædbarnsdødeligheden. Hvorfor det en rimelig forklaring? Og hvornår kan faldet have konsekvenser for valget af værdien af Chiang's a i denne aldersgruppe?
+
+
+# Opgave 3
+
+1.  Find aldersspecifikke mortalitetsrater for mænd i 2009 i Danmark i 1-års aldersintervaller.
+2.  Rapporter mortalitetsraten for 0-årige og 5-årige drenge.
+3.  Beregn overlevelsestavlen baseret på de aldersspecifikke mortalitetsrater fra 2009 i Danmark for en radix af 100.000
+    personer med Chiang's a fra Kapitel 3 (Tabel 2).
+4.  Rapporterer tabellens værdi i kolonne `e` for alderstrinnene 0 og 84 år.
+
+
+## Instruks
+
+Find R-koder for mortalitetsrater og overlevelsestavlen med 1-års
+alderstrin i Kapitel 3 og indsæt dem her med copy-og-paste
+metoden. Tilpas koderne sådan at de besvarer opgaven.
+

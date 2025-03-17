@@ -1,0 +1,206 @@
+---
+title: 'Demografi: opgaver kursusuge1'
+output: word_document
+---
+```{r setup}
+knitr::opts_knit$set(root.dir = "..")
+```
+
+
+# Forberedelse
+
+Vi går ud fra at du har fulgt instrukserne i Absalon 'R og R-studio
+software' 'Trin 2: mapper og projekter'. Dvs., du har en mappe på din
+computer, som hedder `Demografi`, og du har lavet et R-studio projekt
+til denne mappe. Start R-studio og åben projektet 'Demografi' via
+menu: `File -> Open Project`
+
+VIGTIGT: Filen der hedder `demografi-opgaver-1.Rmd` skal enten være
+gemt i projektmappen 'Demografi', eller i undermappen
+'Demografi/Opgaver'. Hvis du vælger undermappen er det nødvendigt at du
+åbner 'Global options' fra R-studios menu 'Tools' hvor du under fanen
+'R Markdown' sætter 'Evaluate chunks in directory:' til 'Project'.
+Bagefter kan du køre den R-kommando, som henter kursets R-funktioner (se
+kompendium kapitel 1 afnsit 3 og nedenfor). Hvis det fejler kan det være fordi du
+ikke har adgang til internettet? Eller fordi du ikke endnu har
+installeret alle R pakker som vi skal bruge i kurset?
+
+```{r   }
+source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R") 
+```
+
+
+# Opgave 1
+
+Svar på følgende spørgsmål ved at læse i kompendium kapitel 1:
+
+-   Danner alle personer som spiser vegan i Danmark en kohorte? Begrund
+    dit svar.
+-   Er Bornholms befolkning lukket eller åben? Begrund dit svar.
+-   CPR er et administrativt register. Hvad kan det betyde for datakvaliteten af adresseoplysningerne?
+-   Hvad er den naturlige vækstrate og hvad er nettovandringsraten? Hvilken af de to er sværest at registrere nøjagtigt?
+-   Kapitel 1 afsnit 7 (Rater) angiver mortalitetsraten for Bornholm i
+    2022 som 14,3 per 1000 personår og Kapitel 1 afsnit 7.2
+    (Perioderater) angiver 14,4 per 1000 personår. Hvad er årsagen til
+    denne forskel?
+
+-   Nej, der mangler perioden (hvornår?). Begivenheden kan være at en
+    person beslutter at blive veganer (hvad) og det er personer i Danmark
+    (hvem). Det ville være en kohorte, hvis man fulgte alle veganer
+    i perioden 2000-2010.
+-   Nej, fordi der sker ind- og udvandringer til Bornholms befolkning.
+-   Hvis adresseoplysningernes rigtighed ikke er vigtigt for den
+    administrative anvendelse, så er det ikke sikkert at oplysningerne er
+    korrekte. Eksempler kan være hvis flytninger ikke bliver registeret af
+    den person, der flytter.
+-   Den naturlige vækstrate er differencen mellem fødselsrate og
+    mortalitetsrate, nettovandringsraten er differencen mellem ind- og
+    udvandringsrater. Det er sværest at bestemme nettovandringsraten,
+    fordi man typisk ikke registrerer ind- og udvandringsdatoer præcise.
+-   Forskellen skyldes forskellen i beregningen af middelfolketal. Med
+    metode 1 bliver mortalitetsraten 14,3 per 1000 personår, med metode 2
+    14,4 per 1000 personår.
+
+
+# Opgave 2
+
+Find svar til den følgende opgave i www.statistikbanken.dk under EMNET
+Borger. For hver komponent i den demografiske ligevægtsligning, angiv
+et register som viser tal efter område/kommune. Derudover, for hvert
+register angiv det første og sidste kalenderårstal.
+
+-   **FOLK1A:** Folketal efter område (2008-2023)
+-   **FODIE:** Antal fødsler efter kommune (2007-2022)
+-   **FOD207:** Antal døde efter område (2006-2022)
+-   **VAN1KVT:** Antal indvandringer efter kommune (2007-2023)
+-   **VAN2AAR:** Antal udvandringer efter kommune (2007-2022)
+
+
+# Opgave 3
+
+Erstat alle steder hvor der står '0' i følgende R-kode (se filen
+demografi-opgaver-1.Rmd) med tal som du finder i
+www.statistikbanken.dk for 2019 under EMNE Borgere. Antal døde og
+antal udvandringer angives som et negativt tal. Beregn bestand af mænd
+og kvinder i slutningen af 2019 som sum af antal fødsler, antal døde,
+antal indvandringer og antal udvandringer.
+
+Beregn bestand af mænd og kvinder i slutningen af 2019 sådan her:
+
+Sammenlign den beregnede bestand i slutningen af 2019 med tal fra
+statistikbanken d. 1.1.2020 for mænd og for kvinder. Diskuter
+eventuelle afvigelser. Beregn middelfolketallet med metode 2 for 2019
+for mænd og for kvinder i hele Danmark.
+
+```{r   }
+kvinder_2019 <- c("Bestand_1.1.2019"=2917008,
+                  "Fødsler"=29648,
+                  "Døde"=-26503,
+                  "Indvandringer"=40495,
+                  "udvandringer"=-34854)
+maend_2019 <- c("Bestand_1.1.2019"=2889073,
+               "Fødsler"=31519,
+               "Døde"=-27455,
+               "Indvandringer"=43423,
+               "udvandringer"=-39743)
+dk_2019 <- data.frame(kvinder_2019,maend_2019)
+knitr::kable(dk_2019) 
+```
+
+Beregn hvor stor bestanden i slutningen af 2019 er sådan her:
+
+```{r   }
+bestand <- dk_2019 %>% summarise(Kvinder=sum(kvinder_2019),Maend=sum(maend_2019))
+knitr::kable(bestand) 
+```
+
+Sammenlign den beregnede bestand i slutningen af 2019 med tal fra
+statistikbanken d. 1.1.2020 for mænd og for kvinder.
+
+Bestand 1.1.2020 (observeret)  
+
+-   **Mænd:** 2896918
+-   **Kvinder:** 2925845
+
+Der er 101 flere mænd og 51 flere kvinder registreret d. 1.1.2020 end
+hvad vi har beregnet baseret på tal i 2019.
+
+Beregn middelfolketal med metode 2 for 2019 for mænd og for
+kvinder i hele Danmark. 
+
+```{r   }
+# Mænd: 
+(2889073+2896918)/2
+# Kvinder:
+(2917008+2925845)/2  
+```
+
+-   Mænd:  (2889073+2896918)/2 = 2892996
+-   Kvinder: (2917008+2925845)/2 = 2921426
+
+
+# Opgave 4
+
+Find tal i statistikbankens register "FOLK1A". Hvor mange mænd og
+kvinder var der i hver af de fem danske regioner i 2021? Beregn
+middelfolketal for 2021 med metode 1 for begge køn og alle fem
+regioner separat. Gentag beregningen for personer som er 25 år gamle
+og personer som er 85 år gamle. Diskuterer køns- og regionsforskelle
+for 25 årige og 85 årige danskere.
+
+Vi bruger funktionen register<sub>info</sub> til at hente information om
+variable i register FOLK1A fra statistikbanken.
+
+```{r   }
+# hent variable information fra register FOLK1A
+info_folk1a <- register_info("folk1a")
+# se hvilke variable der er
+names(info_folk1a)
+# se værdierne for enkelte variable
+info_folk1a$KØN
+info_folk1a$Tid 
+```
+
+Vi bruger funktionen `hent_data` til at hente data fra registret
+FOLK1A og vælger følgende informationer:
+
+-   Område: Region Sjælland, Region Hovedstaden, Region Midtjylland, Region Nordjylland og Region Syddanmark
+-   Køn: "Women" og "Men"
+-   Alder: 'IALT'
+-   Civilstand: marker 'I alt'
+-   Kvartal: '2021K3'
+
+```{r   }
+# hent middelfolketal med metode 1
+f1a <- hent_data(register = "folk1a",
+                 tid = "2021K3",
+                 alder = c("IALT"),
+                 område = c("Region Hovedstaden",
+                            "Region Midtjylland",
+                            "Region Nordjylland",
+                            "Region Sjælland",
+                            "Region Syddanmark"),
+                 køn = c("Kvinder","Mænd"))
+f1a 
+```
+
+```{r   }
+# hent middelfolketal med metode 1
+f1a_25_85 <- hent_data(register = "folk1a",
+                       tid = "2021K3",
+                       alder = c(25,85),
+                       område = c("Region Hovedstaden",
+                                  "Region Midtjylland",
+                                  "Region Nordjylland",
+                                  "Region Sjælland",
+                                  "Region Syddanmark"),
+                       køn = c("Kvinder","Mænd"))
+f1a_25_85 
+```
+
+Der er flere 25 årige kvinder end 25 årige mænd i Region Hovedstaden
+men omvendt i alle andre regioner. Det kunne være på grund af flytning
+i forbindelse med uddannelse, fordi mænd er mindre tilbøjelige til at
+flytte hjemmefra. Der er flere 85 årige kvinder end 85 årige mænd i alle
+5 regioner. Det er nok fordi kvinder generelt lever længere end mænd.
+

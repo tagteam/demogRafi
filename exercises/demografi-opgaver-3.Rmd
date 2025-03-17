@@ -1,0 +1,182 @@
+---
+title: 'Demografi: opgaver kursusuge3'
+output: word_document
+---
+```{r setup}
+knitr::opts_knit$set(root.dir = "..")
+source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
+```
+
+
+# Opgave 1
+
+Diskuter den demografiske transition og dens faser ved at sammenligne
+aldersfordelinger (Dependency Ratio, Median Age) i Danmark, United
+States, Indonesia og Nigeria:
+
+\bigskip
+<https://www.census.gov/data-tools/demo/idb/>
+
+\vspace{-1.5em}
+
+Den demografiske transition beskriver overgang fra et stadie med højt
+fertilitet og høj dødelighed til et stadie med lav dødelighed og lav
+fertilitet. Det betyder at befolkninger, som befinder sig i en sent
+fase af den demografiske transition, har en relativ stor andel ældre
+mennesker (lav dødelighed) og en relativ lille andel unge mennesker
+(lav fertilitet). For befolkninger i en tidlig fase af den
+demografiske transition er det omvendt, de består af en forholdsvis
+lav andel ældre mennesker og en forholdsvis høj andel unge
+mennesker. Tallene viser tydeligt, at især Nigeria men også Indonesien
+befinder sig i tidligere faser af den demografiske transition end USA
+og Danmark. Trendsene viser at Indonesien har udviklet sig hurtigere
+end Nigeria og at ældrekvoten i Danmark er højere end i USA.
+
+
+# Opgave 2
+
+Se på tidsudvikling af køns- og aldersfordelingen af folketal i Region
+Hovedstaden og Region Sjælland ved at sammenligne tal fra 2010 med tal
+fra 2020. Hvordan har befolkningspyramiden ændret sig og hvilke
+årsager kunne det have? Sammenlign bagefter køns- og aldersfordelingen
+af folketal mellem Region Hovedstaden og Region Sjælland i 2020. Hvad
+er mulige årsager for forskelle mellem regionerne?
+
+Følgende R-koder findes i kompendiets Kapitel 2. De genererer
+alderspyramiden for hele Danmark i 2023. Din opgave er at tilpasse
+koderne sådan at de genererer alderspyramider for begge regioner i
+begge år i en graf. Det der skal tilpasses er:
+
+1.  Ændre den første linje sådan at folketal bliver hentet for begge regioner og begge år:
+
+```{r   }
+folk <- hent_data("FOLK1a","alder"=0:125,"køn"=1:2,tid=c("2010K3","2020K3"),Område = c("Region Hovedstaden","Region Sjælland")) 
+```
+
+1.  Ændre den sidste linje sådan at alderspyramider bliver vist separat for
+    begge år og begge regioner:
+
+```{r   }
+g + facet_grid(OMRÅDE~TID) 
+```
+
+1.  Tilpasse figurens titel i `ggtitle` og kommentarerne i R-koderne
+
+```{r   }
+# R-koder der genererer alderspyramiden for 2 regioner den 1. juli 2010 og 1. juli 2020
+folk <- hent_data("FOLK1a","alder"=0:125,"køn"=1:2,tid=c("2010K3","2020K3"),Område = c("Region Hovedstaden","Region Sjælland"))
+# Fjern aldere, der har folketal 0
+folk <- subset(folk,alder<106)
+# Mænd skal vises på venstresiden, derfor bliver INDHOLD negativt 
+folk_m <- subset(folk,KØN=="Mænd") %>% mutate(INDHOLD=-INDHOLD)
+# For kvinder på højresiden er INDHOLD positivt
+folk_k <- subset(folk,KØN=="Kvinder")
+# Grafik
+g <- ggplot(folk, aes(x = alder, y = INDHOLD, fill = KØN)) +
+  geom_bar(data=folk_m, stat = "identity") +
+  geom_bar(data=folk_k, stat = "identity") +
+  coord_flip() + theme_economist() +
+  ylab("Folketal N(t)")+xlab("Alder (år)") +
+  theme(legend.title=element_blank())
+g <- g+ggtitle("Alderspyramide Region Hovedstaden 1. juli 2020")
+g <- g+theme(axis.title.y=element_text(margin=margin(t=0,r=20,b=0,l=0)))
+g <- g+theme(axis.title.x=element_text(margin=margin(t=20,r=0,b=0,l=0)))
+g + facet_grid(OMRÅDE~TID) 
+```
+
+Kønsfordelingen har været rimlig lig i begge regioner i 2010 og det
+har ikke ændret sig i 2020. I Region Sjælland har unge mennesker rundt
+omkring 25-års alderen været stærkt underrepræsenteret i 2010 og det
+er blevet mindre ekstrem i 2020, men aldersgruppen 25-40 er stadigvæk
+relativt svagt besæt. I Region Hovedstaden er aldersgruppen 25-40 den
+største i 2010 og det har ikke ændret sig i 2020. I 2020 er der dog
+kommet mange flere mennesker i alderen rundt omkring 25 år. Meget
+tyder på at folk flytter væk fra Region Sjælland og hen til Region
+Hovedstaden når de skal have en uddannelse.
+
+
+# Opgave 3
+
+Beregn alderstandardiserede mortalitetsrater for Region Hovedstaden og
+Region Sjælland i henholdsvis 2010 og 2020 med hele den danske
+befolkning i 2020 som standardbefolkning. Gør det for hver køn
+separat. Brug direkte standardisering og 10 års
+aldersintervaller. Beregn og diskuter resultaterne med og uden
+alderstandardisering.
+
+```{r   }
+dat <- hent_mortalitetsrate_data(breaks = c(seq(0,99,10),125),
+                                 køn = c("Kvinder","Mænd"),
+                                 område = c("Region Hovedstaden","Region Sjælland","Hele landet"),
+                                 tid = c(2010,2020))
+# aldersspecifikke mortalitetsrate
+dat <- mutate(dat,M = 1000*Dod/R)
+# summariske mortalitetsrate
+sum_mrate <- dat %>% group_by(KØN,TID,OMRÅDE) %>% summarise(sum_mrate = 1000*sum(Dod)/sum(R),.groups = "keep")
+# aldersfordeling for standardbefolkning
+std <- hent_aldersfordeling(breaks = c(seq(0,99,10),125),
+                            køn = c("Kvinder","Mænd"),
+                            område = "Hele landet",
+                            tid = c(2020))
+# fjern risikotid R, OMRÅDE og TID
+std <- mutate(std,R = NULL,OMRÅDE = NULL,TID = NULL)
+# standardiserede mortalitetsrate
+dat <- left_join(dat,std,by = c("aldersinterval","KØN"))
+std_mrate <- dat %>% group_by(KØN,TID,OMRÅDE) %>% summarise(std_mrate = sum(M*V),.groups = "keep")
+# sæt de summariske og standardiserede rater sammen
+left_join(sum_mrate,std_mrate) 
+```
+
+    Joining with `by = join_by(KØN, TID, OMRÅDE)`
+    # A tibble: 12 × 5
+    # Groups:   KØN, TID, OMRÅDE [12]
+       KØN       TID OMRÅDE             sum_mrate std_mrate
+       <chr>   <dbl> <chr>                  <dbl>     <dbl>
+     1 Kvinder  2010 Hele landet             9.87     11.1 
+     2 Kvinder  2010 Region Hovedstaden      9.87     11.4 
+     3 Kvinder  2010 Region Sjælland        10.6      11.6 
+     4 Kvinder  2020 Hele landet             9.10      9.10
+     5 Kvinder  2020 Region Hovedstaden      8.32      9.25
+     6 Kvinder  2020 Region Sjælland        10.5       9.59
+     7 Mænd     2010 Hele landet             9.74     12.0 
+     8 Mænd     2010 Region Hovedstaden      9.48     12.8 
+     9 Mænd     2010 Region Sjælland        11.3      12.9 
+    10 Mænd     2020 Hele landet             9.66      9.66
+    11 Mænd     2020 Region Hovedstaden      8.56     10.0 
+    12 Mænd     2020 Region Sjælland        11.7      10.5
+
+Dødeligheden er faldet markant mellem 2010 og 2012 for begge køn og
+for begge regioner. I Region Sjælland ser vi det næsten ikke når vi
+sammenligner de summariske mortalitetsrater, og for mænd er den
+summariske mortalitetsrate faktisk steget fra 11,3 per 1000 personår
+til 11,7 per 1000 personår. Men det bliver tydeligt når vi
+sammenligner de alderstandardiserede mortalitetsrater. For eksempel er
+mortalitetsraten faldet fra 11,6 per 1000 personår til 9,6 per 1000
+personår for kvinder i Region Sjælland og fra 12,9 per 1000 personår
+til 10,5 per 1000 personår for mænd i Region Sjælland. De summariske
+mortalitetsrater er generelt laver i Region Hovedstaden end i Region
+Sjælland, hvilket giver god mening fordi der er flere unge i Region
+Hovedstaden (Opgave 2). Efter alderstandardisering er der næsten ingen
+forskel mellem regionerne dog er de standardiserede mortalitetsrater
+en smule højere i Region Sjælland for begge køn.
+
+
+# Opgave 4
+
+Hvilke bæredygtighedsudfordringer kan der være ved den skæve
+aldersfordeling i den danske befolkning som følge af den
+demografiske transition?
+
+Der kan være flere udfordringer, man kan hive fat i. For eksempel kan
+der forventes et øget pres på sundhedsvæsenet, når en større andel af
+befolkningen består af ældre mennesker. Komorbiditet og kroniske
+sygdomme kræver langvarig og dyr behandling. Der skal bruges
+ressourcer og arbejdskraft til plejen af den ældre befolkning, hvilket
+bliver endnu sværere at imødekomme, da den lave fertilitet betyder at
+der vil være færre mennesker i den arbejdsdygtige alder i fremtiden.
+Derudover kan man argumentere for, at befolkningen bliver mere sårbar
+i krisesituationer, når ældre mennesker udgør så stor en del af
+befolkningen (fx ved pandemier, ekstreme vejrforhold, evakueringer
+mm.). Det medfører et øget behov for udvikling af passende
+infrastruktur og gode beredskabsplaner.
+
