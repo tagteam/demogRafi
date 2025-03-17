@@ -78,7 +78,7 @@ Beregn middellevetid i Bornholm og Hillerød kommune i 2010 og 2023.
 ** Instruks                                                 :rmd:ignore:
 
 #+BEGIN_SRC R  :results output raw drawer :exports (exercise-with-code) :session *R* :cache yes :eval (never-plain-export)
-mf = beregn_middellevetid(tid = c(2010,2020),
+mf = beregn_middellevetid(tid = c(2010,2023),
                           breaks = c(0:95,Inf),
                           område = c("Bornholm","Hillerød"),
                           køn = c("kvinder","mænd"))
@@ -88,7 +88,7 @@ mf
 ** Løsningen :solution:ignore:
 
 #+BEGIN_SRC R  :results output raw drawer :exports (exercise-with-solutions) :session *R* :cache yes :eval (never-plain-export)
-mf = beregn_middellevetid(tid = c(2010,2020),
+mf = beregn_middellevetid(tid = c(2010,2023),
                           breaks = c(0:95,Inf),
                           område = c("Bornholm","Hillerød"),
                           køn = c("kvinder","mænd"))
@@ -146,7 +146,7 @@ uddannelse og/eller udflytning fra København.
 Når vi kigger på udviklingen i middellevetiden på Bornholm, er denne
 steget for både mænd (3,5 år) og kvinder (1,8 år). I Hillerød ses også
 en stigning for både mænd (2,1) og kvinder (4,2) fra 2010
-til 2020. Den største stigning ses altså blandt kvinder i Hillerød og
+til 2023. Den største stigning ses altså blandt kvinder i Hillerød og
 dernæst blandt mænd på Bornholm.
 
 Fødselsraterne viser et fald både på Bornholm og i Hillerød. På
