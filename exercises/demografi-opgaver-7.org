@@ -166,31 +166,53 @@ dat %>% group_by(KØN) %>% summarise(sum(rate_dod_psyk*V))
 
 [[file:./kraeftdoedshyppighed.pdf]]
 
-3. [@3] Fortolk alle tal i rækken for aldersintervallet 70-74 år i den
-   årsagsspecifikke dødelighedstavle hvor mænd i Danmark i 2018 nedenfor
-   (årsagen er død på grund af kræft, se forelæsningsnoterne).
-   
-| Alder | \(\ell_x\) | \({}_kd_x\) | \({}_kd_x^{\text{Kraeft}}\) | \(\operatorname{LTR}_x^{\text{Kraeft}}\) | \(_xq^{\text{Kraeft}}_0\)  | \(o_x\)   |
-|-------+------------+-------------+-----------------------------+------------------------------------------+----------------------------+-----------|
-|     0 |     100000 |         406 |                           0 | 26,77                                    | 0,00                       | 99,59     |
-|   1-4 |      99594 |          55 |                           0 | 26,88                                    | 0,00                       | 99,54     |
-|   5-9 |      99539 |          37 |                          12 | 26,89                                    | 0,01                       | 99,50     |
-| 10-14 |      99503 |          37 |                           9 | 26,89                                    | 0,02                       | 99,47     |
-| 15-19 |      99465 |         161 |                          11 | 26,89                                    | 0,03                       | 99,30     |
-| 20-24 |      99304 |         150 |                          15 | 26,92                                    | 0,05                       | 99,15     |
-| 25-29 |      99154 |         238 |                          15 | 26,95                                    | 0,06                       | 98,92     |
-| 30-34 |      98916 |         321 |                          45 | 27,00                                    | 0,11                       | 98,59     |
-| 35-39 |      98594 |         396 |                          52 | 27,04                                    | 0,16                       | 98,20     |
-| 40-44 |      98199 |         630 |                         120 | 27,10                                    | 0,28                       | 97,57     |
-| 45-49 |      97569 |        1001 |                         200 | 27,15                                    | 0,48                       | 96,57     |
-| 50-54 |      96568 |        1766 |                         534 | 27,22                                    | 1,01                       | 94,80     |
-| 55-59 |      94802 |        3059 |                         928 | 27,17                                    | 1,94                       | 91,74     |
-| 60-64 |      91743 |        4738 |                        1766 | 27,06                                    | 3,71                       | 87,01     |
-| 65-69 |      87005 |        6933 |                        2777 | 26,50                                    | 6,48                       | 80,07     |
-| 70-74 |      80072 |        9391 |                        3734 | 25,33                                    | 10,22                      | 70,68     |
-| 75-79 |      70681 |       13345 |                        4524 | 23,41                                    | 14,74                      | 57,34     |
-| 80-84 |      57336 |       18271 |                        5281 | 20,97                                    | 20,02                      | 39,06     |
-|   85+ |      39065 |       39065 |                        6743 | 17,26                                    | 26,77                      | 0,00      |
+3. [@3] Fortolk alle tal i rækken for aldersintervallet 70-74 år i en
+   årsagsspecifikke dødelighedstavle med årsag død på grund af kræft
+   for mænd i Danmark i 2018.
+
+** Instruks :ignore:rmd:   
+#+BEGIN_SRC R  :results output drawer :exports both :session *R* :cache yes :eval (never-plain-export)
+x <- hent_dodsaarsag_data(tid = 2018, årsag =c("A02"), køn = "Mænd")
+# mortalitetsrater
+x <- mutate(x,M = Dod/R)
+# andel kræftdødsfald
+x <- mutate(x,hQ = QDod/Dod)
+# Chiang's \(a\) 
+x <- mutate(x,a = c(0.1,2,rep(2.5,17)),k = c(1,4,rep(5,17)))
+kraeftdodtavle_maend <- dodsaarsagtavle(data = x,
+                                        mortalitet = "M",
+                                        hQ = "hQ",
+                                        alder = "aldersinterval",
+                                        radix = 100000)
+select(kraeftdodtavle_maend,-c(L,T,e))
+#+END_SRC
+
+#+RESULTS[(2025-04-01 11:01:17) 8a64cb708f219757dbd8ee08b2b8b0c54e939134]:
+:results:
+# A tibble: 19 × 11
+   Alder      l     d    dQ     hQ     p        q        qQ     o LTR_Q risiko_Q
+   <fct>  <dbl> <dbl> <dbl>  <dbl> <dbl>    <dbl>     <dbl> <dbl> <dbl>    <dbl>
+ 1 0     100000   406     0 0      0.996 0.00406  0         1     0.274 0       
+ 2 1-4    99594    55     0 0      0.999 0.000551 0         0.996 0.275 0       
+ 3 5-9    99539    37    12 0.333  1.00  0.000367 0.000122  0.995 0.275 0.000122
+ 4 10-14  99503    37     9 0.231  1.00  0.000375 0.0000866 0.995 0.275 0.000208
+ 5 15-19  99465   161    11 0.0702 0.998 0.00162  0.000113  0.995 0.275 0.000321
+ 6 20-24  99304   150    18 0.117  0.998 0.00151  0.000177  0.993 0.276 0.000496
+ 7 25-29  99154   238    17 0.0729 0.998 0.00240  0.000175  0.992 0.276 0.000670
+ 8 30-34  98916   321    45 0.140  0.997 0.00325  0.000456  0.989 0.276 0.00112 
+ 9 35-39  98594   396    55 0.140  0.996 0.00401  0.000561  0.986 0.277 0.00167 
+10 40-44  98199   630   120 0.190  0.994 0.00641  0.00122   0.982 0.277 0.00287 
+11 45-49  97569  1001   205 0.205  0.990 0.0103   0.00210   0.976 0.278 0.00492 
+12 50-54  96568  1766   548 0.310  0.982 0.0183   0.00567   0.966 0.279 0.0104  
+13 55-59  94802  3059   956 0.313  0.968 0.0323   0.0101    0.948 0.278 0.0200  
+14 60-64  91743  4738  1797 0.379  0.948 0.0516   0.0196    0.917 0.277 0.0379  
+15 65-69  87005  6933  2846 0.411  0.920 0.0797   0.0327    0.870 0.271 0.0664  
+16 70-74  80072  9391  3817 0.406  0.883 0.117    0.0477    0.801 0.259 0.105   
+17 75-79  70681 13345  4610 0.345  0.811 0.189    0.0652    0.707 0.240 0.151   
+18 80-84  57336 18271  5404 0.296  0.681 0.319    0.0943    0.573 0.215 0.205   
+19 85     39065 39065  6939 0.178  0     1        0.178     0.391 0.178 0.274
+:end:
+
 
 ** Løsning                                                  :solution:ignore:
 *** Besvarelse
@@ -203,12 +225,14 @@ dat %>% group_by(KØN) %>% summarise(sum(rate_dod_psyk*V))
    Statistikbanken DODA1 viser at der er flere i aldersintervallet 45-49 som døde af kræft i 2008 end i aldersintervallet 5-9.
 3. [@3] Fortolkning af hele tabellen er for en tabelbefolkning som
    bliver født i 2018 og lever helt deres liv i 2018.  I starten af
-   aldersintervallet 70-74, er 80072 'personer' (70,68%) fra
-   tabelbefolkningen i live. I intervallet dør 9391, hvoraf 3734 dør
-   af kræft. For at en 'tabelperson' som er blevet 70 år, er risikoen
-   for at dø af kræft i resten af livet 25.33% (livstidsrisiko for en
-   70 årige tabelperson). Risiko for kræftdød inden 70-års alderen er 10,22% og
-   sandsynligheden for at blive 70-år gammel er 70,68%.
+   aldersintervallet 70-74, er 80072 'personer' fra
+   tabelbefolkningen i live. I intervallet dør 9391, hvoraf 3817 (40,6%) dør
+   af kræft. For at en 'tabelperson' som er blevet 70 år, er sandsynligheden for at overleve inden alder 74 88,3% og dermed sandsynligheden for at dø inden alder 74 11,7%.
+   For at en 'tabelperson' som er blevet 70 år, er sandsynligheden for at dø af kræft inden alder 74 4,8%. Sandsynligheden for at en
+   tabelperson overlever indtil alder 70 år er 80,1%.
+   For at en 'tabelperson' som er blevet 70 år, er risikoen
+   for at dø af kræft i resten af livet 25.9% (livstidsrisiko for en
+   70 årige tabelperson). Risiko for kræftdød inden 70-års alderen er 10,5%.
 
 * Opgave 3
 

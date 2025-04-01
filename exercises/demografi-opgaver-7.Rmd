@@ -74,6 +74,22 @@ dat <- dat %>% group_by(KØN) %>% summarise( # dine koder her
     årsagsspecifikke dødelighedstavle, hvor mænd i Danmark i 2018 nedenfor
     (dødsårsagen er kræft, se forelæsningsnoterne).
 
+```{r   }
+x <- hent_dodsaarsag_data(tid = 2018, årsag =c("A02"), køn = "Mænd")
+# mortalitetsrater
+x <- mutate(x,M = Dod/R)
+# andel kræftdødsfald
+x <- mutate(x,hQ = QDod/Dod)
+# Chiang's \(a\) 
+x <- mutate(x,a = c(0.1,2,rep(2.5,17)),k = c(1,4,rep(5,17)))
+kraeftdodtavle_maend <- dodsaarsagtavle(data = x,
+                                        mortalitet = "M",
+                                        hQ = "hQ",
+                                        alder = "aldersinterval",
+                                        radix = 100000)
+select(kraeftdodtavle_maend,-c(L,T,e)) 
+```
+
 
 # Opgave 3
 
