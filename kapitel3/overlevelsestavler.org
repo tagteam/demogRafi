@@ -1082,15 +1082,30 @@ print(kraeftdodtavle_maend,digits = 2)
 Kolonnen \(\operatorname{LTR_Q}\) i aldersintervallet fra \(x\) til
 \(x+k-1\) angiver restlivstidsrisikoen for at dø af kræft for en
 tabelperson med alder \(x\), og \(\operatorname{risiko_Q}\) angiver
-risiko for, at en tabelperson dør af kræft inden alder \(x+k\). Fra
-dødelighedstavlen kan vi for eksempel aflæse, at sandsynligheden for,
-at en nyfødt dreng i 2020 dør på grund af kræft inden alder 74, er
-10,1%, hvis de årsagsspecifikke mortalitetsrater for mænd i fremtiden
-forbliver, som de var i 2020. Vi ser også, at restlivstidsrisikoen for
-kræftdød er 27,8% for en 65-årig mænd under antagelsen, at de
-årsagsspecifikke mortalitetsrater for mænd forbliver i fremtiden, som
-de var i 2020.
+risiko for, at en tabelperson dør af kræft inden alder \(x+k\), se
+Tabel ref:tab:doedelighedstavle-kolonner. Fra dødelighedstavlen kan vi
+for eksempel aflæse, at sandsynligheden for, at en nyfødt dreng i 2020
+dør på grund af kræft inden alder 74, er 10,1%, hvis de
+årsagsspecifikke mortalitetsrater for mænd i fremtiden forbliver, som
+de var i 2020. Vi ser også, at restlivstidsrisikoen for kræftdød er
+27,8% for en 65-årig mænd under antagelsen, at de årsagsspecifikke
+mortalitetsrater for mænd forbliver i fremtiden, som de var i 2020.
 
+#+Label: tab:doedelighedstavle-kolonner
+#+CAPTION: Forklaring af kolonner i en årsagsspecifikke dødelighedstavle
+#+ATTR_LATEX: :align l|l
+| Kolonne    | Betydning                                                                                         |
+|------------+---------------------------------------------------------------------------------------------------|
+| =Alder=    | Aldersinterval                                                                                    |
+| =l=        | Dekrementfunktion: Antal tabelpersoner i starten af intervallet                                   |
+| =d=        | Antal døde i intervallet                                                                          |
+| =dQ=       | Antal dødsfald af årsag Q i aldersintervallet.                                                    |
+| =hQ=       | Andelen af dødsfald af årsag Q i aldersintervallet                                                |
+| =qQ=       | Dødshyppighed: sandsynlighed for at dø i intervallet givet i live ved intervallets start          |
+| =L=        | Samlet risikotid i intervallet                                                                    |
+| =e=        | Middelrestlevetid (i første interval =  middellevetid)                                            |
+| =LTR_Q=    | Restlivstidsrisikoen for at dø af kræft blandt tabelpersoner som er i live ved intervallets start |
+| =risiko_Q= | Risiko for kræftdød inden alder ved start af intervallet                                          |
 
 [fn:88] https://www.rigsarkivet.dk/udforsk/doedsaarsagsregister-1943-2019/
 

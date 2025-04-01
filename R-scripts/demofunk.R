@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds and Johan Sebastian Ohlendorff
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Apr 15 2024 (09:49) 
+## Last-Updated: Apr  1 2025 (10:27) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 188
+##     Update #: 190
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -676,13 +676,14 @@ dodsaarsagtavle <- function(data,
     }
     LTR_Q <- rev(cumsum(rev(dQ)))/l
     risiko_Q <- cumsum(dQ)/l[1]
-    OverLev <- (l[1]-cumsum(d))/l[1]
+    ## OverLev <- (l[1]-cumsum(d))/l[1]
+    OverLev <- l/l[1]
     T <- rev(cumsum(rev(L)))
     e <- T/l
     dt <- tibble(Alder=alder,
                  l=round(l),
                  d=round(d),
-                 dQ=dQ,
+                 dQ=round(dQ),
                  hQ=hQ,
                  p=1-q,
                  q = q,

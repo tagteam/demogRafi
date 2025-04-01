@@ -35,8 +35,8 @@ source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demof
 
 * Opgave 1
 
-1. [@1] Find antallet af fødsler og risikotiden for kvinder, som er mellem 15 og 49 år, i 2019 i statistikbankens =FOD= og =FOLK1a=:
-   + Beregn aldersspecifikke fertilitetsrater per 1000 personår per 1000 kvinder.
+1. [@1] Find antallet af fødsler og risikotiden for kvinder, som er mellem 15 og 49 år, i 2019 i statistikbankens =FOD= og =FOLK1a=, med R-funktionen =hent_fertilitetsrate_data=.
+   + Beregn aldersspecifikke fertilitetsrater per 1000 personår.
    + Baseret på disse tal, hvor mange børn vil 120 kvinder forventes at få mellem deres 25. og 40. fødselsdag? Angiv resultatet i en sætning med den rigtige fortolkning, som tager højde for at alle tal er fra 2019.
 2. [@2] Find året 2019 i statistikbankens FOD407. Denne tabel viser
    aldersspecifikke fertilitetsrater (de kalder dem fertilitetskvotienter) og også den
@@ -55,15 +55,7 @@ source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demof
 
 ** Instruks                                                 :instruks:ignore:
 *** Instruks
-1. [@1]
-
-#+ATTR_LATEX: :options otherkeywords={hent_fertilitetsrate_data}, deletekeywords={}
-#+BEGIN_SRC R  :results output raw drawer :exports (exercise-with-code) :session *R* :cache yes :eval (never-plain-export)
-f19 <- hent_fertilitetsrate_data(tid = 2019)
-f19
-#+END_SRC
-
-   Fertilitetsraten per 1000 personår fortæller hvor mange børn 1000 kvinder forventes at føde indenfor 1 år. 
+1. [@1] Fertilitetsraten per 1000 personår fortæller hvor mange børn 1000 kvinder forventes at føde indenfor 1 år. 
 2. [@2] Overvej om det er fertilitetsratens tæller eller nævner der afviger.
 3. [@3] I begge formler bliver fødselsraterne ganget med antal (person)år i
         aldersintervallerne. 

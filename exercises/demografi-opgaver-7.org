@@ -203,7 +203,7 @@ dat %>% group_by(KØN) %>% summarise(sum(rate_dod_psyk*V))
    Statistikbanken DODA1 viser at der er flere i aldersintervallet 45-49 som døde af kræft i 2008 end i aldersintervallet 5-9.
 3. [@3] Fortolkning af hele tabellen er for en tabelbefolkning som
    bliver født i 2018 og lever helt deres liv i 2018.  I starten af
-   aldersintervallet 70-74, er 80072 'personer' (70.68%) fra
+   aldersintervallet 70-74, er 80072 'personer' (70,68%) fra
    tabelbefolkningen i live. I intervallet dør 9391, hvoraf 3734 dør
    af kræft. For at en 'tabelperson' som er blevet 70 år, er risikoen
    for at dø af kræft i resten af livet 25.33% (livstidsrisiko for en
