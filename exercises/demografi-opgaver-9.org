@@ -37,16 +37,17 @@ source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demof
 * Opgave 1
 
 Hent data fra statistikbankens register RAS300 som ligger under 'Arbejde og
-indkomst'. For årene 2009 og 2019: find det totale antal beskæftigede mænd i
-Danmark og antal mænd, som arbejdede i branchen '85002 Gymnasier og erhvervsfaglige skoler' i aldersintervaller,
-hvor det første interval er 'Under 16 år' og det sidste '67 år og derover'.
+indkomst'.
 
-Beregn for begge årstal aldersspecifikke andele af mænd i branchen '85002 Gymnasier og erhvervsfaglige skoler' blandt beskæftigede mænd,
-og udfyld tabellen nedenfor.
-
-Beregn og rapporter hvor mange ud af 1000 beskæftigede mænd, der har
-arbejdet i branchen '85002 Gymnasier og erhvervsfaglige skoler' i årene 2009 og 2019.
-Diskuter tidsudviklingen i branchen '85002 Gymnasier og erhvervsfaglige skoler'.
+1. [@1]For årene 2009 og 2019: find det totale antal beskæftigede mænd i
+       Danmark og antal mænd, som arbejdede i branchen '85002 Gymnasier og
+       erhvervsfaglige skoler' i aldersintervaller, hvor det første interval
+       er 'Under 16 år' og det sidste '67 år og derover'.
+2. [@2] Beregn for begge årstal aldersspecifikke andele af mænd i branchen
+       '85002 Gymnasier og erhvervsfaglige skoler' blandt beskæftigede mænd.
+3. [@3] Beregn og rapporter hvor mange ud af 1000 beskæftigede mænd, der har
+       arbejdet i branchen '85002 Gymnasier og erhvervsfaglige skoler' i årene 2009 og 2019.
+       Diskuter tidsudviklingen i branchen '85002 Gymnasier og erhvervsfaglige skoler'.
 
 
 #+ATTR_LATEX: :options otherkeywords={hent_fertilitetsrate_data}, deletekeywords={}
@@ -90,22 +91,22 @@ table_opg_1 <- table_opg_1 %>% mutate(Andel_2009 = round(100*Andel_2009,2),Andel
 print(as.data.frame(table_opg_1))
 #+END_SRC
 
-#+RESULTS[(2024-04-22 12:43:45) 35c3933dafd858133bde85686c66a86dd153a9b9]:
+#+RESULTS[(2025-04-04 16:18:48) 4c404e3bacb25fd4a1a8fa7ae578c53abfe1a133]:
 :results:
 ALDER Beskæftigede_2009 Beskæftigede_2019 Branche_2009 Branche_2019 Andel_2009 Andel_2019
-1       Under 16 år             24740             22122           68           47        0,3        0,2
-2          16-19 år             71563             71314          459          410        0,6        0,6
-3          20-24 år            107697            126536          762          695        0,7        0,6
-4          25-29 år            116111            151198         1158         1346        1,0        0,9
-5          30-34 år            145179            148717         2269         2066        1,6        1,4
-6          35-39 år            162849            140548         2586         2464        1,6        1,8
-7          40-44 år            175114            156953         2674         3123        1,5        2,0
-8          45-49 år            165113            168108         2746         3188        1,7        1,9
-9          50-54 år            146582            174168         3231         2993        2,2        1,7
-10         55-59 år            135371            157324         3811         2826        2,8        1,8
-11         60-64 år             98901            119847         2993         2668        3,0        2,2
-12         65-66 år             19892             26461          410          574        2,1        2,2
-13 67 år og derover             41673             73550          386          912        0,9        1,2
+1       Under 16 år             24740             22122           68           47       0,27       0,21
+2          16-19 år             71563             71314          459          410       0,64       0,57
+3          20-24 år            107697            126536          762          695       0,71       0,55
+4          25-29 år            116111            151198         1158         1346       1,00       0,89
+5          30-34 år            145179            148717         2269         2066       1,56       1,39
+6          35-39 år            162849            140548         2586         2464       1,59       1,75
+7          40-44 år            175114            156953         2674         3123       1,53       1,99
+8          45-49 år            165113            168108         2746         3188       1,66       1,90
+9          50-54 år            146582            174168         3231         2993       2,20       1,72
+10         55-59 år            135371            157324         3811         2826       2,82       1,80
+11         60-64 år             98901            119847         2993         2668       3,03       2,23
+12         65-66 år             19892             26461          410          574       2,06       2,17
+13 67 år og derover             41673             73550          386          912       0,93       1,24
 :end:
 
 #+ATTR_LATEX: :options otherkeywords={hent_fertilitetsrate_data}, deletekeywords={}
@@ -114,6 +115,7 @@ ALDER Beskæftigede_2009 Beskæftigede_2019 Branche_2009 Branche_2019 Andel_2009
 table_opg_1 %>% summarize(Branche_andel_2009 = 1000*sum(Branche_2009)/sum(Beskæftigede_2009),
                           Branche_andel_2019 = 1000*sum(Branche_2019)/sum(Beskæftigede_2019))
 #+END_SRC
+
 De specifikke andele for forskellige aldersgrupper i tabellen viser
 antallet af mænd pr. 1000 beskæftigede mænd i branchen Gymnasier og
 erhvervsfaglige skoler. I 2009 arbejdede 16,7 mænd i denne branche ud
@@ -134,16 +136,20 @@ skoler.
 
 Hent data fra statistikbankens register RAS300, som ligger under
 'Arbejde og indkomst' og fra register FOLK1a, som ligger under
-'Borgere'. For året 2009: find det totale antal beskæftigede mænd i
-Danmark i aldersintervaller, hvor det første interval er 'Under 16 år'
-og det sidste '67 år og derover'. For samme aldersintervaller find
-risikotid for alle mænd i Danmark i 2009 og 2019 og beregn
-aldersfordelingen af risikotid i begge år. Beregn aldersspecifikke
-beskæftigelsesrater for mænd i året 2009 og udfyld tabellen nedenfor.
-For mænd i året 2009: beregn og rapporter summariske og
-alderstandardiserede beskæftigelsesrater med aldersfordeling fra mænd
-i året 2019 som standardpopulation. Diskuter forskellen mellem den
-summariske og den aldersstandardiserede beskæftigelsesrate.
+'Borgere'.
+
+1. [@1] For året 2009: find det totale antal beskæftigede mænd i
+   Danmark i aldersintervaller, hvor det første interval er 'Under 16 år'
+    og det sidste '67 år og derover'.
+
+2. [@2] For samme aldersintervaller find
+       risikotid for alle mænd i Danmark i 2009 og 2019 og beregn
+       aldersfordelingen af risikotid i begge år. Beregn aldersspecifikke
+    beskæftigelsesrater for mænd i året 2009 og udfyld tabellen nedenfor.
+3. [@3] For mænd i året 2009: beregn og rapporter summariske og
+    alderstandardiserede beskæftigelsesrater med aldersfordeling fra mænd
+  i året 2019 som standardpopulation. Diskuter forskellen mellem den
+  summariske og den aldersstandardiserede beskæftigelsesrate.
 
 #+ATTR_LATEX: :options otherkeywords={hent_fertilitetsrate_data}, deletekeywords={}
 #+BEGIN_SRC R  :results output raw drawer :exports (exercise-with-code) :session *R* :cache yes :eval (never-plain-export)
@@ -197,14 +203,15 @@ table_opg_2 <- cbind(beskaeft, R) %>%  mutate(Beskæftigelsesrate = Beskæftige_
 table_opg_2 <- table_opg_2 %>% mutate(Aldersfordeling_2009 = round(Aldersfordeling_2009,2),
                                       Aldersfordeling_2019 = round(Aldersfordeling_2019,2),
                                       Beskæftigelsesrate = round(Beskæftigelsesrate,2))
-x <- table_opg_2 %>% summarize("Summarisk beskaeftigelsesrate" = 1000*sum(Beskæftige_2009)/sum(Risikotid_2009), "Standardiseret beskaeftigelsesrate" = 1000*sum(Beskæftigelsesrate * Aldersfordeling_2019))
+x <- table_opg_2 %>% dplyr::summarize("Summarisk beskaeftigelsesrate" = 1000*sum(Beskæftige_2009)/sum(Risikotid_2009),
+                                      "Standardiseret beskaeftigelsesrate" = 1000*sum(Beskæftigelsesrate * Aldersfordeling_2019))
 # bruger data.frame for danske decimaler (tibble spiller ikke med OutDec option)
 print(as.data.frame(table_opg_2))
 cat("\n\n")
 print(x)
 #+END_SRC
 
-#+RESULTS[(2024-04-22 12:48:23) bb036db24c2368dd4ae7fbf03b47e5f6b545316a]:
+#+RESULTS[(2025-04-04 16:20:58) 5f3c66b8719a9dbc4e98084acd55b7347b7bdca6]:
 :results:
 ALDER Beskæftige_2009 Risikotid_2009 Risikotid_2019 Aldersfordeling_2009 Aldersfordeling_2019 Beskæftigelsesrate
 1       Under 16 år           24740         550911         524708                 0,20                 0,18               0,04
@@ -232,7 +239,7 @@ måles som antallet af beskæftigede mænd pr. 1000 mænd i Danmark.
 
 I 2009 blev den summariske beskæftigelsesrate for mænd beregnet til 515,6
 beskæftigede mænd pr. 1000 mandlige personår i Danmark. Den aldersstandardiserede
-beskæftigelsesrate for mænd i 2009 blev beregnet til 504,3
+beskæftigelsesrate for mænd i 2009 blev beregnet til 505,7
 beskæftigede mænd pr. 1000 mandlige personår i Danmark. Den aldersstandardiserede
 beskæftigelsesrate giver et udtryk for, hvordan den summariske
 beskæftigelsesrate i 2009 ville have været, hvis aldersfordelingen i
@@ -254,17 +261,17 @@ I arbejdsmarkedsdemografien beregner man forventet levetid på arbejdsmarkedet, 
 en parallel til middellevetiden, hvor man tager højde for den aldersspecifikke afgang fra
 arbejdsmarkedet.
 
-    a) Aldersfordelingen for kvinder og mænd i Danmark er forskellig, bl.a. på grund af
+1. [@1]Aldersfordelingen for kvinder og mænd i Danmark er forskellig, bl.a. på grund af
        kønsforskelle i immigration og dødelighed. Kan forskelle i aldersfordelingen
        mellem mænd og kvinder påvirke forskellen i forventet levetid på arbejdsmarkedet?
 
-    b) Hvis man skulle beregne en forventet levetid på arbejdsmarkedet,
+2. [@2] Hvis man skulle beregne en forventet levetid på arbejdsmarkedet,
        hvilke data og antagelser skulle man så bruge?
 
 ** solution                                                 :solution:ignore:
 *** Besvarelse
 
-a) Forventet levetid på arbejdsmarkedet kan påvirkes af forskelle i
+1. [@1] Forventet levetid på arbejdsmarkedet kan påvirkes af forskelle i
 aldersfordelingen mellem mænd og kvinder under visse
 omstændigheder: 1) Hvis man beregner den forventede levetid på
 arbejdsmarkedet uden hensyntagen til køn, og 2) hvis der er forskel i
@@ -273,7 +280,7 @@ beregner den forventede levetid på arbejdsmarkedet separat for hvert
 køn, burde forskelle i aldersfordelingen ikke have indflydelse på den
 forventede levetid på arbejdsmarkedet.
 
-b) Med udgangspunkt i beregningen af en dødelighedstabel kan man
+2. [@2] Med udgangspunkt i beregningen af en dødelighedstabel kan man
 beregne den forventede restlevetid på arbejdsmarkedet svarende til den
 forventede restlevetid i en dødelighedstabel ved hjælp af følgende
 data og antagelser: I en fiktiv befolkning antages det først, at alle

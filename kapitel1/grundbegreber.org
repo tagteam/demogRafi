@@ -938,12 +938,11 @@ ikke, og der er en fejlrate:
 
 
 #+TITLE: Kapitel 1: Grundbegreber
-#+AUTHOR: Anna-Vera Jørring Pallesen, Johan Sebastian Ohlendorff, Laust Hvas Mortensen og Thomas Alexander Gerds
+#+AUTHOR: 
 #+DATE: 
 #+LANGUAGE: dk
 #+LaTeX_CLASS: danish-article
 #+OPTIONS: toc:nil
-#+LaTeX_HEADER:\usepackage{authblk}
 #+LaTeX_HEADER:\usepackage{natbib}
 #+LaTeX_HEADER:\usepackage{listings}
 #+LaTeX_HEADER:\usepackage{color}
@@ -966,5 +965,5 @@ ikke, og der er en fejlrate:
 #+LATEX_HEADER:\definecolor{mygray}{rgb}{.95, 0.95, 0.95}
 #+LATEX_HEADER:\newcommand{\mybox}[1]{\vspace{.5em}\begin{tcolorbox}[boxrule=0pt,colback=mygray] #1 \end{tcolorbox}}
 #+OPTIONS:   H:3  num:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
-#+OPTIONS:   TeX:t LaTeX:t skip:nil d:t todo:t pri:nil tags:not-in-toc author:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:t todo:t pri:nil tags:not-in-toc author:nil
 #+HTML_HEAD: <link rel="stylesheet" type="text/css" href="https://publicifsv.sund.ku.dk/~tag/styles/all-purpose.css" />
