@@ -18,7 +18,7 @@
 #+LATEX_HEADER:\definecolor{mygray}{rgb}{.95, 0.95, 0.95}
 #+LATEX_HEADER:\newcommand{\mybox}[1]{\vspace{.5em}\begin{tcolorbox}[boxrule=0pt,colback=mygray] #1 \end{tcolorbox}}
 #+setupfile:~/emacs-genome/snps/org-templates/setup-demografi.org
-#+superman-export-target: opgave
+#+superman-org-export-target: opgave
 #+OPTIONS: :rmd_yaml:nil
 #+LaTeX_CLASS: danish-article
 

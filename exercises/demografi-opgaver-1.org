@@ -2,7 +2,7 @@
 #+AUTHOR: Folkesundhedsvidenskab 2. semester
 #+DATE: 
 #+setupfile:~/emacs-genome/snps/org-templates/setup-demografi.org
-#+superman-export-target: opgave
+#+superman-org-export-target: opgave
 #+OPTIONS: :rmd_yaml:nil
 
 #+begin_export html

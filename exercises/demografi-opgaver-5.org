@@ -74,7 +74,7 @@ Se på formlerne for overlevelsestavler i kompendiets Kapitel 3 og besvar følge
 1. [@1] Hvad er forskellen mellem \({}_1d_8\) og \({}_1D_8\)?
 2. [@2] Hvilke enheder har henholdsvis \(l_x\) og \(L_x\)?
 3. [@3] Hvis \(l_x\) er 273 og \({}_1d_x\) er 17, hvad er så \(l_{x+1}\)?
-4. [@6] Hvorfor sætter vi Chiang's a til 0,1 i det første aldersinterval og til 0,5 (for 1-års overlevelsestavlen) i de andre intervaller?
+4. [@6] Hvorfor sætter vi Chiang's a til 0,1 i det første aldersinterval og til 0,5 (for 1-års overlevelsestavlen) i de andre aldersintervaller?
 5. [@5] Indsæt formlen for Chiang's a i det sidste aldersinterval (Kapitel 3, Formel K3.2) i 
         den centrale approksimationsformel (Kapitel 3, Formel K3.1) og simplificer 
         bagefter udtrykket for dødshyppigheden i tabellens sidste aldersinterval $q_{x^{max}}$.
@@ -85,9 +85,9 @@ Se på formlerne for overlevelsestavler i kompendiets Kapitel 3 og besvar følge
 *** Besvarelse                                                     
 
 1. [@1] \({}_1D_8\) er antal døde blandt 8-årige i den rigtige befolkning i den givne kalenderperiode, \(_{}1d_8\) er antal døde blandt 8-årige i den hypotetiske tabelbefolkning.
-2. [@2] Begge størrelser hører til den hypotetiske tabelbefolkning: \(l_x\) er antal personer (enhed: personer) i starten af alderstrin \(x\), og \(L_x\) er samlet antal gennemlevet tid (enhed: personår) i intervallet fra alderstrin \(x\) til næste alderstrin.
-3. [@3] I starten af alderstrinnet er der 273 personer. Der dør 17 personer i intervallet. Dermed er der 256 tilbage i starten af det næste aldersinterval.
-4. [@6] Det gør vi fordi dødeligheden i det første leveår ikke er ligefordelt i intervallet, da de fleste dødsfæld sker indenfor den første måned efter fødslen. I de andre aldersintervaller er dødeligheden omtrent ligefordelt og dermed er ``midten af intervallet'' en god tilnærmelse af det gennemsnitlige antal år en person som døde i intervallet var død i intervallet.
+2. [@2] Begge størrelser hører til den hypotetiske tabelbefolkning: \(l_x\) er antal personer (enhed: personer) i starten af alderstrin \(x\), og \(L_x\) er samlet antal gennemlevet tid (enhed: personår) i aldersintervallet fra alderstrin \(x\) til næste alderstrin.
+3. [@3] I starten af alderstrinnet er der 273 personer. Der dør 17 personer i aldersintervallet. Dermed er der 256 tilbage i starten af det næste aldersinterval.
+4. [@6] Det gør vi fordi dødeligheden i det første leveår ikke er ligefordelt i aldersintervallet, da de fleste dødsfæld sker indenfor den første måned efter fødslen. I de andre aldersintervaller er dødeligheden omtrent ligefordelt og dermed er ``midten af aldersintervallet'' en god tilnærmelse af det gennemsnitlige antal år en person som døde i aldersintervallet var død i aldersintervallet.
 5. [@5] Resultatet er \(q_x^{max} = 1\) uanset værdien af \(M_x\). Dødshyppigheden i det sidste aldersinterval er 100\%. Det betyder, at den resterende del af tabelbefolkningen dør i det sidste aldersinterval.
 6. [@6] Middellevetiden er særligt påvirket af faldet i spødbarnsdødeligheden fordi dødsfald i denne aldergruppe medfører et større tab i leveår end fx et dødsfald ved alder 50. En del af forklaringen er også, at dødeligheden er lav efter første leveår og frem til midtlivet. Faldet i spædbarnsdødelighed har alene  konsekvenser for valget af værdien af Chiang's a hvis den gennemsnitlige levetid for dem, der dør i første leveår ændrer sig samtidig med, at spædbarnsdødeligheden falder.  
 
