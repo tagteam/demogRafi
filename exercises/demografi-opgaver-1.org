@@ -303,9 +303,11 @@ I den første folketælling i 1787 boede der i Hovedstaden 92 701	personer, mens
 2024 var 1 378 649 person bosat i Hovedstadsområdet. Find i www.statistikbanken.dk under emnet "Borgere" 
 tal på hvornår det samlede indbyggertal i Jylland oversteg 1 378 649. 
 
-Hvad er det for demografiske bevægelser, der er ansvarlige for udviklingen i København fra 1787 til i dag? Diskuter hvilke konsekvenser de 
-demografiske bevægelser kan have for bæredygtighed i Danmark i dag? Du kan tage udgangspunkt i "De danske målepunkter" for FNs bæredygtighedsmål  
-på Danmarks Statistisks hjemmeside. 
+Hvad er det for demografiske bevægelser, der er ansvarlige for
+udviklingen i København fra 1787 til i dag? Diskuter hvilke
+konsekvenser de demografiske bevægelser kan have for bæredygtighed i
+Danmark i dag? Du kan tage udgangspunkt i "De danske målepunkter" for
+FNs bæredygtighedsmål på Danmarks Statistisks hjemmeside.
 
 ** Løsninger                                                :solution:ignore:
 

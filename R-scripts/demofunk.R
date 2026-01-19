@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds and Johan Sebastian Ohlendorff
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: Apr  1 2025 (10:27) 
+## Last-Updated: jan 17 2026 (10:17) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 190
+##     Update #: 198
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -19,7 +19,7 @@
 ## source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
 options("lifecycle_verbosity"="warning")
 
-for (a in c("danstat","tidyverse","stringi","ggplot2","ggthemes")){
+for (a in c("tidyverse","stringi","ggplot2","ggthemes")){
     if (inherits(try(do.call("library",list(a,quietly = TRUE))),"try-error")){
         stop(paste0("Package ",a," is not installed.\nInstall it with command\n install.packages('",a,"')\n
 If that does not work, maybe another package is missing which is required by ",a,"?\n
@@ -33,11 +33,72 @@ Try to read and google the error message that occurs when you run\n",
     }
 }
 
-register_info <- function(register,language = "en"){
+## Kopi af github Valeri Voevs pakke danstat fil zzz.R
+SUBJECTS_ENDPOINT <- "https://api.statbank.dk/v1/subjects"
+TABLES_ENDPOINT <- "https://api.statbank.dk/v1/tables"
+METADATA_ENDPOINT <- "https://api.statbank.dk/v1/tableinfo"
+DATA_ENDPOINT <- "https://api.statbank.dk/v1/data"
+
+check_http_type <- function(response, expected_type = "text/json") {
+	if (httr::http_type(response) != expected_type) {
+		stop(paste("API did not return", expected_type), call. = FALSE)
+	}
+}
+
+
+## Kopi af github Valeri Voevs pakke danstat funktion get_table_metadata
+statistikbanken_metadata <- function(table_id, variables_only = FALSE){
+	# evaluate language choices
+	call_body <- list(lang = "da",table = table_id)
+	result <- httr::POST(METADATA_ENDPOINT, body = call_body, encode = "json")
+	check_http_type(result)
+	full_result <- jsonlite::fromJSON(httr::content(result))
+	if (variables_only) return(full_result$variables)
+	return(full_result)
+}
+
+## Kopi af github Valeri Voevs pakke danstat funktion get_data
+statistikbanken_data <- function(table_id, variables){
+    # rertieve variables for this table
+    valid_vars <- statistikbanken_metadata(table_id = table_id, variables_only = TRUE)
+    # check variable names (ids)
+    efterspurgt_vars <- sapply(variables, function(x) x[[1]])
+    if (!all(tolower(efterspurgt_vars) %in% tolower(valid_vars$id))) {
+        bad_input_index <- which( !(tolower(efterspurgt_vars) %in% tolower(valid_vars$id) ))
+        stop(paste0("variable code '", efterspurgt_vars[bad_input_index], "' is not a variable in table '", table_id,
+                    "'. Run statistikbanken_metadata('", table_id, "', variables_only = TRUE) for valid variable codes."),
+             call. = FALSE)
+    }
+    variables <- list()
+    ind <- 1
+    for (variable_pair in user_input) {
+        # check column names of variables
+        if (any(!(names(variable_pair) == c("code", "values")))) stop("variables code-values pairs need to be a named lists with names 'code' and 'values'", call. = FALSE)
+        variable_id <- variable_pair$code
+        variable_values <- variable_pair$values
+        if (any(is.na(variable_values))) variable_values <- "*"
+        vars <- statistikbanken_metadata(table_id = table_id, variables_only = TRUE)
+        valid_values <- c(vars[["values"]][[which(tolower(vars$id) == tolower(variable_id))]]$id,"*")
+        if (all((variable_values %in% valid_values))) {
+            variables[[ind]] <- list(code = variable_id, values = I(variable_values))
+        } else {
+            warning(paste0("Values for ", variable_id, " are not valid... skipping ", variable_id), call. = FALSE)
+            next
+        }
+        ind <- ind + 1
+    }
+    call_body <- list(table = table_id,lang = "da",format = "CSV",variables = variables)
+    result <- httr::POST(DATA_ENDPOINT, body = call_body, encode = "json")
+    check_http_type(result, expected_type = "text/csv")
+    return(readr::read_csv2(httr::content(result,type = "text",encoding = "UTF-8"),locale = readr::locale(decimal_mark = ",",tz = "CET")))
+}
+
+
+register_info <- function(register){
     register = toupper(register)
-    try <- tryCatch(defaults <- danstat::get_table_metadata(register, language = language)$variables,
+    try <- tryCatch(defaults <- statistikbanken_metadata(register)$variables,
                     error = function(e) stop(paste0("Are you offline? If not, then perhaps the registry ", register, " does not exist? Check at statistikbanken.dk. ")))
-    try_da <- tryCatch(defaults_da <- danstat::get_table_metadata(register, language = "da")$variables,
+    try_da <- tryCatch(defaults_da <- statistikbanken_metadata(register)$variables,
                     error = function(e) stop(paste0("Are you offline? If not, then perhaps the registry ", register, " does not exist? Check at statistikbanken.dk. ")))
     ## combine the two lists
     varnames <- defaults$id
@@ -53,10 +114,9 @@ register_info <- function(register,language = "en"){
 
 # hent data fra statistikbanken.dk
 # ---------------------------------------------------------------------
-
 ##' Hent data fra statistikbankens register 
 ##'
-##' Wrapper for funktionen danstat::get_data
+##' Mange tak til Valeri Voevs for pakken danstat 
 ##' @title Hent data fra statistikbankens register
 ##' @param register
 ##' @param ... Beskriv hvilke data skal hentes. Se eksemplerne. 
@@ -65,9 +125,9 @@ register_info <- function(register,language = "en"){
 ##' hent_data("befolk1",tid=2023)
 ##' @export 
 ##' @author Thomas A. Gerds <tag@@biostat.ku.dk>
-hent_data <- function(register,...,language = "da"){
+hent_data <- function(register,...){
     register = toupper(register)
-    try <- tryCatch(defaults <- danstat::get_table_metadata(register,language=language)$variables,
+    try <- tryCatch(defaults <- statistikbanken_metadata(register)$variables,
                     error = function(e) stop(paste0("Are you offline? If not, then perhaps the registry ", register, " does not exist? Check at statistikbanken.dk. ")))
     varnames <- tolower(defaults$id)
     values <- defaults$values
@@ -90,7 +150,6 @@ hent_data <- function(register,...,language = "da"){
     # check values
     vars <- lapply(1:length(user_args),function(u){
         ua = requested_args[[u]]
-        if (language == "ua") rename(ua,"text" = "tekst")
         if (length(user_args[[u]]) == 1&&tolower(user_args[[u]]) == "all"){
             list(code = requested_args[[u]],
                  values = values[[ua]]$id)
@@ -142,7 +201,7 @@ hent_data <- function(register,...,language = "da"){
         # fjern variable som har ingen values
         null_value <- sapply(vars,function(x){length(x$values)})
         vars <- vars[null_value>0]
-        d <- danstat::get_data(register,variables=vars,language = language)
+        d <- statistikbanken_data(register,variables=vars)
         # formatere ALDER til numerisk 
         if ("ALDER" %in% names(d)){
             suppressWarnings(num_alder <- as.numeric(gsub(" year[s]?| years and over| år| år og derover","",d$ALDER)))
@@ -268,8 +327,7 @@ hent_aldersfordeling <- function(breaks,
                     "alder"=0:125,
                     køn = køn,
                     tid=paste0(tid,"K3"),
-                    Område = område,
-                    language = "da")
+                    Område = område)
     af = mutate(af,TID = as.numeric(sub("K3","",TID)))
     # Fordeling af risikotid i aldersintervaller
     af <- rename(af,R = INDHOLD)
@@ -296,8 +354,7 @@ hent_mortalitetsrate_data <- function(breaks,
                     "alder"=alder,
                     køn = køn,
                     tid=paste0(tid,"K3"),
-                    Område = område,
-                    language = "da")
+                    Område = område)
     af = mutate(af,TID = as.numeric(sub("K3","",TID)))
     # Fordeling af risikotid i aldersintervaller
     af <- rename(af,R = INDHOLD)
@@ -340,8 +397,7 @@ hent_dodsaarsag_data <- function(køn = c("Kvinder","Mænd"),
     af <- hent_data("FOLK1a",
                     "alder"=0:125,
                     køn = køn,
-                    tid=paste0(tid,"K3"),
-                    language = "da")
+                    tid=paste0(tid,"K3"))
     af = mutate(af,TID = as.numeric(sub("K3","",TID)))
     # Fordeling af risikotid i aldersintervaller
     af <- rename(af,R = INDHOLD)
@@ -430,11 +486,11 @@ hent_fertilitetsrate_data <- function(tid = "2023",
         # FIXME:
         # risikotid metode 1 men bruger 1 januar burde tilbyde metode 2
         if (område != "Hele landet") stop("Har ikke adgang til folketal i andre områder end 'Hele landet' for årstal før 2007.")
-        af <- hent_data("BEFOLK1","alder"="all_no_total",køn = c("kvinder"),tid=tid,language = "da")
+        af <- hent_data("BEFOLK1","alder"="all_no_total",køn = c("kvinder"),tid=tid)
         by = c("TID")
     } else{
         # risikotid metode 1
-        af <- hent_data("FOLK1a","alder"=0:125,køn = c("kvinder"),tid=paste0(tid,"K3"),Område = område,language = "da")
+        af <- hent_data("FOLK1a","alder"=0:125,køn = c("kvinder"),tid=paste0(tid,"K3"),Område = område)
         by = c("OMRÅDE","TID")
     }
     if (length(barnkon)>1) by = c(by,"BARNKON")
