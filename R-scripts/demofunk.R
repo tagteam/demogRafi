@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds and Johan Sebastian Ohlendorff
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: jan 17 2026 (10:17) 
+## Last-Updated: jan 19 2026 (14:17) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 198
+##     Update #: 204
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -19,7 +19,7 @@
 ## source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
 options("lifecycle_verbosity"="warning")
 
-for (a in c("tidyverse","stringi","ggplot2","ggthemes")){
+for (a in c("tidyverse","stringi","ggplot2","ggthemes","svglite")){
     if (inherits(try(do.call("library",list(a,quietly = TRUE))),"try-error")){
         stop(paste0("Package ",a," is not installed.\nInstall it with command\n install.packages('",a,"')\n
 If that does not work, maybe another package is missing which is required by ",a,"?\n
@@ -69,9 +69,9 @@ statistikbanken_data <- function(table_id, variables){
                     "'. Run statistikbanken_metadata('", table_id, "', variables_only = TRUE) for valid variable codes."),
              call. = FALSE)
     }
-    variables <- list()
+    variable_requests <- list()
     ind <- 1
-    for (variable_pair in user_input) {
+    for (variable_pair in variables) {
         # check column names of variables
         if (any(!(names(variable_pair) == c("code", "values")))) stop("variables code-values pairs need to be a named lists with names 'code' and 'values'", call. = FALSE)
         variable_id <- variable_pair$code
@@ -80,14 +80,14 @@ statistikbanken_data <- function(table_id, variables){
         vars <- statistikbanken_metadata(table_id = table_id, variables_only = TRUE)
         valid_values <- c(vars[["values"]][[which(tolower(vars$id) == tolower(variable_id))]]$id,"*")
         if (all((variable_values %in% valid_values))) {
-            variables[[ind]] <- list(code = variable_id, values = I(variable_values))
+            variable_requests[[ind]] <- list(code = variable_id, values = I(variable_values))
         } else {
             warning(paste0("Values for ", variable_id, " are not valid... skipping ", variable_id), call. = FALSE)
             next
         }
         ind <- ind + 1
     }
-    call_body <- list(table = table_id,lang = "da",format = "CSV",variables = variables)
+    call_body <- list(table = table_id,lang = "da",format = "CSV",variables = variable_requests)
     result <- httr::POST(DATA_ENDPOINT, body = call_body, encode = "json")
     check_http_type(result, expected_type = "text/csv")
     return(readr::read_csv2(httr::content(result,type = "text",encoding = "UTF-8"),locale = readr::locale(decimal_mark = ",",tz = "CET")))
