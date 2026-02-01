@@ -1,0 +1,58 @@
+source('https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R')
+
+x <- hent_mortalitetsrate_data(tid = 2019,
+                               breaks = c(0,1,10,seq(20,90,10),Inf),
+                               køn = "kvinder")
+x <- mutate(x,M = Dod/R)
+x
+
+x <- mutate(x,a = c(0.1,4.5,rep(5,9)),k = c(1,9,rep(10,9)))
+tavle_kvinder <- overlevelsestavle(x,
+                                   mortalitet = "M",
+                                   alder = "aldersinterval")
+print(tavle_kvinder,digits = 2)
+
+x5 <- hent_mortalitetsrate_data(tid = 2019,
+                                breaks = c(0,1,seq(5,95,5),Inf),
+                                køn = "kvinder")
+x5 <- mutate(x5,M = Dod/R)
+x5 <- mutate(x5,a = c(0.1,2,rep(2.5,19)),k = c(1,4,rep(5,19)))
+tavle_kvinder_5 <- overlevelsestavle(x5,
+                                     mortalitet = "M",
+                                     alder = "aldersinterval")
+print(tavle_kvinder_5,digits = 2,n = 100)
+
+x1 <- hent_mortalitetsrate_data(tid = 2019,
+                               breaks = c(0:99,Inf),
+                               køn = "kvinder",
+                               right = FALSE)
+x1 <- mutate(x1,M = Dod/R)
+x1 <- mutate(x1,a = c(0.1,rep(0.5,99)),k = rep(1,100))
+tavle_kvinder_1 <- overlevelsestavle(x1,
+                                     mortalitet = "M",
+                                     alder = "aldersinterval")
+print(tavle_kvinder_1,digits = 2,n = 100)
+
+da <- hent_data("doda1",årsag = "all_no_total",tid = 2022)
+print(da,n = 26)
+
+db <- hent_data("dodb1",årsag = "all_no_total",tid = 2022)
+print(filter(db,str_detect(ÅRSAG,"A-08|B-057|B-058|B-059")))
+
+x <- hent_dodsaarsag_data(tid = 2020, årsag =c("A02"), køn = "Mænd")
+# mortalitetsrater
+x <- mutate(x,M = Dod/R)
+# andel kræftdødsfald
+x <- mutate(x,hQ = QDod/Dod)
+x
+
+# Chiang's \(a\) 
+x <- mutate(x,a = c(0.1,2,rep(2.5,17)),k = c(1,4,rep(5,17)))
+kraeftdodtavle_maend <- dodsaarsagtavle(data = x,
+                                        mortalitet = "M",
+                                        hQ = "hQ",
+                                        alder = "aldersinterval",
+                                        radix = 100000)
+# fravælger kolonner som ikke er vigtige lige her
+kraeftdodtavle_maend <- select(kraeftdodtavle_maend,-c(p,q,o,T))
+print(kraeftdodtavle_maend,digits = 2)

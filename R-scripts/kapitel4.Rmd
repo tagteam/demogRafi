@@ -1,0 +1,40 @@
+```{r   }
+source('https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R') 
+```
+
+```{r   }
+x <- hent_data("fod11",tid = 2022,alder = c(610,617))
+with(x,paste(ALDER,INDHOLD)) 
+```
+
+```{r   }
+f2020 <- hent_fertilitetsrate_data(2020)
+f2020 
+```
+
+```{r   }
+options(pillar.sigfig = 5)
+f2020 <- mutate(f2020,frate = 1000*Fødsler/R)
+f2020 
+```
+
+```{r   }
+summarize(f2020,samlet_fertilitet = sum(frate*5)) 
+```
+
+```{r   }
+pige2020 <- hent_fertilitetsrate_data(2020,barnkon = "Piger")
+pige2020 <- mutate(pige2020,frate_piger = 1000*Fødsler/R)
+summarize(pige2020,BRT = sum(frate_piger*5)) 
+```
+
+```{r   }
+fx <- fertilitets_tavle(tid = 2020)
+select(fx,aldersinterval,L,frate_piger) 
+```
+
+```{r   }
+fx <- mutate(fx,bidrag_NRT=frate_piger*L/100000)
+summarize(fx,NRT = sum(bidrag_NRT)) 
+```
+
