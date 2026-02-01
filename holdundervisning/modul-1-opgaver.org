@@ -1,0 +1,451 @@
+* HEADER                                                           :noexport:
+#+TITLE: Modul 1 
+#+DATE: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:nil toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:t todo:t pri:nil tags:not-in-toc author:nil
+#+LaTeX_CLASS: org-article
+#+LaTeX_class_options: [a4]
+#+LaTeX_HEADER:\usepackage{authblk}
+#+LaTeX_HEADER:\usepackage{fancyhdr}
+#+LaTeX_HEADER:\pagestyle{fancy}
+#+LaTeX_HEADER:\lhead{Demografi Holdundervisning IFSV}
+#+LaTeX_HEADER:\rhead{}
+#+LaTeX_HEADER:\author{}
+#+PROPERTY: header-args :session *R* 
+#+PROPERTY: header-args :cache no
+#+superman-org-export-target: docx
+# ODT_STYLES_FILE: ("~/metropolis/Teaching/Demography/worg/eksamen/style/" ("OrgOdtStyles.xml" "OrgOdtContentTemplate.xml"))
+
+* COMMENT word export                                              :noexport:
+
+#+BEGIN_SRC  emacs-lisp :export code :eval never-export
+(defun make-docx ()
+  (interactive)
+  (shell-command "killall openoffice")
+  (setq org-odt-styles-dir "~/metropolis/Teaching/demogRafi/holdundervisning/style")
+  (superman-export-as-demografi-opgave)
+  (org-open-file "~/metropolis/Teaching/demogRafi/holdundervisning/modul-1-opgaver.docx"))
+#+END_SRC
+
+#+RESULTS:
+: make-docx
+
+
+* Holdundervisning :ignore:nosolution:opgave:
+
+#+BEGIN_EXPORT odt
+<text:p text:style-name="Center24">
+Demografi 3934-F26
+
+Folkesundhedsvidenskab, 2. semester
+</text:p>
+#+END_EXPORT
+
+*Vejledning:*
+
+# @@odt:<text:span text:style-name="Highlight">This is highlighted
+# text</text:span>@@.  But this is regular text.
+Skriv dine svar i de udvidende svarfelter og udfyld tabeller/indsæt grafer.
+
+Du må ikke ændre tabellernes formatering og det er forbudt at sætte
+egne tabeller ind.
+
+Din besvarelse til hvert opgave bør ikke overskride 1/2
+normalsides tekst svarende til maksimalt 1200 anslag med mindst 10pt skriftstørrelse
+f.eks., Courier New, men ikke medregnende tabeller o.a..
+
+Den gode besvarelse er kort og præcis.
+
+Det er vigtigt at dine svar er klart struktureret og skrevet i fulde
+sætninger.
+
+Tal i resultaterne skal rundes af og enheder skal angives hvis relevant. \\
+
+R-koder som bruges til at besvare opgaverne findes i Rmd-filen på Absalon.
+
+Når du har besvaret alle opgaver, afleverer du denne fil i Absalon. 
+
+# @@odt:<text:span text:style-name="Highlight"> Your answer for each Task should not exceed 1/2 page. text</text:span>@@.  
+
+# *Tilladte hjælpemidler*: 
+
+# Alle KU hjælpemidler er tillad. 
+# \\
+
+** Baggrund                                                   :opgave:ignore:
+*** Baggrund
+
+Nyt fra Danmark Statistiks (14. maj 2025 Nr. 134) analyserede
+byopgørelsen 1 januar 2025: 
+
+En stigende andel af befolkningen bor i hovedstadsområdet samt i
+byområder med 50.000 indbyggere og derover. Andelen af befolkningen,
+der bor i disse byområder, er vokset fra 37 pct. i 2015 til 42
+pct. i 2025. Det svarer til en samlet vækst på 376.192 personer. Den
+største vækst på 180.854 personer er sket i byområder med 50.000 til
+99.000 indbyggere, hvor der har været tilgang af byerne Roskilde,
+Herning og Silkeborg, der i perioden har passeret 50.000
+indbyggere. Hovedstadsområdet er vokset med 132.810 indbyggere fra
+1.263.698 indbyggere i 2015 til 1.396.508 i 2025, mens byområderne med
+100.000 indbyggere og derover (Aarhus, Odense og Aalborg) samlet er
+vokset med 62.528 indbyggere i perioden til 608.407 personer i 2025.
+
+#+ODT: <text:p text:style-name="PageBreak"/>
+
+* Rettenøgle :ignore:solution:
+* Opgave 1 :nokode:ignore:
+** Opgave 1
+Svar på følgende spørgsmål ved at læse i kompendium kapitel 1. 
+
+1. Danner alle personer som bor i byområderne i Danmark en kohorte? Begrund dit svar.
+2. Er Københavns befolkning lukket eller åben? Begrund dit svar.
+3. Hvad er den naturlige vækstrate og hvad er nettovandringsraten? Hvilken af de to er sværest at registrere nøjagtigt?
+4. Kapitel 1 afsnit 7 (Rater) angiver mortalitetsraten for Bornholm i 2022 som 14,3 per 1000 personår og Kapitel 1 afsnit 7.2 (Perioderater) angiver 14,4 per 1000 personår. Hvad er årsagen til denne forskel?
+5. Hvilke enheder har hhv., folketal, middelfolketal, risikotid og mortalitetsrate?
+
+** Dine svar til opgave 1.1 :nosolution:ignore:
+*** Dine svar til opgave 1.1
+
+#+BEGIN_EXAMPLE
+
+
+
+#+END_EXAMPLE
+
+** Dine svar til opgave 1.2                               :nosolution:ignore:
+*** Dine svar til opgave 1.2
+
+#+BEGIN_EXAMPLE
+
+
+
+#+END_EXAMPLE
+
+** Dine svar til opgave 1.3                               :nosolution:ignore:
+*** Dine svar til opgave 1.3
+
+#+BEGIN_EXAMPLE
+
+
+
+#+END_EXAMPLE
+
+** Dine svar til opgave 1.4                               :nosolution:ignore:
+*** Dine svar til opgave 1.3
+
+#+BEGIN_EXAMPLE
+
+
+
+#+END_EXAMPLE
+
+** Dine svar til opgave 1.5                               :nosolution:ignore:
+*** Dine svar til opgave 1.5
+
+#+BEGIN_EXAMPLE
+
+
+
+#+END_EXAMPLE
+** Rettenøgle :solution:ignore:
+*** Rettenøgle opgave 1
+**** Opgave 1.1
+
+#+BEGIN_EXAMPLE
+Det kan man godt argumentere for, men der mangler en afgivelse af perioden ("hvornår"). Begivenheden kan være, at en person beslutter at blive veganer ("hvad") og det er personer i Danmark ("hvem"). Det ville være en kohorte, hvis man fx definerede alle personer, der flyttede til et byområde i perioden 2000-2010, og fulgte dem fremad i tid.
+#+END_EXAMPLE
+
+**** Opgave 1.2
+
+#+BEGIN_EXAMPLE
+Ind- og udvandringer påvirker Københavns befolkning, derfor er Københavns befolkning åben.
+#+END_EXAMPLE
+
+**** Opgave 1.3
+
+#+BEGIN_EXAMPLE
+Den naturlige vækstrate er differencen mellem fødselsrate og mortalitetsrate, nettovandringsraten er differencen mellem ind- og udvandringsrater. Det er sværest at bestemme nettovandringsraten, fordi man typisk ikke registrerer ind- og udvandringsdatoer præcist.
+#+END_EXAMPLE
+
+**** Opgave 1.4
+
+#+BEGIN_EXAMPLE
+Forskellen skyldes forskellen i beregningen af middelfolketal. Med metode 1 bliver mortalitetsraten 14,3 per 1000 personår, med metode 2 bliver den 14,4 per 1000 personår.
+#+END_EXAMPLE
+
+**** Opgave 1.5
+
+#+BEGIN_EXAMPLE
+Enheden for folketal er /antal personer/ (til et bestemt tidspunkt).
+Enheden for  middelfolketal er /antal personer/ (det gennemsnittetlige antal personer i en periode).
+Enheden for risikotid er antal personår i en periode.
+Enheden for mortalitetsraten er antal døde i perioden per risikotid.
+#+END_EXAMPLE
+
+
+#+ODT: <text:p text:style-name="PageBreak"/>
+
+* Opgave 2 :nokode:ignore:
+** Opgave 2
+Figuren nedenfor viser en hypotetisk befolkningsgruppe bestående af
+kun 5 personer. Baseret på talllene fra grafen, besvar følgende
+spørgsmål og rapporter dine resultater.
+
+- Hvor lang er perioden?
+- Hvor stort er folketallet ved starten og slutningen af perioden?
+- Beregn middelfolketallet eksakt og med metode 1 og metode 2 for hele perioden. 
+- Beregn risikotid eksakt for hele perioden. Angiv enheden.
+- Beregn mortalitetsrate for hele perioden. Angiv enheden.
+
+[[file:~/metropolis/Teaching/demogRafi/holdundervisning/risikotid-figur.svg]]
+
+** Dine svar til opgave 2                                 :nosolution:ignore:
+*** Dine svar til opgave 2
+
+#+BEGIN_EXAMPLE
+
+
+
+#+END_EXAMPLE
+
+** COMMENT not shown                                          :opgave:ignore:
+
+#+BEGIN_SRC R :results file graphics :file ~/metropolis/Teaching/demogRafi/holdundervisning/risikotid-figur.svg :exports none :session *R* :cache yes
+library(svglite)
+par(mar=c(6,6,4,4))
+dates <- seq(as.Date("2013-04-01"),as.Date("2013-04-01")+7*6,7)
+plot(0,0,xlim=range(dates),ylim=c(.5,5.5),axes=FALSE,type="n",ylab="",xlab="Kalender tid")
+for (i in 1:length(dates)) segments(x0=dates[i],x1=dates[i],y0=0,y1=5,col="gray55")
+axis(1,at=dates,labels=dates)
+axis(2,at=1:5,labels=paste("Person",1:5),las=2)
+segments(x0=dates[1],x1=dates[6],y0=1,y1=1,lwd=3)
+text(x=dates[6],y=1,"Udvandrer",cex=1.4,pos=3)
+segments(x0=dates[1],x1=dates[2],y0=2,y1=2,lwd=3)
+text(x=dates[2],y=2,"Død",cex=1.4,pos=3)
+segments(x0=dates[1],x1=dates[7],y0=3,y1=3,lwd=3)
+segments(x0=dates[3],x1=dates[7],y0=4,y1=4,lwd=3)
+text(x=dates[3],y=4,"Fødsel",cex=1.4,pos=3)
+segments(x0=dates[2],x1=dates[4],y0=5,y1=5,lwd=3)
+text(x=dates[2],y=5,"Indvandrer",cex=1.4,pos=3)
+text(x=dates[4],y=5,"Død",cex=1.4,pos=3)
+#+END_SRC
+
+#+RESULTS[(2026-01-17 10:49:27) d7807698477b1c82aa69e40bfc3054058db20245]:
+[[file:~/metropolis/Teaching/demogRafi/holdundervisning/risikotid-figur.svg]]
+
+** Rettenøgle :solution:ignore:
+*** Rettenøgle opgave 2
+
+#+BEGIN_EXAMPLE
+Perioden varer fra 1 april 2013 til 13 maj 2013. Perioden er 6 uger lang.
+Folketal den 1 april 2013 (N(1 apr 2013)) er 3 personer og folketal den 13 maj 2013 er 2 personer.
+For at beregne middelfolketallet eksakt summerer vi risikotiderne fra de 5 personer (2+4+6+1+5).
+Det giver 18 uger. Middelfolketallet er dermed 18/6 = 3 personer. Med metode 1 er middelfolketallet
+også 3. Den er ikke 4 fordi den person som dødede lige præcis i midten af perioden ikke tæller.
+Med metode 2 er middelfolketallet (3+2)/2 = 2,5. Antal døde i perioden er D[1 apr 2013, 13 maj 2013] = 2 og dermed er 
+mortalitetsraten[1 apr 2013, 13 maj 2013] = 2/18 = 0,11 døde per personuge.
+#+END_EXAMPLE
+
+#+ODT: <text:p text:style-name="PageBreak"/>
+* Opgave 3 
+
+Beregn middelfolketal (metode 2), risikotid og mortalitetsrate i
+København først i perioden fra den 1. januar 2023 til den 31. december
+2024 og bagefter i perioden fra den 1 januar 2013 til
+den 31. december 2014. Udfyld tabellen nedenfor og rapporter
+resultaterne. Kommenter kort på forskelle mellem de to perioder.
+
+*** Tabel :opgave:nosolution:ignore:
+**** Tabel
+
+|   Periode | Middelfolketal | Risikotid | Døde | Mortalitet |
+|-----------+----------------+-----------+------+------------|
+| 2013-2014 |                |           |      |            |
+| 2023-2024 |                |           |      |            |
+
+** Dine svar til opgave 3                                 :nosolution:ignore:
+*** Dine svar til opgave 3
+
+#+BEGIN_EXAMPLE
+
+
+
+#+END_EXAMPLE
+
+** R-koder :rmd:ignore:
+
+Her er R-koder som henter data fra statistikbanken og beregner
+middelfolketal, risikotid, antal døde, og mortalitetsraten i København
+for den sidste periode (1. januar 2023 - 31. december 2024). Du skal køre
+koderne og bagefter kopere dem i den næste R-chunk. Der skal du ændre
+i koderne sådan at de beregner det hele for den første periode (1. januar
+2013 - 31. december 2014).
+
+#+BEGIN_SRC R  :results output :exports (exercise-with-code) :cache yes :eval (never-plain-export)
+source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
+# folketal den 1. jan 2023 og 1 jan 2025
+N_københavn <- hent_data(register = "folk1a",
+                         tid = c("2023K1","2025K1"),
+                         område ="københavn")
+# middelfolketal metode 2
+N_københavn <- mean(N_københavn$INDHOLD)
+# risikotid er periodens længde ganget med middelfolketal
+R_københavn <- 2*N_københavn
+# antal døde i de to år
+D_københavn_2023_2024 <- hent_data(register = "fod207",tid = c("2023","2024"),område ="københavn")$INDHOLD
+# antal døde i hele perioden
+D_københavn <- sum(D_københavn_2023_2024)
+D_københavn <- D_københavn_2023 + D_københavn_2024
+# mortalitetsrate per 1000 personår
+M_københavn <- 1000*D_københavn/R_københavn
+# samle resultaterne i en tabel
+tab2023_2024 <- tibble(Middelfolketal = N_københavn,
+              Risikotid = R_københavn,
+              Døde = D_københavn,
+              Mortalitet = M_københavn)
+tab2023_2024
+#+END_SRC
+
+#+BEGIN_SRC R  :results output :exports (exercise-with-code) :cache yes :eval (never-plain-export)
+# Skriv dine R-coder her 
+#+END_SRC
+
+** R-koder :ignore:rmd:
+
+#+BEGIN_SRC R  :results output :exports (exercise-with-solutions) :cache yes :eval (never-plain-export)
+# folketal den 1. jan 2023 og 1 jan 2025
+N_københavn <- hent_data(register = "folk1a",
+                         tid = c("2023K1","2025K1"),
+                         område ="københavn")
+# middelfolketal metode 2
+N_københavn <- mean(N_københavn$INDHOLD)
+# risikotid er periodens længde ganget med middelfolketal
+R_københavn <- 2*N_københavn
+# antal døde i de to år
+D_københavn_2023_2024 <- hent_data(register = "fod207",tid = c("2023","2024"),område ="københavn")$INDHOLD
+# antal døde i hele perioden
+D_københavn <- sum(D_københavn_2023_2024)
+D_københavn <- D_københavn_2023 + D_københavn_2024
+# mortalitetsrate per 1000 personår
+M_københavn <- 1000*D_københavn/R_københavn
+# samle resultaterne i en tabel
+tab2023_2024 <- tibble(Middelfolketal = N_københavn,
+              Risikotid = R_københavn,
+              Døde = D_københavn,
+              Mortalitet = M_københavn)
+tab2023_2024
+#+END_SRC
+
+#+BEGIN_SRC R  :results output :exports (exercise-with-solutions) :cache yes :eval (never-plain-export)
+# folketal den 1. jan 2013 og 1 jan 2015
+N_københavn <- hent_data(register = "folk1a",
+                         tid = c("2013K1","2015K1"),
+                         område ="københavn")
+# middelfolketal metode 2
+N_københavn <- mean(N_københavn$INDHOLD)
+# risikotid er periodens længde ganget med middelfolketal
+R_københavn <- 2*N_københavn
+# antal døde i de to år
+D_københavn_2013_2014 <- hent_data(register = "fod207",tid = c("2013","2014"),område ="københavn")$INDHOLD
+# antal døde i hele perioden
+D_københavn <- sum(D_københavn_2013_2014)
+D_københavn <- D_københavn_2013 + D_københavn_2014
+# mortalitetsrate per 1000 personår
+M_københavn <- 1000*D_københavn/R_københavn
+# samle resultaterne i en tabel
+tab2013_2014 <- tibble(Middelfolketal = N_københavn,
+              Risikotid = R_københavn,
+              Døde = D_københavn,
+              Mortalitet = M_københavn)
+tab2013_2014
+#+END_SRC
+** Rettenøgle :solution:ignore:
+*** Rettenøgle  opgave 3
+# Publish::org(rbind(cbind(Periode = "2013-2014",tab2013_2014),cbind(Periode = "2023-2024",tab2023_2024)))
+
+**** Tabel
+
+|   Periode | Middelfolketal | Risikotid | Døde | Mortalitet |
+|-----------+----------------+-----------+------+------------|
+| 2013-2014 |       569812.0 |   1139624 | 7917 |        6.9 |
+|-----------+----------------+-----------+------+------------|
+| 2023-2024 |       660381.5 |   1320763 | 7103 |        5.4 |
+|-----------+----------------+-----------+------+------------|
+
+**** Resultater
+
+#+BEGIN_EXAMPLE
+I perioden 2013 til 2014 var middelfolketallet 569812 personer og det samlede risikotid var 1139624 personår.
+Mortalitetsraten var 6,9 døde per 1.000 personår.
+I perioden 2023 til 2024 var middelfolketallet 660381.5 personer og det samlede risikotid var 1320763 personår. Mortalitetsraten var
+5,4 per 1.000 personår.
+Folketallet i København er steget mellem de to perioder, mens mortalitetsraten er faldet med 1,5 dødsfald per 1.000 personår.
+#+END_EXAMPLE
+
+
+#+ODT: <text:p text:style-name="PageBreak"/>
+* Opgave 4 :noekstrakode:ignore:
+** Opgave 4
+
+Find tal i statistikbanken (tabel FT) for hvordan folketallet i
+hovedstaden har udviklet sig fra 1787 indtil i dag. Find samtidlig tal
+for Jylland og for øerne uden hovedstaden. Visualiser tallene fra både
+hovedstaden, Jylland og øerne uden hovedstaden i en graf. Inkluder
+grafen i din besvarelse nedenfor. Beskriv udviklingen som grafen
+viser, og analyser, hvilke demografiske faktorer og bevægelser der har
+haft indflydelse på denne udvikling. Tip: For udviklingen i
+hovedstaden er stikordet /suburbanisering/.
+
+** Dine svar til opgave 4 :opgave:nosolution:ignore:
+*** Dine svar til opgave 4
+
+INDSÆT GRAFEN HER
+
+#+BEGIN_EXAMPLE
+
+
+
+#+END_EXAMPLE
+
+** R-koder :ignore:rmd:
+
+Her er R-koder som henter data fra statistikbanken og laver figuren. 
+
+#+BEGIN_SRC R  :results output :exports (exercise-with-code) :cache yes :eval (never-plain-export)
+source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
+# statistikbanken_metadata("FT")$variables$values[[2]][[1]]
+dt <- hent_data("FT",hoveddele = c("Hovedstaden","Jylland","Øerne (uden Hovedstaden)"),tid = "all")
+g <- ggplot(dt,aes(TID,INDHOLD,color = HOVEDDELE,group = HOVEDDELE))+geom_line()+geom_point()+ theme_wsj()+ scale_colour_wsj("colors6")+theme(legend.title=element_blank(),text = element_text(size=20))
+g
+#+END_SRC
+
+Her er R-koden som gemmer figuren i en fil (filnavn:
+"FT_folketal.svg"), som du så kan importere i word.
+
+#+BEGIN_SRC R  :results output :exports (exercise-with-code) :cache yes :eval (never-plain-export)
+ggsave(g,file = "FT_folketal.svg")
+#+END_SRC
+
+** Rettenøgle :solution:ignore: 
+*** Rettenøgle opgave 4
+
+  [[~/metropolis/Teaching/demogRafi/holdundervisning/FT_folketal.svg]]
+
+#+BEGIN_EXAMPLE
+Generelt steg Danmarks folketal kraftigt siden 1800-tallet og frem til i dag (Kompendium, Kapitel 1, Figur 1).
+Denne udvikling kan forstås som resultatet af samspillet mellem naturlig befolkningstilvækst,
+indenlandsk og international migration (Kompendium, Kapitel 1, Afsnit 6). 
+Udviklingen i Jylland følger udviklingen i hele landet rimlig tæt.
+Udviklingen af folketal i hovedstadsområdet ser anderledes ud. I 1800 havde
+hovedstaden (København plus Frederiksberg og Gentofte) omkring 90.000 indbyggere.
+I løbet af det 19. århundrede accelererede befolkningstilvæksten markant indtil 1950, hvor
+folketallet i hovedstadsområdet nåede sit historiske maksimum. I 1950 var
+folketallet 974.901 og dermed cirka 10 gang højere end i 1787. 
+I de efterfølgende årtier oplevede hovedstaden imidlertid en betydelig
+befolkningsnedgang, drevet af nettofraflytning til forstæderne. Denne
+proces kan fortolkes som et klassisk eksempel på suburbanisering, hvor
+stigende velstand, udbygning af transportinfrastruktur og ændrede
+boligpræferencer førte til en omfordeling af befolkningen inden for
+hovedstadsregionen snarere end et egentligt regionalt befolkningstab.
+#+END_EXAMPLE
