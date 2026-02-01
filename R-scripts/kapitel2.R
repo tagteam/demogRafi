@@ -20,11 +20,11 @@ dat <- mutate(dat,
               "Summariske mortalitetsrate"=1000*antal_dod/risiko_tid)
 dat
 
-# R-koder der genererer alderspyramiden for Danmark den 1. januar 2023
+# R-koder der genererer alderspyramiden for Danmark den 1. juli 2023
 folk <- hent_data("FOLK1a","alder"=0:125,"køn"=1:2,tid="2023K3")
-# Fjern tomme aldre
+# Fjern aldere, der har folketal 0
 folk <- subset(folk,alder<106)
-# Mænd skal vises på venstre siden, derfor bliver INDHOLD negativt 
+# Mænd skal vises på venstresiden, derfor bliver INDHOLD negativt 
 folk_m <- subset(folk,KØN=="Mænd") %>% mutate(INDHOLD=-INDHOLD)
 # For kvinder på højre siden er INDHOLD  positivt
 folk_k <- subset(folk,KØN=="Kvinder")

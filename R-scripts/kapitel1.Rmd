@@ -18,10 +18,6 @@ source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demof
 ```
 
 ```{r   }
-source("R-scripts/demofunk.R"). 
-```
-
-```{r   }
 # Brug funktionen til at hente folketal fra 2023 1. kvartal 
 hent_data(register = "folk1a",tid = "2023K1") 
 ```
@@ -94,13 +90,13 @@ tibble(X=c("Folketal jan 2022",
 
 [[file:```{r   }
 # R-koder der producerer figur 3
-V = hent_data("BEFOLK1",tid=1980:2022)
+V = hent_data("BEFOLK1",tid=1980:2023)
 V = V %>% mutate(INDHOLD = INDHOLD- c(INDHOLD[1],INDHOLD[-length(INDHOLD)]))
-D = hent_data("dod",tid=1980:2022)
+D = hent_data("dod",tid=1980:2023)
 D = D %>% mutate(INDHOLD = -INDHOLD)
-F = hent_data("FOD",tid=1980:2022)
-I = hent_data("INDVAN",tid=1980:2022)
-U = hent_data("UDVAN",tid=1980:2022)
+F = hent_data("FOD",tid=1980:2023)
+I = hent_data("INDVAN",tid=1980:2023)
+U = hent_data("UDVAN",tid=1980:2023)
 U = U %>% mutate(INDHOLD = -INDHOLD)
 # samle data
 dat <- tibble(rbind(cbind(X="Vækst",V),

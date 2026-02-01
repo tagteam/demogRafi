@@ -114,11 +114,10 @@ fra folketællinger helt tilbage fra 1769 (register =FT=).
 
 * Instruks til brugen af R koder
 
-For at hente data fra statistikbanken bruger vi en R pakke, som hedder
-=danstat=. Desuden bruger vi en række andre R pakker og også R
-funktioner, som gør det nemt arbejde med data fra statistikbanken og
-implementere specifikke demografiske metoder. For at afprøve R
-koderne er det nødvendigt at køre den følgende R-kode:
+Vi bruger en række R pakker og også hjemmelavede R funktioner, som gør
+det nemt arbejde med data fra statistikbanken og implementere
+specifikke demografiske metoder. For at afprøve R koderne, er det
+nødvendigt at først køre den følgende R-kode:
 
 #+ATTR_LATEX: :options otherkeywords={hent_data}, deletekeywords={}
 #+BEGIN_SRC R  :results output   :exports both  :session *R* :cache yes
@@ -126,26 +125,10 @@ koderne er det nødvendigt at køre den følgende R-kode:
 source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
 #+END_SRC
 
-Det vil dog kun virke med adgang til Internet. For at bruge
-funktionerne også uden adgang til Internet kan I hente filen her 
-
-\small
-https://github.com/tagteam/demogRafi/blob/main/R-scripts/demofunk.R
-\normalsize
-
-og gemme den i projekt mappen =demografi= i undermappen =R-scripts=.
-Hvis det er sket, kan funktionerne køres ved følgende kommando
-
-#+ATTR_LATEX: :options otherkeywords={hent_data}, deletekeywords={}
-#+BEGIN_SRC R  :results output   :exports both  :session *R* :cache yes
-source("R-scripts/demofunk.R")
-#+END_SRC
-
 En vigtig funktion hedder =hent_data=. Den henter data fra
 statistikbankens register. For at se hvilke registrer der er og hvad de
 hedder, skal man besøge internetsiden https://statistikbanken.dk/ hvor
 man finder dem under EMNE Borgere.
-
 
 #+ATTR_LATEX: :options otherkeywords={hent_data}, deletekeywords={}
 #+BEGIN_SRC R  :results output   :exports both  :session *R* :cache yes
