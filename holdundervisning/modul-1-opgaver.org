@@ -1,5 +1,5 @@
 * HEADER                                                           :noexport:
-#+TITLE: Modul 1 
+#+TITLE: Modul 1: Holdundervisning
 #+DATE: 
 #+LANGUAGE:  en
 #+OPTIONS:   H:3 num:nil toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
@@ -30,39 +30,34 @@
 #+RESULTS:
 : make-docx
 
+# @@odt:<text:span text:style-name="Highlight">This is highlighted
+# text</text:span>@@.  But this is regular text.
 
 * Holdundervisning :ignore:nosolution:opgave:
 
 #+BEGIN_EXPORT odt
-<text:p text:style-name="Center24">
-Demografi 3934-F26
+<text:p text:style-name="Center18">
+Demografi 3934-F26 <text:line-break/>
 
 Folkesundhedsvidenskab, 2. semester
 </text:p>
-#+END_EXPORT
+ #+END_EXPORT
 
-*Vejledning:*
+** Vejledning                                                        :opgave:ignore:
+*** Vejledning 
 
-# @@odt:<text:span text:style-name="Highlight">This is highlighted
-# text</text:span>@@.  But this is regular text.
-Skriv dine svar i de udvidende svarfelter og udfyld tabeller/indsæt grafer.
+/Den gode besvarelse er kort og præcis. Det er vigtigt at dine svar er klart struktureret og skrevet i fulde sætninger./
+/Skriv dine svar i de udvidende svarfelter og udfyld tabeller/indsæt grafer./
+/Du må ikke ændre tabellernes formatering og det er forbudt at sætte egne tabeller ind./
+/Din besvarelse til hvert opgave bør ikke overskride 1/2 normalsides tekst svarende til maksimalt 1200 anslag med mindst 10pt skriftstørrelse f.eks., Courier New, men ikke medregnende tabeller o.a../
 
-Du må ikke ændre tabellernes formatering og det er forbudt at sætte
-egne tabeller ind.
+/Tal i resultaterne skal rundes af og enheder skal angives hvis relevant./
+/R-koder som bruges til at besvare opgaverne findes i Rmd-filen på Absalon./
 
-@@odt:<text:span text:style-name="Highlight">Din besvarelse til hvert opgave bør ikke overskride 1/2 normalsides tekst svarende til maksimalt 1200 anslag med mindst 10pt skriftstørrelse f.eks., Courier New, men ikke medregnende tabeller o.a..</text:span>@@
-
-Den gode besvarelse er kort og præcis. Det er vigtigt at dine svar er
-klart struktureret og skrevet i fulde sætninger.
-
-Tal i resultaterne skal rundes af og enheder skal angives hvis relevant. \\
-
-R-koder som bruges til at besvare opgaverne findes i Rmd-filen på Absalon.
-
-Når du har besvaret alle opgaver, afleverer du denne fil i Absalon. 
+/Når du har besvaret alle opgaver, afleverer du denne fil i Absalon./
 
 # @@odt:<text:span text:style-name="Highlight"> Your answer for each Task should not exceed 1/2 page. text</text:span>@@.  
-
+# @@odt:<text:span text:style-name="Highlight">Din besvarelse til hvert opgave bør ikke overskride 1/2 normalsides tekst svarende til maksimalt 1200 anslag med mindst 10pt skriftstørrelse f.eks., Courier New, men ikke medregnende tabeller o.a..</text:span>@@
 # *Tilladte hjælpemidler*: 
 
 # Alle KU hjælpemidler er tillad. 
@@ -320,7 +315,6 @@ R_københavn <- 2*N_københavn
 D_københavn_2023_2024 <- hent_data(register = "fod207",tid = c("2023","2024"),område ="københavn")$INDHOLD
 # antal døde i hele perioden
 D_københavn <- sum(D_københavn_2023_2024)
-D_københavn <- D_københavn_2023 + D_københavn_2024
 # mortalitetsrate per 1000 personår
 M_københavn <- 1000*D_københavn/R_københavn
 # samle resultaterne i en tabel
@@ -344,7 +338,6 @@ R_københavn <- 2*N_københavn
 D_københavn_2013_2014 <- hent_data(register = "fod207",tid = c("2013","2014"),område ="københavn")$INDHOLD
 # antal døde i hele perioden
 D_københavn <- sum(D_københavn_2013_2014)
-D_københavn <- D_københavn_2013 + D_københavn_2014
 # mortalitetsrate per 1000 personår
 M_københavn <- 1000*D_københavn/R_københavn
 # samle resultaterne i en tabel

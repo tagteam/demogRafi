@@ -31,7 +31,6 @@ R_københavn <- 2*N_københavn
 D_københavn_2023_2024 <- hent_data(register = "fod207",tid = c("2023","2024"),område ="københavn")$INDHOLD
 # antal døde i hele perioden
 D_københavn <- sum(D_københavn_2023_2024)
-D_københavn <- D_københavn_2023 + D_københavn_2024
 # mortalitetsrate per 1000 personår
 M_københavn <- 1000*D_københavn/R_københavn
 # samle resultaterne i en tabel
