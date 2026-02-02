@@ -302,14 +302,13 @@
   <style:style style:name="OrgFixedWidthBlockLastLine" style:family="paragraph" style:parent-style-name="OrgFixedWidthBlock">
    <style:paragraph-properties fo:margin-top="0cm" fo:margin-bottom="0.21cm"/>
   </style:style>
-  
    <!-- tagteam -->
   <style:style style:name="PageBreak" style:family="paragraph"
              style:parent-style-name="Text_20_body">
   <style:paragraph-properties fo:break-before="page"/>
   </style:style>
 <style:style style:name="Highlight" style:family="text">
-  <style:text-properties fo:font-size="24pt" fo:background-color="#ffb6c1"/>
+  <style:text-properties fo:font-size="10pt" fo:background-color="#ffb6c1"/>
 </style:style>
   <!-- tagteam -->
   <style:style style:name="OrgFormula" style:family="paragraph" style:parent-style-name="Text_20_body">
@@ -322,6 +321,8 @@
 
   <style:style style:name="OrgSrcBlockLastLine" style:family="paragraph" style:parent-style-name="OrgSrcBlock">
    <style:paragraph-properties fo:margin-top="0cm" fo:margin-bottom="0.21cm"/>
+        <style:paragraph-properties fo:background-color="#f0f8ff"/> <!-- Light blue -->
+        <style:text-properties fo:color="#333333"/> <!-- Dark text -->
   </style:style>
 
   <style:style style:name="OrgCenter" style:family="paragraph" style:parent-style-name="Text_20_body">

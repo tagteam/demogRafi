@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds and Johan Sebastian Ohlendorff
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: jan 19 2026 (14:17) 
+## Last-Updated: feb  2 2026 (09:44) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 204
+##     Update #: 207
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -20,16 +20,16 @@
 options("lifecycle_verbosity"="warning")
 
 for (a in c("tidyverse","stringi","ggplot2","ggthemes","svglite")){
-    if (inherits(try(do.call("library",list(a,quietly = TRUE))),"try-error")){
+    if (inherits(try(suppressMessages(do.call("library",list(a,quietly = TRUE)))),"try-error")){
         stop(paste0("Package ",a," is not installed.\nInstall it with command\n install.packages('",a,"')\n
 If that does not work, maybe another package is missing which is required by ",a,"?\n
 Try to read and google the error message that occurs when you run\n",
 "install.packages('",a,"')",
 "\nand post the error message when you ask on Absalon for help."))
-        do.call("library",list(a))
+        suppressMessages(do.call("library",list(a,quietly = TRUE)))
     }
     else{
-        message("Successfully loaded package ", a)
+        # message("Successfully loaded package ", a)
     }
 }
 
