@@ -157,7 +157,7 @@ Vi kan også vælge at udregne rater specifik for køn eller for fødselskohorte
 Kilde: Danmarks Statistik
 
 #+TITLE: Kapitel 5: Migration
-#+AUTHOR: Anna-Vera Jørring Pallesen, Johan Sebastian Ohlendorff, Laust Hvas Mortensen og Thomas Alexander Gerds
+#+AUTHOR: 
 #+DATE: 
 #+LaTeX_CLASS: danish-article
 #+OPTIONS: toc:nil
