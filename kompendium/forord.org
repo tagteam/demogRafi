@@ -1,0 +1,36 @@
+#+TITLE: Demografi kompendium
+#+Author: Laust Hvas Mortensen og Thomas Alexander Gerds
+#+Date: 
+#+EMAIL: tag@biostat.ku.dk
+#+LaTeX_CLASS: org-article
+#+OPTIONS: toc:nil
+#+LaTeX_HEADER:\usepackage{authblk}
+#+LaTeX_HEADER:\usepackage{natbib}
+#+LaTeX_HEADER:\author{\phantom{a}}
+#+LaTeX_HEADER:\affil{Department of Public Health, University of Copenhagen}
+#+setupfile:~/emacs-genome/snps/org-templates/setup-all-purpose.org
+# #+superman-org-export-target: pdf
+
+* Forord
+\thispagestyle{empty}
+Dette kompendium byder på baggrund og illustration af kurset
+'Demografi' i studiet Folkesundhedsvidenskab ved 2. semester,
+Københavns Universitet. Vi siger tusind tak til Anna-Vera Jørring
+Pallesen for hendes bidrag til teksten og til Per Kragh Andersen og
+Johan Sebastian Ohlendorff for grundig gennemlæsning og masser af gode
+kommentarer.
+\vspace{1cm}
+
+\noindent
+Laust Hvas Mortensen og Thomas Alexander Gerds
+
+* COMMENT the making of
+#+BEGIN_SRC  emacs-lisp :export code :eval never-export
+(shell-command
+ (concat "pdfunite ./forord.pdf "
+	 "./kapitel1/grundbegreber.pdf "
+	 "./kapitel2/mortalitet_standardisering.pdf "
+	 "./kapitel3/overlevelsestavler.pdf "
+	 "./kapitel4/fertilitet.pdf "
+	 "./kompendium.pdf"))
+#+END_SRC
