@@ -42,7 +42,7 @@ tab2023_2024
 ```
 
 ```{r   }
-# Skriv dine R-coder her  
+# Skriv dine R-koder her  
 ```
 
 

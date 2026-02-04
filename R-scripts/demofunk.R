@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds and Johan Sebastian Ohlendorff
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: feb  2 2026 (09:44) 
+## Last-Updated: feb  4 2026 (08:49) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 207
+##     Update #: 208
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -17,7 +17,7 @@
 # load libraries
 # ---------------------------------------------------------------------
 ## source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
-options("lifecycle_verbosity"="warning")
+options("lifecycle_verbosity"="warning",scipen = 10)
 
 for (a in c("tidyverse","stringi","ggplot2","ggthemes","svglite")){
     if (inherits(try(suppressMessages(do.call("library",list(a,quietly = TRUE)))),"try-error")){

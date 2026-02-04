@@ -15,6 +15,7 @@
 #+PROPERTY: header-args :session *R* 
 #+PROPERTY: header-args :cache no
 #+superman-org-export-target: docx
+#+ODT_STYLES_FILE: "~/metropolis/Teaching/demogRafi/holdundervisning/style/DemoStyle.xml"
 
 * COMMENT word export                                              :noexport:
 
@@ -22,7 +23,7 @@
 (defun make-docx ()
   (interactive)
   (shell-command "killall openoffice")
-  (setq org-odt-styles-dir "~/metropolis/Teaching/demogRafi/holdundervisning/style")
+;; (setq org-odt-styles-dir "~/metropolis/Teaching/demogRafi/holdundervisning/style")
   (superman-export-as-demografi-opgave)
   (org-open-file "~/metropolis/Teaching/demogRafi/holdundervisning/modul-1-opgaver.docx"))
 #+END_SRC
@@ -30,18 +31,28 @@
 #+RESULTS:
 : make-docx
 
+
 # @@odt:<text:span text:style-name="Highlight">This is highlighted
 # text</text:span>@@.  But this is regular text.
+
+* Holdundervisning :ignore:solution:
+
+#+BEGIN_EXPORT odt
+<text:p text:style-name="CourseCredentials">
+Rettenøgle 
+</text:p>
+#+END_EXPORT
+
 
 * Holdundervisning :ignore:nosolution:opgave:
 
 #+BEGIN_EXPORT odt
-<text:p text:style-name="Center18">
+<text:p text:style-name="CourseCredentials">
 Demografi 3934-F26 <text:line-break/>
 
 Folkesundhedsvidenskab, 2. semester
 </text:p>
- #+END_EXPORT
+#+END_EXPORT
 
 ** Vejledning                                                        :opgave:ignore:
 *** Vejledning 
@@ -66,6 +77,8 @@ Folkesundhedsvidenskab, 2. semester
 ** Baggrund                                                   :opgave:ignore:
 *** Baggrund
 
+#+BEGIN_EXPORT odt
+<text:p text:style-name="Baggrund">
 Nyt fra Danmark Statistiks (14. maj 2025 Nr. 134) analyserede
 byopgørelsen 1 januar 2025: 
 
@@ -80,6 +93,8 @@ indbyggere. Hovedstadsområdet er vokset med 132.810 indbyggere fra
 1.263.698 indbyggere i 2015 til 1.396.508 i 2025, mens byområderne med
 100.000 indbyggere og derover (Aarhus, Odense og Aalborg) samlet er
 vokset med 62.528 indbyggere i perioden til 608.407 personer i 2025.
+</text:p>
+#+END_EXPORT
 
 #+ODT: <text:p text:style-name="PageBreak"/>
 
@@ -97,81 +112,102 @@ Svar på følgende spørgsmål ved at læse i kompendium kapitel 1.
 ** Dine svar til opgave 1.1 :nosolution:ignore:
 *** Dine svar til opgave 1.1
 
-#+BEGIN_EXAMPLE
+#+BEGIN_EXPORT odt
+<text:p text:style-name="DineSvar">
+<text:line-break/>
+<text:line-break/>
+<text:line-break/>
+</text:p>
+#+END_EXPORT
 
-
-
-#+END_EXAMPLE
 
 ** Dine svar til opgave 1.2                               :nosolution:ignore:
 *** Dine svar til opgave 1.2
 
-#+BEGIN_EXAMPLE
-
-
-
-#+END_EXAMPLE
+#+BEGIN_EXPORT odt
+<text:p text:style-name="DineSvar">
+<text:line-break/>
+<text:line-break/>
+<text:line-break/>
+</text:p>
+#+END_EXPORT
 
 ** Dine svar til opgave 1.3                               :nosolution:ignore:
 *** Dine svar til opgave 1.3
 
-#+BEGIN_EXAMPLE
-
-
-
-#+END_EXAMPLE
+#+BEGIN_EXPORT odt
+<text:p text:style-name="DineSvar">
+<text:line-break/>
+<text:line-break/>
+<text:line-break/>
+</text:p>
+#+END_EXPORT
 
 ** Dine svar til opgave 1.4                               :nosolution:ignore:
-*** Dine svar til opgave 1.3
+*** Dine svar til opgave 1.4
 
-#+BEGIN_EXAMPLE
-
-
-
-#+END_EXAMPLE
+#+BEGIN_EXPORT odt
+<text:p text:style-name="DineSvar">
+<text:line-break/>
+<text:line-break/>
+<text:line-break/>
+</text:p>
+#+END_EXPORT
 
 ** Dine svar til opgave 1.5                               :nosolution:ignore:
 *** Dine svar til opgave 1.5
 
-#+BEGIN_EXAMPLE
-
-
-
-#+END_EXAMPLE
+#+BEGIN_EXPORT odt
+<text:p text:style-name="DineSvar">
+<text:line-break/>
+<text:line-break/>
+<text:line-break/>
+</text:p>
+#+END_EXPORT
 ** Rettenøgle :solution:ignore:
 *** Rettenøgle opgave 1
 **** Opgave 1.1
 
-#+BEGIN_EXAMPLE
-Det kan man godt argumentere for, men der mangler en afgivelse af perioden ("hvornår"). Begivenheden kan være, at en person beslutter at blive veganer ("hvad") og det er personer i Danmark ("hvem"). Det ville være en kohorte, hvis man fx definerede alle personer, der flyttede til et byområde i perioden 2000-2010, og fulgte dem fremad i tid.
-#+END_EXAMPLE
+#+BEGIN_EXPORT odt
+<text:p text:style-name="RetteNoegle">
+Nej, fordi der mangler en afgivelse af perioden ("hvornår"). Det ville være en kohorte, hvis man fx definerede alle personer, der flyttede til et byområde i perioden 2000-2010, og fulgte dem fremad i tid. 
+</text:p>
+#+END_EXPORT
 
 **** Opgave 1.2
 
-#+BEGIN_EXAMPLE
+#+BEGIN_EXPORT odt
+<text:p text:style-name="RetteNoegle">
 Ind- og udvandringer påvirker Københavns befolkning, derfor er Københavns befolkning åben.
-#+END_EXAMPLE
+</text:p>
+#+END_EXPORT
 
 **** Opgave 1.3
 
-#+BEGIN_EXAMPLE
+#+BEGIN_EXPORT odt
+<text:p text:style-name="RetteNoegle">
 Den naturlige vækstrate er differencen mellem fødselsrate og mortalitetsrate, nettovandringsraten er differencen mellem ind- og udvandringsrater. Det er sværest at bestemme nettovandringsraten, fordi man typisk ikke registrerer ind- og udvandringsdatoer præcist.
-#+END_EXAMPLE
+</text:p>
+#+END_EXPORT
 
 **** Opgave 1.4
 
-#+BEGIN_EXAMPLE
+#+BEGIN_EXPORT odt
+<text:p text:style-name="RetteNoegle">
 Forskellen skyldes forskellen i beregningen af middelfolketal. Med metode 1 bliver mortalitetsraten 14,3 per 1000 personår, med metode 2 bliver den 14,4 per 1000 personår.
-#+END_EXAMPLE
+</text:p>
+#+END_EXPORT
 
 **** Opgave 1.5
 
-#+BEGIN_EXAMPLE
+#+BEGIN_EXPORT odt
+<text:p text:style-name="RetteNoegle">
 Enheden for folketal er /antal personer/ (til et bestemt tidspunkt).
 Enheden for  middelfolketal er /antal personer/ (det gennemsnittetlige antal personer i en periode).
 Enheden for risikotid er antal personår i en periode.
 Enheden for mortalitetsraten er antal døde i perioden per risikotid.
-#+END_EXAMPLE
+</text:p>
+#+END_EXPORT
 
 
 #+ODT: <text:p text:style-name="PageBreak"/>
@@ -193,11 +229,13 @@ spørgsmål og rapporter dine resultater.
 ** Dine svar til opgave 2                                 :nosolution:ignore:
 *** Dine svar til opgave 2
 
-#+BEGIN_EXAMPLE
-
-
-
-#+END_EXAMPLE
+#+BEGIN_EXPORT odt
+<text:p text:style-name="DineSvar">
+<text:line-break/>
+<text:line-break/>
+<text:line-break/>
+</text:p>
+#+END_EXPORT
 
 ** COMMENT not shown                                          :opgave:ignore:
 
@@ -227,7 +265,8 @@ text(x=dates[4],y=5,"Død",cex=1.4,pos=3)
 ** Rettenøgle :solution:ignore:
 *** Rettenøgle opgave 2
 
-#+BEGIN_EXAMPLE
+#+BEGIN_EXPORT odt
+<text:p text:style-name="RetteNoegle">
 Perioden varer fra 1 april 2013 til 13 maj 2013. Perioden er 6 uger lang.
 Folketal den 1 april 2013 (N(1 apr 2013)) er 3 personer og folketal den 13 maj 2013 er 2 personer.
 For at beregne middelfolketallet eksakt summerer vi risikotiderne fra de 5 personer (2+4+6+1+5).
@@ -235,7 +274,8 @@ Det giver 18 uger. Middelfolketallet er dermed 18/6 = 3 personer. Med metode 1 e
 også 3. Den er ikke 4 fordi den person som dødede lige præcis i midten af perioden ikke tæller.
 Med metode 2 er middelfolketallet (3+2)/2 = 2,5. Antal døde i perioden er D[1 apr 2013, 13 maj 2013] = 2 og dermed er 
 mortalitetsraten[1 apr 2013, 13 maj 2013] = 2/18 = 0,11 døde per personuge.
-#+END_EXAMPLE
+</text:p>
+#+END_EXPORT
 
 #+ODT: <text:p text:style-name="PageBreak"/>
 * Opgave 3 
@@ -257,11 +297,13 @@ resultaterne. Kommenter kort på forskelle mellem de to perioder.
 ** Dine svar til opgave 3                                 :nosolution:ignore:
 *** Dine svar til opgave 3
 
-#+BEGIN_EXAMPLE
-
-
-
-#+END_EXAMPLE
+#+BEGIN_EXPORT odt
+<text:p text:style-name="DineSvar">
+<text:line-break/>
+<text:line-break/>
+<text:line-break/>
+</text:p>
+#+END_EXPORT
 
 ** R-koder :rmd:ignore:
 
@@ -297,7 +339,7 @@ tab2023_2024
 #+END_SRC
 
 #+BEGIN_SRC R  :results output :exports (exercise-with-code) :cache yes :eval (never-plain-export)
-# Skriv dine R-coder her 
+# Skriv dine R-koder her 
 #+END_SRC
 
 ** R-koder :ignore:rmd:
@@ -362,13 +404,15 @@ tab2013_2014
 
 **** Resultater
 
-#+BEGIN_EXAMPLE
+#+BEGIN_EXPORT odt
+<text:p text:style-name="RetteNoegle">
 I perioden 2013 til 2014 var middelfolketallet 569812 personer og det samlede risikotid var 1139624 personår.
 Mortalitetsraten var 6,9 døde per 1.000 personår.
 I perioden 2023 til 2024 var middelfolketallet 660381.5 personer og det samlede risikotid var 1320763 personår. Mortalitetsraten var
 5,4 per 1.000 personår.
 Folketallet i København er steget mellem de to perioder, mens mortalitetsraten er faldet med 1,5 dødsfald per 1.000 personår.
-#+END_EXAMPLE
+</text:p>
+#+END_EXPORT
 
 
 #+ODT: <text:p text:style-name="PageBreak"/>
@@ -389,11 +433,13 @@ hovedstaden er stikordet /suburbanisering/.
 
 INDSÆT GRAFEN HER
 
-#+BEGIN_EXAMPLE
-
-
-
-#+END_EXAMPLE
+#+BEGIN_EXPORT odt
+<text:p text:style-name="DineSvar">
+<text:line-break/>
+<text:line-break/>
+<text:line-break/>
+</text:p>
+#+END_EXPORT
 
 ** R-koder :ignore:rmd:
 
@@ -419,7 +465,8 @@ ggsave(g,file = "FT_folketal.svg")
 
   [[~/metropolis/Teaching/demogRafi/holdundervisning/FT_folketal.svg]]
 
-#+BEGIN_EXAMPLE
+#+BEGIN_EXPORT odt
+<text:p text:style-name="RetteNoegle">
 Generelt steg Danmarks folketal kraftigt siden 1800-tallet og frem til i dag (Kompendium, Kapitel 1, Figur 1).
 Denne udvikling kan forstås som resultatet af samspillet mellem naturlig befolkningstilvækst,
 indenlandsk og international migration (Kompendium, Kapitel 1, Afsnit 6). 
@@ -435,4 +482,5 @@ proces kan fortolkes som et klassisk eksempel på suburbanisering, hvor
 stigende velstand, udbygning af transportinfrastruktur og ændrede
 boligpræferencer førte til en omfordeling af befolkningen inden for
 hovedstadsregionen snarere end et egentligt regionalt befolkningstab.
-#+END_EXAMPLE
+</text:p>
+#+END_EXPORT
