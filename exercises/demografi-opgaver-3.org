@@ -216,7 +216,7 @@ Joining with `by = join_by(KØN, TID, OMRÅDE)`
 12 Mænd     2020 Region Sjælland        11.7      10.5
 #+end_example
 
-Dødeligheden er faldet markant mellem 2010 og 2012 for begge køn og
+Dødeligheden er faldet markant mellem 2010 og 2020 for begge køn og
 for begge regioner. I Region Sjælland ser vi det næsten ikke når vi
 sammenligner de summariske mortalitetsrater, og for mænd er den
 summariske mortalitetsrate faktisk steget fra 11,3 per 1000 personår

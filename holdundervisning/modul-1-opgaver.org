@@ -39,10 +39,9 @@
 
 #+BEGIN_EXPORT odt
 <text:p text:style-name="CourseCredentials">
-Rettenøgle 
+Løsningsforslag 
 </text:p>
 #+END_EXPORT
-
 
 * Holdundervisning :ignore:nosolution:opgave:
 
@@ -98,7 +97,7 @@ vokset med 62.528 indbyggere i perioden til 608.407 personer i 2025.
 
 #+ODT: <text:p text:style-name="PageBreak"/>
 
-* Rettenøgle :ignore:solution:
+* Løsningsforslag                            :ignore:solution:
 * Opgave 1 :nokode:ignore:
 ** Opgave 1
 Svar på følgende spørgsmål ved at læse i kompendium kapitel 1. 
@@ -119,7 +118,6 @@ Svar på følgende spørgsmål ved at læse i kompendium kapitel 1.
 <text:line-break/>
 </text:p>
 #+END_EXPORT
-
 
 ** Dine svar til opgave 1.2                               :nosolution:ignore:
 *** Dine svar til opgave 1.2
@@ -164,20 +162,20 @@ Svar på følgende spørgsmål ved at læse i kompendium kapitel 1.
 <text:line-break/>
 </text:p>
 #+END_EXPORT
-** Rettenøgle :solution:ignore:
-*** Rettenøgle opgave 1
+** Løsningsforslag                             :solution:ignore:
+*** Løsningsforslag                             opgave 1
 **** Opgave 1.1
 
 #+BEGIN_EXPORT odt
-<text:p text:style-name="RetteNoegle">
-Nej, fordi der mangler en afgivelse af perioden ("hvornår"). Det ville være en kohorte, hvis man fx definerede alle personer, der flyttede til et byområde i perioden 2000-2010, og fulgte dem fremad i tid. 
+<text:p text:style-name="Loesningsforslag">
+Nej, fordi der mangler en angivelse af perioden ("hvornår"). Det ville være en kohorte, hvis man fx definerede alle personer, der flyttede til et byområde i perioden 2000-2010, og fulgte dem fremad i tid. 
 </text:p>
 #+END_EXPORT
 
 **** Opgave 1.2
 
 #+BEGIN_EXPORT odt
-<text:p text:style-name="RetteNoegle">
+<text:p text:style-name="Loesningsforslag">
 Ind- og udvandringer påvirker Københavns befolkning, derfor er Københavns befolkning åben.
 </text:p>
 #+END_EXPORT
@@ -185,7 +183,7 @@ Ind- og udvandringer påvirker Københavns befolkning, derfor er Københavns bef
 **** Opgave 1.3
 
 #+BEGIN_EXPORT odt
-<text:p text:style-name="RetteNoegle">
+<text:p text:style-name="Loesningsforslag">
 Den naturlige vækstrate er differencen mellem fødselsrate og mortalitetsrate, nettovandringsraten er differencen mellem ind- og udvandringsrater. Det er sværest at bestemme nettovandringsraten, fordi man typisk ikke registrerer ind- og udvandringsdatoer præcist.
 </text:p>
 #+END_EXPORT
@@ -193,7 +191,7 @@ Den naturlige vækstrate er differencen mellem fødselsrate og mortalitetsrate, 
 **** Opgave 1.4
 
 #+BEGIN_EXPORT odt
-<text:p text:style-name="RetteNoegle">
+<text:p text:style-name="Loesningsforslag">
 Forskellen skyldes forskellen i beregningen af middelfolketal. Med metode 1 bliver mortalitetsraten 14,3 per 1000 personår, med metode 2 bliver den 14,4 per 1000 personår.
 </text:p>
 #+END_EXPORT
@@ -201,7 +199,7 @@ Forskellen skyldes forskellen i beregningen af middelfolketal. Med metode 1 bliv
 **** Opgave 1.5
 
 #+BEGIN_EXPORT odt
-<text:p text:style-name="RetteNoegle">
+<text:p text:style-name="Loesningsforslag">
 Enheden for folketal er /antal personer/ (til et bestemt tidspunkt).
 Enheden for  middelfolketal er /antal personer/ (det gennemsnittetlige antal personer i en periode).
 Enheden for risikotid er antal personår i en periode.
@@ -215,7 +213,7 @@ Enheden for mortalitetsraten er antal døde i perioden per risikotid.
 * Opgave 2 :nokode:ignore:
 ** Opgave 2
 Figuren nedenfor viser en hypotetisk befolkningsgruppe bestående af
-kun 5 personer. Baseret på talllene fra grafen, besvar følgende
+kun 5 personer. Baseret på tallene fra grafen, besvar følgende
 spørgsmål og rapporter dine resultater.
 
 - Hvor lang er perioden?
@@ -262,18 +260,28 @@ text(x=dates[4],y=5,"Død",cex=1.4,pos=3)
 #+RESULTS[(2026-01-17 10:49:27) d7807698477b1c82aa69e40bfc3054058db20245]:
 [[file:~/metropolis/Teaching/demogRafi/holdundervisning/risikotid-figur.svg]]
 
-** Rettenøgle :solution:ignore:
-*** Rettenøgle opgave 2
+** Løsningsforslag                             :solution:ignore:
+*** Løsningsforslag                             opgave 2
 
 #+BEGIN_EXPORT odt
-<text:p text:style-name="RetteNoegle">
-Perioden varer fra 1 april 2013 til 13 maj 2013. Perioden er 6 uger lang.
-Folketal den 1 april 2013 (N(1 apr 2013)) er 3 personer og folketal den 13 maj 2013 er 2 personer.
-For at beregne middelfolketallet eksakt summerer vi risikotiderne fra de 5 personer (2+4+6+1+5).
-Det giver 18 uger. Middelfolketallet er dermed 18/6 = 3 personer. Med metode 1 er middelfolketallet
-også 3. Den er ikke 4 fordi den person som dødede lige præcis i midten af perioden ikke tæller.
-Med metode 2 er middelfolketallet (3+2)/2 = 2,5. Antal døde i perioden er D[1 apr 2013, 13 maj 2013] = 2 og dermed er 
-mortalitetsraten[1 apr 2013, 13 maj 2013] = 2/18 = 0,11 døde per personuge.
+<text:p text:style-name="Loesningsforslag">
+Perioden strækker sig fra 1. april 2013 til 13. maj 2013 og har en
+varighed på 6 uger.
+
+Folketallet den 1. april 2013 (N(1. april 2013)) er 3 personer, og
+folketallet den 13. maj 2013 er 2 personer.
+
+For at beregne det eksakte middelfolketal summerer vi risikotiderne
+for de 5 personer (2+4+6+1+5), hvilket giver en samlet risikotid på 18
+personuger. Middelfolketallet udregnes som 18/6 = 3 personer. Ved brug
+af metode 1 er middelfolketallet også 3 personer. Det er ikke 4, fordi
+den person, der døde præcis midt i perioden, ikke er i live den dag.
+
+Ved brug af metode 2 er middelfolketallet (3+2)/2 = 2,5 personer.  
+
+Antallet af dødsfald i perioden er D[1. april 2013, 13. maj 2013]
+= 2. Mortalitetsraten for perioden beregnes dermed som 2/18 ≈ 0,11
+dødsfald per personuge.
 </text:p>
 #+END_EXPORT
 
@@ -342,7 +350,6 @@ tab2023_2024
 # Skriv dine R-koder her 
 #+END_SRC
 
-** R-koder :ignore:rmd:
 
 #+BEGIN_SRC R  :results output :exports (exercise-with-solutions) :cache yes :eval (never-plain-export)
 # folketal den 1. jan 2023 og 1 jan 2025
@@ -389,8 +396,8 @@ tab2013_2014 <- tibble(Middelfolketal = N_københavn,
               Mortalitet = M_københavn)
 tab2013_2014
 #+END_SRC
-** Rettenøgle :solution:ignore:
-*** Rettenøgle  opgave 3
+** Løsningsforslag                             :solution:ignore:
+*** Løsningsforslag                              opgave 3
 # Publish::org(rbind(cbind(Periode = "2013-2014",tab2013_2014),cbind(Periode = "2023-2024",tab2023_2024)))
 
 **** Tabel
@@ -405,7 +412,7 @@ tab2013_2014
 **** Resultater
 
 #+BEGIN_EXPORT odt
-<text:p text:style-name="RetteNoegle">
+<text:p text:style-name="Loesningsforslag">
 I perioden 2013 til 2014 var middelfolketallet 569812 personer og det samlede risikotid var 1139624 personår.
 Mortalitetsraten var 6,9 døde per 1.000 personår.
 I perioden 2023 til 2024 var middelfolketallet 660381.5 personer og det samlede risikotid var 1320763 personår. Mortalitetsraten var
@@ -460,13 +467,13 @@ Her er R-koden som gemmer figuren i en fil (filnavn:
 ggsave(g,file = "FT_folketal.svg")
 #+END_SRC
 
-** Rettenøgle :solution:ignore: 
-*** Rettenøgle opgave 4
+** Løsningsforslag                             :solution:ignore: 
+*** Løsningsforslag                             opgave 4
 
   [[~/metropolis/Teaching/demogRafi/holdundervisning/FT_folketal.svg]]
 
 #+BEGIN_EXPORT odt
-<text:p text:style-name="RetteNoegle">
+<text:p text:style-name="Loesningsforslag">
 Generelt steg Danmarks folketal kraftigt siden 1800-tallet og frem til i dag (Kompendium, Kapitel 1, Figur 1).
 Denne udvikling kan forstås som resultatet af samspillet mellem naturlig befolkningstilvækst,
 indenlandsk og international migration (Kompendium, Kapitel 1, Afsnit 6). 

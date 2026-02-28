@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds and Johan Sebastian Ohlendorff
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: feb  4 2026 (08:49) 
+## Last-Updated: feb 28 2026 (06:54) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 208
+##     Update #: 214
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -350,15 +350,24 @@ hent_mortalitetsrate_data <- function(breaks,
         alder_fod <- alder
     }
     # risikotid metode 1
-    af <- hent_data("FOLK1a",
-                    "alder"=alder,
-                    køn = køn,
-                    tid=paste0(tid,"K3"),
-                    Område = område)
+    if (as.numeric(tid)<2008){
+        if (område != "Hele landet") stop("Område specifikke tal kan kun hentes fra 2008 og senere.")
+        af <- hent_data("FOLK2",
+                        "alder"=alder,
+                        køn = køn,
+                        tid=tid)
+        by = c("KØN","TID")
+    }else{
+        af <- hent_data("FOLK1a",
+                        "alder"=alder,
+                        køn = køn,
+                        tid=paste0(tid,"K3"),
+                        Område = område)
+        by = c("KØN","OMRÅDE","TID")
+    }
     af = mutate(af,TID = as.numeric(sub("K3","",TID)))
     # Fordeling af risikotid i aldersintervaller
     af <- rename(af,R = INDHOLD)
-    by = c("KØN","OMRÅDE","TID")
     af <- intervAlder(af,breaks=breaks, by=by,vars="R",...)
     # Antal døde i aldersintervaller
     if (tolower(køn)[1] == "i alt"){
@@ -377,7 +386,7 @@ hent_mortalitetsrate_data <- function(breaks,
     dd <- rename(dd,Dod = INDHOLD)
     dd <- intervAlder(dd,
                       breaks=breaks,
-                      by=c("KØN","OMRÅDE","TID"),
+                      by=by,
                       vars="Dod",...)
     # join
     dat <- left_join(af,dd, by = c("aldersinterval",by))
@@ -583,16 +592,19 @@ overlevelsestavle <- function(data,
     if (M[xmax] == 0) stop("Mortalitet M i sidste interval er 0. Du skal sætte startalder af det sidste aldersinterval sådan at mortalitet er større end 0.")
     if (any(is.na(M))) stop("Mortalitet M har manglende værdier.")
     if (!("a" %in% names(data))){
+        stop("Du skal angive Chiang's a i en kolonne med variablenavn 'a'.")
         a <- rep(0.5,xmax)
         a[1] <- 0.1
     }else{
         a = data[["a"]]
     }
     a[xmax] <- 1/M[xmax] 
-    if  (!("k" %in% names(data)))
+    if  (!("k" %in% names(data))){
+        stop("Du skal angive intervallernes længde i en kolonne med variablenavn 'k'.")
         k <- rep(1,xmax)
-    else
+    } else{
         k = data[["k"]]
+    }
     # init
     q=k*M/(1+(k-a)*M)
     q[xmax] <- 1
