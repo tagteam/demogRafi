@@ -1,0 +1,496 @@
+* HEADER                                                           :noexport:
+#+TITLE: Modul 2: Holdundervisning
+#+DATE: 
+#+LANGUAGE:  en
+#+OPTIONS:   H:3 num:nil toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
+#+OPTIONS:   TeX:t LaTeX:t skip:nil d:t todo:t pri:nil tags:not-in-toc author:nil
+#+PROPERTY:= header-args :session *R* 
+#+PROPERTY: header-args :cache no
+#+superman-org-export-target: docx
+#+ODT_STYLES_FILE: "~/metropolis/Teaching/demogRafi/holdundervisning/style/DemoStyle.xml"
+
+* COMMENT word export                                              :noexport:
+
+#+BEGIN_SRC  emacs-lisp :export code :eval never-export
+;; (setq org-odt-styles-dir "~/metropolis/Teaching/demogRafi/holdundervisning/style")
+(defun make-docx (&optional open-both)
+  (interactive "p")
+  (shell-command "killall openoffice")
+  (superman-export-as-demografi-opgave open-both))
+;;  (org-open-file "~/metropolis/Teaching/demogRafi/holdundervisning/modul-2-opgaver.docx"))
+#+END_SRC
+
+#+RESULTS:
+: make-docx
+
+
+# @@odt:<text:span text:style-name="Highlight">This is highlighted
+# text</text:span>@@.  But this is regular text.
+
+* Holdundervisning :ignore:solution:
+
+#+BEGIN_EXPORT odt
+<text:p text:style-name="CourseCredentials">
+Løsningsforslag 
+</text:p>
+#+END_EXPORT
+
+* Holdundervisning :ignore:nosolution:opgave:
+
+#+BEGIN_EXPORT odt
+<text:p text:style-name="CourseCredentials">
+Demografi 3934-F26 <text:line-break/>
+
+Folkesundhedsvidenskab, 2. semester
+</text:p>
+#+END_EXPORT
+
+** Vejledning                                                        :opgave:ignore:
+*** Vejledning 
+
+/Den gode besvarelse er kort og præcis. Det er vigtigt at dine svar er klart struktureret og skrevet i fulde sætninger./
+/Skriv dine svar i de udvidende svarfelter og udfyld tabeller/indsæt grafer./
+/Du må ikke ændre tabellernes formatering og det er forbudt at sætte egne tabeller ind./
+/Din besvarelse til hvert opgave bør ikke overskride 1/2 normalsides tekst svarende til maksimalt 1200 anslag med mindst 10pt skriftstørrelse f.eks., Courier New, men ikke medregnende tabeller o.a../
+
+/Tal i resultaterne skal rundes af og enheder skal angives hvis relevant./
+/R-koder som bruges til at besvare opgaverne findes i Rmd-filen på Absalon./
+
+/Når du har besvaret alle opgaver, afleverer du denne fil i Absalon./
+
+# @@odt:<text:span text:style-name="Highlight"> Your answer for each Task should not exceed 1/2 page. text</text:span>@@.  
+# @@odt:<text:span text:style-name="Highlight">Din besvarelse til hvert opgave bør ikke overskride 1/2 normalsides tekst svarende til maksimalt 1200 anslag med mindst 10pt skriftstørrelse f.eks., Courier New, men ikke medregnende tabeller o.a..</text:span>@@
+# *Tilladte hjælpemidler*: 
+
+#+ODT: <text:p text:style-name="PageBreak"/>
+
+** Baggrund                                                   :opgave:ignore:
+*** Baggrund: Why Does the U.S. Census Bureau Estimate and Project the World’s Population?[fn:1]
+
+#+BEGIN_EXPORT odt
+<text:p text:style-name="Baggrund">
+The IDB helps the U.S. government and the public answer fundamental questions about the people and places of our world. These data inform program planning, policymaking, educational, and research data users. We have produced these data since the 1960s, and we have published our results on census.gov since 1996. We regularly update the IDB and release the results online.
+Along with the United Nations Population Division, the U.S. Census Bureau is one of the few organizations in the world that regularly estimates and projects the world’s population.
+With the IDB, you can view demographic measures of over 200 countries and areas with populations of 5,000 or more, and for thousands of subnational areas (equivalent to U.S. states, counties, and townships in other countries).
+For each country and area, data in the IDB include total population, population by age and sex, and demographic characteristics such as fertility, mortality, and migration. Population size (by single year of age and sex) and components of change (fertility, mortality, and migration) are available from an initial or base year through 2100 for July 1 of each calendar year. Metadata also are available describing the source data used to produce the IDB. For subnational areas, population by age and sex are available. Learn more about our subnational estimates and projections.
+This level of detail provides an important foundation for tracking the demographic impacts of major events that are affecting populations around the globe, including disasters, epidemics, and pandemics.
+</text:p>
+#+END_EXPORT
+
+[fn:1] https://www.census.gov/programs-surveys/international-programs/about/idb.html
+
+
+#+ODT: <text:p text:style-name="PageBreak"/>
+
+* Opgave 1  :nokode:ignore:
+** Opgave 1
+
+Til denne opgave bruger vi data fra den internationale database IDB:
+
+https://www.census.gov/data-tools/demo/idb/
+
+1. Vælg fanen 'Population by Age' i topmenu
+2. Marker fire lande i menuen til venstre under 'Select by Country/Area': Danmark, Indonesia, Nigeria, United States.
+3. undersøg alderspyramiderne under fanen 'Population by Age'.  
+4. Gå til fanen 'Trends', vælg 'Old age dependency ratio' (ældrekvote) i feltet 'Measure', og begræns tidsperioden til årene 1975-2025.  
+5. Find definitionen af ældrekvoten ('Old age dependency ratio') på
+   nettet og rapportér den her.
+6. Analyser forskellene mellem de fire lande
+   med hensyn til alderspyramider og ældrekvoter.
+7. Diskuter, hvordan
+  udviklingen relaterer sig til faserne i den demografiske transition.
+
+** Dine svar til opgave 1                                 :nosolution:nokode:ignore:
+*** Dine svar til opgave 1 
+
+#+BEGIN_EXPORT odt
+<text:p text:style-name="DineSvar">
+<text:line-break/>
+<text:line-break/>
+<text:line-break/>
+</text:p>
+#+END_EXPORT
+
+** Løsningsforslag :solution:ignore:
+*** Løsningsforslag opgave 1
+
+#+BEGIN_EXPORT odt
+<text:p text:style-name="Loesningsforslag">
+Ældrekvoten defineres som forholdet mellem antallet af ældre (ofte
+personer over 65 år) og antallet af personer i den erhvervsaktive
+alder (typisk 15-64 år). Den beregnes som:
+<text:line-break/>
+<text:line-break/>
+Ældrekvote (%) = (Antal personer over 65 år / Antal personer 15-64 år) × 100
+<text:line-break/>
+<text:line-break/>
+De fire lande Danmark, USA, Indonesien og Nigeria viser tydelige forskelle i aldersstruktur og ældrekvote.
+Disse forskelle afspejler landenes placering i den demografiske transition.
+Nigerias har en klassisk pyramideform med en meget bred base og en smal top. Det viser, at landet har en stor andel børn og unge samt en relativt lille andel ældre.
+Indonesien har stadig en pyramideform, men basen er smallere, og midterdelen er bredere end i Nigeria, hvilket tyder på faldende fertilitet og en voksende arbejdsdygtig befolkning.
+USA har en mere søjleformet alderspyramide med en relativt jævn fordeling på tværs af aldersgrupperne, mens Danmark har en endnu mere rektangulær og til dels urneformet struktur med en relativt stor andel ældre og færre unge.
+Disse forskelle afspejler lav fertilitet og høj levealder i de to sidstnævnte lande.
+Danmark og USA har oplevet en betydelig stigning i ældrekvoten gennem perioden, hvilket afspejler stigende levealder og faldende fertilitet. Ældrekvoten er generelt højere i Danmark end i USA.
+Indonesien har også haft en stigende ældrekvote, men niveauet er stadig lavere end i Danmark og USA. Udviklingen er dog relativt hurtig, hvilket tyder på en overgang til senere stadier af den demografiske transition.
+Nigeria har derimod haft en langt lavere ældrekvote gennem hele perioden, hvilket afspejler en yngre befolkning.
+Den demografiske transition beskriver overgangen fra høje fertilitets- og dødelighedsniveauer til lave niveauer for begge dele.
+Nigeria befinder sig stadig i en relativt tidlig fase, hvor fertiliteten er høj, og befolkningen er ung.
+Indonesien befinder sig i en mellemfase, hvor fertiliteten er faldet betydeligt, og befolkningen gradvist ældes.
+USA og Danmark repræsenterer sene faser af transitionen med lav fertilitet og lav dødelighed. 
+</text:p>
+#+END_EXPORT
+
+* Opgave 2  :ignore:
+#+ODT: <text:p text:style-name="PageBreak"/>
+** Opgave 2
+
+1. [@1]Beregn summariske mortalitetsrater for Danmark, Indonesien, Nigeria og
+       USA for året 2022 ved hjælp af data fra IBD.
+  + Gå til fanen 'Tables' i menuen til venstre, og vælg herefter Danmark,
+    Indonesien, Nigeria, USA samt året 2022 ('Filter by Year').
+  + Under 'Custom Report Columns' skal du fravælge alle kolonner undtagen
+    følgende to: 'Deaths, both sexes' og 'Population'.
+  + Indtast data i de forberedte R-koder i Rmd-filen. Beregn de summariske
+    mortalitetsrater for alle fire lande.
+  + Angiv, hvilken formel fra kompendiet du har anvendt.
+  + Kontrollér, om dine indtastninger og beregninger er korrekte, ved at sammenligne med kolonnen 'Crude Death
+     Rate', som findes under 'Custom Report Columns'.
+2. [@2] Udfyld tabellen med de beregnede værdier.
+3. [@3] Præsenter resultaterne i tekstform og diskuter mulige faktorer, der kan forklare forskellene i de summariske
+      mortalitetsrater mellem de fire lande.
+
+*** Tabel :opgave:nosolution:ignore: 
+**** Tabel
+
+| Land      | Population (2022) | Deaths (2022) | Summariske mortalitetsrate (2022) |
+|-----------+-------------------+---------------+-----------------------------------|
+| Danmark   |                   |               |                                   |
+| Indonesia |                   |               |                                   |
+| Nigeria   |                   |               |                                   |
+| USA       |                   |               |                                   |
+
+*** R-koder :rmd:ignore:
+#+BEGIN_SRC R  :results output :exports (exercise-with-code) :cache yes :eval (never-plain-export)
+#
+# Erstat '0' med tal fra IDB i følgende tibble
+#
+idb2022 <- tibble(Land = c("Danmark", "USA", "Indonesia", "Nigeria"),
+              Population = c(0,0,0,0),
+              Deaths = c(0,0,0,0))
+# Beregner de summariske mortalitetsrater per 1000 personår 
+#
+# Skriv dine R-koder her
+#  
+#+END_SRC
+
+#+BEGIN_SRC R  :results output :exports (exercise-with-solutions) :cache yes :eval (never-plain-export)
+idb2022 <- tibble(Land = c("Danmark", "Indonesia", "Nigeria", "USA"),
+              Population = c(5907258,277329163,227391996,334017321),
+              Deaths = c(59435,1873021,2325453,3279857))
+idb2022 <- mutate(idb2022,M = 1000*Deaths/Population)
+idb2022
+#+END_SRC
+
+
+*** Tabel :solution:ignore:
+**** Tabel
+
+| Land      | Population (2022) | Deaths (2022) | Summariske mortalitetsrate (2022) |
+|-----------+-------------------+---------------+-----------------------------------|
+| Danmark   |           5907258 |         59435 |                              10.1 |
+| Indonesia |         277329163 |       1873021 |                               6.8 |
+| Nigeria   |         227391996 |       2325453 |                              10.2 |
+| USA       |         334017321 |       3279857 |                               9.8 |
+
+
+** Dine svar til opgave 2                                 :nosolution:nokode:ignore:
+*** Dine svar til opgave 2
+
+#+BEGIN_EXPORT odt
+<text:p text:style-name="DineSvar">
+<text:line-break/>
+<text:line-break/>
+<text:line-break/>
+</text:p>
+#+END_EXPORT
+
+** Løsningsforslag :solution:ignore:
+*** Løsningsforslag opgave 2
+
+
+#+BEGIN_EXPORT odt
+<text:p text:style-name="Loesningsforslag">
+I 2022 var den summariske mortalitetsrate 10,1 døde per 1000 personår i Danmark, 6,8 døde per 1000 personår i Indonesien, 10,2 døde per 1000 personår i Nigeria og 9,8 døde per 1000 personår i USA. Formlen, der er brugt, er: 
+<text:line-break/>
+<text:line-break/>
+Summarisk mortalitetsrate = (Antal døde / Population) × 1000.
+<text:line-break/>
+<text:line-break/>
+Forskellene mellem landene kan forklares af flere faktorer.
+Lande med en ældre befolkning, som Danmark og USA, har typisk højere mortalitetsrater, eftersom dødeligheden stiger med alderen.
+Indonesien og Nigeria har lavere adgang til sundhedstjenester sammenlignet med Danmark og USA, hvilket kan påvirke mortalitetsraterne.
+Forskelle i ernæring, fysisk aktivitet og kroniske sygdomme spiller en rolle. Højere livsstandarder i Danmark og USA understøtter længere liv, men livsstilssygdomme kan også bidrage til dødelighed.
+Covid-19 pandemien havde forskellig effekt på befolkningsgrupper og sundhedssystemer i de fire lande, hvilket muligvis påvirker de aktuelle dødstal. 
+</text:p>
+#+END_EXPORT
+
+* Opgave 3  :ignore:
+#+ODT: <text:p text:style-name="PageBreak"/>
+** Opgave 3
+
+1. Find folketal og antal døde i Danmark i 2022 for alle aldre i
+   statistikbanken og inddel dem i følgende 3 aldersintervaller:
+   0-14, 15-64, 65+ (se R-koder i Rmd filen).
+2. Bestem risikotidens aldersfordeling og beregn de aldersspecifikke mortalitetsrater.
+3. Udfyld tabellen med resultaterne.
+4. Angiv de anvendte formler fra kompendiet og 
+   opsummer resultaterne ved at rapportere de tre
+   aldersspecifikke mortalitetsrater i én sætning.
+
+*** Tabel :opgave:nosolution:ignore:
+**** Tabel
+
+| Aldersinterval | Risikotid | Dod | Risikotidens aldersfordeling | Mortalitetsrate |
+|----------------+-----------+-----+------------------------------+-----------------|
+|           0-14 |           |     |                              |                 |
+|          15-65 |           |     |                              |                 |
+|            65+ |           |     |                              |                 |
+
+*** Instruks :rmd:ignore:
+
+Aldersspecifikke mortalitetsrater:
+
+#+BEGIN_SRC R  :results output :exports (exercise-with-code) :cache yes :eval (never-plain-export)
+source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
+# Data fra statistikbanken i 3 aldersintervaller
+# Folketal fra register FOLK1a
+# Antal døde fra register FOD207
+DK2022 <- hent_mortalitetsrate_data(breaks = c(-Inf, 14, 64, Inf),
+                               køn = "i alt",
+                               tid = "2022",
+                               label_one = "0-14",
+                               label_last = "65+")
+# Beregn aldersfordeling af risikotid
+#
+DK2022 <- mutate(DK2022, V = # skriv formlens R-kode her
+# 
+# Beregn aldersspecifikke mortalitetsrater
+#
+DK2022 <- mutate(DK2022, M = # skriv formlens R-kode her
+# 
+#+END_SRC
+
+#+BEGIN_SRC R  :results output :exports (exercise-with-solutions) :cache yes :eval (never-plain-export)
+# Aldersintervaller
+DK2022 <- hent_mortalitetsrate_data(breaks = c(-Inf, 14, 64, Inf),
+                                    køn = "i alt",
+                                    tid = "2022",
+                                    label_one = "0-14",
+                                    label_last = "65+")
+# Aldersfordeling af risikotid
+DK2022 <- mutate(DK2022, V = R/sum(R))
+# Aldersspecifikke mortalitetsrater
+DK2022 <- mutate(DK2022, M = 1000*Dod/R)
+DK2022
+#+END_SRC
+
+
+
+** Dine svar til opgave 3                                 :nosolution:nokode:ignore:
+*** Dine svar til opgave 3
+
+#+BEGIN_EXPORT odt
+<text:p text:style-name="DineSvar">
+<text:line-break/>
+<text:line-break/>
+<text:line-break/>
+</text:p>
+#+END_EXPORT
+
+** Løsningsforslag opgave 3                                      :solution:ignore:
+*** Tabel :opgave:nosolution:ignore:
+**** Tabel
+
+| Aldersinterval | Risikotid | Dod | Risikotidens aldersfordeling | Mortalitetsrate |
+|----------------+-----------+-----+------------------------------+-----------------|
+|           0-14 |           |     |                              |                 |
+|          15-65 |           |     |                              |                 |
+|            65+ |           |     |                              |                 |
+
+*** Tabel :solution:ignore:
+**** Tabel
+
+| Aldersinterval | Risikotid |   Dod | Risikotidens aldersfordeling | Mortalitetsrate |
+|----------------+-----------+-------+------------------------------+-----------------|
+|           0-14 |    950809 |   257 |                         0.16 |            0.27 |
+|          15-64 |   3754139 |  7369 |                         0.64 |            1.96 |
+|            65+ |   1205629 | 51809 |                         0.20 |           42.97 |
+
+*** Løsningsforslag  opgave 3
+#+BEGIN_EXPORT odt
+<text:p text:style-name="Loesningsforslag">
+Der bruges formel K2.4 fra Kapitel 2 til beregningen af risikotidens
+aldersfordeling og formel K2.3 fra Kapitel 2 til beregningen af de
+aldersspecifikke mortalitetsrater. 
+
+I 2022 i Danmark var mortalitetsraterne i aldersgrupperne 0-14, 15-65,
+og 65+ hhv. 0,3 per 1000 personår, 2,0 per 1000 personår og 43,0 per
+1000 personår.
+</text:p>
+#+END_EXPORT
+
+* Opgave 4 :ignore:
+#+ODT: <text:p text:style-name="PageBreak"/>
+** Opgave 4
+
+1. Find antal personer i aldersgrupperne (0-14 år, 15-65 år, 65+ år) for
+   Indonesien i 2022 i IDB.
+2. Brug indirekte standardisering til at beregne det forventede antal
+  dødsfald i Indonesien i 2022, hvis landet havde haft samme
+  aldersspecifikke mortalitetsrater som Danmark i 2022.
+3. Beregn den standardiserede mortalitetsratio (SMR) og den indirekte
+   standardiserede mortalitetsrate.
+4. Anvend samme metode til at beregne
+   SMR og den indirekte standardiserede mortalitetsrate for
+   USA.
+5. Rapporter disse resultater i tekstform. På baggrund af disse
+   resultater, diskutér forskellene i mortalitet mellem Danmark og
+   Indonesien samt Danmark og USA. Diskuter om resultaterne kan bruges til at sammenligne mortaliteten mellem Indonesien og USA i 2022.
+
+** R-koder :ignore:rmd:
+
+Indtast data fra IDB:
+
+#+BEGIN_SRC R  :results output :exports (exercise-with-code) :cache yes :eval (never-plain-export)
+## Data fra IDB 2022
+Indonesia2022 <- tibble(aldersinterval = c("0-14","15-64","65+"),
+                        R_Indonesia = c(0,0,0))
+
+# Join med aldersspecifikke mortalitetsrater fra opgave 3 (R-objekt DK2022)
+Indonesia2022 <- left_join(Indonesia2022,select(DK2022,aldersinterval,M),by = "aldersinterval")
+
+# Beregningen af forventet antal død hvis de aldersspecifikke mortalitetsrater i Indonesia
+# havde været lige som de var i Danmark i 2022.
+# Nævneren fra kompendiets formel K2.11 
+Indonesia_forvented <- summarize(Indonesia2022,
+                                 forventet_antal_dod = sum(R_Indonesia*M/1000)) %>% pull()
+
+# Antal døde i Indonesien i 2022 (fra Opgave 1)
+Indonesia_observeret <- filter(idb2022,Land == "Indonesia") %>% select("Deaths") %>% pull()
+
+# Beregning af SMR
+SMR_Indonesia <- Indonesia_observeret/Indonesia_forvented
+
+# se resultatet
+SMR_Indonesia
+
+# Mortalitetsrate i standard populationen Danmark i 2022 (fra Opgave 1)
+M_DK <- filter(idb2022,Land == "Danmark") %>% select("M") %>% pull()
+
+# Beregning af den indirekte standardiserede mortalitetsrate for Indonesien
+# Her bruges formel K.2.12 
+M_Indonesia_DK <- SMR_Indonesia * M_DK
+M_Indonesia_DK
+#+END_SRC
+
+** Dine svar til opgave 4                                 :nosolution:nokode:ignore:
+*** Dine svar til opgave 4
+
+#+BEGIN_EXPORT odt
+<text:p text:style-name="DineSvar">
+<text:line-break/>
+<text:line-break/>
+<text:line-break/>
+</text:p>
+#+END_EXPORT
+
+** R-koder :ignore:rmd:
+
+#+BEGIN_SRC R  :results output :exports (exercise-with-solutions) :cache yes :eval (never-plain-export)
+## Data fra IDB 2022
+Indonesia2022 <- tibble(aldersinterval = c("0-14","15-64","65+"),
+                        R_Indonesia = c(68399249,188365419,20564495))
+# Join med aldersspecifikke mortalitetsrater fra opgave 3 (R-objekt DK2022)
+Indonesia2022 <- left_join(Indonesia2022,select(DK2022,aldersinterval,M),by = "aldersinterval")
+
+# Beregningen af forventet antal død hvis de aldersspecifikke mortalitetsrater i Indonesia
+# havde været lige som de var i Danmark i 2022.
+# Nævneren fra kompendiets formel K2.11 
+Indonesia_forvented <- summarize(Indonesia2022,
+                                 forventet_antal_dod = sum(R_Indonesia*M/1000)) %>% pull()
+
+# Antal døde i Indonesien i 2022 (fra Opgave 1)
+Indonesia_observeret <- filter(idb2022,Land == "Indonesia") %>% select("Deaths") %>% pull()
+
+# Beregning af nævneren fra kompendiets formel K2.11 for Indonesia
+SMR_Indonesia <- Indonesia_observeret/Indonesia_forvented
+
+# se resultatet
+SMR_Indonesia
+
+# Mortalitetsrate i standard populationen Danmark i 2022 (fra Opgave 1)
+M_DK <- filter(idb2022,Land == "Danmark") %>% select("M") %>% pull()
+
+# Beregning af den indirekte standardiserede mortalitetsrate for Indonesien
+M_Indonesia_DK <- SMR_Indonesia * M_DK
+M_Indonesia_DK
+#+END_SRC
+
+#+BEGIN_SRC R  :results output :exports (exercise-with-solutions) :cache yes :eval (never-plain-export)
+## Data fra IDB 2022
+USA2022 <- tibble(aldersinterval = c("0-14","15-64","65+"),
+                  R_USA = c(60216026,216296258,57505037))
+# Join med aldersspecifikke mortalitetsrater fra opgave 3 (R-objekt DK2022)
+USA2022 <- left_join(USA2022,select(DK2022,aldersinterval,M),by = "aldersinterval")
+
+# Beregningen af forventet antal død hvis de aldersspecifikke mortalitetsrater i USA
+# havde været lige som de var i Danmark i 2022.
+# Nævneren fra kompendiets formel K2.11 
+USA_forvented <- summarize(USA2022,forventet_antal_dod = sum(R_USA*M/1000)) %>% pull()
+
+# Antal døde i Indonesien i 2022 (fra Opgave 1)
+USA_observeret <- filter(idb2022,Land == "USA") %>% select("Deaths") %>% pull()
+
+# Beregning af nævneren fra kompendiets formel K2.11 for USA
+SMR_USA <- USA_observeret/USA_forvented
+
+# se resultatet
+SMR_USA
+
+# Mortalitetsrate i standard populationen Danmark i 2022 (fra Opgave 1)
+M_DK <- filter(idb2022,Land == "Danmark") %>% select("M") %>% pull()
+
+# Beregning af den indirekte standardiserede mortalitetsrate for Indonesien
+M_USA_DK <- SMR_USA * M_DK
+M_USA_DK
+
+# tabel med resultaterne
+tibble(Land = c("Indonesia","USA"),SMR = c(SMR_Indonesia,SMR_USA),std_M = c(M_Indonesia_DK,M_USA_DK))
+#+END_SRC
+
+
+** Løsningsforslag :solution:ignore:
+*** Løsningsforslag  opgave 4
+
+#+BEGIN_EXPORT odt
+<text:p text:style-name="Loesningsforslag">
+Baseret på de beregnede resultater viser Indonesien en standardiseret
+mortalitetsratio (SMR) på 147 og dermed var det observeret antal
+dødsfald i Indonesien i 2022 47 % højere, end hvad man ville forvente,
+hvis mortalitetsraterne havde været som de var i Danmark i 2022.
+Tilsvarende var det observerede antal dødsfald i USA 13% højere end
+hvad man ville forvente under samme forudsætning.  Den indirekte
+standardiserede mortalitetsrate i 2022 var 14,8 dødsfald per 1000
+personår i Indonesien og 11,3 i USA, med Danmark som
+standardpopulation.
+
+Man kan bruge SMR til at sammenligne mortalitet i Danmark med
+mortalitet i de 2 lande og resultaterne viser at mortalitet var højere
+i både USA og Indonesien end i Danmark. Men man kan ikke direkte
+sammenligne USA og Indonesien indbyrdes med SMR, fordi SMR afhænger af
+aldersfordelingen for hvert land.  Tallene indikerer dog, at
+mortaliteten i Indonesien var højere end i USA i 2022.
+</text:p>
+#+END_EXPORT
+
+

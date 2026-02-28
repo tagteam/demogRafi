@@ -1,0 +1,119 @@
+
+
+# Opgave 2
+
+1.  Beregn summariske mortalitetsrater for Danmark, Indonesien, Nigeria og
+    USA for året 2022 ved hjælp af data fra IBD.
+    -   Gå til fanen 'Tables' i menuen til venstre, og vælg herefter Danmark,
+        Indonesien, Nigeria, USA samt året 2022 ('Filter by Year').
+    -   Under 'Custom Report Columns' skal du fravælge alle kolonner undtagen
+        følgende to: 'Deaths, both sexes' og 'Population'.
+    -   Indtast data i de forberedte R-koder i Rmd-filen. Beregn de summariske
+        mortalitetsrater for alle fire lande.
+    -   Angiv, hvilken formel fra kompendiet du har anvendt.
+    -   Kontrollér, om dine indtastninger og beregninger er korrekte, ved at sammenligne med kolonnen 'Crude Death
+        Rate', som findes under 'Custom Report Columns'.
+2.  Udfyld tabellen med de beregnede værdier.
+3.  Præsenter resultaterne i tekstform og diskuter mulige faktorer, der kan forklare forskellene i de summariske
+    mortalitetsrater mellem de fire lande.
+
+```{r   }
+#
+# Erstat '0' med tal fra IDB i følgende tibble
+#
+idb2022 <- tibble(Land = c("Danmark", "USA", "Indonesia", "Nigeria"),
+              Population = c(0,0,0,0),
+              Deaths = c(0,0,0,0))
+# Beregner de summariske mortalitetsrater per 1000 personår 
+#
+# Skriv dine R-koder her
+#   
+```
+
+
+
+# Opgave 3
+
+1.  Find folketal og antal døde i Danmark i 2022 for alle aldre i
+    statistikbanken og inddel dem i følgende 3 aldersintervaller:
+    0-14, 15-64, 65+ (se R-koder i Rmd filen).
+2.  Bestem risikotidens aldersfordeling og beregn de aldersspecifikke mortalitetsrater.
+3.  Udfyld tabellen med resultaterne.
+4.  Angiv de anvendte formler fra kompendiet og 
+    opsummer resultaterne ved at rapportere de tre
+    aldersspecifikke mortalitetsrater i én sætning.
+
+Aldersspecifikke mortalitetsrater:
+
+```{r   }
+source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
+# Data fra statistikbanken i 3 aldersintervaller
+# Folketal fra register FOLK1a
+# Antal døde fra register FOD207
+DK2022 <- hent_mortalitetsrate_data(breaks = c(-Inf, 14, 64, Inf),
+                               køn = "i alt",
+                               tid = "2022",
+                               label_one = "0-14",
+                               label_last = "65+")
+# Beregn aldersfordeling af risikotid
+#
+DK2022 <- mutate(DK2022, V = # skriv formlens R-kode her
+# 
+# Beregn aldersspecifikke mortalitetsrater
+#
+DK2022 <- mutate(DK2022, M = # skriv formlens R-kode her
+#  
+```
+
+
+
+# Opgave 4
+
+1.  Find antal personer i aldersgrupperne (0-14 år, 15-65 år, 65+ år) for
+    Indonesien i 2022 i IDB.
+2.  Brug indirekte standardisering til at beregne det forventede antal
+    dødsfald i Indonesien i 2022, hvis landet havde haft samme
+    aldersspecifikke mortalitetsrater som Danmark i 2022.
+3.  Beregn den standardiserede mortalitetsratio (SMR) og den indirekte
+    standardiserede mortalitetsrate.
+4.  Anvend samme metode til at beregne
+    SMR og den indirekte standardiserede mortalitetsrate for
+    USA.
+5.  Rapporter disse resultater i tekstform. På baggrund af disse
+    resultater, diskutér forskellene i mortalitet mellem Danmark og
+    Indonesien samt Danmark og USA. Diskuter om resultaterne kan bruges til at sammenligne mortaliteten mellem Indonesien og USA i 2022.
+
+Indtast data fra IDB:
+
+```{r   }
+## Data fra IDB 2022
+Indonesia2022 <- tibble(aldersinterval = c("0-14","15-64","65+"),
+                        R_Indonesia = c(0,0,0))
+
+# Join med aldersspecifikke mortalitetsrater fra opgave 3 (R-objekt DK2022)
+Indonesia2022 <- left_join(Indonesia2022,select(DK2022,aldersinterval,M),by = "aldersinterval")
+
+# Beregningen af forventet antal død hvis de aldersspecifikke mortalitetsrater i Indonesia
+# havde været lige som de var i Danmark i 2022.
+# Nævneren fra kompendiets formel K2.11 
+Indonesia_forvented <- summarize(Indonesia2022,
+                                 forventet_antal_dod = sum(R_Indonesia*M/1000)) %>% pull()
+
+# Antal døde i Indonesien i 2022 (fra Opgave 1)
+Indonesia_observeret <- filter(idb2022,Land == "Indonesia") %>% select("Deaths") %>% pull()
+
+# Beregning af SMR
+SMR_Indonesia <- Indonesia_observeret/Indonesia_forvented
+
+# se resultatet
+SMR_Indonesia
+
+# Mortalitetsrate i standard populationen Danmark i 2022 (fra Opgave 1)
+M_DK <- filter(idb2022,Land == "Danmark") %>% select("M") %>% pull()
+
+# Beregning af den indirekte standardiserede mortalitetsrate for Indonesien
+# Her bruges formel K.2.12 
+M_Indonesia_DK <- SMR_Indonesia * M_DK
+M_Indonesia_DK 
+```
+
