@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds and Johan Sebastian Ohlendorff
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: feb 28 2026 (06:54) 
+## Last-Updated: mar  2 2026 (14:15) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 214
+##     Update #: 220
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -397,8 +397,8 @@ hent_mortalitetsrate_data <- function(breaks,
 
 hent_dodsaarsag_data <- function(køn = c("Kvinder","Mænd"),
                                  tid,
+                                 breaks = c(0,1,seq(5,85,5),Inf),
                                  årsag,...){
-    breaks = c(0,1,seq(5,85,5),Inf)
     if (missing(årsag)){
         stop("Skal angive dødsårsag")
     }
@@ -449,8 +449,8 @@ hent_dodsaarsag_data <- function(køn = c("Kvinder","Mænd"),
     dat <- left_join(af,dd, by = c("aldersinterval",by))
     daars = mutate(daars,aldersinterval = factor(aldersinterval,levels = levels(dat$aldersinterval)))
     dat <- left_join(dat,daars, by = c("aldersinterval",by))
-    if (tolower(køn)[1] == "i alt") dat$KØN = NULL
     dat$ALDER = NULL
+    if (tolower(køn)[1] == "i alt") dat$KØN = NULL
     dat = relocate(dat,"ÅRSAG")
     dat
 }

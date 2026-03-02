@@ -62,37 +62,20 @@ Folkesundhedsvidenskab, 2. semester
 
 #+BEGIN_EXPORT odt
 <text:p text:style-name="Baggrund">
-I Danmark lever vi længere end nogensinde før. Ifølge den officielle
-statistik fra Danmarks Statistik er den gennemsnitlige forventede
-levetid ved fødsel for både mænd og kvinder omkring 80 år eller mere,
-når man ser på de seneste perioder med tilgængelige tal. Dette
-betyder, at et barn født i Danmark i dag i gennemsnit kan forvente at
-blive omkring 80 år, hvis dødeligheden i populationen forbliver på det
-nuværende niveau.
-
-Bag denne høje middellevetid ligger en række samfundsmæssige
-forbedringer, herunder bedre ernæring, sundhedspleje, forebyggelse og
-kontrol af mange smitsomme sygdomme, som tidligere var hyppige
-dødsårsager. Samtidig er sygdomsmønstret i Danmark ændret over tid mod
-kroniske, ikke-smitsomme sygdomme, som bliver de dominerende årsager
-til dødsfald. For eksempel udgør kræft og hjerte-kar-sygdomme en stor
-andel af de samlede dødsårsager i befolkningen. Begge disse
-sygdomsgrupper er tæt knyttet til livsstilsfaktorer som tobaksrygning,
-kost, fysisk aktivitet og alkoholforbrug, og de har stor betydning for
-både individuel og folkelig sundhed i befolkningen. 
-
-Denne udvikling
-betyder, at de demografiske mål og metoder, som livstabeller og
-middellevetid, i stigende grad afspejler ændringer i aldersspecifik
-dødelighed fra kroniske sygdomme fremfor akutte
-infektionssygdomme. Forståelse af disse mønstre er derfor vigtig, når
-man tolker dødelighed og overlevelse i en moderne befolkning.
+I Danmark lever vi længere end nogensinde før. Ifølge Danmarks Statistik er den gennemsnitlige forventede levetid ved fødslen nu omkring 80 år eller mere for både mænd og kvinder. Det betyder, at et barn født i dag i gennemsnit kan forvente at blive omkring 80 år, hvis dødeligheden forbliver på det nuværende niveau.
+Den stigende middellevetid skyldes blandt andet bedre ernæring, sundhedsvæsen, forebyggelse og effektiv kontrol af infektionssygdomme. Samtidig er sygdomsmønstret ændret, så kroniske, ikke-smitsomme sygdomme som kræft og hjerte-kar-sygdomme nu dominerer dødsårsagerne. Disse sygdomme er tæt forbundet med livsstilsfaktorer som rygning, kost, fysisk aktivitet og alkoholforbrug.
+Udviklingen betyder, at mål som middellevetid og livstabeller i dag især afspejler ændringer i aldersspecifik dødelighed fra kroniske sygdomme frem for akutte infektioner. Forståelse af disse mønstre er derfor central ved fortolkning af moderne dødelighed.
+I dødsårsagsstatistikken fra Danmarks Statistik indgår A-06: Psykiske lidelser og adfærdsmæssige forstyrrelser som en selvstændig hovedgruppe. Kategorien bygger på ICD-10’s kapitel F og omfatter blandt andet:
+demens (F00–F03, herunder Alzheimers sygdom), alkohol- og stofrelaterede psykiske lidelser, affektive og psykotiske lidelser.
+En væsentlig del af dødsfaldene i A-06 blandt ældre skyldes demens, som er stærkt aldersassocieret. Da demens ofte registreres som underliggende dødsårsag, selv når den umiddelbare dødsårsag fx er infektion eller anden komplikation, fremstår A-06 hyppigst blandt de ældste aldersgrupper.
+Den høje middellevetid i Danmark medfører således også, at flere når en alder, hvor demenssygdomme bliver hyppige. Det bidrager til, at A-06 fylder relativt mere i dødsårsagsstatistikken i en aldrende befolkning.
 </text:p>
 #+END_EXPORT
 
 #+ODT: <text:p text:style-name="PageBreak"/>
 
-* Opgave 1
+* Opgave 1 :nokode:ignore:
+** Opgave 1 
 
 1. [@1] Angiv mindst en årsag til, hvorfor aldersspecifikke mortalitetsrater
    ikke var konstant de sidste 100 år i Danmark.
@@ -100,6 +83,8 @@ man tolker dødelighed og overlevelse i en moderne befolkning.
    mortalitetsrater ikke ville være konstant de næste 100 år.
 3. [@3] Hvad er forskellen mellem en aldersspecifik dødsrate og en dødelighedssandsynlighed?
 4. [@4] Hvorfor kan middellevetiden stige selv om de aldersspecifikke mortalitetsrater blandt ældre ikke ændrer sig?   
+5. [@5] Afhænger middellevetiden aldersfordelingen i befolkningen?
+6. [@6] I 2022 var der 2.346 kvinder og 1.608 mænd, som døde på grund af psykiske lidelser (A-06). Beregn de summariske årsagsspecifikke mortalitetsrater separat for mænd og kvinder. Hvorfor er det ikke helt fair at sammenligne mænd og kvinder med hensyn til de summariske rater af død på grund af psykiske lidelse?   
 
 ** Dine svar til opgave 1                                 :nosolution:nokode:ignore:
 *** Dine svar til opgave 1.1
@@ -112,7 +97,7 @@ man tolker dødelighed og overlevelse i en moderne befolkning.
 </text:p>
 #+END_EXPORT
 
-** Dine svar til opgave 1.2                               :nosolution:ignore:
+** Dine svar til opgave 1.2                               :nosolution:nokode:ignore:
 *** Dine svar til opgave 1.2
 
 #+BEGIN_EXPORT odt
@@ -123,7 +108,7 @@ man tolker dødelighed og overlevelse i en moderne befolkning.
 </text:p>
 #+END_EXPORT
 
-** Dine svar til opgave 1.3                               :nosolution:ignore:
+** Dine svar til opgave 1.3                               :nosolution:nokode:ignore:
 *** Dine svar til opgave 1.3
 
 #+BEGIN_EXPORT odt
@@ -134,7 +119,7 @@ man tolker dødelighed og overlevelse i en moderne befolkning.
 </text:p>
 #+END_EXPORT
 
-** Dine svar til opgave 1.4                               :nosolution:ignore:
+** Dine svar til opgave 1.4                               :nosolution:nokode:ignore:
 *** Dine svar til opgave 1.4
 
 #+BEGIN_EXPORT odt
@@ -145,13 +130,37 @@ man tolker dødelighed og overlevelse i en moderne befolkning.
 </text:p>
 #+END_EXPORT
 
-** Løsningsforslag                             :solution:ignore:
+** Dine svar til opgave 1.5                               :nosolution:nokode:ignore:
+*** Dine svar til opgave 1.5
+
+#+BEGIN_EXPORT odt
+<text:p text:style-name="DineSvar">
+<text:line-break/>
+<text:line-break/>
+<text:line-break/>
+</text:p>
+#+END_EXPORT
+
+** Dine svar til opgave 1.6                               :nosolution:nokode:ignore:
+*** Dine svar til opgave 1.6
+
+#+BEGIN_EXPORT odt
+<text:p text:style-name="DineSvar">
+<text:line-break/>
+<text:line-break/>
+<text:line-break/>
+</text:p>
+#+END_EXPORT
+
+** Løsningsforslag                             :solution:nokode:ignore:
 *** Løsningsforslag                             opgave 1
 **** Opgave 1.1
 
 #+BEGIN_EXPORT odt
 <text:p text:style-name="Loesningsforslag">
-Aldersspecifikke mortalitetsrater har ikke været konstante de sidste 100 år i Danmark på grund af en række vigtigere samfundsmæssige og medicinske fremskridt. Et væsentligt eksempel er introduktionen og udbredelsen af penicillin og andre antibiotika i det 20. århundrede, som har reduceret dødeligheden fra infektioner betydeligt. Før antibiotika var infektionssygdomme som tuberkulose, lungebetændelse og sepsis almindelige dødsårsager, både hos børn og voksne. Samtidig har forbedringer i folkesundhed, som adgang til rent drikkevand, vaccinationsprogrammer og bedre fødselshjælp, ført til markant lavere dødelighedsrater, især blandt spædbørn og unge aldersgrupper.
+Aldersspecifikke mortalitetsrater har ikke været konstante de sidste 100 år i Danmark på grund af en række
+vigtigere samfundsmæssige og medicinske fremskridt. Et væsentligt eksempel er introduktionen og udbredelsen
+af penicillin og andre antibiotika i det 20. århundrede, som har reduceret dødeligheden fra infektioner betydeligt.
 </text:p>
 #+END_EXPORT
 
@@ -160,7 +169,9 @@ Aldersspecifikke mortalitetsrater har ikke været konstante de sidste 100 år i 
 
 #+BEGIN_EXPORT odt
 <text:p text:style-name="Loesningsforslag">
-Krig og pandemier kan have en betydelig indvirkning på aldersspecifikke mortalitetsrater i de kommende århundreder. For eksempel kan fremtidige pandemier, som vi så med COVID-19, medføre en pludselig stigning i dødsrater for bestemte aldersgrupper, især ældre og kronisk syge. På samme måde kan krige føre til direkte tab af liv, men også indirekte forværre sundhedsforholdene gennem ødelæggelse af sundhedsinfrastruktur, fødevaremangel og spredning af sygdomme. Desuden kan faktorer som klimaforandringer og miljøforringelse, der påvirker levevilkår, føre til ændringer i dødelighedsmønstre. Øget migration som følge af klimaforandringer eller konflikter kan desuden påvirke befolkningssammensætningen og resultere i ændrede mortalitetsrater. Disse dynamiske faktorer gør det sandsynligt, at de aldersspecifikke dødelighedsrater vil fortsætte med at variere, og det er usandsynligt, at de forbliver konstante fremover.
+Krig og pandemier kan have en betydelig indvirkning på aldersspecifikke mortalitetsrater i de kommende århundreder.
+For eksempel kan fremtidige pandemier, som vi så med COVID-19, medføre en pludselig stigning i dødsrater for
+bestemte aldersgrupper, især ældre og kronisk syge. 
 </text:p>
 #+END_EXPORT
 
@@ -170,17 +181,19 @@ Krig og pandemier kan have en betydelig indvirkning på aldersspecifikke mortali
 <text:p text:style-name="Loesningsforslag">
 Aldersspecifik dødsrate og dødelighedssandsynlighed er beslægtede men forskellige mål:
 
-Aldersspecifik dødsrate er antallet af dødsfald per personår i en specifik aldersgruppe. Den beregnes som antallet af dødsfald i aldersgruppen divideret med den samlede risikotid for samme gruppe.
+Aldersspecifik dødsrate er antallet af dødsfald per personår i en specifik aldersgruppe.
+Den beregnes som antallet af dødsfald i aldersgruppen divideret med den samlede risikotid for samme gruppe.
 
-Dødelighedssandsynlighed repræsenterer sandsynligheden for, at en person i en bestemt alder vil dø inden for en given tidsperiode.
+Dødelighedssandsynlighed repræsenterer sandsynligheden for, at en person i en bestemt alder
+vil dø inden for en given tidsperiode.
 
-Forskellen er, at dødsrate bruger en befolkningsgruppe i løbet af tiden som reference, mens dødelighedssandsynlighed er et direkte mål for risikoen for, at en enkelt person dør inden for et tidsrum.
+Forskellen er, at dødsrate bruger en befolkningsgruppe i løbet af tiden som reference,
+mens dødelighedssandsynlighed er et direkte mål for risikoen for, at en enkelt person dør inden for et tidsrum.
 </text:p>
 #+END_EXPORT
 
 
 **** Opgave 1.4
-
 
 #+BEGIN_EXPORT odt
 <text:p text:style-name="Loesningsforslag">
@@ -190,53 +203,128 @@ Middellevetiden kan stige, selvom dødeligheden blandt ældre ikke ændrer sig, 
 
 #+ODT: <text:p text:style-name="PageBreak"/>
 
-* Opgave 2
+**** Opgave 1.5
 
-Beregn middellevetid for kvinder i Allerød kommune og i København
-kommune i 2025. Svar på følgende spørgsmål til konstruktion af
-overlevelsestavlen, udfyld nedenstående tabel, og rapporter
-resultaterne i sammenhængende tekst.
+#+BEGIN_EXPORT odt  
+<text:p text:style-name="Loesningsforslag">  
+Nej, middellevetiden afhænger ikke af aldersfordelingen i befolkningen. Middellevetiden er et summarisk mål, der beregnes ud fra de aldersspecifikke mortalitetsrater, og det reflekterer den gennemsnitlige levetid i en hypotetisk population, hvor dødelighedsmønstrene for en given periode forbliver konstante. Aldersfordelingen i befolkningen påvirker ikke beregningen af middellevetiden, eftersom den udelukkende baseres på dødelighedsmønstre og ikke på, hvor mange individer der befinder sig i hver aldersgruppe.  
+</text:p>  
+#+END_EXPORT  
 
-1. [@1] Beskriv forskellen mellem \(l_x\) og \(L_x\).
+**** Opgave 1.6
 
-Fortolk den forventede restlevetid af en 85-årig kvinde.
+#+BEGIN_EXPORT odt  
+<text:p text:style-name="Loesningsforslag">
+Ved hjælp af statistikbankens FOLK1A beregner vi risikotiden for kvinder (2.972.656) og mænd (2.937.921) ved at gange folketallet per 1. juli med 1 år.
+Den summariske rate for at dø på grund af psykiske lidelse er således 7,9 per 10.000 personår for kvinder og 5,5 per 10.000 personår for mænd.
+Denne sammenligning er dog ikke retfærdig, da kvinder generalt lever længere end mænd, og demens, som er en psykisk lidelse, forekommer hyppigere bland ældre mennesker. 
+</text:p>  
+#+END_EXPORT  
 
-#+BEGIN_SRC R  :results output raw drawer  :exports results  :session *R* :cache no :eval always  
+#+ODT: <text:p text:style-name="PageBreak"/>
+
+* Opgave 2 :noekstrakode:ignore:
+** Opgave 2
+
+*** opgave 2 tekst                                            :nokode:ignore:
+
+Beregn middellevetid for kvinder i København kommune i 2025 og udfyld
+nedenstående tabeller. Svar på følgende spørgsmål til konstruktionen
+af overlevelsestavlen, og rapporter resultaterne i sammenhængende
+tekst.
+
+1. [@1] Forklar forskellen mellem =Dod= i data fra statistikbanken og =d= i overlevelsestavlen.
+2. [@2] Forklar forskellen mellem =l= og =L= i overlevelsestavlen.
+3. [@3] Hvordan beregner man værdien  =l=99.033= for 40-49 årige ud fra =l=99286= og =q=0.00255=? 
+4. [@4] Rapporter og fortolk middellevetiden og også den forventede
+   middelrestlevetid for en 80-årig kvinde.
+#+ODT: <text:p text:style-name="PageBreak"/>
+
+*** opgave 2 koder                                    :rmd:nosolution:ignore:
+
+**** Data fra statistikbankens register FOLK1a og FOD207
+#+BEGIN_SRC R  :results output :exports (exercise-with-code) :cache yes :eval (never-plain-export)
 source("https://raw.githubusercontent.com/tagteam/demogRafi/main/R-scripts/demofunk.R")
-a <- hent_mortalitetsrate_data(område = "allerød",tid = 2025,breaks = c(0,1,seq(5,95,10),Inf),køn = "Kvinder")
-a <- mutate(a,
-            M = Dod/R,
-            k = c(1,4,rep(10,10)),
-            a = c(0.1,rep(0.5,11)))
-overlevelsestavle(a,mortalitet = "M")
-b <- hent_mortalitetsrate_data(område = "københavn",
-                               tid = 2025,
-                               breaks = c(0,1,seq(5,95,10),Inf),
-                               køn = "Kvinder")
-b <- mutate(b,
-            M = Dod/R,
-            k = c(1,4,rep(10,10)),
-            a = c(0.1,rep(0.5,11)))
-Ok <- overlevelsestavle(b,mortalitet = "M")
+# hent data i 10-års intervaller men separere det første år
+København <- hent_mortalitetsrate_data(område = "København",
+                                       tid = 2025,
+                                       right = FALSE,
+                                       breaks = c(0,1,10,seq(20,90,10),Inf),
+                                       køn = "Kvinder")
+# beregn aldersspecifikke mortalitetsrater
+# tilføj intervallernes bredte k og Chiang's a
+København <- mutate(København,
+                    M = Dod/R,
+                    k = c(1,9,rep(10,9)),
+                    a = c(0.1,rep(0.5,10)))
+# se resultatet
+print(København)
+#+END_SRC
+
+**** Beregn overlevelsestavle 
+
+#+BEGIN_SRC R  :results output :exports (exercise-with-code) :cache yes :eval (never-plain-export)
+# beregn overlevelsestavlen
+otavle_København <- overlevelsestavle(København,mortalitet = "M")
+# se resultatet
+print(otavle_København)
+#+END_SRC
+
+
+#+BEGIN_SRC R  :results output raw drawer  :exports none  :session *R* :cache no :eval never  
+a <- hent_mortalitetsrate_data(område = "københavn",tid = 2025,breaks = c(0,1,seq(5,95,10),Inf),køn = "Kvinder")
+a <- mutate(a,M = Dod/R,k = c(1,4,rep(10,10)),a = c(0.1,rep(0.5,11)))
+Oa <- overlevelsestavle(a,mortalitet = "M")
+tabel1 <- select(a,-c("KØN","OMRÅDE","TID"))
+for (n in names(tabel1)[-c(1:3)]){
+  tabel1[[n]] = rep("",12)
+}
+Publish::org(tabel1)
+tabel2 <- select(Oa,c(Alder,l,d,q,L,e))
+for (n in names(tabel2)[-c(1:4)]){
+  tabel2[[n]] = rep("",12)
+}
+Publish::org(tabel2)
 #+END_SRC   
 
-*** Tabel :opgave:nosolution:ignore: 
-**** Tabel
+*** Tabel 2.1 :opgave:nosolution:ignore: 
+**** Tabel 2.1
 
-Svar på følgende spørgsmål til konstruktion af overlevelsestavlen:
+|  aldersinterval |     R | Dod | M | k | a |
+|-----------------+-------+-----+---+---+---|
+|             0-1 |  8179 |  17 |   |   |   |
+|             2-5 | 13197 |   0 |   |   |   |
+|            6-15 | 27273 |   2 |   |   |   |
+|           16-25 | 54669 |  11 |   |   |   |
+|           26-35 | 84415 |  14 |   |   |   |
+|           36-45 | 45331 |  19 |   |   |   |
+|           46-55 | 37892 |  55 |   |   |   |
+|           56-65 | 30306 | 130 |   |   |   |
+|           66-75 | 20253 | 282 |   |   |   |
+|           76-85 | 13637 | 567 |   |   |   |
+|           86-95 |  3526 | 488 |   |   |   |
+|             >95 |   335 | 136 |   |   |   |
 
-1. [@1] Forklar forskellen mellem \(d_x\) og \(D_x\).
-2. [@2] Beskriv forskellen mellem \(l_x\) og \(L_x\).
-3. [@3] Hvis \(l_x = 273\) og \(d_x = 17\), hvad er værdien af \(l_{x+1}\)?
-4. [@4] Benyt formlerne \(l_{x+1} = l_x p_x\) og \(d_x = l_x q_x\) fra
-   formelsamlingen til at vise, at \(l_{x+1} = l_x - d_x\). Substituér
-   \(p_x\) med \((1 - q_x)\) i den første formel, og løs den anden
-   formel for \(l_x\). Indsæt resultatet i den første formel og
-   simplificér udtrykket.
-5. [@5] Beregn dødshyppigheden i tabellens sidste aldersinterval,
-   \(q_{x^{max}}\) og fortolk resultatet.
+*** Tabel 2.2                                      :opgave:nosolution:ignore: 
+**** Tabel 2.2
 
-** Dine svar til opgave 2                          :nosolution:nokode:ignore:
+|  Alder |      l | d | q | L | e |
+|--------+--------+---+---+---+---|
+|    0-1 | 100000 |   |   |   |   |
+|    2-5 | 100000 |   |   |   |   |
+|   6-15 | 100000 |   |   |   |   |
+|  16-25 | 100000 |   |   |   |   |
+|  26-35 | 100000 |   |   |   |   |
+|  36-45 | 100000 |   |   |   |   |
+|  46-55 |  98868 |   |   |   |   |
+|  56-65 |  98868 |   |   |   |   |
+|  66-75 |  95821 |   |   |   |   |
+|  76-85 |  86664 |   |   |   |   |
+|  86-95 |  67165 |   |   |   |   |
+|    >95 |  31086 |   |   |   |   |
+
+
+** Dine svar til opgave 2  :nosolution:nokode:ignore:
 *** Dine svar til opgave 2.1
 
 #+BEGIN_EXPORT odt
@@ -247,7 +335,7 @@ Svar på følgende spørgsmål til konstruktion af overlevelsestavlen:
 </text:p>
 #+END_EXPORT
 
-** Dine svar til opgave 2.2                               :nosolution:ignore:
+** Dine svar til opgave 2.2                               :nosolution:nokode:ignore:
 *** Dine svar til opgave 2.2
 
 #+BEGIN_EXPORT odt
@@ -258,7 +346,7 @@ Svar på følgende spørgsmål til konstruktion af overlevelsestavlen:
 </text:p>
 #+END_EXPORT
 
-** Dine svar til opgave 2.3                               :nosolution:ignore:
+** Dine svar til opgave 2.3                               :nosolution:nokode:ignore:
 *** Dine svar til opgave 2.3
 
 #+BEGIN_EXPORT odt
@@ -269,7 +357,7 @@ Svar på følgende spørgsmål til konstruktion af overlevelsestavlen:
 </text:p>
 #+END_EXPORT
 
-** Dine svar til opgave 2.4                               :nosolution:ignore:
+** Dine svar til opgave 2.4                               :nosolution:nokode:ignore:
 *** Dine svar til opgave 2.4
 
 #+BEGIN_EXPORT odt
@@ -280,8 +368,137 @@ Svar på følgende spørgsmål til konstruktion af overlevelsestavlen:
 </text:p>
 #+END_EXPORT
 
-** Dine svar til opgave 2.5                               :nosolution:ignore:
-*** Dine svar til opgave 2.5
+** Løsningsforslag                             :solution:nokode:ignore:
+
+*** Tabel 2.1 Data fra København 2025 :nokode:ignore:
+**** Tabel 2.1 Data fra København 2025
+
+#+BEGIN_SRC R  :results output raw drawer  :exports results  :session *R* :cache yes
+Publish::org(select(København,c("aldersinterval","R","Dod","M","k","a")),digits= 1)
+#+END_SRC
+
+#+RESULTS[(2026-03-02 09:02:51) 589c051b16f3ab4cdc172b6031d04a3d72d2957f]:
+:results:
+| aldersinterval |       R |   Dod |      M |    k |   a |
+|----------------+---------+-------+--------+------+-----|
+|              0 |  4386.0 |  17.0 | 0.0039 |  1.0 | 0.1 |
+|            1-9 | 28289.0 |   0.0 | 0.0000 |  9.0 | 0.5 |
+|          10-19 | 27138.0 |   4.0 | 0.0001 | 10.0 | 0.5 |
+|          20-29 | 82149.0 |  15.0 | 0.0002 | 10.0 | 0.5 |
+|          30-39 | 66586.0 |  17.0 | 0.0003 | 10.0 | 0.5 |
+|          40-49 | 39950.0 |  29.0 | 0.0007 | 10.0 | 0.5 |
+|          50-59 | 36012.0 |  64.0 | 0.0018 | 10.0 | 0.5 |
+|          60-69 | 25492.0 | 177.0 | 0.0069 | 10.0 | 0.5 |
+|          70-79 | 18477.0 | 423.0 | 0.0229 | 10.0 | 0.5 |
+|          80-89 |  8841.0 | 586.0 | 0.0663 | 10.0 | 0.5 |
+|            90+ |  1693.0 | 389.0 | 0.2298 | 10.0 | 0.5 |
+:end:
+
+*** Tabel 2.2. Overlevelsestavle København :nokode:ignore:    
+**** Tabel 2.2. Overlevelsestavle København
+
+#+BEGIN_SRC R  :results output raw drawer  :exports results  :session *R* :cache yes
+Publish::org(otavle_København,digits= 1)
+#+END_SRC
+
+#+RESULTS[(2026-03-02 08:53:23) 64bbc22c1a21157e0c4a1a40313b8cf57900d62f]:
+:results:
+| Alder |        l |       d |   p |     q |   o |        L |         T |    e |
+|-------+----------+---------+-----+-------+-----+----------+-----------+------|
+|     0 | 100000   |   386   | 1.0 | 0.004 | 1.0 |  99652   | 8212012.7 | 82.1 |
+|   1-9 |  99614   |     0   | 1.0 | 0.000 | 1.0 | 896524   | 8112360.3 | 81.4 |
+| 10-19 |  99614   |   147   | 1.0 | 0.001 | 1.0 | 994745   | 7215836.6 | 72.4 |
+| 20-29 |  99467   |   181   | 1.0 | 0.002 | 1.0 | 992949   | 6221092.0 | 62.5 |
+| 30-39 |  99286   |   253   | 1.0 | 0.003 | 1.0 | 990456   | 5228143.1 | 52.7 |
+| 40-49 |  99033   |   714   | 1.0 | 0.007 | 1.0 | 983547   | 4237687.1 | 42.8 |
+| 50-59 |  98319   |  1718   | 1.0 | 0.017 | 1.0 | 966866   | 3254140.3 | 33.1 |
+| 60-69 |  96601   |  6292   | 0.9 | 0.065 | 1.0 | 906230   | 2287274.3 | 23.7 |
+| 70-79 |  90308   | 16981   | 0.8 | 0.188 | 0.9 | 741761   | 1381044.0 | 15.3 |
+| 80-89 |  73327   | 29823   | 0.6 | 0.407 | 0.7 | 449947   |  639283.0 |  8.7 |
+|   90+ |  43504   | 43504   | 0.0 | 1.000 | 0.4 | 189336   |  189335.6 |  4.4 |
+:end:
+
+*** Løsningsforslag                             opgave 1
+**** opgave 2.1
+
+#+BEGIN_EXPORT odt
+<text:p text:style-name="Loesningsforslag">
+=D_x= er antal døde i den rigtige befolkningen, =d_x= er antal døde i den hypotetiske tabelbefolkning.
+</text:p>
+#+END_EXPORT
+
+**** opgave 2.2
+
+#+BEGIN_EXPORT odt
+<text:p text:style-name="Loesningsforslag">
+Begge størrelser hører til den hypotetiske tabelbefolkning: =l_x= er antal personer i starten af alderstrin =x=, og =L_x= er antal gennemlevede tid i intervallet fra alderstrin =x= til næste alderstrin.
+</text:p>
+#+END_EXPORT
+
+**** opgave 2.3
+
+
+#+BEGIN_EXPORT odt
+<text:p text:style-name="Loesningsforslag">
+Værdien =l_{40-49}= på 99,033 kan beregnes ud fra =l_{30-39} = 99,286= og =q_{30-39} = 0,0025=, som angiver sandsynligheden
+for at dø i det interval. Formlen er:
+l_{40-49} = l_{30-39} * (1 - q_{30-39}).  Det giver l_{40-49} = 99,286 * (1 - 0,0025) = 99,033.
+</text:p>
+#+END_EXPORT
+
+**** opgave 2.4
+
+#+BEGIN_EXPORT odt
+<text:p text:style-name="Loesningsforslag">
+Middellevetiden for en nyfødt kvinde i København i 2025 er 82,1 år, som betyder, at en hypotetisk nyfødt
+kvinde kan forventes at leve 82,1 år hvis de aktuelle dødelighedsrater ikke ændrer sig i al fremtid.
+Den forventede middelrestlevetid for en 80-årig kvinde er 8,7 år, fordi kvinder i denne alder stadig
+har en sandsynlighed for at leve yderligere år under de givne overlevelsesbetingelser. Dette viser, at selv
+ved høj alder kan der stadig være en forventning om flere leveår.
+</text:p>
+#+END_EXPORT
+
+#+ODT: <text:p text:style-name="PageBreak"/>
+
+* Opgave 3
+
+** Opgave 3 tekst                                             :nokode:ignore:
+
+Beregn alderspecifikke mortalitetsrater samt overlevelsestavlen for
+kvinder i Allerød kommune i 2025. Sammenlign middellevetiden for
+kvinder i Allerød kommune med middellevetiden for kvinder i Københavns
+kommune fra Opgave 2 og diskuter mulige årsager til forskellene.
+
+** R-kode :rmd:ignore:
+
+#+BEGIN_SRC R  :results output :exports (exercise-with-code) :cache yes :eval (never-plain-export)
+# Brug copy-paste og erstat 'København' med 'Allerød' 
+#+END_SRC
+
+#+BEGIN_SRC R  :results output :exports (exercise-with-solutions) :cache yes :eval (never-plain-export)
+# hent data i 10-års intervaller men separere det første år
+Allerød <- hent_mortalitetsrate_data(område = "Allerød",
+                                     tid = 2025,
+                                     right = FALSE,
+                                     breaks = c(0,1,10,seq(20,90,10),Inf),
+                                     køn = "Kvinder")
+# beregn aldersspecifikke mortalitetsrater
+# tilføj intervallernes bredte k og Chiang's a
+Allerød <- mutate(Allerød,
+                  M = Dod/R,
+                  k = c(1,9,rep(10,9)),
+                  a = c(0.1,rep(0.5,10)))
+# se resultatet
+print(Allerød)
+# beregn overlevelsestavlen
+otavle_Allerød <- overlevelsestavle(Allerød,mortalitet = "M")
+# se resultatet
+print(otavle_Allerød)
+#+END_SRC
+
+
+** Dine svar til opgave 3                                 :nosolution:nokode:ignore:
+*** Dine svar til opgave 3
 
 #+BEGIN_EXPORT odt
 <text:p text:style-name="DineSvar">
@@ -291,68 +508,253 @@ Svar på følgende spørgsmål til konstruktion af overlevelsestavlen:
 </text:p>
 #+END_EXPORT
 
-** Løsningsforslag                             :solution:ignore:
-*** Løsningsforslag                             opgave 1
-**** opgave 2.1
+** Løsningsforslag                             :solution:rmd:ignore:
+
+*** Overlevelsestavle Allerød :noekstrakode:ignore:
+#+BEGIN_SRC R  :results output raw drawer  :exports results  :session *R* :cache yes  
+Publish::org(otavle_Allerød,digits=1)
+#+END_SRC
+
+#+RESULTS[(2026-03-02 08:53:29) 24180e1ec5c11609acde1cf0da33fc6aa9d67dfc]:
+:results:
+| Alder |        l |       d |   p |    q |   o |         L |         T |    e |
+|-------+----------+---------+-----+------+-----+-----------+-----------+------|
+|     0 | 100000.0 |     0.0 | 1.0 | 0.00 | 1.0 |  100000.0 | 8524196.7 | 85.2 |
+|   1-9 | 100000.0 |     0.0 | 1.0 | 0.00 | 1.0 |  900000.0 | 8424196.7 | 84.2 |
+| 10-19 | 100000.0 |     0.0 | 1.0 | 0.00 | 1.0 | 1000000.0 | 7524196.7 | 75.2 |
+| 20-29 | 100000.0 |     0.0 | 1.0 | 0.00 | 1.0 | 1000000.0 | 6524196.7 | 65.2 |
+| 30-39 | 100000.0 |     0.0 | 1.0 | 0.00 | 1.0 | 1000000.0 | 5524196.7 | 55.2 |
+| 40-49 | 100000.0 |  1138.0 | 1.0 | 0.01 | 1.0 |  989192.0 | 4524196.7 | 45.2 |
+| 50-59 |  98862.0 |  1001.0 | 1.0 | 0.01 | 1.0 |  979113.0 | 3535004.5 | 35.8 |
+| 60-69 |  97861.0 |  5192.0 | 0.9 | 0.05 | 1.0 |  929292.0 | 2555891.8 | 26.1 |
+| 70-79 |  92670.0 | 11430.0 | 0.9 | 0.12 | 0.9 |  818116.0 | 1626599.7 | 17.6 |
+| 80-89 |  81240.0 | 25696.0 | 0.7 | 0.32 | 0.8 |  568292.0 |  808484.2 | 10.0 |
+|   90+ |  55544.0 | 55544.0 | 0.0 | 1.00 | 0.6 |  240192.0 |  240192.1 |  4.3 |
+:end:
+
+
+*** Sammenligning mellem Allerød og København  :noekstrakode:ignore:
 
 #+BEGIN_EXPORT odt
 <text:p text:style-name="Loesningsforslag">
-\(D_x\) er antal døde i den rigtige befolkningen, \(d_x\) er antal døde i den hypotetiske tabelbefolkning.
-</text:p>
-#+END_EXPORT
-
-**** opgave 2.2
-
-#+BEGIN_EXPORT odt
-<text:p text:style-name="Loesningsforslag">
-Begge størrelser hører til den hypotetiske tabelbefolkning: \(l_x\) er antal personer i starten af alderstrin \(x\), og \(L_x\) er antal gennemlevede tid i intervallet fra alderstrin \(x\) til næste alderstrin.
-</text:p>
-#+END_EXPORT
-
-**** opgave 2.3
-
-#+BEGIN_EXPORT odt
-<text:p text:style-name="Loesningsforslag">
-I starten af alderstrin er der 273 personer. Der dør 17 personer i intervallet. Dermed er der 256 tilbage i starten af det næste aldersinterval.
-</text:p>
-#+END_EXPORT
-
-
-**** opgave 2.4
-
-#+BEGIN_EXPORT odt
-<text:p text:style-name="Loesningsforslag">
-\(l_xd_x/q_x\) og dermed \(l_{x+1}  d_x/q_x (1- q_x)  d_x/q_x -d_x  l_x- d_x\).
-</text:p>
-#+END_EXPORT
-
-**** opgave 2.5
-
-#+BEGIN_EXPORT odt
-<text:p text:style-name="Loesningsforslag">
-Resultatet er \(q_x^{max}=1\) uanset værdien af \(M_x\). Dødshyppigheden i det sidste aldersinterval er 100\%. Det betyder at den resterende del af tabelbefolkningen dør i det sidste aldersinterval.
+Dødeligheden blandt kvinder i Allerød kommune i 2025 er generelt lavere end blandt kvinder i Københavns kommune.
+Dette ses ved den højere middellevetid i Allerød (85,2 år) sammenlignet med København (82,1 år).
+Den aldersspecifikke dødelighed (q) er lavere for flere aldersgrupper i Allerød, især i de yngre og midaldrende grupper.
+Forskellene kan skyldes socioøkonomiske faktorer, hvor Allerød generelt har en befolkning med højere indkomst
+og uddannelsesniveau, hvilket er stærkt korreleret med bedre sundhedsadgang og livsstil. Miljøfaktorer kan også spille
+en rolle, da Allerød er et mindre urbaniseret område med mindre forurening end København. Endvidere kan variationer
+i sundhedstilbud, levevilkår og ernæring mellem kommunerne bidrage til de observerede forskelle i dødelighed og levetid.
 </text:p>
 #+END_EXPORT
 
 
-#+ODT: <text:p text:style-name="PageBreak"/>
 
-*** Opgave 3
+* Opgave 4 
+** Opgave 4 tekst                                             :nokode:ignore:
 
-3. [@3] Hvilket tal i forlæsningsnoterne angiver middellevetid for en
-   nyfødt dreng i 2020 under den forudsætning at mortalitetsraterne
-   fra 2008/2009 for alle grupperinger af køn og alderstrin holder sig
-   på samme niveau i al fremtid? 
-3. [@3] Under antagelsen at mortalitetsraterne ville følge samme kalendartidstrends 
-   som de sidste 12 år (se diagram i forlæsningsnoterne) også de næste 
-   100 år, ville den forventede restlevetid for en 4-årig dreng i 2009
-   være mindre eller højere end 72,78 år (se forlæsningsnoterne)?
+Beregn og rapporter aldersstandardiserede rater af død på grund af
+psykiske lidelser, via direkte standardisering, separat for kvinder og
+mænd. Brug hele den danske befolkning i 2022 som
+standardbefolkning. Udfyld tabellen nedenfor. Beregn også de
+årsagsspecifikke dødelighedstavler for begge køn. Rapporter og fortolk
+den forventede middelrestlevetid samt risikoen for at dø af psykiske
+lidelser for både en 70-årig mand og en 70-årig kvinde. Vurder
+potentielle faktorer, der kan bidrage til, at risikoen for at dø af
+psykiske lidelser stiger i fremtiden og hvilke konsekvenser det ville
+have på samfundet.
 
-Middellevetiden for en nyfødt dreng i 2020, under antagelsen af at mortalitetsraterne fra 2008/2009 forbliver konstante, er 76,52 år. Dette tal repræsenterer den gennemsnitlige forventede levetid ved fødslen og beregnes på baggrund af de aldersspecifikke dødsrater for det givne år. Det betyder, at et nyfødt drengebarn, forudsat at de observerede dødsrater forbliver uændrede gennem hele livet, vil have en gennemsnitlig forventet levetid på 76,52 år.
+** Opgave 3 koder                                             :rmd:ignore:
+*** Hent data :ignore:noekstrakode:rmd:
+**** Hent data
+#+BEGIN_SRC R  :results output :exports (exercise-with-code) :cache yes :eval (never-plain-export)
+# hent risikotid (FOLK1A) og antal død (DOD) samt antal døde på grund af psykiske lidelser (DODA1)
+psykdod <- hent_dodsaarsag_data(køn=c("Mænd","Kvinder"),
+                                tid=2022,
+                                årsag = "A06") %>% select(-c("ÅRSAG","TID"))
+# data i wide format
+psykdod <- pivot_wider(psykdod,names_from=KØN,
+                       values_from=c("R","Dod","QDod"))
+# se data
+print(psykdod)
+#+END_SRC
+
+*** Standardiserede rater  :ignore:noekstrakode:rmd:
+**** Standardiserede rater
+#+BEGIN_SRC R  :results output :exports (exercise-with-code) :cache yes :eval (never-plain-export)
+# Beregn standardiserede rater
+# 1. samle risikotid fra mænd og kvinder
+psykdod <- psykdod %>% mutate(R_DK = R_Kvinder+R_Mænd)
+# 2. beregn standardbefolkningens aldersfordeling af risikotid
+psykdod <- psykdod %>% mutate(V_DK = R_DK/sum(R_DK))
+# 3. beregn dødelighedsrater på grund af psykiske lidelser
+psykdod <- psykdod %>% mutate(M_Kvinder_psykdod = QDod_Kvinder/R_Kvinder,
+                              M_Mænd_psykdod = QDod_Mænd/R_Mænd)
+# 4. beregn alderstandardiserede rater
+# dine R-koder her
+#+END_SRC
+
+*** Årsagsspecifikke dødelighedstavler  :ignore:noekstrakode:rmd:
+**** Årsagsspecifikke dødelighedstavler  
+
+#+BEGIN_SRC R  :results output :exports (exercise-with-code) :cache yes :eval (never-plain-export)
+# beregn andel død på grund af psykiske lidelser
+psykdod <- psykdod %>% mutate(hQ_Kvinder = QDod_Kvinder/Dod_Kvinder,hQ_Mænd = QDod_Mænd/Dod_Mænd)
+# tilføj intervallernes bredde samt Chiangs a
+psykdod <- mutate(psykdod,a = c(0.1,2,rep(2.5,17)),k = c(1,4,rep(5,17)))
+# beregn mortalitetsrater
+psykdod <- mutate(psykdod, M_Kvinder = Dod_Kvinder/R_Kvinder,M_Mænd = Dod_Mænd/R_Mænd)
+# beregn tavlen for kvinder
+dtavle_kvinder <- dodsaarsagtavle(psykdod,mortalitet = "M_Kvinder",hQ = "hQ_Kvinder")
+# beregn tavlen for mænd
+dtavle_mænd <- dodsaarsagtavle(psykdod,mortalitet = "M_Mænd",hQ = "hQ_Mænd")
+# se resultaterne for kvinder
+dtavle_kvinder %>% select(Alder,l,L,d,dQ,e,LTR_Q,risiko_Q)
+# se resultaterne for mænd
+dtavle_kvinder %>% select(Alder,l,L,d,dQ,e,LTR_Q,risiko_Q)
+#+END_SRC
 
 
-4. [@4] Hvorfor er det forkert at fortolke =65,9= (se forlæsningsnoterne) som den 
-   forventede tid, som en 11 årige dreng i 2008/2009 kan forvente at leve? 
+*** Tabel 4                                        :opgave:nosolution:nokode:ignore: 
+**** Tabel 4
 
-Det er forkert at fortolke tallet 65,92 som den forventede restlevetid for en 11-årig dreng i 2008/2009, uden at tage forbehold for de underliggende antagelser. Dette tal er baseret på en livstabel, der forudsætter, at de dødsrater, der blev observeret i 2008/2009, forbliver konstante i al fremtid. I virkeligheden ændrer mortalitetsrater sig over tid som følge af forbedringer i sundhedspleje, levevilkår, forebyggelse af sygdomme og andre samfundsforhold. Derfor kan den reelle restlevetid for en 11-årig dreng variere betydeligt, hvis dødeligheden enten stiger eller falder over de kommende år. En korrekt fortolkning af 65,92 er derfor, at det repræsenterer den gennemsnitlige restlevetid under den strenge antagelse, at dødsraterne i 2008/2009 forbliver uændrede i fremtiden, hvilket sjældent er realistisk.
-Den forventede restlevetid for en 4-årig dreng i 2009 ville være højere end 72,78 år, hvis mortalitetsraterne fortsætter med at følge de samme kalendertidsbaserede trends som de sidste 12 år. Dette skyldes, at kalendertidstrends typisk viser faldende dødelighed over tid som følge af medicinske fremskridt, forbedrede sundhedsvæsen og forebyggelse af sygdomme. Så hvis dødeligheden fortsætter med at falde i takt med historiske tendenser, vil det føre til en stigning i den forventede restlevetid på tværs af alle aldre, inklusive for en 4-årig dreng i 2009.
+| Køn     | Standardiserede mortalitetsrater på grund af psykiske lidelser | Middelrestlevetid fra 70 år | Restlivstidsrisiko for død af psykiske lidelser ved 70 år |
+|---------+----------------------------------------------------------------+-----------------------------+-----------------------------------------------------------|
+| Kvinder |                                                                |                             |                                                           |
+| Mænd    |                                                                |                             |                                                           |
+
+** Dine svar til opgave 4                                 :nosolution:nokode:ignore:
+*** Dine svar til opgave 4
+
+#+BEGIN_EXPORT odt
+<text:p text:style-name="DineSvar">
+<text:line-break/>
+<text:line-break/>
+<text:line-break/>
+</text:p>
+#+END_EXPORT
+
+** Løsningsforslag :solution:ignore:
+
+
+*** Loesning r-kode                                     :rmd:ignore:
+#+BEGIN_SRC R  :results output :exports (exercise-with-solutions) :cache yes :eval (never-plain-export)
+# Beregn standardiserede rater
+# 1. samle risikotid fra mænd og kvinder
+psykdod <- psykdod %>% mutate(R_DK = R_Kvinder+R_Mænd)
+# 2. beregn standardbefolkningens aldersfordeling af risikotid
+psykdod <- psykdod %>% mutate(V_DK = R_DK/sum(R_DK))
+# 3. beregn dødelighedsrater på grund af psykiske lidelser
+psykdod <- psykdod %>% mutate(M_Kvinder_psykdod = QDod_Kvinder/R_Kvinder,
+                              M_Mænd_psykdod = QDod_Mænd/R_Mænd)
+# 4. beregn alderstandardiserede rater 
+psykdod %>% summarize(Kvinder_std_psykdod = 10000*sum(M_Kvinder_psykdod*V_DK),
+                      Mænd_std_psykdod = 10000*sum(M_Mænd_psykdod*V_DK))
+#+END_SRC
+
+*** Loesning tabel og text :noekstrakode:ignore:
+
+#+BEGIN_SRC R  :results output raw drawer  :exports results  :session *R* :cache yes  
+a <- psykdod %>% summarize(Kvinder_std_psykdod = 10000*sum(M_Kvinder_psykdod*V_DK),
+                           Mænd_std_psykdod = 10000*sum(M_Mænd_psykdod*V_DK))
+out <- data.table(Køn = c("Kvinder","Mænd"),Std_rate_psykdod = sprintf(unlist(a),fmt = "%1.1f"))
+out <- mutate(out,middelrestlevetid_70= sprintf(c(filter(dtavle_kvinder,Alder == "70-74")%>%select(e),
+                                                  filter(dtavle_mænd,Alder == "70-74")%>%select(e)),fmt = "%1.1f"))
+out <- mutate(out,risiko_psykdod_70= sprintf(c(100*filter(dtavle_kvinder,Alder == "70-74")%>%select(LTR_Q),
+                                               100*filter(dtavle_mænd,Alder == "70-74")%>%select(LTR_Q)),fmt = "%1.1f"))
+org(out)
+#+END_SRC
+
+#+RESULTS[(2026-03-02 09:26:25) 844d7f4fc6e40b0292d2d012e4a913f2772d627f]:
+:results:
+| Køn     | Std_rate_psykdod | middelrestlevetid_70 | risiko_psykdod_70 |
+|---------+------------------+----------------------+-------------------|
+| Kvinder |              6.6 |                 16.7 |               9.8 |
+| Mænd    |              6.5 |                 14.5 |               6.2 |
+:end:
+
+*** Årsagsspecifikke dødelighedstavle for kvinder  :noekstrakode:ignore:
+#+BEGIN_SRC R  :results output raw drawer  :exports results  :session *R* :cache yes  
+org(dtavle_kvinder %>% select(Alder,l,L,d,dQ,e,LTR_Q,risiko_Q),digits = 2)
+#+END_SRC
+
+#+RESULTS[(2026-03-02 09:08:06) d8b2a095c2705adb11524a67c733ac6aaa29edb0]:
+:results:
+| Alder |         l |         L |        d |      dQ |     e | LTR_Q | risiko_Q |
+|-------+-----------+-----------+----------+---------+-------+-------+----------|
+|     0 | 100000.00 |  99729.00 |   301.00 |    0.00 | 83.18 | 0.089 | 0.000000 |
+|   1-4 |  99699.00 | 398705.00 |    46.00 |    0.00 | 82.43 | 0.089 | 0.000000 |
+|   5-9 |  99653.00 | 498199.00 |    27.00 |    0.00 | 78.46 | 0.089 | 0.000000 |
+| 10-14 |  99626.00 | 498071.00 |    25.00 |    0.00 | 73.48 | 0.089 | 0.000000 |
+| 15-19 |  99602.00 | 497847.00 |    65.00 |    3.00 | 68.50 | 0.089 | 0.000030 |
+| 20-24 |  99537.00 | 497413.00 |   108.00 |    3.00 | 63.55 | 0.089 | 0.000057 |
+| 25-29 |  99428.00 | 496913.00 |    92.00 |    2.00 | 58.61 | 0.089 | 0.000081 |
+| 30-34 |  99337.00 | 496266.00 |   167.00 |    3.00 | 53.66 | 0.089 | 0.000108 |
+| 35-39 |  99170.00 | 495370.00 |   192.00 |    3.00 | 48.75 | 0.089 | 0.000137 |
+| 40-44 |  98978.00 | 494049.00 |   337.00 |    3.00 | 43.84 | 0.089 | 0.000166 |
+| 45-49 |  98641.00 | 491872.00 |   534.00 |    8.00 | 38.98 | 0.090 | 0.000242 |
+| 50-54 |  98107.00 | 487961.00 |  1030.00 |   42.00 | 34.18 | 0.090 | 0.000666 |
+| 55-59 |  97077.00 | 481238.00 |  1659.00 |   37.00 | 29.52 | 0.091 | 0.001036 |
+| 60-64 |  95418.00 | 469967.00 |  2850.00 |   87.00 | 24.99 | 0.092 | 0.001901 |
+| 65-69 |  92569.00 | 450135.00 |  5083.00 |  136.00 | 20.68 | 0.094 | 0.003256 |
+| 70-74 |  87486.00 | 419897.00 |  7012.00 |  259.00 | 16.73 | 0.098 | 0.005848 |
+| 75-79 |  80473.00 | 375921.00 | 10579.00 |  560.00 | 12.97 | 0.103 | 0.011448 |
+| 80-84 |  69895.00 | 309738.00 | 15895.00 | 1302.00 |  9.56 | 0.110 | 0.024469 |
+|    85 |  54000.00 | 358370.00 | 54000.00 | 6420.00 |  6.64 | 0.119 | 0.088667 |
+:end:
+
+*** Årsagsspecifikke dødelighedstavle for mænd :noekstrakode:ignore:
+#+BEGIN_SRC R  :results output raw drawer  :exports results  :session *R* :cache yes  
+org(dtavle_kvinder %>% select(Alder,l,L,d,dQ,e,LTR_Q,risiko_Q),digits = 2)
+#+END_SRC
+
+#+RESULTS[(2026-03-02 09:08:13) d8b2a095c2705adb11524a67c733ac6aaa29edb0]:
+:results:
+| Alder |         l |         L |        d |      dQ |     e | LTR_Q | risiko_Q |
+|-------+-----------+-----------+----------+---------+-------+-------+----------|
+|     0 | 100000.00 |  99729.00 |   301.00 |    0.00 | 83.18 | 0.089 | 0.000000 |
+|   1-4 |  99699.00 | 398705.00 |    46.00 |    0.00 | 82.43 | 0.089 | 0.000000 |
+|   5-9 |  99653.00 | 498199.00 |    27.00 |    0.00 | 78.46 | 0.089 | 0.000000 |
+| 10-14 |  99626.00 | 498071.00 |    25.00 |    0.00 | 73.48 | 0.089 | 0.000000 |
+| 15-19 |  99602.00 | 497847.00 |    65.00 |    3.00 | 68.50 | 0.089 | 0.000030 |
+| 20-24 |  99537.00 | 497413.00 |   108.00 |    3.00 | 63.55 | 0.089 | 0.000057 |
+| 25-29 |  99428.00 | 496913.00 |    92.00 |    2.00 | 58.61 | 0.089 | 0.000081 |
+| 30-34 |  99337.00 | 496266.00 |   167.00 |    3.00 | 53.66 | 0.089 | 0.000108 |
+| 35-39 |  99170.00 | 495370.00 |   192.00 |    3.00 | 48.75 | 0.089 | 0.000137 |
+| 40-44 |  98978.00 | 494049.00 |   337.00 |    3.00 | 43.84 | 0.089 | 0.000166 |
+| 45-49 |  98641.00 | 491872.00 |   534.00 |    8.00 | 38.98 | 0.090 | 0.000242 |
+| 50-54 |  98107.00 | 487961.00 |  1030.00 |   42.00 | 34.18 | 0.090 | 0.000666 |
+| 55-59 |  97077.00 | 481238.00 |  1659.00 |   37.00 | 29.52 | 0.091 | 0.001036 |
+| 60-64 |  95418.00 | 469967.00 |  2850.00 |   87.00 | 24.99 | 0.092 | 0.001901 |
+| 65-69 |  92569.00 | 450135.00 |  5083.00 |  136.00 | 20.68 | 0.094 | 0.003256 |
+| 70-74 |  87486.00 | 419897.00 |  7012.00 |  259.00 | 16.73 | 0.098 | 0.005848 |
+| 75-79 |  80473.00 | 375921.00 | 10579.00 |  560.00 | 12.97 | 0.103 | 0.011448 |
+| 80-84 |  69895.00 | 309738.00 | 15895.00 | 1302.00 |  9.56 | 0.110 | 0.024469 |
+|    85 |  54000.00 | 358370.00 | 54000.00 | 6420.00 |  6.64 | 0.119 | 0.088667 |
+:end:
+
+*** Løsningsforslag opgave 4  :noekstrakode:ignore:
+
+
+#+BEGIN_EXPORT odt
+<text:p text:style-name="Loesningsforslag">
+Aldersstandardiserede rater for psykologiske lidelser er 6,6 per
+10.000 for kvinder og 6,5 per 10.000 for mænd, hvor hele Danmark er
+standardbefolkningen. Den forventede middelrestlevetid for 70-årige er
+16,7 år for kvinder og 14,5 år for mænd. Risikoen for at dø som følge
+af psykologiske lidelser vurderes til at være højere blandt ældre på
+grund af en stigende andel af befolkningen, der når en høj
+alder. Dette medfører en øget forekomst af aldersrelaterede sygdomme
+som demens, der er tæt forbundet med psykologiske og neurologiske
+lidelser. Samtidig kan den aldrende befolkning føre til et større
+behov for sundhedsindsatser, da længere levetid kan resultere i en
+betydelig stigning i antallet af personer, der bliver ramt af demens
+og andre aldersrelaterede lidelser.
+</text:p>
+#+END_EXPORT
+
+
+
+
+
+
+
