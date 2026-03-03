@@ -3,9 +3,9 @@
 ## Author: Thomas Alexander Gerds and Johan Sebastian Ohlendorff
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: mar  2 2026 (14:15) 
+## Last-Updated: mar  3 2026 (09:36) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 220
+##     Update #: 228
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -397,8 +397,14 @@ hent_mortalitetsrate_data <- function(breaks,
 
 hent_dodsaarsag_data <- function(køn = c("Kvinder","Mænd"),
                                  tid,
-                                 breaks = c(0,1,seq(5,85,5),Inf),
+                                 alder,
                                  årsag,...){
+    if (missing(alder)) alder <- "intervals"
+    if (tolower(alder) == "i alt"){
+        breaks <- c(-Inf,Inf)
+    }else{
+        breaks = c(0,1,seq(5,85,5),Inf)
+    }
     if (missing(årsag)){
         stop("Skal angive dødsårsag")
     }
@@ -447,9 +453,19 @@ hent_dodsaarsag_data <- function(køn = c("Kvinder","Mænd"),
                     aldersinterval = alder)
     # join
     dat <- left_join(af,dd, by = c("aldersinterval",by))
-    daars = mutate(daars,aldersinterval = factor(aldersinterval,levels = levels(dat$aldersinterval)))
-    dat <- left_join(dat,daars, by = c("aldersinterval",by))
+    if (tolower(alder) == "i alt"){
+        if (tolower(køn)[1] == "i alt"){
+            suppressMessages(daars <- daars %>% group_by(TID,ÅRSAG) %>% summarize(QDod = sum(QDod),TID = TID[1],KØN = KØN[1]))
+        }else{
+            suppressMessages(daars <- daars %>% group_by(KØN,TID,ÅRSAG) %>% summarize(QDod = sum(QDod),TID = TID[1],KØN = KØN[1]))
+        }
+        dat <- left_join(dat,daars, by = c(by))
+    }else{
+        daars = mutate(daars,aldersinterval = factor(aldersinterval,levels = levels(dat$aldersinterval)))
+        dat <- left_join(dat,daars, by = c("aldersinterval",by))
+    }
     dat$ALDER = NULL
+    if (tolower(alder)[1] == "i alt") dat$aldersinterval = NULL    
     if (tolower(køn)[1] == "i alt") dat$KØN = NULL
     dat = relocate(dat,"ÅRSAG")
     dat

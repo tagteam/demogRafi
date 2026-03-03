@@ -24,6 +24,185 @@ print(otavle_Allerød)
 ```
 
 
+## Løsningsforslag
+
+
+### Overlevelsestavle Allerød
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+<colgroup>
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+
+<col  class="org-right" />
+</colgroup>
+<thead>
+<tr>
+<th scope="col" class="org-right">Alder</th>
+<th scope="col" class="org-right">l</th>
+<th scope="col" class="org-right">d</th>
+<th scope="col" class="org-right">p</th>
+<th scope="col" class="org-right">q</th>
+<th scope="col" class="org-right">o</th>
+<th scope="col" class="org-right">L</th>
+<th scope="col" class="org-right">T</th>
+<th scope="col" class="org-right">e</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="org-right">0</td>
+<td class="org-right">100000.0</td>
+<td class="org-right">0.0</td>
+<td class="org-right">1.0</td>
+<td class="org-right">0.00</td>
+<td class="org-right">1.0</td>
+<td class="org-right">100000.0</td>
+<td class="org-right">8524196.7</td>
+<td class="org-right">85.2</td>
+</tr>
+
+<tr>
+<td class="org-right">1-9</td>
+<td class="org-right">100000.0</td>
+<td class="org-right">0.0</td>
+<td class="org-right">1.0</td>
+<td class="org-right">0.00</td>
+<td class="org-right">1.0</td>
+<td class="org-right">900000.0</td>
+<td class="org-right">8424196.7</td>
+<td class="org-right">84.2</td>
+</tr>
+
+<tr>
+<td class="org-right">10-19</td>
+<td class="org-right">100000.0</td>
+<td class="org-right">0.0</td>
+<td class="org-right">1.0</td>
+<td class="org-right">0.00</td>
+<td class="org-right">1.0</td>
+<td class="org-right">1000000.0</td>
+<td class="org-right">7524196.7</td>
+<td class="org-right">75.2</td>
+</tr>
+
+<tr>
+<td class="org-right">20-29</td>
+<td class="org-right">100000.0</td>
+<td class="org-right">0.0</td>
+<td class="org-right">1.0</td>
+<td class="org-right">0.00</td>
+<td class="org-right">1.0</td>
+<td class="org-right">1000000.0</td>
+<td class="org-right">6524196.7</td>
+<td class="org-right">65.2</td>
+</tr>
+
+<tr>
+<td class="org-right">30-39</td>
+<td class="org-right">100000.0</td>
+<td class="org-right">0.0</td>
+<td class="org-right">1.0</td>
+<td class="org-right">0.00</td>
+<td class="org-right">1.0</td>
+<td class="org-right">1000000.0</td>
+<td class="org-right">5524196.7</td>
+<td class="org-right">55.2</td>
+</tr>
+
+<tr>
+<td class="org-right">40-49</td>
+<td class="org-right">100000.0</td>
+<td class="org-right">1138.0</td>
+<td class="org-right">1.0</td>
+<td class="org-right">0.01</td>
+<td class="org-right">1.0</td>
+<td class="org-right">989192.0</td>
+<td class="org-right">4524196.7</td>
+<td class="org-right">45.2</td>
+</tr>
+
+<tr>
+<td class="org-right">50-59</td>
+<td class="org-right">98862.0</td>
+<td class="org-right">1001.0</td>
+<td class="org-right">1.0</td>
+<td class="org-right">0.01</td>
+<td class="org-right">1.0</td>
+<td class="org-right">979113.0</td>
+<td class="org-right">3535004.5</td>
+<td class="org-right">35.8</td>
+</tr>
+
+<tr>
+<td class="org-right">60-69</td>
+<td class="org-right">97861.0</td>
+<td class="org-right">5192.0</td>
+<td class="org-right">0.9</td>
+<td class="org-right">0.05</td>
+<td class="org-right">1.0</td>
+<td class="org-right">929292.0</td>
+<td class="org-right">2555891.8</td>
+<td class="org-right">26.1</td>
+</tr>
+
+<tr>
+<td class="org-right">70-79</td>
+<td class="org-right">92670.0</td>
+<td class="org-right">11430.0</td>
+<td class="org-right">0.9</td>
+<td class="org-right">0.12</td>
+<td class="org-right">0.9</td>
+<td class="org-right">818116.0</td>
+<td class="org-right">1626599.7</td>
+<td class="org-right">17.6</td>
+</tr>
+
+<tr>
+<td class="org-right">80-89</td>
+<td class="org-right">81240.0</td>
+<td class="org-right">25696.0</td>
+<td class="org-right">0.7</td>
+<td class="org-right">0.32</td>
+<td class="org-right">0.8</td>
+<td class="org-right">568292.0</td>
+<td class="org-right">808484.2</td>
+<td class="org-right">10.0</td>
+</tr>
+
+<tr>
+<td class="org-right">90+</td>
+<td class="org-right">55544.0</td>
+<td class="org-right">55544.0</td>
+<td class="org-right">0.0</td>
+<td class="org-right">1.00</td>
+<td class="org-right">0.6</td>
+<td class="org-right">240192.0</td>
+<td class="org-right">240192.1</td>
+<td class="org-right">4.3</td>
+</tr>
+</tbody>
+</table>
+
+
+### Sammenligning mellem Allerød og København
+
+
 # Opgave 4
 
 ```{r   }

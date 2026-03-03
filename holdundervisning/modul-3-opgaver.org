@@ -508,9 +508,10 @@ print(otavle_Allerød)
 </text:p>
 #+END_EXPORT
 
-** Løsningsforslag                             :solution:rmd:ignore:
-
-*** Overlevelsestavle Allerød :noekstrakode:ignore:
+** Løsningsforslag                             :solution:ignore:
+*** Løsningsforslag
+**** Overlevelsestavle Allerød                          :noekstrakode:ignore:
+**** Overlevelsestavle Allerød
 #+BEGIN_SRC R  :results output raw drawer  :exports results  :session *R* :cache yes  
 Publish::org(otavle_Allerød,digits=1)
 #+END_SRC
@@ -532,9 +533,8 @@ Publish::org(otavle_Allerød,digits=1)
 |   90+ |  55544.0 | 55544.0 | 0.0 | 1.00 | 0.6 |  240192.0 |  240192.1 |  4.3 |
 :end:
 
-
-*** Sammenligning mellem Allerød og København  :noekstrakode:ignore:
-
+**** Sammenligning mellem Allerød og København          :noekstrakode:ignore:
+**** Sammenligning mellem Allerød og København
 #+BEGIN_EXPORT odt
 <text:p text:style-name="Loesningsforslag">
 Dødeligheden blandt kvinder i Allerød kommune i 2025 er generelt lavere end blandt kvinder i Københavns kommune.
@@ -563,7 +563,17 @@ potentielle faktorer, der kan bidrage til, at risikoen for at dø af
 psykiske lidelser stiger i fremtiden og hvilke konsekvenser det ville
 have på samfundet.
 
-** Opgave 3 koder                                             :rmd:ignore:
+
+*** Tabel 4                                        :opgave:nosolution:nokode:ignore: 
+**** Tabel 4
+
+| Køn     | Standardiserede mortalitetsrater på grund af psykiske lidelser | Middelrestlevetid fra 70 år | Restlivstidsrisiko for død af psykiske lidelser ved 70 år |
+|---------+----------------------------------------------------------------+-----------------------------+-----------------------------------------------------------|
+| Kvinder |                                                                |                             |                                                           |
+| Mænd    |                                                                |                             |                                                           |
+
+
+** Opgave 4 koder                                                :rmd:ignore:
 *** Hent data :ignore:noekstrakode:rmd:
 **** Hent data
 #+BEGIN_SRC R  :results output :exports (exercise-with-code) :cache yes :eval (never-plain-export)
@@ -613,14 +623,6 @@ dtavle_kvinder %>% select(Alder,l,L,d,dQ,e,LTR_Q,risiko_Q)
 dtavle_kvinder %>% select(Alder,l,L,d,dQ,e,LTR_Q,risiko_Q)
 #+END_SRC
 
-
-*** Tabel 4                                        :opgave:nosolution:nokode:ignore: 
-**** Tabel 4
-
-| Køn     | Standardiserede mortalitetsrater på grund af psykiske lidelser | Middelrestlevetid fra 70 år | Restlivstidsrisiko for død af psykiske lidelser ved 70 år |
-|---------+----------------------------------------------------------------+-----------------------------+-----------------------------------------------------------|
-| Kvinder |                                                                |                             |                                                           |
-| Mænd    |                                                                |                             |                                                           |
 
 ** Dine svar til opgave 4                                 :nosolution:nokode:ignore:
 *** Dine svar til opgave 4
