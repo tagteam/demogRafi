@@ -1,11 +1,12 @@
+
 ### demografi_funktioner.R --- 
 #----------------------------------------------------------------------
 ## Author: Thomas Alexander Gerds and Johan Sebastian Ohlendorff
 ## Created: Jan 22 2024 (10:49) 
 ## Version: 
-## Last-Updated: mar  3 2026 (09:36) 
+## Last-Updated: mar 12 2026 (19:55) 
 ##           By: Thomas Alexander Gerds
-##     Update #: 228
+##     Update #: 232
 #----------------------------------------------------------------------
 ## 
 ### Commentary: 
@@ -791,8 +792,8 @@ fertilitets_tavle <- function(tid,område = "Hele landet"){
                                    køn="Kvinder",
                                    breaks=c(0:50,Inf),
                                    right = FALSE,
-                                   alder = 0:50,
-                                   label_last = "50")
+                                   alder = 0:90,
+                                   label_last = "90+")
     if (length(tid)>1){
         x = x%>%
             group_by(KØN,OMRÅDE,aldersinterval)%>%
@@ -800,7 +801,9 @@ fertilitets_tavle <- function(tid,område = "Hele landet"){
                       R = sum(R),
                       Dod = sum(Dod),.groups = "drop")
     }
-    x = x%>%mutate(M = Dod/R)
+    x = x%>%mutate(M = Dod/R, a = c(0.1,rep(0.5,(NROW(x)-1))),
+                   k = rep(1,NROW(x)))
+    # trick to prevent error in overlevelsestavle
     otavle <- overlevelsestavle(x,
                                 mortalitet = "M",
                                 alder = "aldersinterval")
@@ -830,6 +833,8 @@ fertilitets_tavle <- function(tid,område = "Hele landet"){
     PP <- mutate(PP,Andel_piger=Piger/(Drenge+Piger))
     ftavle5 <- left_join(ftavle5,select(PP,aldersinterval,Andel_piger),by="aldersinterval")
     ftavle5 <- mutate(ftavle5,frate_piger=frate*Andel_piger)
+    ftavle5[ftavle5$frate == 0,"Andel_piger"] = 0
+    ftavle5[ftavle5$frate == 0,"frate_piger"] = 0
     ## ftavle5 <- mutate(ftavle5,bidrag_NRT=frate_piger*L/100000)
     ftavle5 <- relocate(ftavle5,TID)
     ftavle5[]

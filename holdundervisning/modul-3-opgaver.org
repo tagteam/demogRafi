@@ -1,5 +1,5 @@
 * HEADER                                                           :noexport:
-#+TITLE: Modul 3: Livstabel og demografisk fortolkning
+#+TITLE: Modul 3: Overlevelsestavle og Middellevetid
 #+DATE: 
 #+LANGUAGE:  en
 #+OPTIONS:   H:3 num:nil toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t
@@ -164,7 +164,6 @@ af penicillin og andre antibiotika i det 20. århundrede, som har reduceret død
 </text:p>
 #+END_EXPORT
 
-
 **** Opgave 1.2
 
 #+BEGIN_EXPORT odt
@@ -191,7 +190,6 @@ Forskellen er, at dødsrate bruger en befolkningsgruppe i løbet af tiden som re
 mens dødelighedssandsynlighed er et direkte mål for risikoen for, at en enkelt person dør inden for et tidsrum.
 </text:p>
 #+END_EXPORT
-
 
 **** Opgave 1.4
 
@@ -272,17 +270,15 @@ print(otavle_København)
 
 
 #+BEGIN_SRC R  :results output raw drawer  :exports none  :session *R* :cache no :eval never  
-a <- hent_mortalitetsrate_data(område = "københavn",tid = 2025,breaks = c(0,1,seq(5,95,10),Inf),køn = "Kvinder")
-a <- mutate(a,M = Dod/R,k = c(1,4,rep(10,10)),a = c(0.1,rep(0.5,11)))
-Oa <- overlevelsestavle(a,mortalitet = "M")
-tabel1 <- select(a,-c("KØN","OMRÅDE","TID"))
+tabel1 <- select(København,-c("KØN","OMRÅDE","TID"))
 for (n in names(tabel1)[-c(1:3)]){
-  tabel1[[n]] = rep("",12)
+  tabel1[[n]] = rep("",11)
 }
 Publish::org(tabel1)
-tabel2 <- select(Oa,c(Alder,l,d,q,L,e))
-for (n in names(tabel2)[-c(1:4)]){
-  tabel2[[n]] = rep("",12)
+
+tabel2 <- select(otavle_København,c(Alder,l,d,q,L,e))
+for (n in names(tabel2)[-c(1:2)]){
+  tabel2[[n]] = rep("",11)
 }
 Publish::org(tabel2)
 #+END_SRC   
@@ -292,37 +288,34 @@ Publish::org(tabel2)
 
 |  aldersinterval |     R | Dod | M | k | a |
 |-----------------+-------+-----+---+---+---|
-|             0-1 |  8179 |  17 |   |   |   |
-|             2-5 | 13197 |   0 |   |   |   |
-|            6-15 | 27273 |   2 |   |   |   |
-|           16-25 | 54669 |  11 |   |   |   |
-|           26-35 | 84415 |  14 |   |   |   |
-|           36-45 | 45331 |  19 |   |   |   |
-|           46-55 | 37892 |  55 |   |   |   |
-|           56-65 | 30306 | 130 |   |   |   |
-|           66-75 | 20253 | 282 |   |   |   |
-|           76-85 | 13637 | 567 |   |   |   |
-|           86-95 |  3526 | 488 |   |   |   |
-|             >95 |   335 | 136 |   |   |   |
+|               0 |  4386 |  17 |   |   |   |
+|             1-9 | 28289 |   0 |   |   |   |
+|           10-19 | 27138 |   4 |   |   |   |
+|           20-29 | 82149 |  15 |   |   |   |
+|           30-39 | 66586 |  17 |   |   |   |
+|           40-49 | 39950 |  29 |   |   |   |
+|           50-59 | 36012 |  64 |   |   |   |
+|           60-69 | 25492 | 177 |   |   |   |
+|           70-79 | 18477 | 423 |   |   |   |
+|           80-89 |  8841 | 586 |   |   |   |
+|             90+ |  1693 | 389 |   |   |   |
 
 *** Tabel 2.2                                      :opgave:nosolution:ignore: 
 **** Tabel 2.2
 
-|  Alder |      l | d | q | L | e |
+ |  Alder |      l | d | q | L | e |
 |--------+--------+---+---+---+---|
-|    0-1 | 100000 |   |   |   |   |
-|    2-5 | 100000 |   |   |   |   |
-|   6-15 | 100000 |   |   |   |   |
-|  16-25 | 100000 |   |   |   |   |
-|  26-35 | 100000 |   |   |   |   |
-|  36-45 | 100000 |   |   |   |   |
-|  46-55 |  98868 |   |   |   |   |
-|  56-65 |  98868 |   |   |   |   |
-|  66-75 |  95821 |   |   |   |   |
-|  76-85 |  86664 |   |   |   |   |
-|  86-95 |  67165 |   |   |   |   |
-|    >95 |  31086 |   |   |   |   |
-
+|      0 | 100000 |   |   |   |   |
+|    1-9 |  99614 |   |   |   |   |
+|  10-19 |  99614 |   |   |   |   |
+|  20-29 |  99467 |   |   |   |   |
+|  30-39 |  99286 |   |   |   |   |
+|  40-49 |  99033 |   |   |   |   |
+|  50-59 |  98319 |   |   |   |   |
+|  60-69 |  96601 |   |   |   |   |
+|  70-79 |  90308 |   |   |   |   |
+|  80-89 |  73327 |   |   |   |   |
+|    90+ |  43504 |   |   |   |   |
 
 ** Dine svar til opgave 2  :nosolution:nokode:ignore:
 *** Dine svar til opgave 2.1
@@ -636,7 +629,6 @@ dtavle_kvinder %>% select(Alder,l,L,d,dQ,e,LTR_Q,risiko_Q)
 #+END_EXPORT
 
 ** Løsningsforslag :solution:ignore:
-
 
 *** Loesning r-kode                                     :rmd:ignore:
 #+BEGIN_SRC R  :results output :exports (exercise-with-solutions) :cache yes :eval (never-plain-export)
